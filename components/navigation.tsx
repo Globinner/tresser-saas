@@ -6,7 +6,7 @@ import { Menu, X, Scissors } from "lucide-react"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { LanguageSwitcher } from "./language-switcher"
 
-// Static navigation links - MUST match exactly on server and client
+// Static navigation links - MUST match exactly on server and client  
 const NAV_LINKS = [
   { label: "Features", href: "#features" },
   { label: "Demo", href: "/demo" },
