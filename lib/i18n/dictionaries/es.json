@@ -1,0 +1,561 @@
+{
+  "common": {
+    "appName": "Tresser",
+    "tagline": "El Sistema Operativo para Barberías Modernas",
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Agregar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "noResults": "No se encontraron resultados",
+    "confirm": "Confirmar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "close": "Cerrar",
+    "yes": "Sí",
+    "no": "No",
+    "or": "o",
+    "and": "y"
+  },
+  "nav": {
+    "features": "Características",
+    "demo": "Demo",
+    "pricing": "Precios",
+    "testimonials": "Testimonios",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "startFreeTrial": "Prueba Gratis",
+    "dashboard": "Panel",
+    "logout": "Cerrar Sesión"
+  },
+  "demo": {
+    "title": "Modo Demo",
+    "subtitle": "Explora todas las funciones con datos de ejemplo",
+    "backToSite": "Volver al Sitio",
+    "dashboard": "Panel",
+    "appointments": "Citas",
+    "queue": "Cola de Espera",
+    "clients": "Clientes",
+    "team": "Equipo",
+    "services": "Servicios",
+    "inventory": "Inventario",
+    "analytics": "Análisis",
+    "photos": "Fotos",
+    "settings": "Configuración",
+    "todaySchedule": "Agenda de Hoy",
+    "revenueChart": "Ingresos Semanales",
+    "totalAppointments": "Total de Citas",
+    "totalClients": "Total de Clientes",
+    "monthlyRevenue": "Ingresos Mensuales",
+    "queueSize": "Tamaño de Cola",
+    "addAppointment": "Agregar Cita",
+    "addClient": "Agregar Cliente",
+    "addToQueue": "Agregar a Cola",
+    "startService": "Iniciar",
+    "completeService": "Completar",
+    "viewProfile": "Ver Perfil",
+    "editProfile": "Editar Perfil",
+    "visitHistory": "Historial de Visitas",
+    "chemistryRecords": "Registros Químicos",
+    "photoGallery": "Galería de Fotos",
+    "teamManagement": "Gestión de Equipo",
+    "addTeamMember": "Agregar Miembro",
+    "weeklySchedule": "Horario Semanal",
+    "teamAvailability": "Disponibilidad del equipo esta semana",
+    "working": "Trabajando",
+    "available": "Disponible",
+    "onBreak": "En Descanso",
+    "offToday": "Libre Hoy",
+    "totalTeam": "Total Equipo",
+    "workingNow": "Trabajando Ahora",
+    "onBreakOff": "Descanso / Libre",
+    "specialties": "Especialidades",
+    "schedule": "Horario",
+    "contact": "Contacto",
+    "revenue": "Ingresos",
+    "rating": "Calificación",
+    "noShows": "No Asistieron",
+    "growth": "Crecimiento",
+    "topServices": "Servicios Principales",
+    "peakHours": "Horas Pico",
+    "servicesBreakdown": "Desglose de Servicios",
+    "barberPerformance": "Rendimiento de Barberos",
+    "revenueByService": "Ingresos por tipo de servicio",
+    "bestPerforming": "Servicios con mejor rendimiento",
+    "busiestTimes": "Horarios más ocupados",
+    "individualMetrics": "Métricas de rendimiento individual",
+    "revenueTrend": "Tendencia de Ingresos",
+    "monthlyGrowth": "Crecimiento de ingresos en 6 meses",
+    "avgTicketValue": "Valor Promedio de Ticket",
+    "newClients": "Nuevos Clientes",
+    "bookings": "Reservas",
+    "lowStock": "Stock Bajo",
+    "inStock": "En Stock",
+    "outOfStock": "Sin Stock",
+    "category": "Categoría",
+    "price": "Precio",
+    "duration": "Duración",
+    "shopInfo": "Información del Local",
+    "businessHours": "Horario de Atención",
+    "shopName": "Nombre del Local",
+    "email": "Correo",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "thisWeek": "Esta Semana",
+    "thisMonth": "Este Mes",
+    "thisYear": "Este Año",
+    "vsLastMonth": "vs mes anterior"
+  },
+  "hero": {
+    "badge": "Ahora con Programación Impulsada por IA",
+    "title": "El Sistema Operativo para Barberías Modernas",
+    "titleLine1": "El Sistema Operativo",
+    "titleLine2": "para Barberías",
+    "titleLine3": "Modernas",
+    "subtitle": "Optimiza reservas, gestiona clientes, rastrea ingresos y haz crecer tu negocio con la plataforma de gestión de barberías más poderosa.",
+    "cta": "Prueba Gratis",
+    "watchDemo": "Ver Demo",
+    "featureBooking": "Reservas Inteligentes",
+    "featureBookingDesc": "24/7 en Línea",
+    "featureCRM": "CRM de Clientes",
+    "featureCRMDesc": "Perfiles Completos",
+    "featureAnalytics": "Analíticas",
+    "featureAnalyticsDesc": "Datos en Tiempo Real",
+    "features": {
+      "booking": "Reservas Inteligentes",
+      "analytics": "Análisis en Tiempo Real",
+      "clients": "Gestión de Clientes"
+    }
+  },
+"stats": {
+  "shops": "Barberías Activas",
+  "appointments": "Citas Reservadas",
+  "revenue": "Aumento de Ingresos",
+  "rating": "Calificación Promedio",
+  "retention": "Retención de Clientes",
+  "support": "Soporte"
+  },
+  "features": {
+    "title": "Todo lo que Necesitas",
+    "subtitle": "para Manejar tu Barbería",
+    "description": "Herramientas poderosas diseñadas específicamente para barberías. Sin complejidad, solo resultados.",
+    "sectionLabel": "Características",
+    "sectionTitle": "Todo lo que Necesitas",
+    "sectionTitleHighlight": "para Manejar tu Barbería",
+    "sectionSubtitle": "Herramientas poderosas diseñadas específicamente para barberías. Sin complejidad, solo resultados.",
+    "scheduling": {
+      "title": "Programación Inteligente",
+      "description": "Permite a los clientes reservar 24/7 con programación inteligente que evita reservas dobles y optimiza tu día."
+    },
+    "clients": {
+      "title": "Gestión de Clientes",
+      "description": "Perfiles completos de clientes con historial de visitas, preferencias y registros químicos a tu alcance."
+    },
+    "payments": {
+      "title": "Pagos",
+      "description": "Acepta pagos con tarjeta, rastrea transacciones y gestiona tus finanzas en un solo lugar."
+    },
+    "chemistry": {
+      "title": "Fichas Técnicas",
+      "description": "Rastrea fórmulas de color, volúmenes de revelador, proporciones de mezcla e historial de tratamientos para resultados perfectos."
+    },
+    "photos": {
+      "title": "Galería Antes/Después",
+      "description": "Documenta las transformaciones de clientes con galerías de fotos. Construye tu portafolio y muestra tu trabajo."
+    },
+    "analytics": {
+      "title": "Análisis de Ingresos",
+      "description": "Información en tiempo real sobre tus ganancias, servicios populares, horas pico y tendencias de crecimiento."
+    },
+    "reminders": {
+      "title": "Recordatorios",
+      "description": "Reduce las ausencias con recordatorios automáticos por SMS y email antes de las citas."
+    },
+    "queue": {
+      "title": "Cola de Espera",
+      "description": "Gestiona clientes sin cita con seguimiento en tiempo real y tiempos de espera estimados."
+    },
+    "inventory": {
+      "title": "Control de Inventario",
+      "description": "Nunca te quedes sin suministros. Rastrea niveles de stock y recibe alertas cuando los artículos estén bajos."
+    },
+    "smartBooking": {
+      "title": "Reservas Inteligentes",
+      "description": "Permite a los clientes reservar 24/7 con programación inteligente que evita reservas dobles y optimiza tu día."
+    },
+    "clientManagement": {
+      "title": "Gestión de Clientes",
+      "description": "Perfiles completos de clientes con historial de visitas, preferencias y registros químicos a tu alcance."
+    },
+    "teamScheduling": {
+      "title": "Programación de Equipo",
+      "description": "Gestiona el horario de todo tu equipo, rastrea el rendimiento y asigna citas sin esfuerzo."
+    },
+    "revenueAnalytics": {
+      "title": "Análisis de Ingresos",
+      "description": "Información en tiempo real sobre tus ganancias, servicios populares y tendencias de crecimiento."
+    }
+  },
+  "dashboard": {
+    "title": "Panel",
+    "welcome": "Bienvenido de nuevo",
+    "overview": "Resumen",
+    "todayAppointments": "Horario de Hoy",
+    "revenue": "Ingresos de Hoy",
+    "recentClients": "Clientes Recientes",
+    "quickActions": "Acciones Rápidas",
+    "noAppointments": "No hay citas programadas",
+    "viewAll": "Ver Todo"
+  },
+  "dashboardPreview": {
+    "badge": "Panel Intuitivo",
+    "title": "Tu Barbería de un",
+    "titleHighlight": "Vistazo",
+    "subtitle": "Un centro de comando hermoso y poderoso que pone todo lo que necesitas al alcance de tus dedos.",
+    "greeting": "Buenos días, Alex",
+    "subgreeting": "Esto es lo que está pasando hoy",
+    "weeklyRevenue": "Ingresos Semanales",
+    "days": {
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mié",
+      "thu": "Jue",
+      "fri": "Vie",
+      "sat": "Sáb",
+      "sun": "Dom"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Panel",
+    "appointments": "Citas",
+    "queue": "Cola de Espera",
+    "clients": "Clientes",
+    "team": "Equipo",
+    "services": "Servicios",
+    "inventory": "Inventario",
+    "analytics": "Análisis",
+    "onlineBooking": "Reservas Online",
+    "reminders": "Recordatorios",
+    "billing": "Facturación",
+    "settings": "Configuración"
+  },
+  "appointments": {
+    "title": "Citas",
+    "new": "Nueva Cita",
+    "today": "Hoy",
+    "upcoming": "Próximas",
+    "past": "Pasadas",
+    "all": "Todas",
+    "status": {
+      "scheduled": "Programada",
+      "confirmed": "Confirmada",
+      "inProgress": "En Progreso",
+      "completed": "Completada",
+      "cancelled": "Cancelada",
+      "noShow": "No Asistió"
+    },
+    "selectClient": "Seleccionar Cliente",
+    "selectService": "Seleccionar Servicio",
+    "selectDate": "Seleccionar Fecha",
+    "selectTime": "Seleccionar Hora",
+    "notes": "Notas"
+  },
+  "clients": {
+    "title": "Clientes",
+    "new": "Nuevo Cliente",
+    "search": "Buscar clientes...",
+    "totalClients": "Total de Clientes",
+    "recentVisit": "Visita Reciente",
+    "noClients": "Aún no hay clientes",
+    "addFirst": "Agrega tu primer cliente",
+    "details": {
+      "contact": "Información de Contacto",
+      "visits": "Historial de Visitas",
+      "preferences": "Preferencias",
+      "notes": "Notas",
+      "chemistry": "Registros Químicos",
+      "photos": "Fotos Antes/Después"
+    }
+  },
+  "chemistry": {
+    "title": "Registros Químicos",
+    "new": "Nuevo Registro",
+    "treatmentType": "Tipo de Tratamiento",
+    "brand": "Marca",
+    "productLine": "Línea de Producto",
+    "colorCode": "Código de Color",
+    "developerVolume": "Volumen de Revelador",
+    "mixRatio": "Proporción de Mezcla",
+    "processingTime": "Tiempo de Procesamiento",
+    "heatApplied": "Calor Aplicado",
+    "formulaNotes": "Notas de Fórmula",
+    "results": "Resultados",
+    "patchTest": "Prueba de Parche",
+    "types": {
+      "color": "Color",
+      "highlights": "Mechas",
+      "lowlights": "Reflejos Oscuros",
+      "balayage": "Balayage",
+      "bleach": "Decoloración",
+      "toner": "Tóner",
+      "gloss": "Gloss",
+      "relaxer": "Alisado",
+      "perm": "Permanente",
+      "keratin": "Keratina"
+    }
+  },
+  "photos": {
+    "title": "Fotos Antes/Después",
+    "upload": "Subir Foto",
+    "before": "Antes",
+    "after": "Después",
+    "compare": "Comparar",
+    "noPhotos": "Aún no hay fotos"
+  },
+  "services": {
+    "title": "Servicios",
+    "new": "Nuevo Servicio",
+    "name": "Nombre del Servicio",
+    "price": "Precio",
+    "duration": "Duración",
+    "category": "Categoría",
+    "description": "Descripción",
+    "categories": {
+      "haircut": "Corte",
+      "beard": "Barba",
+      "color": "Color",
+      "treatment": "Tratamiento",
+      "package": "Paquete"
+    }
+  },
+  "team": {
+    "title": "Equipo",
+    "invite": "Invitar Miembro",
+    "role": "Rol",
+    "roles": {
+      "owner": "Propietario",
+      "manager": "Gerente",
+      "barber": "Barbero",
+      "receptionist": "Recepcionista"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "pending": "Pendiente"
+    }
+  },
+  "queue": {
+    "title": "Cola de Espera",
+    "addWalkIn": "Agregar Cliente",
+    "position": "Posición",
+    "waitTime": "Tiempo de Espera",
+    "estimatedWait": "Espera Est.",
+    "status": {
+      "waiting": "Esperando",
+      "inService": "En Servicio",
+      "completed": "Completado",
+      "noShow": "No Asistió"
+    },
+    "empty": "Nadie en la cola",
+    "minutes": "min"
+  },
+  "inventory": {
+    "title": "Inventario",
+    "addItem": "Agregar Artículo",
+    "addCategory": "Agregar Categoría",
+    "categories": "Categorías",
+    "items": "Artículos",
+    "stockIn": "Entrada",
+    "stockOut": "Salida",
+    "lowStock": "Stock Bajo",
+    "quantity": "Cantidad",
+    "minStock": "Stock Mínimo",
+    "cost": "Costo",
+    "sku": "SKU",
+    "transactions": "Transacciones"
+  },
+  "analytics": {
+    "title": "Análisis",
+    "revenue": "Ingresos",
+    "appointments": "Citas",
+    "clients": "Clientes",
+    "services": "Servicios Populares",
+    "peakHours": "Horas Pico",
+    "thisWeek": "Esta Semana",
+    "thisMonth": "Este Mes",
+    "thisYear": "Este Año",
+    "growth": "Crecimiento",
+    "compared": "comparado con el período anterior"
+  },
+  "booking": {
+    "title": "Reservas Online",
+    "publicLink": "Enlace Público de Reservas",
+    "copy": "Copiar Enlace",
+    "settings": "Configuración de Reservas",
+    "advanceDays": "Días de Anticipación",
+    "slotDuration": "Duración del Turno",
+    "businessHours": "Horario de Atención",
+    "enabled": "Reservas Habilitadas",
+    "selectService": "Selecciona un Servicio",
+    "selectDateTime": "Selecciona Fecha y Hora",
+    "yourDetails": "Tus Datos",
+    "confirmation": "Confirmación",
+    "bookNow": "Reservar Ahora",
+    "thankYou": "¡Gracias!",
+    "bookingConfirmed": "Tu cita está confirmada"
+  },
+  "reminders": {
+    "title": "Recordatorios",
+    "email": "Recordatorios por Email",
+    "sms": "Recordatorios por SMS",
+    "hoursBefore": "Horas Antes",
+    "template": "Plantilla",
+    "followUp": "Email de Seguimiento"
+  },
+  "billing": {
+    "title": "Facturación",
+    "currentPlan": "Plan Actual",
+    "upgrade": "Mejorar",
+    "paymentMethod": "Método de Pago",
+    "invoices": "Facturas",
+    "plans": {
+      "starter": "Inicial",
+      "pro": "Pro",
+      "enterprise": "Empresarial"
+    }
+  },
+  "settings": {
+    "title": "Configuración",
+    "profile": "Perfil",
+    "shop": "Configuración de la Barbería",
+    "language": "Idioma",
+    "notifications": "Notificaciones",
+    "security": "Seguridad",
+    "shopName": "Nombre de la Barbería",
+    "address": "Dirección",
+    "phone": "Tel��fono",
+    "email": "Email",
+    "timezone": "Zona Horaria",
+    "currency": "Moneda"
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "email": "Email",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "rememberMe": "Recordarme",
+    "noAccount": "¿No tienes una cuenta?",
+    "hasAccount": "¿Ya tienes una cuenta?",
+    "createAccount": "Crear Cuenta",
+    "shopName": "Nombre de la Barbería",
+    "fullName": "Nombre Completo",
+    "termsAgree": "Acepto los Términos de Servicio",
+    "checkEmail": "Revisa tu Email",
+    "confirmationSent": "Hemos enviado un enlace de confirmación a tu dirección de email.",
+    "error": "Error de Autenticación",
+    "tryAgain": "Por favor intenta de nuevo o contacta soporte."
+  },
+"pricing": {
+    "title": "Precios Simples y Transparentes",
+    "subtitle": "Comienza gratis, actualiza cuando necesites más.",
+    "sectionLabel": "Precios",
+    "sectionTitle": "Precios Simples",
+    "sectionTitleHighlight": "y Transparentes",
+    "sectionSubtitle": "Comienza gratis, actualiza cuando necesites más. Sin tarifas ocultas, sin contratos.",
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "save": "Ahorra 20%",
+    "perMonth": "/mes",
+    "popular": "Más Popular",
+    "features": "Características",
+    "getStarted": "Comenzar",
+    "currentPlan": "Plan Actual",
+    "starter": {
+      "name": "Inicial",
+      "price": "0",
+      "description": "Perfecto para barberos independientes comenzando",
+      "features": [
+        "Hasta 50 citas/mes",
+        "Gestión básica de clientes",
+        "Página de reservas online",
+        "Soporte por email"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "29",
+      "description": "Para barberías en crecimiento que necesitan más poder",
+      "features": [
+        "Citas ilimitadas",
+        "Gestión completa de clientes",
+        "Registros químicos",
+        "Gestión de equipo (hasta 5)",
+        "Panel de análisis",
+        "Recordatorios SMS",
+        "Soporte prioritario"
+      ]
+    },
+    "enterprise": {
+      "name": "Empresarial",
+      "price": "79",
+      "description": "Para negocios con múltiples ubicaciones",
+      "features": [
+        "Todo en Pro",
+        "Miembros de equipo ilimitados",
+        "Múltiples ubicaciones",
+        "Integraciones personalizadas",
+        "Acceso a API",
+        "Gerente de cuenta dedicado"
+      ]
+    }
+  },
+  "testimonials": {
+    "title": "Confiado por Barberos en Todo el Mundo",
+    "subtitle": "Mira lo que dicen los propietarios de barberías sobre Tresser",
+    "sectionLabel": "Testimonios",
+    "sectionTitle": "Confiado por",
+    "sectionTitleHighlight": "Barberos",
+    "sectionTitleEnd": "en Todo el Mundo",
+    "sectionSubtitle": "Mira lo que dicen los propietarios de barberías sobre Tresser",
+    "testimonial1": {
+      "name": "Marcus Johnson",
+      "role": "Propietario, Prime Cuts",
+      "text": "Tresser transformó completamente la forma en que gestiono mi barbería. Solo el sistema de reservas me ahorra horas cada semana."
+    },
+    "testimonial2": {
+      "name": "David Chen",
+      "role": "Gerente, Style Studio",
+      "text": "Los análisis me ayudaron a entender mis horas pico y optimizar el horario del equipo. Los ingresos aumentaron un 35%."
+    },
+    "testimonial3": {
+      "name": "Alex Thompson",
+      "role": "Fundador, The Gentleman's Cut",
+      "text": "Los registros químicos de clientes cambian las reglas del juego. Ahora puedo recrear fórmulas perfectas cada vez."
+    }
+  },
+  "cta": {
+    "title": "¿Listo para Transformar",
+    "titleHighlight": "tu Barbería?",
+    "subtitle": "Únete a miles de barberos que han mejorado su negocio con Tresser.",
+    "button": "Comienza tu Prueba Gratis"
+  },
+  "footer": {
+    "description": "El sistema operativo moderno para barberías. Gestiona reservas, clientes y haz crecer tu negocio.",
+    "product": "Producto",
+    "company": "Empresa",
+    "legal": "Legal",
+    "about": "Acerca de",
+    "careers": "Carreras",
+    "blog": "Blog",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Servicio",
+    "contact": "Contacto",
+    "copyright": "Todos los derechos reservados."
+  }
+}

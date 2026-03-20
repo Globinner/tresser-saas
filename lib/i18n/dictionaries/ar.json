@@ -1,0 +1,561 @@
+{
+  "common": {
+    "appName": "Tresser",
+    "tagline": "نظام التشغيل لصالونات الحلاقة الحديثة",
+    "loading": "جاري التحميل...",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "add": "إضافة",
+    "search": "بحث",
+    "filter": "تصفية",
+    "noResults": "لم يتم العثور على نتائج",
+    "confirm": "تأكيد",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "close": "إغلاق",
+    "yes": "نعم",
+    "no": "لا",
+    "or": "أو",
+    "and": "و"
+  },
+  "nav": {
+    "features": "المميزات",
+    "demo": "عرض تجريبي",
+    "pricing": "الأسعار",
+    "testimonials": "آراء العملاء",
+    "signIn": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "startFreeTrial": "ابدأ التجربة المجانية",
+    "dashboard": "لوحة التحكم",
+    "logout": "تسجيل الخروج"
+  },
+  "demo": {
+    "title": "وضع العرض التجريبي",
+    "subtitle": "استكشف جميع الميزات مع بيانات تجريبية",
+    "backToSite": "العودة للموقع",
+    "dashboard": "لوحة التحكم",
+    "appointments": "المواعيد",
+    "queue": "قائمة الانتظار",
+    "clients": "العملاء",
+    "team": "الفريق",
+    "services": "الخدمات",
+    "inventory": "المخزون",
+    "analytics": "التحليلات",
+    "photos": "الصور",
+    "settings": "الإعدادات",
+    "todaySchedule": "جدول اليوم",
+    "revenueChart": "الإيرادات الأسبوعية",
+    "totalAppointments": "إجمالي المواعيد",
+    "totalClients": "إجمالي العملاء",
+    "monthlyRevenue": "الإيرادات الشهرية",
+    "queueSize": "حجم قائمة الانتظار",
+    "addAppointment": "إضافة موعد",
+    "addClient": "إضافة عميل",
+    "addToQueue": "إضافة للانتظار",
+    "startService": "بدء",
+    "completeService": "إنهاء",
+    "viewProfile": "عرض الملف",
+    "editProfile": "تعديل الملف",
+    "visitHistory": "سجل الزيارات",
+    "chemistryRecords": "السجلات الكيميائية",
+    "photoGallery": "معرض الصور",
+    "teamManagement": "إدارة الفريق",
+    "addTeamMember": "إضافة عضو",
+    "weeklySchedule": "الجدول الأسبوعي",
+    "teamAvailability": "توفر الفريق هذا الأسبوع",
+    "working": "يعمل",
+    "available": "متاح",
+    "onBreak": "في استراحة",
+    "offToday": "إجازة اليوم",
+    "totalTeam": "إجمالي الفريق",
+    "workingNow": "يعملون الآن",
+    "onBreakOff": "استراحة / إجازة",
+    "specialties": "التخصصات",
+    "schedule": "الجدول",
+    "contact": "التواصل",
+    "revenue": "الإيرادات",
+    "rating": "التقييم",
+    "noShows": "لم يحضروا",
+    "growth": "النمو",
+    "topServices": "أفضل الخدمات",
+    "peakHours": "ساعات الذروة",
+    "servicesBreakdown": "تفصيل الخدمات",
+    "barberPerformance": "أداء الحلاقين",
+    "revenueByService": "الإيرادات حسب نوع الخدمة",
+    "bestPerforming": "الخدمات الأفضل أداءً",
+    "busiestTimes": "الأوقات الأكثر ازدحاماً",
+    "individualMetrics": "مقاييس الأداء الفردي",
+    "revenueTrend": "اتجاه الإيرادات",
+    "monthlyGrowth": "نمو الإيرادات في 6 أشهر",
+    "avgTicketValue": "متوسط قيمة الفاتورة",
+    "newClients": "عملاء جدد",
+    "bookings": "الحجوزات",
+    "lowStock": "مخزون منخفض",
+    "inStock": "متوفر",
+    "outOfStock": "نفذ من المخزون",
+    "category": "الفئة",
+    "price": "السعر",
+    "duration": "المدة",
+    "shopInfo": "معلومات المحل",
+    "businessHours": "ساعات العمل",
+    "shopName": "اسم المحل",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "address": "العنوان",
+    "thisWeek": "هذا الأسبوع",
+    "thisMonth": "هذا الشهر",
+    "thisYear": "هذه السنة",
+    "vsLastMonth": "مقارنة بالشهر الماضي"
+  },
+  "hero": {
+    "badge": "الآن مع جدولة ذكية بالذكاء الاصطناعي",
+    "title": "نظام التشغيل لصالونات الحلاقة الحديثة",
+    "titleLine1": "نظام التشغيل",
+    "titleLine2": "لصالونات الحلاقة",
+    "titleLine3": "الحديثة",
+    "subtitle": "بسّط الحجوزات، أدر العملاء، تتبع الإيرادات، ونمّي عملك مع أقوى منصة لإدارة صالونات الحلاقة.",
+    "cta": "ابدأ التجربة المجانية",
+    "watchDemo": "شاهد العرض",
+    "featureBooking": "حجز ذكي",
+    "featureBookingDesc": "24/7 متاح",
+    "featureCRM": "إدارة العملاء",
+    "featureCRMDesc": "ملفات كاملة",
+    "featureAnalytics": "التحليلات",
+    "featureAnalyticsDesc": "بيانات فورية",
+    "features": {
+      "booking": "حجز ذكي",
+      "analytics": "تحليلات فورية",
+      "clients": "إدارة العملاء"
+    }
+  },
+"stats": {
+  "shops": "صالونات نشطة",
+  "appointments": "حجوزات تمت",
+  "revenue": "زيادة الإيرادات",
+  "rating": "متوسط التقييم",
+  "retention": "الاحتفاظ بالعملاء",
+  "support": "الدعم"
+  },
+  "features": {
+    "title": "كل ما تحتاجه",
+    "subtitle": "لإدارة صالونك",
+    "description": "أدوات قوية مصممة خصيصاً لصالونات الحلاقة. بدون تعقيد، فقط نتائج.",
+    "sectionLabel": "المميزات",
+    "sectionTitle": "كل ما تحتاجه",
+    "sectionTitleHighlight": "لإدارة صالونك",
+    "sectionSubtitle": "أدوات قوية مصممة خصيصاً لصالونات الحلاقة. بدون تعقيد، فقط نتائج.",
+    "scheduling": {
+      "title": "الجدولة الذكية",
+      "description": "اسمح للعملاء بالحجز على مدار الساعة مع جدولة ذكية تمنع الحجوزات المزدوجة."
+    },
+    "clients": {
+      "title": "إدارة العملاء",
+      "description": "ملفات عملاء كاملة مع سجل الزيارات والتفضيلات وسجلات المواد الكيميائية."
+    },
+    "payments": {
+      "title": "المدفوعات",
+      "description": "اقبل الدفع بالبطاقة، تتبع المعاملات، وأدر أموالك في مكان واحد."
+    },
+    "chemistry": {
+      "title": "السجلات الكيميائية",
+      "description": "تتبع تركيبات الألوان، أحجام المظهر، نسب الخلط وسجل العلا��ات للنتائج المثالية."
+    },
+    "photos": {
+      "title": "معرض قبل/بعد",
+      "description": "وثّق تحولات العملاء بمعارض الصور. ابنِ محفظتك واعرض عملك."
+    },
+    "analytics": {
+      "title": "تحليل الإيرادات",
+      "description": "رؤى فورية عن أرباحك والخدمات الشائعة وساعات الذروة واتجاهات النمو."
+    },
+    "reminders": {
+      "title": "تذكيرات ذكية",
+      "description": "قلل الغياب مع تذكيرات SMS والبريد الإلكتروني التلقائية قبل المواعيد."
+    },
+    "queue": {
+      "title": "قائمة الانتظار",
+      "description": "أدر العملاء بدون موعد مع تتبع فوري وأوقات انتظار تقديرية."
+    },
+    "inventory": {
+      "title": "تتبع المخزون",
+      "description": "لا تنفد منك المستلزمات أبداً. تتبع المستويات واحصل على تنبيهات."
+    },
+    "smartBooking": {
+      "title": "الحجز الذكي",
+      "description": "اسمح للعملاء بالحجز على مدار الساعة مع جدولة ذكية تمنع الحجوزات المزدوجة وتحسّن يومك."
+    },
+    "clientManagement": {
+      "title": "إدارة العملاء",
+      "description": "ملفات عملاء كاملة مع سجل الزيارات والتفضيلات وسجلات المواد الكيميائية في متناول يدك."
+    },
+    "teamScheduling": {
+      "title": "جدولة الفريق",
+      "description": "أدر جدول فريقك بالكامل، تتبع الأداء، وعيّن المواعيد بسهولة."
+    },
+    "revenueAnalytics": {
+      "title": "تحليل الإيرادات",
+      "description": "رؤى فورية عن أرباحك والخدمات الشائعة واتجاهات النمو."
+    }
+  },
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "welcome": "مرحباً بعودتك",
+    "overview": "نظرة عامة",
+    "todayAppointments": "جدول اليوم",
+    "revenue": "إيرادات اليوم",
+    "recentClients": "العملاء الأخيرون",
+    "quickActions": "إجراءات سريعة",
+    "noAppointments": "لا توجد مواعيد مجدولة",
+    "viewAll": "عرض الكل"
+  },
+  "dashboardPreview": {
+    "badge": "لوحة تحكم سهلة",
+    "title": "صالونك في",
+    "titleHighlight": "لمحة",
+    "subtitle": "مركز تحكم جميل وقوي يضع كل ما تحتاجه في متناول يدك.",
+    "greeting": "صباح الخير، أليكس",
+    "subgreeting": "إليك ما يحدث اليوم",
+    "weeklyRevenue": "إيرادات الأسبوع",
+    "days": {
+      "mon": "إثن",
+      "tue": "ثلث",
+      "wed": "أرب",
+      "thu": "خمس",
+      "fri": "جمع",
+      "sat": "سبت",
+      "sun": "أحد"
+    }
+  },
+  "sidebar": {
+    "dashboard": "لوحة التحكم",
+    "appointments": "المواعيد",
+    "queue": "قائمة الانتظار",
+    "clients": "العملاء",
+    "team": "الفريق",
+    "services": "الخدمات",
+    "inventory": "المخزون",
+    "analytics": "التحليلات",
+    "onlineBooking": "الحجز الإلكتروني",
+    "reminders": "التذكيرات",
+    "billing": "الفواتير",
+    "settings": "الإعدادات"
+  },
+  "appointments": {
+    "title": "المواعيد",
+    "new": "موعد جديد",
+    "today": "اليوم",
+    "upcoming": "القادمة",
+    "past": "السابقة",
+    "all": "الكل",
+    "status": {
+      "scheduled": "مجدول",
+      "confirmed": "مؤكد",
+      "inProgress": "جاري",
+      "completed": "مكتمل",
+      "cancelled": "ملغي",
+      "noShow": "لم يحضر"
+    },
+    "selectClient": "اختر عميل",
+    "selectService": "اختر خدمة",
+    "selectDate": "اختر تاريخ",
+    "selectTime": "اختر وقت",
+    "notes": "ملاحظات"
+  },
+  "clients": {
+    "title": "العملاء",
+    "new": "عميل جديد",
+    "search": "ابحث عن عملاء...",
+    "totalClients": "إجمالي العملاء",
+    "recentVisit": "زيارة حديثة",
+    "noClients": "لا يوجد عملاء بعد",
+    "addFirst": "أضف أول عميل",
+    "details": {
+      "contact": "معلومات الاتصال",
+      "visits": "سجل الزيارات",
+      "preferences": "التفضيلات",
+      "notes": "ملاحظات",
+      "chemistry": "السجلات الكيميائية",
+      "photos": "صور قبل/بعد"
+    }
+  },
+  "chemistry": {
+    "title": "السجلات الكيميائية",
+    "new": "سجل جديد",
+    "treatmentType": "نوع العلاج",
+    "brand": "العلامة التجارية",
+    "productLine": "خط المنتج",
+    "colorCode": "كود اللون",
+    "developerVolume": "حجم المظهر",
+    "mixRatio": "نسبة الخلط",
+    "processingTime": "وقت المعالجة",
+    "heatApplied": "تطبيق الحرارة",
+    "formulaNotes": "ملاحظات التركيبة",
+    "results": "النتائج",
+    "patchTest": "اختبار الحساسية",
+    "types": {
+      "color": "صبغة",
+      "highlights": "هايلايت",
+      "lowlights": "لولايت",
+      "balayage": "بالياج",
+      "bleach": "تبييض",
+      "toner": "تونر",
+      "gloss": "غلوس",
+      "relaxer": "فرد",
+      "perm": "تجعيد دائم",
+      "keratin": "كيراتين"
+    }
+  },
+  "photos": {
+    "title": "صور قبل/بعد",
+    "upload": "رفع صورة",
+    "before": "قبل",
+    "after": "بعد",
+    "compare": "مقارنة",
+    "noPhotos": "لا توجد صور بعد"
+  },
+  "services": {
+    "title": "الخدمات",
+    "new": "خدمة جديدة",
+    "name": "اسم الخدمة",
+    "price": "السعر",
+    "duration": "المدة",
+    "category": "الفئة",
+    "description": "الوصف",
+    "categories": {
+      "haircut": "قص شعر",
+      "beard": "لحية",
+      "color": "صبغة",
+      "treatment": "علاج",
+      "package": "باقة"
+    }
+  },
+  "team": {
+    "title": "الفريق",
+    "invite": "دعوة عضو",
+    "role": "الدور",
+    "roles": {
+      "owner": "مالك",
+      "manager": "مدير",
+      "barber": "حلاق",
+      "receptionist": "موظف استقبال"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "pending": "معلق"
+    }
+  },
+  "queue": {
+    "title": "قائمة الانتظار",
+    "addWalkIn": "إضافة زائر",
+    "position": "الموقع",
+    "waitTime": "وقت الانتظار",
+    "estimatedWait": "الانتظار المتوقع",
+    "status": {
+      "waiting": "ينتظر",
+      "inService": "في الخدمة",
+      "completed": "مكتمل",
+      "noShow": "لم يحضر"
+    },
+    "empty": "لا أحد في الانتظار",
+    "minutes": "دقيقة"
+  },
+  "inventory": {
+    "title": "المخزون",
+    "addItem": "إضافة منتج",
+    "addCategory": "إضافة فئة",
+    "categories": "الفئات",
+    "items": "المنتجات",
+    "stockIn": "إدخال",
+    "stockOut": "إخراج",
+    "lowStock": "مخزون منخفض",
+    "quantity": "الكمية",
+    "minStock": "الحد الأدنى",
+    "cost": "التكلفة",
+    "sku": "رمز المنتج",
+    "transactions": "المعاملات"
+  },
+  "analytics": {
+    "title": "التحليلات",
+    "revenue": "الإيرادات",
+    "appointments": "المواعيد",
+    "clients": "العملاء",
+    "services": "الخدمات الأكثر طلباً",
+    "peakHours": "ساعات الذروة",
+    "thisWeek": "هذا الأسبوع",
+    "thisMonth": "هذا الشهر",
+    "thisYear": "هذه السنة",
+    "growth": "النمو",
+    "compared": "مقارنة بالفترة السابقة"
+  },
+  "booking": {
+    "title": "الحجز الإلكتروني",
+    "publicLink": "رابط الحجز العام",
+    "copy": "نسخ الرابط",
+    "settings": "إعدادات الحجز",
+    "advanceDays": "أيام الحجز المسبق",
+    "slotDuration": "مدة الفترة",
+    "businessHours": "ساعات العمل",
+    "enabled": "الحجز مفعل",
+    "selectService": "اختر خدمة",
+    "selectDateTime": "اختر التاريخ والوقت",
+    "yourDetails": "بياناتك",
+    "confirmation": "التأكيد",
+    "bookNow": "احجز الآن",
+    "thankYou": "شكراً لك!",
+    "bookingConfirmed": "تم تأكيد موعدك"
+  },
+  "reminders": {
+    "title": "ال��ذكيرات",
+    "email": "تذكيرات البريد الإلكتروني",
+    "sms": "تذكيرات الرسائل النصية",
+    "hoursBefore": "ساعات قبل الموعد",
+    "template": "القالب",
+    "followUp": "بريد المتابعة"
+  },
+  "billing": {
+    "title": "الفواتير",
+    "currentPlan": "الخطة الحالية",
+    "upgrade": "ترقية",
+    "paymentMethod": "طريقة الدفع",
+    "invoices": "الفواتير",
+    "plans": {
+      "starter": "المبتدئ",
+      "pro": "المحترف",
+      "enterprise": "المؤسسات"
+    }
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "profile": "الملف الشخصي",
+    "shop": "إعدادات الصالون",
+    "language": "اللغة",
+    "notifications": "الإشعارات",
+    "security": "الأمان",
+    "shopName": "اسم الصالون",
+    "address": "العنوان",
+    "phone": "الهاتف",
+    "email": "البريد الإلكتروني",
+    "timezone": "المنطقة الزمنية",
+    "currency": "ال��ملة"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "rememberMe": "تذكرني",
+    "noAccount": "ليس لديك حساب؟",
+    "hasAccount": "لديك حساب بالفعل؟",
+    "createAccount": "إنشاء حساب",
+    "shopName": "اسم الصالون",
+    "fullName": "الاسم الكامل",
+    "termsAgree": "أوافق على شروط الخدمة",
+    "checkEmail": "تحقق من بريدك الإلكتروني",
+    "confirmationSent": "لقد أرسلنا رابط التأكيد إلى عنوان بريدك الإلكتروني.",
+    "error": "خطأ في المصادقة",
+    "tryAgain": "يرجى المحاولة مرة أخرى أو الاتصال بالدعم."
+  },
+  "pricing": {
+    "title": "أسعار بسيطة وشفافة",
+    "subtitle": "ابدأ مجاناً، قم بالترقية عندما تحتاج المزيد.",
+    "sectionLabel": "الأسعار",
+    "sectionTitle": "أسعار بسيطة",
+    "sectionTitleHighlight": "و��فافة",
+    "sectionSubtitle": "ابدأ مجاناً، قم بالترقية عندما تحتاج المزيد. بدون رسوم خفية، بدون عقود.",
+    "monthly": "شهري",
+    "yearly": "سنوي",
+    "save": "وفر 20%",
+    "perMonth": "/شهر",
+    "popular": "الأكثر شعبية",
+    "features": "المميزات",
+    "getStarted": "ابدأ الآن",
+    "currentPlan": "الخطة الحالية",
+    "starter": {
+      "name": "المبتدئ",
+      "price": "0",
+      "description": "مثالي للحلاقين المستقلين في البداية",
+      "features": [
+        "حتى 50 موعد/شهر",
+        "إدارة عملاء أساسية",
+        "صفحة حجز إلكتروني",
+        "دعم بالبريد الإلكتروني"
+      ]
+    },
+    "pro": {
+      "name": "المحترف",
+      "price": "29",
+      "description": "للصالونات النامية التي تحتاج قوة أكبر",
+      "features": [
+        "مواعيد غير محدودة",
+        "إدارة عملاء كاملة",
+        "سجلات كيميائية",
+        "إدارة فريق (حتى 5)",
+        "لوحة تحليلات",
+        "تذكيرات SMS",
+        "دعم ذو أولوية"
+      ]
+    },
+    "enterprise": {
+      "name": "المؤسسات",
+      "price": "79",
+      "description": "للأعمال متعددة الفروع",
+      "features": [
+        "كل شيء في المحترف",
+        "أعضاء فريق غير محدودين",
+        "فروع متعددة",
+        "تكاملات مخصصة",
+        "وصول API",
+        "مدير حساب مخصص"
+      ]
+    }
+  },
+  "testimonials": {
+    "title": "موثوق من الحلاقين حول العالم",
+    "subtitle": "اطلع على ما يقوله أصحاب الصالونات عن Tresser",
+    "sectionLabel": "آراء العملاء",
+    "sectionTitle": "موثوق من",
+    "sectionTitleHighlight": "الحلاقين",
+    "sectionTitleEnd": "حول العالم",
+    "sectionSubtitle": "اطلع على ما يقوله أصحاب الصالونات عن Tresser",
+    "testimonial1": {
+      "name": "ماركوس جونسون",
+      "role": "مالك، برايم كتس",
+      "text": "غيّر Tresser تماماً طريقة إدارتي لصالوني. نظام الحجز وحده يوفر لي ساعات كل أسبوع."
+    },
+    "testimonial2": {
+      "name": "ديفيد تشين",
+      "role": "مدير، ستايل ستوديو",
+      "text": "ساعدتني التحليلات على فهم ساعات الذروة وتحسين جدول الفريق. زادت الإيرادات بنسبة 35%."
+    },
+    "testimonial3": {
+      "name": "أليكس تومسون",
+      "role": "مؤسس، ذا جنتلمان كت",
+      "text": "سجلات الكيمياء للعملاء تغير قواعد اللعبة. الآن يمكنني إعادة إنشاء التركيبات المثالية في كل مرة."
+    }
+  },
+  "cta": {
+    "title": "مستعد لتحويل",
+    "titleHighlight": "صالونك؟",
+    "subtitle": "انضم إلى آلاف الحلاقين الذين طوروا أعمالهم مع Tresser.",
+    "button": "ابدأ تجرب��ك المجانية"
+  },
+  "footer": {
+    "description": "نظام التشغيل الحديث لصالونات الحلاقة. أدر الحجوزات والعملاء ونمّي عملك.",
+    "product": "المنتج",
+    "company": "الشركة",
+    "legal": "قانوني",
+    "about": "عن الشركة",
+    "careers": "الوظائف",
+    "blog": "المدونة",
+    "privacy": "سياسة الخصوصية",
+    "terms": "شروط الخدمة",
+    "contact": "اتصل بنا",
+    "copyright": "جميع الحقوق محفوظة."
+  }
+}

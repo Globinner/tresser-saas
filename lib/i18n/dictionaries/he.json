@@ -1,0 +1,599 @@
+{
+  "common": {
+    "appName": "Tresser",
+    "tagline": "מערכת ההפעלה למספרות מודרניות",
+    "loading": "טוען...",
+    "save": "שמור",
+    "cancel": "ביטול",
+    "delete": "מחק",
+    "edit": "ערוך",
+    "add": "הוסף",
+    "search": "חיפוש",
+    "filter": "סינון",
+    "noResults": "לא נמצאו תוצאות",
+    "confirm": "אישור",
+    "back": "חזור",
+    "next": "הבא",
+    "previous": "הקודם",
+    "close": "סגור",
+    "yes": "כן",
+    "no": "לא",
+    "or": "או",
+    "and": "ו"
+  },
+  "nav": {
+    "features": "תכונות",
+    "demo": "הדגמה",
+    "pricing": "מחירים",
+    "testimonials": "המלצות",
+    "signIn": "התחברות",
+    "signUp": "הרשמה",
+    "startFreeTrial": "התחל ניסיון חינם",
+    "dashboard": "לוח בקרה",
+    "logout": "התנתקות"
+  },
+  "demo": {
+    "title": "מצב הדגמה",
+    "subtitle": "גלה את כל התכונות עם נתונים לדוגמה",
+    "backToSite": "חזרה לאתר",
+    "dashboard": "לוח בקרה",
+    "appointments": "תורים",
+    "queue": "תור ממתינים",
+    "clients": "לקוחות",
+    "team": "צוות",
+    "services": "שירותים",
+    "inventory": "מלאי",
+    "analytics": "ניתוחים",
+    "photos": "תמונות",
+    "settings": "הגדרות",
+    "todaySchedule": "לוח הזמנים להיום",
+    "revenueChart": "הכנסות שבועיות",
+    "totalAppointments": "סה״כ תורים",
+    "totalClients": "סה״כ לקוחות",
+    "monthlyRevenue": "הכנסות חודשיות",
+    "queueSize": "גודל התור",
+    "addAppointment": "הוסף תור",
+    "addClient": "הוסף לקוח",
+    "addToQueue": "הוסף לתור",
+    "startService": "התחל",
+    "completeService": "סיים",
+    "viewProfile": "צפה בפרופיל",
+    "editProfile": "ערוך פרופיל",
+    "visitHistory": "היסטוריית ביקורים",
+    "chemistryRecords": "רשומות כימיה",
+    "photoGallery": "גלריית תמונות",
+    "teamManagement": "ניהול צוות",
+    "addTeamMember": "הוסף איש צוות",
+    "weeklySchedule": "לוח זמנים שבועי",
+    "teamAvailability": "זמינות הצוות השבוע",
+    "working": "עובד",
+    "available": "זמין",
+    "onBreak": "בהפסקה",
+    "offToday": "לא עובד היום",
+    "totalTeam": "סה״כ צוות",
+    "workingNow": "עובדים כעת",
+    "onBreakOff": "בהפסקה / לא עובד",
+    "specialties": "התמחויות",
+    "schedule": "לוח זמנים",
+    "contact": "יצירת קשר",
+    "revenue": "הכנסות",
+    "rating": "דירוג",
+    "noShows": "לא הגיעו",
+    "growth": "צמיחה",
+    "topServices": "שירותים מובילים",
+    "peakHours": "שעות שיא",
+    "servicesBreakdown": "פירוט שירותים",
+    "barberPerformance": "ביצועי ספרים",
+    "revenueByService": "הכנסות לפי סוג שירות",
+    "bestPerforming": "השירותים המצליחים ביותר",
+    "busiestTimes": "השעות העמוסות ביום",
+    "individualMetrics": "מדדי ביצועים אישיים",
+    "revenueTrend": "מגמת הכנסות",
+    "monthlyGrowth": "צמיחת הכנסות ב-6 חודשים",
+    "avgTicketValue": "ערך קנייה ממוצע",
+    "newClients": "לקוחות חדשים",
+    "bookings": "הזמנות",
+    "lowStock": "מלאי נמוך",
+    "inStock": "במלאי",
+    "outOfStock": "אזל מהמלאי",
+    "category": "קטגוריה",
+    "price": "מחיר",
+    "duration": "משך זמן",
+    "shopInfo": "פרטי העסק",
+    "businessHours": "שעות פעילות",
+    "shopName": "שם העסק",
+    "email": "אימייל",
+    "phone": "טלפון",
+    "address": "כתובת",
+    "thisWeek": "השבוע",
+    "thisMonth": "החודש",
+    "thisYear": "השנה",
+    "vsLastMonth": "לעומת החודש שעבר",
+    "todaysAppointments": "תורים להיום",
+    "totalClientsLabel": "סה״כ לקוחות",
+    "thisWeekRevenue": "הכנסות השבוע",
+    "walkInsWaiting": "ממתינים בתור",
+    "todaysSchedule": "לוח זמנים להיום",
+    "manageAppointments": "נהל את התורים שלך",
+    "weeklyRevenueLabel": "הכנסות שבועיות",
+    "revenueOverWeek": "הכנסות ב-7 הימים האחרונים",
+    "totalThisWeek": "סה״כ השבוע",
+    "vsLastWeek": "לעומת השבוע שעבר",
+    "newAppointment": "תור חדש",
+    "firstName": "שם פרטי",
+    "lastName": "שם משפחה",
+    "preferences": "העדפות",
+    "cancel": "ביטול",
+    "save": "שמירה"
+  },
+  "hero": {
+    "badge": "עכשיו עם תזמון חכם מבוסס AI",
+    "title": "מערכת ההפעלה למספרות מודרניות",
+    "titleLine1": "מערכת ההפעלה",
+    "titleLine2": "למספרות",
+    "titleLine3": "מודרניות",
+    "subtitle": "פשט הזמנות, נהל לקוחות, עקוב אחר הכנסות וצמח את העסק שלך עם הפלטפורמה החזקה ביותר לניהול מספרות.",
+    "cta": "התחל ניסיון חינם",
+    "watchDemo": "צפה בהדגמה",
+    "featureBooking": "הזמנות חכמות",
+    "featureBookingDesc": "24/7 זמינות",
+    "featureCRM": "ניהול לקוחות",
+    "featureCRMDesc": "פרופילים מלאים",
+    "featureAnalytics": "ניתוח נתונים",
+    "featureAnalyticsDesc": "בזמן אמת",
+    "features": {
+      "booking": "הזמנות חכמות",
+      "analytics": "ניתוח בזמן אמת",
+      "clients": "ניהול לקוחות"
+    }
+  },
+  "stats": {
+    "shops": "מספרות פעילות",
+    "appointments": "תורים שנקבעו",
+    "revenue": "עלייה בהכנסות",
+    "rating": "דירוג ממוצע",
+    "retention": "שימור לקוחות",
+    "support": "תמיכה"
+  },
+  "features": {
+    "title": "כל מה שאתה צריך",
+    "subtitle": "לניהול המספרה שלך",
+    "description": "כלים חזקים שתוכננו במיוחד למספרות. בלי מורכבות, רק תוצאות.",
+    "sectionLabel": "תכונות",
+    "sectionTitle": "כל מה שאתה צריך",
+    "sectionTitleHighlight": "לניהול המספרה שלך",
+    "sectionSubtitle": "כלים חזקים שתוכננו במיוחד למספרות. בלי מורכבות, רק תוצאות.",
+    "scheduling": {
+      "title": "תזמון חכם",
+      "description": "אפשר ללקוחות להזמין 24/7 עם תזמון חכם שמונע הזמנות כפולות ומייעל את היום שלך."
+    },
+    "clients": {
+      "title": "ניהול לקוחות",
+      "description": "פרופילי לקוחות מלאים עם היסטוריית ביקורים, העדפות ורשומות כימיות בהישג יד."
+    },
+    "payments": {
+      "title": "תשלומים",
+      "description": "קבל תשלומי כרטיס, עקוב אחר עסקאות ונהל את הכספים שלך במקום אחד."
+    },
+    "analytics": {
+      "title": "ניתוח נתונים",
+      "description": "תובנות בזמן אמת על הרווחים שלך, שירותים פופולריים ומגמות צמיחה."
+    },
+    "reminders": {
+      "title": "תזכורות חכמות",
+      "description": "הפחת אי-הגעות עם תזכורות SMS ואימייל אוטומטיות לפני התורים."
+    },
+    "chemistry": {
+      "title": "רשומות כימיה",
+      "description": "עקוב אחר נוסחאות צבע, אחוזי מפתח, יחסי ערבוב והיסטוריית טיפולים לתוצאות מושלמות."
+    },
+    "photos": {
+      "title": "גלריית לפני/אחרי",
+      "description": "תעד את השינויים של הלקוחות עם גלריות תמונות. בנה את הפורטפוליו והצג את העבודה שלך."
+    },
+    "queue": {
+      "title": "תור המתנה",
+      "description": "נהל לקוחות שמגיעים בלי תור עם מעקב בזמן אמת וזמני המתנה משוערים."
+    },
+    "smartBooking": {
+      "title": "הזמנות חכמות",
+      "description": "אפשר ללקוחות להזמין 24/7 עם תזמון חכם שמונע הזמנות כפולות ומייעל את היום שלך."
+    },
+    "clientManagement": {
+      "title": "ניהול לקוחות",
+      "description": "פרופילי לקוחות מלאים עם היסטוריית ביקורים, העדפות ורשומות כימיות בהישג יד."
+    },
+    "teamScheduling": {
+      "title": "תזמון צוות",
+      "description": "נהל את לוח הזמנים של כל הצוות, עקוב אחר ביצועים והקצה תורים בקלות."
+    },
+    "revenueAnalytics": {
+      "title": "ניתוח הכנסות",
+      "description": "תובנות בזמן אמת על הרווחים שלך, שירותים פופולריים ומגמות צמיחה."
+    },
+    "inventory": {
+      "title": "מעקב מלאי",
+      "description": "לעולם לא תיגמר לך סחורה. עקוב אחר רמות מלאי וקבל התראות כשפריטים נמוכים."
+    }
+  },
+  "dashboard": {
+    "title": "לוח בקרה",
+    "welcome": "ברוך שובך",
+    "overview": "סקירה כללית",
+    "todayAppointments": "לוח הזמנים להיום",
+    "revenue": "הכנסות היום",
+    "recentClients": "לקוחות אחרונים",
+    "quickActions": "פעולות מהירות",
+    "noAppointments": "אין תורים מתוזמנים",
+    "viewAll": "הצג הכל"
+  },
+  "dashboardPreview": {
+    "badge": "לוח בקרה אינטואיטיבי",
+    "title": "המספרה שלך",
+    "titleHighlight": "במבט אחד",
+    "subtitle": "מרכז שליטה יפה ועוצמתי שמציב את כל מה שאתה צריך בהישג יד.",
+    "greeting": "בוקר טוב, אלכס",
+    "subgreeting": "הנה מה שקורה היום",
+    "weeklyRevenue": "הכנסות שבועיות",
+    "days": {
+      "mon": "ב׳",
+      "tue": "ג׳",
+      "wed": "ד׳",
+      "thu": "ה׳",
+      "fri": "ו׳",
+      "sat": "ש׳",
+      "sun": "א׳"
+    }
+  },
+  "sidebar": {
+    "dashboard": "לוח בקרה",
+    "appointments": "תורים",
+    "queue": "תור המתנה",
+    "clients": "לקוחות",
+    "team": "צוות",
+    "services": "שירותים",
+    "inventory": "מלאי",
+    "analytics": "ניתוחים",
+    "onlineBooking": "הזמנה מקוונת",
+    "reminders": "תזכורות",
+    "billing": "חיוב",
+    "settings": "הגדרות"
+  },
+  "appointments": {
+    "title": "תורים",
+    "new": "תור חדש",
+    "today": "היום",
+    "upcoming": "קרובים",
+    "past": "עברו",
+    "all": "הכל",
+    "status": {
+      "scheduled": "מתוזמן",
+      "confirmed": "מאושר",
+      "inProgress": "בביצוע",
+      "completed": "הושלם",
+      "cancelled": "בוטל",
+      "noShow": "לא הגיע"
+    },
+    "selectClient": "בחר לקוח",
+    "selectService": "בחר שירות",
+    "selectDate": "בחר תאריך",
+    "selectTime": "בחר שעה",
+    "notes": "הערות"
+  },
+  "clients": {
+    "title": "לקוחות",
+    "new": "לקוח חדש",
+    "search": "חפש לקוחות...",
+    "totalClients": "סה״כ לקוחות",
+    "recentVisit": "ביקור אחרון",
+    "noClients": "אין לקוחות עדיין",
+    "addFirst": "הוסף את הלקוח הראשון",
+    "details": {
+      "contact": "פרטי קשר",
+      "visits": "היסטוריית ביקורים",
+      "preferences": "העדפות",
+      "notes": "הערות",
+      "chemistry": "רשומות כימיות",
+      "photos": "תמונות לפני/אחרי"
+    }
+  },
+  "chemistry": {
+    "title": "רשומות כימיות",
+    "new": "רשומה חדשה",
+    "treatmentType": "סוג טיפול",
+    "brand": "מותג",
+    "productLine": "קו מוצרים",
+    "colorCode": "קוד צבע",
+    "developerVolume": "נפח מחמצן",
+    "mixRatio": "יחס ערבוב",
+    "processingTime": "זמן עיבוד",
+    "heatApplied": "הפעלת חום",
+    "formulaNotes": "הערות נוסחה",
+    "results": "תוצאות",
+    "patchTest": "בדיקת רגישות",
+    "types": {
+      "color": "צביעה",
+      "highlights": "גוונים בהירים",
+      "lowlights": "גוונים כהים",
+      "balayage": "בלאיאז׳",
+      "bleach": "הבהרה",
+      "toner": "טונר",
+      "gloss": "גלוס",
+      "relaxer": "החלקה",
+      "perm": "תלתלים קבועים",
+      "keratin": "קרטין"
+    }
+  },
+  "photos": {
+    "title": "תמונות לפני/אחרי",
+    "upload": "העלה תמונה",
+    "before": "לפני",
+    "after": "אחרי",
+    "compare": "השווה",
+    "noPhotos": "אין תמונות עדיין"
+  },
+  "services": {
+    "title": "שירותים",
+    "new": "שירות חדש",
+    "name": "שם השירות",
+    "price": "מחיר",
+    "duration": "משך",
+    "category": "קטגוריה",
+    "description": "תיאור",
+    "categories": {
+      "haircut": "תספורת",
+      "beard": "זקן",
+      "color": "צביעה",
+      "treatment": "טיפול",
+      "package": "חבילה"
+    }
+  },
+  "team": {
+    "title": "צוות",
+    "invite": "הזמן חבר",
+    "role": "תפקיד",
+    "roles": {
+      "owner": "בעלים",
+      "manager": "מנהל",
+      "barber": "ספר",
+      "receptionist": "פקיד קבלה"
+    },
+    "status": {
+      "active": "��עיל",
+      "inactive": "לא פעיל",
+      "pending": "ממתין"
+    }
+  },
+  "queue": {
+    "title": "תור המתנה",
+    "addWalkIn": "הוסף מזדמן",
+    "position": "מיקום",
+    "waitTime": "זמן המתנה",
+    "estimatedWait": "המתנה משוערת",
+    "status": {
+      "waiting": "ממתין",
+      "inService": "בשירות",
+      "completed": "הושלם",
+      "noShow": "לא הגיע"
+    },
+    "empty": "אין אף אחד בתור",
+    "minutes": "דק׳"
+  },
+  "inventory": {
+    "title": "מלאי",
+    "addItem": "הוסף פריט",
+    "addCategory": "הוסף קטגוריה",
+    "categories": "קטגוריות",
+    "items": "פריטים",
+    "stockIn": "כניסה",
+    "stockOut": "יציאה",
+    "lowStock": "מלאי נמוך",
+    "quantity": "כמות",
+    "minStock": "מלאי מינימום",
+    "cost": "עלות",
+    "sku": "מק״ט",
+    "transactions": "עסקאות"
+  },
+  "analytics": {
+    "title": "ניתוחים",
+    "revenue": "הכנסות",
+    "appointments": "תורים",
+    "clients": "לקוחות",
+    "services": "שירותים מובילים",
+    "peakHours": "שעות שיא",
+    "thisWeek": "השבוע",
+    "thisMonth": "החודש",
+    "thisYear": "השנה",
+    "growth": "צמיחה",
+    "compared": "בהשוואה לתקופה הקודמת"
+  },
+  "booking": {
+    "title": "הזמנה מקוונת",
+    "publicLink": "קישור הזמנה ציבורי",
+    "copy": "העתק קישור",
+    "settings": "הגדרות הזמנה",
+    "advanceDays": "ימים מראש",
+    "slotDuration": "משך משבצת",
+    "businessHours": "שעות פעילות",
+    "enabled": "הזמנה מופעלת",
+    "selectService": "בחר שירות",
+    "selectDateTime": "בחר תאריך ושעה",
+    "yourDetails": "הפרטים שלך",
+    "confirmation": "אישור",
+    "bookNow": "הזמן עכשיו",
+    "thankYou": "תודה רבה!",
+    "bookingConfirmed": "התור שלך אושר"
+  },
+  "reminders": {
+    "title": "תזכורות",
+    "email": "תזכורות במייל",
+    "sms": "תזכורות ב-SMS",
+    "hoursBefore": "שעות לפני",
+    "template": "תבנית",
+    "followUp": "מייל מעקב"
+  },
+  "billing": {
+    "title": "חיוב",
+    "currentPlan": "התוכנית הנוכחית",
+    "upgrade": "שדרג",
+    "paymentMethod": "אמצעי תשלום",
+    "invoices": "חשבוניות",
+    "plans": {
+      "starter": "התחלתי",
+      "pro": "מקצועי",
+      "enterprise": "ארגוני"
+    }
+  },
+  "settings": {
+    "title": "הגדרות",
+    "profile": "פרופיל",
+    "shop": "הגדרות המספרה",
+    "language": "שפה",
+    "notifications": "התראות",
+    "security": "אבטחה",
+    "shopName": "שם המספרה",
+    "address": "כתו��ת",
+    "phone": "טלפון",
+    "email": "אימייל",
+    "timezone": "אזור זמן",
+    "currency": "מטבע"
+  },
+  "auth": {
+    "login": "התחברות",
+    "signUp": "הרשמה",
+    "email": "אימייל",
+    "password": "סיסמה",
+    "confirmPassword": "אישור סיסמה",
+    "forgotPassword": "שכחת סיסמה?",
+    "rememberMe": "זכור אותי",
+    "noAccount": "אין לך חשבון?",
+    "hasAccount": "כבר יש לך חשבון?",
+    "createAccount": "צור חשבון",
+    "shopName": "שם המספרה",
+    "fullName": "שם מלא",
+    "termsAgree": "אני מסכים לתנאי השירות",
+    "checkEmail": "בדוק את המייל שלך",
+    "confirmationSent": "שלחנו קישור אימות לכתובת המייל שלך.",
+    "error": "שגיאת אימות",
+    "tryAgain": "נא לנסות שוב או ליצור קשר עם התמיכה."
+  },
+"pricing": {
+    "title": "מחירים פשוטים ושקופים",
+    "subtitle": "התחל בחינם, שדרג כשתצטרך יותר.",
+    "sectionLabel": "מחירים",
+    "sectionTitle": "מחירים פשוטים",
+    "sectionTitleHighlight": "ושקופים",
+    "sectionSubtitle": "התחל בחינם, שדרג כשתצטרך יותר. בלי עמלות נסתרות, בלי חוזים.",
+    "monthly": "חודשי",
+    "yearly": "שנתי",
+    "save": "חסוך 20%",
+    "perMonth": "/חודש",
+    "popular": "הכי פופולרי",
+    "features": "תכונות",
+    "getStarted": "התחל",
+    "currentPlan": "התוכנית הנוכחית",
+    "starter": {
+      "name": "התחלתי",
+      "price": "0",
+      "description": "מושלם לספרים עצמאיים בתחילת הדרך",
+      "features": [
+        "עד 50 תורים/חודש",
+        "ניהול לקוחות בסיסי",
+        "דף הזמנ��ת מקוון",
+        "תמיכה במייל"
+      ]
+    },
+    "pro": {
+      "name": "מקצועי",
+      "price": "29",
+      "description": "למספרות צומחות שצריכות יותר עוצמה",
+      "features": [
+        "��ורים ללא הגבלה",
+        "ניהול לקוחות מלא",
+        "רשומות כימיות",
+        "ניהול צוות (עד 5)",
+        "לוח ניתוחי��",
+        "תזכורות SMS",
+        "תמיכה בעדיפות"
+      ]
+    },
+    "enterprise": {
+      "name": "ארגוני",
+      "price": "79",
+      "description": "לעסקים עם מספר סניפים",
+      "features": [
+        "הכל במקצועי",
+        "חברי צוות ללא הגבלה",
+        "סניפים מרובים",
+        "אינטגרציות מותאמות",
+        "גישת API",
+        "מנהל חשבון ייעודי"
+      ]
+    }
+  },
+  "testimonials": {
+    "title": "מהימן על ידי ספרים ברחבי העולם",
+    "subtitle": "ראה מה בעלי מספרות אומרים על Tresser",
+    "sectionLabel": "המלצות",
+    "sectionTitle": "מהימן על ידי",
+    "sectionTitleHighlight": "ספרים",
+    "sectionTitleEnd": "ברחבי העולם",
+    "sectionSubtitle": "ראה מה בעלי מספרות אומרים על Tresser",
+    "featured": "מומלץ",
+    "testimonial1": {
+      "quote": "Tresser שינה לחלוטין את הדרך שבה אני מנהל את המספרה שלי. מערכת ההזמנות לבדה חסכה לי שעות מדי שבוע.",
+      "author": "מרקוס תומפסון",
+      "role": "בעלים, Prime Cuts",
+      "location": "ניו יורק, ארה״ב"
+    },
+    "testimonial2": {
+      "quote": "הניתוחים עזרו לי להבין את שעות השיא שלי ולייעל את לוח הזמנים של הצוות. ההכנסות עלו ב-35%.",
+      "author": "קרלוס ריברה",
+      "role": "מנהל, Style Studio",
+      "location": "מיאמי, ארה״ב"
+    },
+    "testimonial3": {
+      "quote": "רשומות הכימיה של הלקוחות משנות את כללי המשחק. עכשיו אני יכול לשחזר נוסחאות מושלמות בכל פעם.",
+      "author": "ג'יימס מיטשל",
+      "role": "מייסד, The Gentleman's Cut",
+      "location": "לונדון, בריטניה"
+    },
+    "testimonial4": {
+      "quote": "ניהול תור ההמתנה שינה הכל. אין יותר כאוס, הלקוחות אוהבים את השקיפות.",
+      "author": "דיוויד ווילסון",
+      "role": "בעלים, Fresh Fades",
+      "location": "שיקגו, ארה״ב"
+    },
+    "testimonial5": {
+      "quote": "סוף סוף תוכנה שמבינה ספרים. מעקב המלאי לבדו משתלם.",
+      "author": "מייקל צ'ן",
+      "role": "בעלים, Urban Cuts",
+      "location": "לוס אנג'לס, ארה״ב"
+    },
+    "testimonial6": {
+      "quote": "הפרודוקטיביות של הצוות שלי עלתה ב-40% מאז שהתחלנו להשתמש ב-Tresser. ממליץ בחום!",
+      "author": "אנתוני ג'ונסון",
+      "role": "מנהל, Classic Barbers",
+      "location": "טורונטו, קנדה"
+    }
+  },
+  "cta": {
+    "title": "מוכן לשנות",
+    "titleHighlight": "את המספרה שלך?",
+    "subtitle": "הצטרף לאלפי ספרים ששדרגו את העסק שלהם עם Tresser.",
+    "button": "התחל את הניסיון החינמי"
+  },
+  "footer": {
+    "description": "מערכת ההפעלה המודרנית למספרות. נהל הזמנות, לקוחות וצמח את העסק שלך.",
+    "product": "מוצר",
+    "company": "חברה",
+    "legal": "משפטי",
+    "about": "אוד��ת",
+    "careers": "קריירה",
+    "blog": "בלוג",
+    "privacy": "מדיניות פרטיות",
+    "terms": "תנאי שירות",
+    "contact": "צור קשר",
+    "copyright": "כל הזכויות שמורות."
+  }
+}
