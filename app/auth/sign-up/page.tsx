@@ -24,10 +24,10 @@ export default function SignUpPage() {
     setError(null)
 
     // Sign up the user
-    // Use production URL for email redirects, fallback to current origin for dev
+    // Use production URL for email redirects
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 
-                    process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : 
-                    window.location.origin
+                    (process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : 
+                    window.location.origin)
     
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email,
@@ -47,7 +47,10 @@ export default function SignUpPage() {
       return
     }
 
+    // Check if this is a repeated signup (user already exists but not confirmed)
+    // Supabase returns user data but with identities = [] for unconfirmed users
     if (authData.user) {
+      // User created successfully OR confirmation email resent
       router.push("/auth/sign-up-success")
     }
   }
