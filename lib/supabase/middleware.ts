@@ -39,7 +39,16 @@ export async function updateSession(request: NextRequest) {
   // with the Supabase client, your users may be randomly logged out.
   const {
     data: { user },
+    error,
   } = await supabase.auth.getUser()
+
+  // If there's an auth error (corrupted session), clear the session
+  if (error && error.message?.includes('User from sub claim')) {
+    await supabase.auth.signOut()
+    const url = request.nextUrl.clone()
+    url.pathname = '/auth/login'
+    return NextResponse.redirect(url)
+  }
 
   if (
     // if the user is not logged in and dashboard is accessed, redirect to login
