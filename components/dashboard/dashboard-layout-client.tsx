@@ -1,6 +1,6 @@
 "use client"
 
-import { useLanguage } from "@/lib/i18n/context"
+import { useLanguage } from "@/lib/i18n/language-context"
 import { DashboardSidebar } from "@/components/dashboard/sidebar"
 import { DashboardHeader } from "@/components/dashboard/header"
 import type { User } from "@supabase/supabase-js"

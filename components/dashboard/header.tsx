@@ -20,7 +20,7 @@ import {
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { useLanguage } from "@/lib/i18n/context"
+import { useLanguage } from "@/lib/i18n/language-context"
 import type { User } from "@supabase/supabase-js"
 
 interface Profile {
