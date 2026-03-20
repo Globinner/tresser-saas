@@ -51,6 +51,8 @@
     "totalAppointments": "Total de Agendamentos",
     "totalClients": "Total de Clientes",
     "monthlyRevenue": "Receita Mensal",
+    "todayAppointments": "Agendamentos de Hoje",
+    "completedCuts": "Cortes Concluídos",
     "queueSize": "Tamanho da Fila",
     "addAppointment": "Adicionar Agendamento",
     "addClient": "Adicionar Cliente",

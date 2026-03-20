@@ -51,6 +51,8 @@
     "totalAppointments": "Total des Rendez-vous",
     "totalClients": "Total des Clients",
     "monthlyRevenue": "Revenus Mensuels",
+    "todayAppointments": "Rendez-vous du Jour",
+    "completedCuts": "Coupes Terminées",
     "queueSize": "Taille de la File",
     "addAppointment": "Ajouter Rendez-vous",
     "addClient": "Ajouter Client",

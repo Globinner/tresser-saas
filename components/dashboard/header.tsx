@@ -39,23 +39,23 @@ interface DashboardHeaderProps {
   profile: Profile | null
 }
 
-const navigation = [
-  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Appointments", href: "/dashboard/appointments", icon: Calendar },
-  { name: "Clients", href: "/dashboard/clients", icon: Users },
-  { name: "Team", href: "/dashboard/team", icon: Briefcase },
-  { name: "Services", href: "/dashboard/services", icon: Scissors },
-  { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
-  { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
-  { name: "Settings", href: "/dashboard/settings", icon: Settings },
-]
-
 export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
   const supabase = createClient()
-  const { isRTL } = useLanguage()
+  const { isRTL, t } = useLanguage()
+  
+  const navigation = [
+    { name: t("demo.dashboard"), href: "/dashboard", icon: LayoutDashboard },
+    { name: t("demo.appointments"), href: "/dashboard/appointments", icon: Calendar },
+    { name: t("demo.clients"), href: "/dashboard/clients", icon: Users },
+    { name: t("demo.team"), href: "/dashboard/team", icon: Briefcase },
+    { name: t("demo.services"), href: "/dashboard/services", icon: Scissors },
+    { name: t("demo.analytics"), href: "/dashboard/analytics", icon: BarChart3 },
+    { name: t("settings.billing"), href: "/dashboard/billing", icon: CreditCard },
+    { name: t("demo.settings"), href: "/dashboard/settings", icon: Settings },
+  ]
 
   async function handleSignOut() {
     await supabase.auth.signOut()
