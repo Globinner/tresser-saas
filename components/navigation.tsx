@@ -54,7 +54,7 @@ export function Navigation() {
             </div>
           </div>
           <span className="text-xl font-bold tracking-tight">
-            <span className="text-gradient">Tresser</span>
+            <span className="text-gradient">{"Tresser"}</span>
           </span>
         </a>
 

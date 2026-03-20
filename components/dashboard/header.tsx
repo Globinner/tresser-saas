@@ -20,6 +20,7 @@ import {
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useLanguage } from "@/lib/i18n/context"
 import type { User } from "@supabase/supabase-js"
 
 interface Profile {
@@ -54,6 +55,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
   const pathname = usePathname()
   const router = useRouter()
   const supabase = createClient()
+  const { isRTL } = useLanguage()
 
   async function handleSignOut() {
     await supabase.auth.signOut()
@@ -67,7 +69,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
   return (
     <>
       <header className="sticky top-0 z-40 glass-strong border-b border-border">
-        <div className="flex h-16 items-center gap-4 px-6">
+        <div className={cn("flex h-16 items-center gap-4 px-6", isRTL && "flex-row-reverse")}>
           {/* Mobile menu button */}
           <button
             type="button"
@@ -82,10 +84,10 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
           <h1 className="text-lg font-semibold">{currentPage}</h1>
 
           {/* Right side actions */}
-          <div className="ml-auto flex items-center gap-4">
+          <div className={cn("flex items-center gap-4", isRTL ? "mr-auto" : "ml-auto")}>
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full" />
+              <span className={cn("absolute top-1 w-2 h-2 bg-primary rounded-full", isRTL ? "left-1" : "right-1")} />
             </Button>
             
             <div className="hidden sm:flex items-center gap-3">
@@ -101,13 +103,16 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50">
           <div className="fixed inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className="fixed inset-y-0 left-0 w-72 glass-strong border-r border-border p-6">
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-3">
+          <div className={cn(
+            "fixed inset-y-0 w-72 glass-strong p-6",
+            isRTL ? "right-0 border-l border-border" : "left-0 border-r border-border"
+          )}>
+            <div className={cn("flex items-center justify-between mb-8", isRTL && "flex-row-reverse")}>
+              <div className={cn("flex items-center gap-3", isRTL && "flex-row-reverse")}>
                 <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center glow-amber-soft">
                   <Scissors className="w-5 h-5 text-primary" />
                 </div>
-                <span className="text-xl font-bold tracking-tight">BLADE</span>
+                <span className="text-xl font-bold tracking-tight">Tresser</span>
               </div>
               <button
                 type="button"
@@ -135,6 +140,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
                     onClick={() => setMobileMenuOpen(false)}
                     className={cn(
                       "flex items-center gap-3 rounded-lg p-3 text-sm font-medium transition-all",
+                      isRTL && "flex-row-reverse text-right",
                       isActive 
                         ? "bg-primary/20 text-primary" 
                         : "text-muted-foreground hover:text-foreground hover:bg-secondary"
@@ -148,18 +154,21 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
             </nav>
 
             <div className="mt-auto pt-6 border-t border-border absolute bottom-6 left-6 right-6">
-              <div className="flex items-center gap-3 mb-4">
+              <div className={cn("flex items-center gap-3 mb-4", isRTL && "flex-row-reverse")}>
                 <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-medium">
                   {profile?.full_name?.charAt(0) || user.email?.charAt(0)?.toUpperCase()}
                 </div>
-                <div className="flex-1 min-w-0">
+                <div className={cn("flex-1 min-w-0", isRTL && "text-right")}>
                   <p className="text-sm font-medium truncate">{profile?.full_name || "User"}</p>
                   <p className="text-xs text-muted-foreground truncate">{user.email}</p>
                 </div>
               </div>
               <button
                 onClick={handleSignOut}
-                className="w-full flex items-center gap-3 rounded-lg p-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                className={cn(
+                  "w-full flex items-center gap-3 rounded-lg p-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors",
+                  isRTL && "flex-row-reverse"
+                )}
               >
                 <LogOut className="h-5 w-5" />
                 Sign out

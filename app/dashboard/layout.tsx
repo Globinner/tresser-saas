@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server"
 import { DashboardSidebar } from "@/components/dashboard/sidebar"
 import { DashboardHeader } from "@/components/dashboard/header"
 import { CurrencyProvider } from "@/lib/currency-context"
+import { DashboardLayoutClient } from "@/components/dashboard/dashboard-layout-client"
 
 export default async function DashboardLayout({
   children,
@@ -27,15 +28,9 @@ export default async function DashboardLayout({
 
   return (
     <CurrencyProvider currency={shopCurrency}>
-      <div className="min-h-screen bg-background grain">
-        <DashboardSidebar user={user} profile={profile} />
-        <div className="lg:pl-72">
-          <DashboardHeader user={user} profile={profile} />
-          <main className="p-6">
-            {children}
-          </main>
-        </div>
-      </div>
+      <DashboardLayoutClient user={user} profile={profile}>
+        {children}
+      </DashboardLayoutClient>
     </CurrencyProvider>
   )
 }
