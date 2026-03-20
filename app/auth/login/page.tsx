@@ -6,13 +6,16 @@ import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Scissors, ArrowLeft, Loader2 } from "lucide-react"
+import { Scissors, ArrowLeft, Loader2, Mail } from "lucide-react"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [resending, setResending] = useState(false)
+  const [showResend, setShowResend] = useState(false)
+  const [resendSuccess, setResendSuccess] = useState(false)
   const router = useRouter()
   const supabase = createClient()
 
@@ -20,33 +23,73 @@ export default function LoginPage() {
     e.preventDefault()
     setLoading(true)
     setError(null)
+    setShowResend(false)
+    setResendSuccess(false)
 
     try {
-      console.log("[v0] Attempting login for:", email)
-      
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
 
-      console.log("[v0] Login result:", { data, error })
-
       if (error) {
-        console.log("[v0] Login error:", error.message)
-        setError(error.message)
+        // If invalid credentials, it might be unconfirmed email
+        if (error.message.includes("Invalid login credentials")) {
+          setError("Invalid email or password. If you haven't confirmed your email yet, click below to resend the confirmation.")
+          setShowResend(true)
+        } else if (error.message.includes("Email not confirmed")) {
+          setError("Please confirm your email before logging in.")
+          setShowResend(true)
+        } else {
+          setError(error.message)
+        }
         setLoading(false)
         return
       }
 
       if (data.user) {
-        console.log("[v0] User logged in:", data.user.id)
         router.push("/dashboard")
         router.refresh()
       }
     } catch (err) {
-      console.log("[v0] Unexpected error:", err)
       setError("An unexpected error occurred")
       setLoading(false)
+    }
+  }
+  
+  async function handleResendConfirmation() {
+    if (!email) {
+      setError("Please enter your email address first")
+      return
+    }
+    
+    setResending(true)
+    setError(null)
+    
+    try {
+      // Use production URL for email redirect
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 
+                      (process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : 
+                      window.location.origin)
+      
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email,
+        options: {
+          emailRedirectTo: `${siteUrl}/auth/confirm`,
+        }
+      })
+      
+      if (error) {
+        setError(error.message)
+      } else {
+        setResendSuccess(true)
+        setShowResend(false)
+      }
+    } catch (err) {
+      setError("Failed to resend confirmation email")
+    } finally {
+      setResending(false)
     }
   }
 
@@ -117,6 +160,34 @@ export default function LoginPage() {
             {error && (
               <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm">
                 {error}
+              </div>
+            )}
+            
+            {showResend && (
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full"
+                onClick={handleResendConfirmation}
+                disabled={resending}
+              >
+                {resending ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Mail className="w-4 h-4 mr-2" />
+                    Resend confirmation email
+                  </>
+                )}
+              </Button>
+            )}
+            
+            {resendSuccess && (
+              <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-green-500 text-sm">
+                Confirmation email sent! Please check your inbox and click the link.
               </div>
             )}
 
