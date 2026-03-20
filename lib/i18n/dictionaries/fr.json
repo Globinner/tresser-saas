@@ -1,0 +1,561 @@
+{
+  "common": {
+    "appName": "Tresser",
+    "tagline": "Le Système d'Exploitation pour les Salons de Coiffure Modernes",
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "noResults": "Aucun résultat trouvé",
+    "confirm": "Confirmer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "close": "Fermer",
+    "yes": "Oui",
+    "no": "Non",
+    "or": "ou",
+    "and": "et"
+  },
+  "nav": {
+    "features": "Fonctionnalités",
+    "demo": "Démo",
+    "pricing": "Tarifs",
+    "testimonials": "Témoignages",
+    "signIn": "Connexion",
+    "signUp": "Inscription",
+    "startFreeTrial": "Essai Gratuit",
+    "dashboard": "Tableau de bord",
+    "logout": "Déconnexion"
+  },
+  "demo": {
+    "title": "Mode Démo",
+    "subtitle": "Explorez toutes les fonctionnalités avec des données d'exemple",
+    "backToSite": "Retour au Site",
+    "dashboard": "Tableau de bord",
+    "appointments": "Rendez-vous",
+    "queue": "File d'Attente",
+    "clients": "Clients",
+    "team": "Équipe",
+    "services": "Services",
+    "inventory": "Inventaire",
+    "analytics": "Analyses",
+    "photos": "Photos",
+    "settings": "Paramètres",
+    "todaySchedule": "Planning du Jour",
+    "revenueChart": "Revenus Hebdomadaires",
+    "totalAppointments": "Total des Rendez-vous",
+    "totalClients": "Total des Clients",
+    "monthlyRevenue": "Revenus Mensuels",
+    "queueSize": "Taille de la File",
+    "addAppointment": "Ajouter Rendez-vous",
+    "addClient": "Ajouter Client",
+    "addToQueue": "Ajouter à la File",
+    "startService": "Démarrer",
+    "completeService": "Terminer",
+    "viewProfile": "Voir Profil",
+    "editProfile": "Modifier Profil",
+    "visitHistory": "Historique des Visites",
+    "chemistryRecords": "Fiches Techniques",
+    "photoGallery": "Galerie Photos",
+    "teamManagement": "Gestion d'Équipe",
+    "addTeamMember": "Ajouter Membre",
+    "weeklySchedule": "Planning Hebdomadaire",
+    "teamAvailability": "Disponibilité de l'équipe cette semaine",
+    "working": "En service",
+    "available": "Disponible",
+    "onBreak": "En Pause",
+    "offToday": "Repos Aujourd'hui",
+    "totalTeam": "Total Équipe",
+    "workingNow": "En Service",
+    "onBreakOff": "Pause / Repos",
+    "specialties": "Spécialités",
+    "schedule": "Planning",
+    "contact": "Contact",
+    "revenue": "Revenus",
+    "rating": "Note",
+    "noShows": "Absences",
+    "growth": "Croissance",
+    "topServices": "Services Principaux",
+    "peakHours": "Heures de Pointe",
+    "servicesBreakdown": "Répartition des Services",
+    "barberPerformance": "Performance des Coiffeurs",
+    "revenueByService": "Revenus par type de service",
+    "bestPerforming": "Services les plus performants",
+    "busiestTimes": "Heures les plus chargées",
+    "individualMetrics": "Métriques de performance individuelle",
+    "revenueTrend": "Tendance des Revenus",
+    "monthlyGrowth": "Croissance des revenus sur 6 mois",
+    "avgTicketValue": "Valeur Moyenne du Ticket",
+    "newClients": "Nouveaux Clients",
+    "bookings": "Réservations",
+    "lowStock": "Stock Faible",
+    "inStock": "En Stock",
+    "outOfStock": "Rupture de Stock",
+    "category": "Catégorie",
+    "price": "Prix",
+    "duration": "Durée",
+    "shopInfo": "Informations du Salon",
+    "businessHours": "Heures d'Ouverture",
+    "shopName": "Nom du Salon",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "address": "Adresse",
+    "thisWeek": "Cette Semaine",
+    "thisMonth": "Ce Mois",
+    "thisYear": "Cette Année",
+    "vsLastMonth": "vs mois précédent"
+  },
+  "hero": {
+    "badge": "Maintenant avec Planification IA",
+    "title": "Le Système d'Exploitation pour les Salons de Coiffure Modernes",
+    "titleLine1": "Le Système d'Exploitation",
+    "titleLine2": "pour Salons",
+    "titleLine3": "Modernes",
+    "subtitle": "Simplifiez les réservations, gérez les clients, suivez les revenus et développez votre entreprise avec la plateforme de gestion de salon la plus puissante.",
+    "cta": "Essai Gratuit",
+    "watchDemo": "Voir la Démo",
+    "featureBooking": "Réservation Intelligente",
+    "featureBookingDesc": "24/7 en Ligne",
+    "featureCRM": "CRM Clients",
+    "featureCRMDesc": "Profils Complets",
+    "featureAnalytics": "Analyses",
+    "featureAnalyticsDesc": "Données en Temps Réel",
+    "features": {
+      "booking": "Réservation Intelligente",
+      "analytics": "Analyses en Temps Réel",
+      "clients": "Gestion des Clients"
+    }
+  },
+  "stats": {
+    "shops": "Salons Actifs",
+    "appointments": "Rendez-vous Réservés",
+    "revenue": "Augmentation des Revenus",
+    "rating": "Note Moyenne",
+    "retention": "Fidélisation Client",
+    "support": "Support"
+  },
+  "features": {
+    "title": "Tout ce dont Vous Avez Besoin",
+    "subtitle": "pour Gérer Votre Salon",
+    "description": "Des outils puissants conçus spécifiquement pour les salons de coiffure. Sans complexité, juste des résultats.",
+    "sectionLabel": "Fonctionnalités",
+    "sectionTitle": "Tout ce dont Vous Avez Besoin",
+    "sectionTitleHighlight": "pour Gérer Votre Salon",
+    "sectionSubtitle": "Des outils puissants conçus spécifiquement pour les salons de coiffure. Sans complexité, juste des résultats.",
+    "scheduling": {
+      "title": "Planification Intelligente",
+      "description": "Permettez aux clients de réserver 24h/24 avec une planification qui évite les doubles réservations."
+    },
+    "clients": {
+      "title": "Gestion des Clients",
+      "description": "Profils clients complets avec historique des visites, préférences et fiches techniques."
+    },
+    "payments": {
+      "title": "Paiements",
+      "description": "Acceptez les paiements par carte, suivez les transactions et gérez vos finances."
+    },
+    "chemistry": {
+      "title": "Fiches Techniques",
+      "description": "Suivez les formules de couleur, volumes d'oxydant, ratios de mélange et historique des traitements."
+    },
+    "photos": {
+      "title": "Galerie Avant/Après",
+      "description": "Documentez les transformations avec des galeries photos. Construisez votre portfolio."
+    },
+    "analytics": {
+      "title": "Analyse des Revenus",
+      "description": "Informations en temps réel sur vos gains, services populaires et tendances de croissance."
+    },
+    "reminders": {
+      "title": "Rappels Intelligents",
+      "description": "Réduisez les absences avec des rappels SMS et email automatiques avant les rendez-vous."
+    },
+    "queue": {
+      "title": "File d'Attente",
+      "description": "Gérez les clients sans rendez-vous avec un suivi en temps réel et des estimations d'attente."
+    },
+    "inventory": {
+      "title": "Gestion des Stocks",
+      "description": "Ne manquez jamais de fournitures. Suivez les niveaux et recevez des alertes."
+    },
+    "smartBooking": {
+      "title": "Réservation Intelligente",
+      "description": "Permettez aux clients de réserver 24h/24 avec une planification intelligente qui évite les doubles réservations et optimise votre journée."
+    },
+    "clientManagement": {
+      "title": "Gestion des Clients",
+      "description": "Profils clients complets avec historique des visites, préférences et fiches techniques à portée de main."
+    },
+    "teamScheduling": {
+      "title": "Planning d'Équipe",
+      "description": "Gérez l'emploi du temps de toute votre équipe, suivez les performances et assignez les rendez-vous sans effort."
+    },
+    "revenueAnalytics": {
+      "title": "Analyse des Revenus",
+      "description": "Informations en temps réel sur vos gains, services populaires et tendances de croissance."
+    }
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "welcome": "Bon retour",
+    "overview": "Aperçu",
+    "todayAppointments": "Planning du Jour",
+    "revenue": "Revenus du Jour",
+    "recentClients": "Clients Récents",
+    "quickActions": "Actions Rapides",
+    "noAppointments": "Aucun rendez-vous programmé",
+    "viewAll": "Voir Tout"
+  },
+  "dashboardPreview": {
+    "badge": "Tableau de Bord Intuitif",
+    "title": "Votre Salon en un",
+    "titleHighlight": "Coup d'œil",
+    "subtitle": "Un centre de commande beau et puissant qui met tout ce dont vous avez besoin à portée de main.",
+    "greeting": "Bonjour, Alex",
+    "subgreeting": "Voici ce qui se passe aujourd'hui",
+    "weeklyRevenue": "Revenus Hebdomadaires",
+    "days": {
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mer",
+      "thu": "Jeu",
+      "fri": "Ven",
+      "sat": "Sam",
+      "sun": "Dim"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Tableau de bord",
+    "appointments": "Rendez-vous",
+    "queue": "File d'Attente",
+    "clients": "Clients",
+    "team": "Équipe",
+    "services": "Services",
+    "inventory": "Inventaire",
+    "analytics": "Analyses",
+    "onlineBooking": "Réservation en Ligne",
+    "reminders": "Rappels",
+    "billing": "Facturation",
+    "settings": "Paramètres"
+  },
+  "appointments": {
+    "title": "Rendez-vous",
+    "new": "Nouveau Rendez-vous",
+    "today": "Aujourd'hui",
+    "upcoming": "À venir",
+    "past": "Passés",
+    "all": "Tous",
+    "status": {
+      "scheduled": "Programmé",
+      "confirmed": "Confirmé",
+      "inProgress": "En Cours",
+      "completed": "Terminé",
+      "cancelled": "Annulé",
+      "noShow": "Absent"
+    },
+    "selectClient": "Sélectionner un Client",
+    "selectService": "Sélectionner un Service",
+    "selectDate": "Sélectionner une Date",
+    "selectTime": "Sélectionner une Heure",
+    "notes": "Notes"
+  },
+  "clients": {
+    "title": "Clients",
+    "new": "Nouveau Client",
+    "search": "Rechercher des clients...",
+    "totalClients": "Total des Clients",
+    "recentVisit": "Visite Récente",
+    "noClients": "Pas encore de clients",
+    "addFirst": "Ajoutez votre premier client",
+    "details": {
+      "contact": "Coordonnées",
+      "visits": "Historique des Visites",
+      "preferences": "Préférences",
+      "notes": "Notes",
+      "chemistry": "Fiches Techniques",
+      "photos": "Photos Avant/Après"
+    }
+  },
+  "chemistry": {
+    "title": "Fiches Techniques",
+    "new": "Nouvelle Fiche",
+    "treatmentType": "Type de Traitement",
+    "brand": "Marque",
+    "productLine": "Gamme de Produits",
+    "colorCode": "Code Couleur",
+    "developerVolume": "Volume d'Oxydant",
+    "mixRatio": "Ratio de Mélange",
+    "processingTime": "Temps de Pose",
+    "heatApplied": "Chaleur Appliquée",
+    "formulaNotes": "Notes de Formule",
+    "results": "Résultats",
+    "patchTest": "Test Cutané",
+    "types": {
+      "color": "Coloration",
+      "highlights": "Mèches",
+      "lowlights": "Mèches Foncées",
+      "balayage": "Balayage",
+      "bleach": "Décoloration",
+      "toner": "Patine",
+      "gloss": "Gloss",
+      "relaxer": "Défrisage",
+      "perm": "Permanente",
+      "keratin": "Kératine"
+    }
+  },
+  "photos": {
+    "title": "Photos Avant/Après",
+    "upload": "Télécharger Photo",
+    "before": "Avant",
+    "after": "Après",
+    "compare": "Comparer",
+    "noPhotos": "Pas encore de photos"
+  },
+  "services": {
+    "title": "Services",
+    "new": "Nouveau Service",
+    "name": "Nom du Service",
+    "price": "Prix",
+    "duration": "Durée",
+    "category": "Catégorie",
+    "description": "Description",
+    "categories": {
+      "haircut": "Coupe",
+      "beard": "Barbe",
+      "color": "Coloration",
+      "treatment": "Traitement",
+      "package": "Forfait"
+    }
+  },
+  "team": {
+    "title": "Équipe",
+    "invite": "Inviter un Membre",
+    "role": "Rôle",
+    "roles": {
+      "owner": "Propriétaire",
+      "manager": "Gérant",
+      "barber": "Coiffeur",
+      "receptionist": "Réceptionniste"
+    },
+    "status": {
+      "active": "Actif",
+      "inactive": "Inactif",
+      "pending": "En attente"
+    }
+  },
+  "queue": {
+    "title": "File d'Attente",
+    "addWalkIn": "Ajouter un Client",
+    "position": "Position",
+    "waitTime": "Temps d'Attente",
+    "estimatedWait": "Attente Est.",
+    "status": {
+      "waiting": "En Attente",
+      "inService": "En Service",
+      "completed": "Terminé",
+      "noShow": "Absent"
+    },
+    "empty": "Personne dans la file",
+    "minutes": "min"
+  },
+  "inventory": {
+    "title": "Inventaire",
+    "addItem": "Ajouter un Article",
+    "addCategory": "Ajouter une Catégorie",
+    "categories": "Catégories",
+    "items": "Articles",
+    "stockIn": "Entrée",
+    "stockOut": "Sortie",
+    "lowStock": "Stock Bas",
+    "quantity": "Quantité",
+    "minStock": "Stock Minimum",
+    "cost": "Coût",
+    "sku": "SKU",
+    "transactions": "Transactions"
+  },
+  "analytics": {
+    "title": "Analyses",
+    "revenue": "Revenus",
+    "appointments": "Rendez-vous",
+    "clients": "Clients",
+    "services": "Services Populaires",
+    "peakHours": "Heures de Pointe",
+    "thisWeek": "Cette Semaine",
+    "thisMonth": "Ce Mois",
+    "thisYear": "Cette Année",
+    "growth": "Croissance",
+    "compared": "par rapport à la période précédente"
+  },
+  "booking": {
+    "title": "Réservation en Ligne",
+    "publicLink": "Lien Public de Réservation",
+    "copy": "Copier le Lien",
+    "settings": "Paramètres de Réservation",
+    "advanceDays": "Jours à l'Avance",
+    "slotDuration": "Durée du Créneau",
+    "businessHours": "Heures d'Ouverture",
+    "enabled": "Réservation Activée",
+    "selectService": "Sélectionnez un Service",
+    "selectDateTime": "Sélectionnez Date et Heure",
+    "yourDetails": "Vos Coordonnées",
+    "confirmation": "Confirmation",
+    "bookNow": "Réserver Maintenant",
+    "thankYou": "Merci!",
+    "bookingConfirmed": "Votre rendez-vous est confirmé"
+  },
+  "reminders": {
+    "title": "Rappels",
+    "email": "Rappels par Email",
+    "sms": "Rappels par SMS",
+    "hoursBefore": "Heures Avant",
+    "template": "Modèle",
+    "followUp": "Email de Suivi"
+  },
+  "billing": {
+    "title": "Facturation",
+    "currentPlan": "Plan Actuel",
+    "upgrade": "Améliorer",
+    "paymentMethod": "Mode de Paiement",
+    "invoices": "Factures",
+    "plans": {
+      "starter": "Débutant",
+      "pro": "Pro",
+      "enterprise": "Entreprise"
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "profile": "Profil",
+    "shop": "Paramètres du Salon",
+    "language": "Langue",
+    "notifications": "Notifications",
+    "security": "Sécurité",
+    "shopName": "Nom du Salon",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "Email",
+    "timezone": "Fuseau Horaire",
+    "currency": "Devise"
+  },
+  "auth": {
+    "login": "Connexion",
+    "signUp": "Inscription",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "forgotPassword": "Mot de passe oublié?",
+    "rememberMe": "Se souvenir de moi",
+    "noAccount": "Pas encore de compte?",
+    "hasAccount": "Vous avez déjà un compte?",
+    "createAccount": "Créer un Compte",
+    "shopName": "Nom du Salon",
+    "fullName": "Nom Complet",
+    "termsAgree": "J'accepte les Conditions d'Utilisation",
+    "checkEmail": "Vérifiez votre Email",
+    "confirmationSent": "Nous avons envoyé un lien de confirmation à votre adresse email.",
+    "error": "Erreur d'Authentification",
+    "tryAgain": "Veuillez réessayer ou contacter le support."
+  },
+  "pricing": {
+    "title": "Tarifs Simples et Transparents",
+    "subtitle": "Commencez gratuitement, améliorez quand vous avez besoin de plus.",
+    "sectionLabel": "Tarifs",
+    "sectionTitle": "Tarifs Simples",
+    "sectionTitleHighlight": "et Transparents",
+    "sectionSubtitle": "Commencez gratuitement, améliorez quand vous avez besoin de plus. Sans frais cachés, sans contrats.",
+    "monthly": "Mensuel",
+    "yearly": "Annuel",
+    "save": "Économisez 20%",
+    "perMonth": "/mois",
+    "popular": "Le Plus Populaire",
+    "features": "Fonctionnalités",
+    "getStarted": "Commencer",
+    "currentPlan": "Plan Actuel",
+    "starter": {
+      "name": "Débutant",
+      "price": "0",
+      "description": "Parfait pour les coiffeurs indépendants qui démarrent",
+      "features": [
+        "Jusqu'à 50 rendez-vous/mois",
+        "Gestion basique des clients",
+        "Page de réservation en ligne",
+        "Support par email"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "29",
+      "description": "Pour les salons en croissance qui ont besoin de plus de puissance",
+      "features": [
+        "Rendez-vous illimités",
+        "Gestion complète des clients",
+        "Fiches techniques",
+        "Gestion d'équipe (jusqu'à 5)",
+        "Tableau de bord analytique",
+        "Rappels SMS",
+        "Support prioritaire"
+      ]
+    },
+    "enterprise": {
+      "name": "Entreprise",
+      "price": "79",
+      "description": "Pour les entreprises multi-sites",
+      "features": [
+        "Tout dans Pro",
+        "Membres d'équipe illimités",
+        "Sites multiples",
+        "Intégrations personnalisées",
+        "Accès API",
+        "Responsable de compte dédié"
+      ]
+    }
+  },
+  "testimonials": {
+    "title": "Approuvé par les Coiffeurs du Monde Entier",
+    "subtitle": "Découvrez ce que disent les propriétaires de salons à propos de Tresser",
+    "sectionLabel": "Témoignages",
+    "sectionTitle": "Approuvé par les",
+    "sectionTitleHighlight": "Coiffeurs",
+    "sectionTitleEnd": "du Monde Entier",
+    "sectionSubtitle": "Découvrez ce que disent les propriétaires de salons à propos de Tresser",
+    "testimonial1": {
+      "name": "Marcus Johnson",
+      "role": "Propriétaire, Prime Cuts",
+      "text": "Tresser a complètement transformé ma façon de gérer mon salon. Le système de réservation seul me fait gagner des heures chaque semaine."
+    },
+    "testimonial2": {
+      "name": "David Chen",
+      "role": "Gérant, Style Studio",
+      "text": "Les analyses m'ont aidé à comprendre mes heures de pointe et à optimiser le planning de l'équipe. Les revenus ont augmenté de 35%."
+    },
+    "testimonial3": {
+      "name": "Alex Thompson",
+      "role": "Fondateur, The Gentleman's Cut",
+      "text": "Les fiches techniques clients changent la donne. Je peux maintenant recréer des formules parfaites à chaque fois."
+    }
+  },
+  "cta": {
+    "title": "Prêt à Transformer",
+    "titleHighlight": "Votre Salon?",
+    "subtitle": "Rejoignez des milliers de coiffeurs qui ont amélioré leur entreprise avec Tresser.",
+    "button": "Commencez Votre Essai Gratuit"
+  },
+  "footer": {
+    "description": "Le système d'exploitation moderne pour les salons de coiffure. Gérez les réservations, les clients et développez votre entreprise.",
+    "product": "Produit",
+    "company": "Entreprise",
+    "legal": "Mentions Légales",
+    "about": "À Propos",
+    "careers": "Carrières",
+    "blog": "Blog",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions d'Utilisation",
+    "contact": "Contact",
+    "copyright": "Tous droits réservés."
+  }
+}

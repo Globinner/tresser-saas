@@ -1,0 +1,600 @@
+{
+  "common": {
+    "appName": "Tresser",
+    "tagline": "The Operating System for Modern Barbershops",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "filter": "Filter",
+    "noResults": "No results found",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "or": "or",
+    "and": "and"
+  },
+  "nav": {
+    "features": "Features",
+    "demo": "Demo",
+    "pricing": "Pricing",
+    "testimonials": "Testimonials",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "startFreeTrial": "Start Free Trial",
+    "dashboard": "Dashboard",
+    "logout": "Log Out"
+  },
+  "demo": {
+    "title": "Demo Mode",
+    "subtitle": "Explore all features with sample data",
+    "backToSite": "Back to Site",
+    "dashboard": "Dashboard",
+    "appointments": "Appointments",
+    "queue": "Walk-in Queue",
+    "clients": "Clients",
+    "team": "Team",
+    "services": "Services",
+    "inventory": "Inventory",
+    "analytics": "Analytics",
+    "photos": "Photos",
+    "settings": "Settings",
+    "todaySchedule": "Today's Schedule",
+    "revenueChart": "Weekly Revenue",
+    "totalAppointments": "Total Appointments",
+    "totalClients": "Total Clients",
+    "monthlyRevenue": "Monthly Revenue",
+    "queueSize": "Queue Size",
+    "addAppointment": "Add Appointment",
+    "addClient": "Add Client",
+    "addToQueue": "Add to Queue",
+    "startService": "Start",
+    "completeService": "Complete",
+    "viewProfile": "View Profile",
+    "editProfile": "Edit Profile",
+    "visitHistory": "Visit History",
+    "chemistryRecords": "Chemistry Records",
+    "photoGallery": "Photo Gallery",
+    "teamManagement": "Team Management",
+    "addTeamMember": "Add Team Member",
+    "weeklySchedule": "Weekly Schedule",
+    "teamAvailability": "Team availability this week",
+    "working": "Working",
+    "available": "Available",
+    "onBreak": "On Break",
+    "offToday": "Off Today",
+    "totalTeam": "Total Team",
+    "workingNow": "Working Now",
+    "onBreakOff": "On Break / Off",
+    "specialties": "Specialties",
+    "schedule": "Schedule",
+    "contact": "Contact",
+    "revenue": "Revenue",
+    "rating": "Rating",
+    "noShows": "No-shows",
+    "growth": "Growth",
+    "topServices": "Top Services",
+    "peakHours": "Peak Hours",
+    "servicesBreakdown": "Services Breakdown",
+    "barberPerformance": "Barber Performance",
+    "revenueByService": "Revenue by service type",
+    "bestPerforming": "Best performing services",
+    "busiestTimes": "Busiest times of day",
+    "individualMetrics": "Individual performance metrics",
+    "revenueTrend": "Revenue Trend",
+    "monthlyGrowth": "6-month revenue growth",
+    "avgTicketValue": "Avg. Ticket Value",
+    "newClients": "New Clients",
+    "bookings": "Bookings",
+    "appointments": "Appointments",
+    "lowStock": "Low Stock",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "category": "Category",
+    "price": "Price",
+    "duration": "Duration",
+    "shopInfo": "Shop Information",
+    "businessHours": "Business Hours",
+    "shopName": "Shop Name",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month",
+    "thisYear": "This Year",
+    "vsLastMonth": "vs last month",
+    "todaysAppointments": "Today's Appointments",
+    "totalClientsLabel": "Total Clients",
+    "thisWeekRevenue": "This Week Revenue",
+    "walkInsWaiting": "Walk-ins Waiting",
+    "todaysSchedule": "Today's Schedule",
+    "manageAppointments": "Manage your appointments",
+    "weeklyRevenueLabel": "Weekly Revenue",
+    "revenueOverWeek": "Revenue over the past 7 days",
+    "totalThisWeek": "Total This Week",
+    "vsLastWeek": "vs last week",
+    "newAppointment": "New Appointment",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "preferences": "Preferences",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "hero": {
+    "badge": "Now with AI-Powered Scheduling",
+    "title": "The Operating System for Modern Barbershops",
+    "titleLine1": "The Operating System",
+    "titleLine2": "for Modern",
+    "titleLine3": "Barbershops",
+    "subtitle": "Streamline bookings, manage clients, track revenue, and grow your business with the most powerful barbershop management platform.",
+    "cta": "Start Free Trial",
+    "watchDemo": "Watch Demo",
+    "featureBooking": "Smart Booking",
+    "featureBookingDesc": "24/7 Online",
+    "featureCRM": "Client CRM",
+    "featureCRMDesc": "Full Profiles",
+    "featureAnalytics": "Analytics",
+    "featureAnalyticsDesc": "Real-time Data",
+    "features": {
+      "booking": "Smart Booking",
+      "analytics": "Real-time Analytics",
+      "clients": "Client Management"
+    }
+  },
+"stats": {
+  "shops": "Active Shops",
+  "appointments": "Appointments Booked",
+  "revenue": "Revenue Increase",
+  "rating": "Average Rating",
+  "retention": "Client Retention",
+  "support": "Support"
+  },
+  "features": {
+    "title": "Everything You Need",
+    "subtitle": "to Run Your Shop",
+    "description": "Powerful tools designed specifically for barbershops. No complexity, just results.",
+    "sectionLabel": "Features",
+    "sectionTitle": "Everything You Need",
+    "sectionTitleHighlight": "to Run Your Shop",
+    "sectionSubtitle": "Powerful tools designed specifically for barbershops. No complexity, just results.",
+    "scheduling": {
+      "title": "Smart Scheduling",
+      "description": "Let clients book 24/7 with intelligent scheduling that prevents double-bookings and optimizes your day."
+    },
+    "clients": {
+      "title": "Client Management",
+      "description": "Complete client profiles with visit history, preferences, and chemistry records at your fingertips."
+    },
+    "payments": {
+      "title": "Payments",
+      "description": "Accept card payments, track transactions, and manage your finances in one place."
+    },
+    "chemistry": {
+      "title": "Chemistry Records",
+      "description": "Track hair color formulas, developer volumes, mix ratios, and treatment history for perfect results every time."
+    },
+    "photos": {
+      "title": "Before/After Gallery",
+      "description": "Document client transformations with photo galleries. Build your portfolio and showcase your work."
+    },
+    "analytics": {
+      "title": "Revenue Analytics",
+      "description": "Real-time insights into your earnings, popular services, peak hours, and growth trends."
+    },
+    "reminders": {
+      "title": "Smart Reminders",
+      "description": "Reduce no-shows with automated SMS and email reminders sent before appointments."
+    },
+    "queue": {
+      "title": "Walk-in Queue",
+      "description": "Manage walk-in clients with real-time queue tracking and estimated wait times."
+    },
+    "inventory": {
+      "title": "Inventory Tracking",
+      "description": "Never run out of supplies. Track stock levels and get alerts when items are low."
+    },
+    "smartBooking": {
+      "title": "Smart Booking",
+      "description": "Let clients book 24/7 with intelligent scheduling that prevents double-bookings and optimizes your day."
+    },
+    "clientManagement": {
+      "title": "Client Management",
+      "description": "Complete client profiles with visit history, preferences, and chemistry records at your fingertips."
+    },
+    "teamScheduling": {
+      "title": "Team Scheduling",
+      "description": "Manage your entire team's schedule, track performance, and assign appointments effortlessly."
+    },
+    "revenueAnalytics": {
+      "title": "Revenue Analytics",
+      "description": "Real-time insights into your earnings, popular services, and growth trends."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back",
+    "overview": "Overview",
+    "todayAppointments": "Today's Schedule",
+    "revenue": "Today's Revenue",
+    "recentClients": "Recent Clients",
+    "quickActions": "Quick Actions",
+    "noAppointments": "No appointments scheduled",
+    "viewAll": "View All"
+  },
+  "dashboardPreview": {
+    "badge": "Intuitive Dashboard",
+    "title": "Your Shop at a",
+    "titleHighlight": "Glance",
+    "subtitle": "A beautiful, powerful command center that puts everything you need right at your fingertips.",
+    "greeting": "Good morning, Alex",
+    "subgreeting": "Here's what's happening today",
+    "weeklyRevenue": "Weekly Revenue",
+    "days": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "appointments": "Appointments",
+    "queue": "Walk-in Queue",
+    "clients": "Clients",
+    "team": "Team",
+    "services": "Services",
+    "inventory": "Inventory",
+    "analytics": "Analytics",
+    "onlineBooking": "Online Booking",
+    "reminders": "Reminders",
+    "billing": "Billing",
+    "settings": "Settings"
+  },
+  "appointments": {
+    "title": "Appointments",
+    "new": "New Appointment",
+    "today": "Today",
+    "upcoming": "Upcoming",
+    "past": "Past",
+    "all": "All",
+    "status": {
+      "scheduled": "Scheduled",
+      "confirmed": "Confirmed",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "noShow": "No Show"
+    },
+    "selectClient": "Select Client",
+    "selectService": "Select Service",
+    "selectDate": "Select Date",
+    "selectTime": "Select Time",
+    "notes": "Notes"
+  },
+  "clients": {
+    "title": "Clients",
+    "new": "New Client",
+    "search": "Search clients...",
+    "totalClients": "Total Clients",
+    "recentVisit": "Recent Visit",
+    "noClients": "No clients yet",
+    "addFirst": "Add your first client",
+    "details": {
+      "contact": "Contact Information",
+      "visits": "Visit History",
+      "preferences": "Preferences",
+      "notes": "Notes",
+      "chemistry": "Chemistry Records",
+      "photos": "Before/After Photos"
+    }
+  },
+  "chemistry": {
+    "title": "Chemistry Records",
+    "new": "New Record",
+    "treatmentType": "Treatment Type",
+    "brand": "Brand",
+    "productLine": "Product Line",
+    "colorCode": "Color Code",
+    "developerVolume": "Developer Volume",
+    "mixRatio": "Mix Ratio",
+    "processingTime": "Processing Time",
+    "heatApplied": "Heat Applied",
+    "formulaNotes": "Formula Notes",
+    "results": "Results",
+    "patchTest": "Patch Test",
+    "types": {
+      "color": "Color",
+      "highlights": "Highlights",
+      "lowlights": "Lowlights",
+      "balayage": "Balayage",
+      "bleach": "Bleach",
+      "toner": "Toner",
+      "gloss": "Gloss",
+      "relaxer": "Relaxer",
+      "perm": "Perm",
+      "keratin": "Keratin"
+    }
+  },
+  "photos": {
+    "title": "Before/After Photos",
+    "upload": "Upload Photo",
+    "before": "Before",
+    "after": "After",
+    "compare": "Compare",
+    "noPhotos": "No photos yet"
+  },
+  "services": {
+    "title": "Services",
+    "new": "New Service",
+    "name": "Service Name",
+    "price": "Price",
+    "duration": "Duration",
+    "category": "Category",
+    "description": "Description",
+    "categories": {
+      "haircut": "Haircut",
+      "beard": "Beard",
+      "color": "Color",
+      "treatment": "Treatment",
+      "package": "Package"
+    }
+  },
+  "team": {
+    "title": "Team",
+    "invite": "Invite Member",
+    "role": "Role",
+    "roles": {
+      "owner": "Owner",
+      "manager": "Manager",
+      "barber": "Barber",
+      "receptionist": "Receptionist"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "pending": "Pending"
+    }
+  },
+  "queue": {
+    "title": "Walk-in Queue",
+    "addWalkIn": "Add Walk-in",
+    "position": "Position",
+    "waitTime": "Wait Time",
+    "estimatedWait": "Est. Wait",
+    "status": {
+      "waiting": "Waiting",
+      "inService": "In Service",
+      "completed": "Completed",
+      "noShow": "No Show"
+    },
+    "empty": "No one in queue",
+    "minutes": "min"
+  },
+  "inventory": {
+    "title": "Inventory",
+    "addItem": "Add Item",
+    "addCategory": "Add Category",
+    "categories": "Categories",
+    "items": "Items",
+    "stockIn": "Stock In",
+    "stockOut": "Stock Out",
+    "lowStock": "Low Stock",
+    "quantity": "Quantity",
+    "minStock": "Min Stock",
+    "cost": "Cost",
+    "sku": "SKU",
+    "transactions": "Transactions"
+  },
+  "analytics": {
+    "title": "Analytics",
+    "revenue": "Revenue",
+    "appointments": "Appointments",
+    "clients": "Clients",
+    "services": "Top Services",
+    "peakHours": "Peak Hours",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month",
+    "thisYear": "This Year",
+    "growth": "Growth",
+    "compared": "compared to last period"
+  },
+  "booking": {
+    "title": "Online Booking",
+    "publicLink": "Public Booking Link",
+    "copy": "Copy Link",
+    "settings": "Booking Settings",
+    "advanceDays": "Advance Booking Days",
+    "slotDuration": "Slot Duration",
+    "businessHours": "Business Hours",
+    "enabled": "Booking Enabled",
+    "selectService": "Select a Service",
+    "selectDateTime": "Select Date & Time",
+    "yourDetails": "Your Details",
+    "confirmation": "Confirmation",
+    "bookNow": "Book Now",
+    "thankYou": "Thank You!",
+    "bookingConfirmed": "Your appointment is confirmed"
+  },
+  "reminders": {
+    "title": "Reminders",
+    "email": "Email Reminders",
+    "sms": "SMS Reminders",
+    "hoursBefore": "Hours Before",
+    "template": "Template",
+    "followUp": "Follow-up Email"
+  },
+  "billing": {
+    "title": "Billing",
+    "currentPlan": "Current Plan",
+    "upgrade": "Upgrade",
+    "paymentMethod": "Payment Method",
+    "invoices": "Invoices",
+    "plans": {
+      "starter": "Starter",
+      "pro": "Pro",
+      "enterprise": "Enterprise"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile",
+    "shop": "Shop Settings",
+    "language": "Language",
+    "notifications": "Notifications",
+    "security": "Security",
+    "shopName": "Shop Name",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "timezone": "Timezone",
+    "currency": "Currency"
+  },
+  "auth": {
+    "login": "Log In",
+    "signUp": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember me",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "createAccount": "Create Account",
+    "shopName": "Shop Name",
+    "fullName": "Full Name",
+    "termsAgree": "I agree to the Terms of Service",
+    "checkEmail": "Check Your Email",
+    "confirmationSent": "We've sent a confirmation link to your email address.",
+    "error": "Authentication Error",
+    "tryAgain": "Please try again or contact support."
+  },
+  "pricing": {
+    "title": "Simple, Transparent Pricing",
+    "subtitle": "Start free, upgrade when you need more.",
+    "sectionLabel": "Pricing",
+    "sectionTitle": "Simple, Transparent",
+    "sectionTitleHighlight": "Pricing",
+    "sectionSubtitle": "Start free, upgrade when you need more. No hidden fees, no contracts.",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "save": "Save 20%",
+    "perMonth": "/month",
+    "popular": "Most Popular",
+    "features": "Features",
+    "getStarted": "Get Started",
+    "currentPlan": "Current Plan",
+    "starter": {
+      "name": "Starter",
+      "price": "0",
+      "description": "Perfect for solo barbers just getting started",
+      "features": [
+        "Up to 50 appointments/month",
+        "Basic client management",
+        "Online booking page",
+        "Email support"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "29",
+      "description": "For growing shops that need more power",
+      "features": [
+        "Unlimited appointments",
+        "Full client management",
+        "Chemistry records",
+        "Team management (up to 5)",
+        "Analytics dashboard",
+        "SMS reminders",
+        "Priority support"
+      ]
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "price": "79",
+      "description": "For multi-location businesses",
+      "features": [
+        "Everything in Pro",
+        "Unlimited team members",
+        "Multiple locations",
+        "Custom integrations",
+        "API access",
+        "Dedicated account manager"
+      ]
+    }
+  },
+  "testimonials": {
+    "title": "Trusted by Barbers Worldwide",
+    "subtitle": "See what shop owners are saying about Tresser",
+    "sectionLabel": "Testimonials",
+    "sectionTitle": "Trusted by",
+    "sectionTitleHighlight": "Barbers",
+    "sectionTitleEnd": "Worldwide",
+    "sectionSubtitle": "See what shop owners are saying about Tresser",
+    "featured": "Featured",
+    "testimonial1": {
+      "quote": "Tresser completely transformed how I run my barbershop. The booking system alone saves me hours every week.",
+      "author": "Marcus Thompson",
+      "role": "Owner, Prime Cuts",
+      "location": "New York, USA"
+    },
+    "testimonial2": {
+      "quote": "The analytics helped me understand my peak hours and optimize my team's schedule. Revenue is up 35%.",
+      "author": "Carlos Rivera",
+      "role": "Manager, Style Studio",
+      "location": "Miami, USA"
+    },
+    "testimonial3": {
+      "quote": "The client chemistry records are a game changer. I can recreate perfect formulas every single time.",
+      "author": "James Mitchell",
+      "role": "Founder, The Gentleman's Cut",
+      "location": "London, UK"
+    },
+    "testimonial4": {
+      "quote": "Walk-in queue management changed everything. No more chaos, clients love the transparency.",
+      "author": "David Wilson",
+      "role": "Owner, Fresh Fades",
+      "location": "Chicago, USA"
+    },
+    "testimonial5": {
+      "quote": "Finally software that understands barbers. The inventory tracking alone pays for itself.",
+      "author": "Michael Chen",
+      "role": "Owner, Urban Cuts",
+      "location": "Los Angeles, USA"
+    },
+    "testimonial6": {
+      "quote": "My team productivity increased by 40% since we started using Tresser. Highly recommended!",
+      "author": "Anthony Johnson",
+      "role": "Manager, Classic Barbers",
+      "location": "Toronto, Canada"
+    }
+  },
+  "cta": {
+    "title": "Ready to Transform",
+    "titleHighlight": "Your Shop?",
+    "subtitle": "Join thousands of barbers who've upgraded their business with Tresser.",
+    "button": "Start Your Free Trial"
+  },
+  "footer": {
+    "description": "The modern operating system for barbershops. Manage bookings, clients, and grow your business.",
+    "product": "Product",
+    "company": "Company",
+    "legal": "Legal",
+    "about": "About",
+    "careers": "Careers",
+    "blog": "Blog",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "contact": "Contact",
+    "copyright": "All rights reserved."
+  }
+}
