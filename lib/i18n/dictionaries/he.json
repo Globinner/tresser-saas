@@ -51,6 +51,8 @@
     "totalAppointments": "סה״כ תורים",
     "totalClients": "סה״כ לקוחות",
     "monthlyRevenue": "הכנסות חודשיות",
+    "todayAppointments": "תורים להיום",
+    "completedCuts": "תספורות שהושלמו",
     "queueSize": "גודל התור",
     "addAppointment": "הוסף תור",
     "addClient": "הוסף לקוח",

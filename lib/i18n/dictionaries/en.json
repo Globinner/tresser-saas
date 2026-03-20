@@ -51,6 +51,8 @@
     "totalAppointments": "Total Appointments",
     "totalClients": "Total Clients",
     "monthlyRevenue": "Monthly Revenue",
+    "todayAppointments": "Today's Appointments",
+    "completedCuts": "Completed Cuts",
     "queueSize": "Queue Size",
     "addAppointment": "Add Appointment",
     "addClient": "Add Client",

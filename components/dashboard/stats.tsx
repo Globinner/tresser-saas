@@ -1,6 +1,8 @@
 "use client"
 
 import { Calendar, Users, DollarSign, CheckCircle } from "lucide-react"
+import { useLanguage } from "@/lib/i18n/language-context"
+import { useCurrency } from "@/lib/currency-context"
 
 interface DashboardStatsProps {
   todayAppointments: number
@@ -15,30 +17,33 @@ export function DashboardStats({
   monthlyRevenue,
   completedAppointments,
 }: DashboardStatsProps) {
+  const { t } = useLanguage()
+  const { formatPrice } = useCurrency()
+  
   const stats = [
     {
-      name: "Today's Appointments",
+      name: t("demo.todayAppointments"),
       value: todayAppointments,
       icon: Calendar,
       change: "+12%",
       changeType: "positive" as const,
     },
     {
-      name: "Total Clients",
+      name: t("demo.totalClients"),
       value: totalClients,
       icon: Users,
       change: "+8%",
       changeType: "positive" as const,
     },
     {
-      name: "Monthly Revenue",
-      value: `$${monthlyRevenue.toLocaleString()}`,
+      name: t("demo.monthlyRevenue"),
+      value: formatPrice(monthlyRevenue),
       icon: DollarSign,
       change: "+23%",
       changeType: "positive" as const,
     },
     {
-      name: "Completed Cuts",
+      name: t("demo.completedCuts"),
       value: completedAppointments,
       icon: CheckCircle,
       change: "+15%",

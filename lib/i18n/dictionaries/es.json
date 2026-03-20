@@ -51,6 +51,8 @@
     "totalAppointments": "Total de Citas",
     "totalClients": "Total de Clientes",
     "monthlyRevenue": "Ingresos Mensuales",
+    "todayAppointments": "Citas de Hoy",
+    "completedCuts": "Cortes Completados",
     "queueSize": "Tamaño de Cola",
     "addAppointment": "Agregar Cita",
     "addClient": "Agregar Cliente",
