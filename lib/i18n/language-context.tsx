@@ -98,10 +98,19 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   )
 }
 
-export function useLanguage() {
+export function useLanguage(): LanguageContextType {
   const context = useContext(LanguageContext)
+  
+  // Return safe defaults if context is not available (SSR or outside provider)
   if (context === undefined) {
-    throw new Error('useLanguage must be used within a LanguageProvider')
+    return {
+      locale: 'en' as Locale,
+      setLocale: () => {},
+      dict: null,
+      t: (key: string) => key,
+      isRTL: false,
+      isLoading: true,
+    }
   }
   return context
 }
