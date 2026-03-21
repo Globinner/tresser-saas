@@ -1,8 +1,13 @@
 import Link from "next/link"
-import { Scissors, AlertTriangle, ArrowLeft } from "lucide-react"
+import { Scissors, AlertTriangle, ArrowLeft, RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-export default function AuthErrorPage() {
+export default async function AuthErrorPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ message?: string }>
+}) {
+  const { message } = await searchParams
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 grain">
       {/* Background effects */}
@@ -28,19 +33,28 @@ export default function AuthErrorPage() {
           </div>
 
           <h1 className="text-2xl font-bold mb-2">Authentication Error</h1>
-          <p className="text-muted-foreground mb-8">
-            Something went wrong during authentication. Please try again or contact support if the issue persists.
+          <p className="text-muted-foreground mb-4">
+            {message || "Something went wrong during authentication."}
+          </p>
+          <p className="text-muted-foreground text-sm mb-8">
+            If you keep seeing this error, try clearing your session below.
           </p>
 
           <div className="space-y-3">
-            <Link href="/auth/login">
+            <Link href="/auth/logout">
               <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 glow-amber-soft">
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Clear Session & Try Again
+              </Button>
+            </Link>
+            <Link href="/auth/login">
+              <Button variant="outline" className="w-full border-border hover:bg-secondary">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Login
               </Button>
             </Link>
             <Link href="/">
-              <Button variant="outline" className="w-full border-border hover:bg-secondary">
+              <Button variant="ghost" className="w-full">
                 Back to Home
               </Button>
             </Link>
