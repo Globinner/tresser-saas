@@ -20,6 +20,8 @@ import {
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useLanguage } from "@/lib/i18n/language-context"
+import { LanguageSwitcher } from "@/components/language-switcher"
 import type { User } from "@supabase/supabase-js"
 
 interface Profile {
@@ -43,16 +45,17 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
   const pathname = usePathname()
   const router = useRouter()
   const supabase = createClient()
+  const { t, isRTL } = useLanguage()
   
   const navigation = [
-    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Appointments", href: "/dashboard/appointments", icon: Calendar },
-    { name: "Clients", href: "/dashboard/clients", icon: Users },
-    { name: "Team", href: "/dashboard/team", icon: Briefcase },
-    { name: "Services", href: "/dashboard/services", icon: Scissors },
-    { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
-    { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
-    { name: "Settings", href: "/dashboard/settings", icon: Settings },
+    { name: t("sidebar.dashboard"), href: "/dashboard", icon: LayoutDashboard },
+    { name: t("sidebar.appointments"), href: "/dashboard/appointments", icon: Calendar },
+    { name: t("sidebar.clients"), href: "/dashboard/clients", icon: Users },
+    { name: t("sidebar.team"), href: "/dashboard/team", icon: Briefcase },
+    { name: t("sidebar.services"), href: "/dashboard/services", icon: Scissors },
+    { name: t("sidebar.analytics"), href: "/dashboard/analytics", icon: BarChart3 },
+    { name: t("sidebar.billing"), href: "/dashboard/billing", icon: CreditCard },
+    { name: t("sidebar.settings"), href: "/dashboard/settings", icon: Settings },
   ]
 
   async function handleSignOut() {
@@ -62,7 +65,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
   }
 
   // Get current page title
-  const currentPage = navigation.find(item => item.href === pathname)?.name || "Dashboard"
+  const currentPage = navigation.find(item => item.href === pathname)?.name || t("sidebar.dashboard")
 
   return (
     <>
@@ -82,7 +85,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
           <h1 className="text-lg font-semibold">{currentPage}</h1>
 
           {/* Right side actions */}
-          <div className="flex items-center gap-4 ml-auto">
+          <div className={cn("flex items-center gap-4", isRTL ? "mr-auto" : "ml-auto")}>
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full" />
@@ -101,7 +104,10 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50">
           <div className="fixed inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className="fixed inset-y-0 left-0 w-72 glass-strong p-6 border-r border-border">
+          <div className={cn(
+            "fixed inset-y-0 w-72 glass-strong p-6 border-border",
+            isRTL ? "right-0 border-l" : "left-0 border-r"
+          )}>
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center glow-amber-soft">
@@ -119,18 +125,23 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
             </div>
 
             {profile?.shops && (
-              <div className="px-3 py-2 rounded-lg bg-secondary/50 border border-border mb-6">
-                <p className="text-xs text-muted-foreground">Current Shop</p>
+              <div className="px-3 py-2 rounded-lg bg-secondary/50 border border-border mb-4">
+                <p className="text-xs text-muted-foreground">{t("demo.shopInfo") || "Current Shop"}</p>
                 <p className="font-medium truncate">{profile.shops.name}</p>
               </div>
             )}
+
+            {/* Language Switcher in mobile */}
+            <div className="mb-6">
+              <LanguageSwitcher />
+            </div>
 
             <nav className="flex flex-col gap-1">
               {navigation.map((item) => {
                 const isActive = pathname === item.href
                 return (
                   <Link
-                    key={item.name}
+                    key={item.href}
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
                     className={cn(
@@ -162,7 +173,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
                 className="w-full flex items-center gap-3 rounded-lg p-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
               >
                 <LogOut className="h-5 w-5" />
-                Sign out
+                {t("nav.logout")}
               </button>
             </div>
           </div>

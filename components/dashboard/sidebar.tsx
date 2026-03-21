@@ -20,6 +20,8 @@ import {
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
+import { useLanguage } from "@/lib/i18n/language-context"
+import { LanguageSwitcher } from "@/components/language-switcher"
 import type { User } from "@supabase/supabase-js"
 
 interface Profile {
@@ -42,20 +44,21 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
   const supabase = createClient()
+  const { t, isRTL } = useLanguage()
   
   const navigation = [
-    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Appointments", href: "/dashboard/appointments", icon: Calendar },
-    { name: "Queue", href: "/dashboard/queue", icon: UsersRound },
-    { name: "Clients", href: "/dashboard/clients", icon: Users },
-    { name: "Team", href: "/dashboard/team", icon: Briefcase },
-    { name: "Services", href: "/dashboard/services", icon: Scissors },
-    { name: "Inventory", href: "/dashboard/inventory", icon: Package },
-    { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
-    { name: "Online Booking", href: "/dashboard/settings?tab=booking", icon: Globe },
-    { name: "Reminders", href: "/dashboard/settings?tab=reminders", icon: Bell },
-    { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
-    { name: "Settings", href: "/dashboard/settings", icon: Settings },
+    { name: t("sidebar.dashboard"), href: "/dashboard", icon: LayoutDashboard },
+    { name: t("sidebar.appointments"), href: "/dashboard/appointments", icon: Calendar },
+    { name: t("sidebar.queue"), href: "/dashboard/queue", icon: UsersRound },
+    { name: t("sidebar.clients"), href: "/dashboard/clients", icon: Users },
+    { name: t("sidebar.team"), href: "/dashboard/team", icon: Briefcase },
+    { name: t("sidebar.services"), href: "/dashboard/services", icon: Scissors },
+    { name: t("sidebar.inventory"), href: "/dashboard/inventory", icon: Package },
+    { name: t("sidebar.analytics"), href: "/dashboard/analytics", icon: BarChart3 },
+    { name: t("sidebar.onlineBooking"), href: "/dashboard/settings?tab=booking", icon: Globe },
+    { name: t("sidebar.reminders"), href: "/dashboard/settings?tab=reminders", icon: Bell },
+    { name: t("sidebar.billing"), href: "/dashboard/billing", icon: CreditCard },
+    { name: t("sidebar.settings"), href: "/dashboard/settings", icon: Settings },
   ]
 
   async function handleSignOut() {
@@ -67,8 +70,14 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
   return (
     <>
       {/* Desktop sidebar */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-        <div className="flex grow flex-col gap-y-5 overflow-y-auto glass-strong px-6 pb-4 border-r border-border">
+      <div className={cn(
+        "hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col",
+        isRTL ? "lg:right-0" : "lg:left-0"
+      )}>
+        <div className={cn(
+          "flex grow flex-col gap-y-5 overflow-y-auto glass-strong px-6 pb-4 border-border",
+          isRTL ? "border-l" : "border-r"
+        )}>
           {/* Logo */}
           <div className="flex h-16 shrink-0 items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center glow-amber-soft">
@@ -80,10 +89,15 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
           {/* Shop name */}
           {profile?.shops && (
             <div className="px-3 py-2 rounded-lg bg-secondary/50 border border-border">
-              <p className="text-xs text-muted-foreground">Current Shop</p>
+              <p className="text-xs text-muted-foreground">{t("demo.shopInfo") || "Current Shop"}</p>
               <p className="font-medium truncate">{profile.shops.name}</p>
             </div>
           )}
+
+          {/* Language Switcher */}
+          <div className="px-1">
+            <LanguageSwitcher />
+          </div>
 
           {/* Navigation */}
           <nav className="flex flex-1 flex-col">
@@ -91,7 +105,7 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
               {navigation.map((item) => {
                 const isActive = pathname === item.href
                 return (
-                  <li key={item.name}>
+                  <li key={item.href}>
                     <Link
                       href={item.href}
                       className={cn(
@@ -132,7 +146,7 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
                 className="w-full mt-2 flex items-center gap-x-3 rounded-lg p-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
               >
                 <LogOut className="h-5 w-5" />
-                Sign out
+                {t("nav.logout")}
               </button>
             </div>
           </nav>
