@@ -1,3 +1,3 @@
 // Re-export from language-context for backwards compatibility
-// This file provides the @/lib/i18n/context import path
+// Provides @/lib/i18n/context import path for all components
 export { LanguageProvider, useLanguage } from './language-context'
