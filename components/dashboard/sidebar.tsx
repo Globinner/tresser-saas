@@ -20,7 +20,6 @@ import {
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { useLanguage } from "@/lib/i18n/language-context"
 import type { User } from "@supabase/supabase-js"
 
 interface Profile {
@@ -43,21 +42,20 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
   const supabase = createClient()
-  const { isRTL, t } = useLanguage()
   
   const navigation = [
-    { name: t("demo.dashboard"), href: "/dashboard", icon: LayoutDashboard },
-    { name: t("demo.appointments"), href: "/dashboard/appointments", icon: Calendar },
-    { name: t("demo.queue"), href: "/dashboard/queue", icon: UsersRound },
-    { name: t("demo.clients"), href: "/dashboard/clients", icon: Users },
-    { name: t("demo.team"), href: "/dashboard/team", icon: Briefcase },
-    { name: t("demo.services"), href: "/dashboard/services", icon: Scissors },
-    { name: t("demo.inventory"), href: "/dashboard/inventory", icon: Package },
-    { name: t("demo.analytics"), href: "/dashboard/analytics", icon: BarChart3 },
-    { name: t("settings.onlineBooking"), href: "/dashboard/settings?tab=booking", icon: Globe },
-    { name: t("settings.reminders"), href: "/dashboard/settings?tab=reminders", icon: Bell },
-    { name: t("settings.billing"), href: "/dashboard/billing", icon: CreditCard },
-    { name: t("demo.settings"), href: "/dashboard/settings", icon: Settings },
+    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { name: "Appointments", href: "/dashboard/appointments", icon: Calendar },
+    { name: "Queue", href: "/dashboard/queue", icon: UsersRound },
+    { name: "Clients", href: "/dashboard/clients", icon: Users },
+    { name: "Team", href: "/dashboard/team", icon: Briefcase },
+    { name: "Services", href: "/dashboard/services", icon: Scissors },
+    { name: "Inventory", href: "/dashboard/inventory", icon: Package },
+    { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
+    { name: "Online Booking", href: "/dashboard/settings?tab=booking", icon: Globe },
+    { name: "Reminders", href: "/dashboard/settings?tab=reminders", icon: Bell },
+    { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
+    { name: "Settings", href: "/dashboard/settings", icon: Settings },
   ]
 
   async function handleSignOut() {
@@ -69,14 +67,8 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
   return (
     <>
       {/* Desktop sidebar */}
-      <div className={cn(
-        "hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col",
-        isRTL ? "lg:right-0" : "lg:left-0"
-      )}>
-        <div className={cn(
-          "flex grow flex-col gap-y-5 overflow-y-auto glass-strong px-6 pb-4",
-          isRTL ? "border-l border-border" : "border-r border-border"
-        )}>
+      <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+        <div className="flex grow flex-col gap-y-5 overflow-y-auto glass-strong px-6 pb-4 border-r border-border">
           {/* Logo */}
           <div className="flex h-16 shrink-0 items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center glow-amber-soft">
@@ -104,7 +96,6 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
                       href={item.href}
                       className={cn(
                         "group flex gap-x-3 rounded-lg p-3 text-sm font-medium transition-all duration-200",
-                        isRTL && "flex-row-reverse text-right",
                         isActive 
                           ? "bg-primary/20 text-primary glow-amber-soft" 
                           : "text-muted-foreground hover:text-foreground hover:bg-secondary"
@@ -123,11 +114,11 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
 
             {/* User section */}
             <div className="mt-auto pt-4 border-t border-border">
-              <div className={cn("flex items-center gap-3 px-3 py-2", isRTL && "flex-row-reverse")}>
+              <div className="flex items-center gap-3 px-3 py-2">
                 <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-medium">
                   {profile?.full_name?.charAt(0) || user.email?.charAt(0)?.toUpperCase()}
                 </div>
-                <div className={cn("flex-1 min-w-0", isRTL && "text-right")}>
+                <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">
                     {profile?.full_name || "User"}
                   </p>
@@ -138,10 +129,7 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
               </div>
               <button
                 onClick={handleSignOut}
-                className={cn(
-                  "w-full mt-2 flex items-center gap-x-3 rounded-lg p-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors",
-                  isRTL && "flex-row-reverse"
-                )}
+                className="w-full mt-2 flex items-center gap-x-3 rounded-lg p-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
               >
                 <LogOut className="h-5 w-5" />
                 Sign out

@@ -20,7 +20,6 @@ import {
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { useLanguage } from "@/lib/i18n/language-context"
 import type { User } from "@supabase/supabase-js"
 
 interface Profile {
@@ -44,17 +43,16 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
   const pathname = usePathname()
   const router = useRouter()
   const supabase = createClient()
-  const { isRTL, t } = useLanguage()
   
   const navigation = [
-    { name: t("demo.dashboard"), href: "/dashboard", icon: LayoutDashboard },
-    { name: t("demo.appointments"), href: "/dashboard/appointments", icon: Calendar },
-    { name: t("demo.clients"), href: "/dashboard/clients", icon: Users },
-    { name: t("demo.team"), href: "/dashboard/team", icon: Briefcase },
-    { name: t("demo.services"), href: "/dashboard/services", icon: Scissors },
-    { name: t("demo.analytics"), href: "/dashboard/analytics", icon: BarChart3 },
-    { name: t("settings.billing"), href: "/dashboard/billing", icon: CreditCard },
-    { name: t("demo.settings"), href: "/dashboard/settings", icon: Settings },
+    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { name: "Appointments", href: "/dashboard/appointments", icon: Calendar },
+    { name: "Clients", href: "/dashboard/clients", icon: Users },
+    { name: "Team", href: "/dashboard/team", icon: Briefcase },
+    { name: "Services", href: "/dashboard/services", icon: Scissors },
+    { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
+    { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
+    { name: "Settings", href: "/dashboard/settings", icon: Settings },
   ]
 
   async function handleSignOut() {
@@ -69,7 +67,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
   return (
     <>
       <header className="sticky top-0 z-40 glass-strong border-b border-border">
-        <div className={cn("flex h-16 items-center gap-4 px-6", isRTL && "flex-row-reverse")}>
+        <div className="flex h-16 items-center gap-4 px-6">
           {/* Mobile menu button */}
           <button
             type="button"
@@ -84,10 +82,10 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
           <h1 className="text-lg font-semibold">{currentPage}</h1>
 
           {/* Right side actions */}
-          <div className={cn("flex items-center gap-4", isRTL ? "mr-auto" : "ml-auto")}>
+          <div className="flex items-center gap-4 ml-auto">
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5" />
-              <span className={cn("absolute top-1 w-2 h-2 bg-primary rounded-full", isRTL ? "left-1" : "right-1")} />
+              <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full" />
             </Button>
             
             <div className="hidden sm:flex items-center gap-3">
@@ -103,12 +101,9 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50">
           <div className="fixed inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className={cn(
-            "fixed inset-y-0 w-72 glass-strong p-6",
-            isRTL ? "right-0 border-l border-border" : "left-0 border-r border-border"
-          )}>
-            <div className={cn("flex items-center justify-between mb-8", isRTL && "flex-row-reverse")}>
-              <div className={cn("flex items-center gap-3", isRTL && "flex-row-reverse")}>
+          <div className="fixed inset-y-0 left-0 w-72 glass-strong p-6 border-r border-border">
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center glow-amber-soft">
                   <Scissors className="w-5 h-5 text-primary" />
                 </div>
@@ -140,7 +135,6 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
                     onClick={() => setMobileMenuOpen(false)}
                     className={cn(
                       "flex items-center gap-3 rounded-lg p-3 text-sm font-medium transition-all",
-                      isRTL && "flex-row-reverse text-right",
                       isActive 
                         ? "bg-primary/20 text-primary" 
                         : "text-muted-foreground hover:text-foreground hover:bg-secondary"
@@ -154,21 +148,18 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
             </nav>
 
             <div className="mt-auto pt-6 border-t border-border absolute bottom-6 left-6 right-6">
-              <div className={cn("flex items-center gap-3 mb-4", isRTL && "flex-row-reverse")}>
+              <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-medium">
                   {profile?.full_name?.charAt(0) || user.email?.charAt(0)?.toUpperCase()}
                 </div>
-                <div className={cn("flex-1 min-w-0", isRTL && "text-right")}>
+                <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">{profile?.full_name || "User"}</p>
                   <p className="text-xs text-muted-foreground truncate">{user.email}</p>
                 </div>
               </div>
               <button
                 onClick={handleSignOut}
-                className={cn(
-                  "w-full flex items-center gap-3 rounded-lg p-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors",
-                  isRTL && "flex-row-reverse"
-                )}
+                className="w-full flex items-center gap-3 rounded-lg p-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
               >
                 <LogOut className="h-5 w-5" />
                 Sign out
