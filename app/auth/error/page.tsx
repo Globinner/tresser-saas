@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Scissors, AlertTriangle, ArrowLeft, RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { ResendConfirmation } from "@/components/auth/resend-confirmation"
 
 export default async function AuthErrorPage({
   searchParams,
@@ -8,6 +9,10 @@ export default async function AuthErrorPage({
   searchParams: Promise<{ message?: string }>
 }) {
   const { message } = await searchParams
+  const isVerificationError = message?.toLowerCase().includes('verification') || 
+                               message?.toLowerCase().includes('expired') ||
+                               message?.toLowerCase().includes('token')
+  
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 grain">
       {/* Background effects */}
@@ -36,7 +41,13 @@ export default async function AuthErrorPage({
           <p className="text-muted-foreground mb-4">
             {message || "Something went wrong during authentication."}
           </p>
-          <p className="text-muted-foreground text-sm mb-8">
+          {isVerificationError && (
+            <div className="mb-6 text-left">
+              <ResendConfirmation />
+            </div>
+          )}
+
+          <p className="text-muted-foreground text-sm mb-4">
             If you keep seeing this error, try clearing your session below.
           </p>
 
