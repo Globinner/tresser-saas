@@ -13,9 +13,13 @@ const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512
   </g>
 </svg>`;
 
-const publicDir = '/vercel/share/v0-project/public';
+const publicDir = '/home/user/public';
 
 async function generateFavicons() {
+  // Ensure directory exists
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true });
+  }
   const svgBuffer = Buffer.from(svgContent);
   
   // Generate different sizes
