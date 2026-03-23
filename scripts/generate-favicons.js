@@ -22,7 +22,7 @@ const sizes = [
   { name: 'apple-touch-icon.png', size: 180 },
 ];
 
-const publicDir = path.join(process.cwd(), 'public');
+const publicDir = '/vercel/share/v0-project/public';
 
 async function generateFavicons() {
   const svgBuffer = Buffer.from(svgContent);

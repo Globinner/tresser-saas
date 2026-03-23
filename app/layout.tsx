@@ -44,16 +44,9 @@ export const metadata: Metadata = {
   generator: 'v0.app',
   manifest: '/manifest.json',
   icons: {
-    icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/favicon-16x16.jpg', sizes: '16x16', type: 'image/jpeg' },
-      { url: '/favicon-32x32.jpg', sizes: '32x32', type: 'image/jpeg' },
-      { url: '/icon-192x192.jpg', sizes: '192x192', type: 'image/jpeg' },
-      { url: '/icon-512x512.jpg', sizes: '512x512', type: 'image/jpeg' },
-    ],
-    apple: [
-      { url: '/apple-touch-icon.jpg', sizes: '180x180', type: 'image/jpeg' },
-    ],
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
   },
   appleWebApp: {
     capable: true,
