@@ -101,9 +101,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 export function useLanguage(): LanguageContextType {
   const context = useContext(LanguageContext)
   
-  // CRITICAL FIX: Return safe defaults if context is not available
-  // This prevents "u is not a function" crash when dashboard renders before provider mounts
-  if (!context) {
+  // CRITICAL: Return safe defaults if context unavailable (prevents crash)
+  if (context === undefined || context === null) {
     return {
       locale: 'en' as Locale,
       setLocale: () => {},
