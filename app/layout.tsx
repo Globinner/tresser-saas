@@ -42,22 +42,22 @@ export const metadata: Metadata = {
   title: 'Tresser | Premium Barber SaaS',
   description: 'The ultimate operating system for modern barbershops. Bookings, analytics, and client management—all in one powerful platform.',
   generator: 'v0.app',
+  manifest: '/manifest.json',
   icons: {
     icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
+      { url: '/favicon-16x16.jpg', sizes: '16x16', type: 'image/jpeg' },
+      { url: '/favicon-32x32.jpg', sizes: '32x32', type: 'image/jpeg' },
+      { url: '/icon-192x192.jpg', sizes: '192x192', type: 'image/jpeg' },
+      { url: '/icon-512x512.jpg', sizes: '512x512', type: 'image/jpeg' },
     ],
-    apple: '/apple-icon.png',
+    apple: [
+      { url: '/apple-touch-icon.jpg', sizes: '180x180', type: 'image/jpeg' },
+    ],
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Tresser',
   },
 }
 
