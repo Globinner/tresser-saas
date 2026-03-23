@@ -39,7 +39,7 @@ const notoSansArabic = Noto_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
-  title: 'Tresser | Premium Barber SaaS',
+  title: 'Tresser | Premium Barber SaaS Platform',
   description: 'The ultimate operating system for modern barbershops. Bookings, analytics, and client management—all in one powerful platform.',
   generator: 'v0.app',
   manifest: '/manifest.json',
