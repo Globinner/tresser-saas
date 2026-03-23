@@ -21,6 +21,7 @@ import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { useLanguage } from "@/lib/i18n/language-context"
+import { LanguageSwitcher } from "@/components/language-switcher"
 import type { User } from "@supabase/supabase-js"
 
 interface Profile {
@@ -43,21 +44,21 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
   const supabase = createClient()
-  const { isRTL, t } = useLanguage()
+  const { t, isRTL } = useLanguage()
   
   const navigation = [
-    { name: t("demo.dashboard"), href: "/dashboard", icon: LayoutDashboard },
-    { name: t("demo.appointments"), href: "/dashboard/appointments", icon: Calendar },
-    { name: t("demo.queue"), href: "/dashboard/queue", icon: UsersRound },
-    { name: t("demo.clients"), href: "/dashboard/clients", icon: Users },
-    { name: t("demo.team"), href: "/dashboard/team", icon: Briefcase },
-    { name: t("demo.services"), href: "/dashboard/services", icon: Scissors },
-    { name: t("demo.inventory"), href: "/dashboard/inventory", icon: Package },
-    { name: t("demo.analytics"), href: "/dashboard/analytics", icon: BarChart3 },
-    { name: t("settings.onlineBooking"), href: "/dashboard/settings?tab=booking", icon: Globe },
-    { name: t("settings.reminders"), href: "/dashboard/settings?tab=reminders", icon: Bell },
-    { name: t("settings.billing"), href: "/dashboard/billing", icon: CreditCard },
-    { name: t("demo.settings"), href: "/dashboard/settings", icon: Settings },
+    { name: t("sidebar.dashboard"), href: "/dashboard", icon: LayoutDashboard },
+    { name: t("sidebar.appointments"), href: "/dashboard/appointments", icon: Calendar },
+    { name: t("sidebar.queue"), href: "/dashboard/queue", icon: UsersRound },
+    { name: t("sidebar.clients"), href: "/dashboard/clients", icon: Users },
+    { name: t("sidebar.team"), href: "/dashboard/team", icon: Briefcase },
+    { name: t("sidebar.services"), href: "/dashboard/services", icon: Scissors },
+    { name: t("sidebar.inventory"), href: "/dashboard/inventory", icon: Package },
+    { name: t("sidebar.analytics"), href: "/dashboard/analytics", icon: BarChart3 },
+    { name: t("sidebar.onlineBooking"), href: "/dashboard/settings?tab=booking", icon: Globe },
+    { name: t("sidebar.reminders"), href: "/dashboard/settings?tab=reminders", icon: Bell },
+    { name: t("sidebar.billing"), href: "/dashboard/billing", icon: CreditCard },
+    { name: t("sidebar.settings"), href: "/dashboard/settings", icon: Settings },
   ]
 
   async function handleSignOut() {
@@ -74,8 +75,8 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
         isRTL ? "lg:right-0" : "lg:left-0"
       )}>
         <div className={cn(
-          "flex grow flex-col gap-y-5 overflow-y-auto glass-strong px-6 pb-4",
-          isRTL ? "border-l border-border" : "border-r border-border"
+          "flex grow flex-col gap-y-5 overflow-y-auto glass-strong px-6 pb-4 border-border",
+          isRTL ? "border-l" : "border-r"
         )}>
           {/* Logo */}
           <div className="flex h-16 shrink-0 items-center gap-3">
@@ -88,10 +89,15 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
           {/* Shop name */}
           {profile?.shops && (
             <div className="px-3 py-2 rounded-lg bg-secondary/50 border border-border">
-              <p className="text-xs text-muted-foreground">Current Shop</p>
+              <p className="text-xs text-muted-foreground">{t("demo.shopInfo") || "Current Shop"}</p>
               <p className="font-medium truncate">{profile.shops.name}</p>
             </div>
           )}
+
+          {/* Language Switcher */}
+          <div className="px-1">
+            <LanguageSwitcher />
+          </div>
 
           {/* Navigation */}
           <nav className="flex flex-1 flex-col">
@@ -99,12 +105,11 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
               {navigation.map((item) => {
                 const isActive = pathname === item.href
                 return (
-                  <li key={item.name}>
+                  <li key={item.href}>
                     <Link
                       href={item.href}
                       className={cn(
                         "group flex gap-x-3 rounded-lg p-3 text-sm font-medium transition-all duration-200",
-                        isRTL && "flex-row-reverse text-right",
                         isActive 
                           ? "bg-primary/20 text-primary glow-amber-soft" 
                           : "text-muted-foreground hover:text-foreground hover:bg-secondary"
@@ -123,11 +128,11 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
 
             {/* User section */}
             <div className="mt-auto pt-4 border-t border-border">
-              <div className={cn("flex items-center gap-3 px-3 py-2", isRTL && "flex-row-reverse")}>
+              <div className="flex items-center gap-3 px-3 py-2">
                 <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-medium">
                   {profile?.full_name?.charAt(0) || user.email?.charAt(0)?.toUpperCase()}
                 </div>
-                <div className={cn("flex-1 min-w-0", isRTL && "text-right")}>
+                <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">
                     {profile?.full_name || "User"}
                   </p>
@@ -138,13 +143,10 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
               </div>
               <button
                 onClick={handleSignOut}
-                className={cn(
-                  "w-full mt-2 flex items-center gap-x-3 rounded-lg p-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors",
-                  isRTL && "flex-row-reverse"
-                )}
+                className="w-full mt-2 flex items-center gap-x-3 rounded-lg p-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
               >
                 <LogOut className="h-5 w-5" />
-                Sign out
+                {t("nav.logout")}
               </button>
             </div>
           </nav>

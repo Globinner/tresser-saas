@@ -1,8 +1,9 @@
 "use client"
 
-import { useLanguage } from "@/lib/i18n/language-context"
 import { DashboardSidebar } from "@/components/dashboard/sidebar"
 import { DashboardHeader } from "@/components/dashboard/header"
+import { useLanguage } from "@/lib/i18n/language-context"
+import { cn } from "@/lib/utils"
 import type { User } from "@supabase/supabase-js"
 
 interface Profile {
@@ -25,11 +26,11 @@ interface DashboardLayoutClientProps {
 
 export function DashboardLayoutClient({ user, profile, children }: DashboardLayoutClientProps) {
   const { isRTL } = useLanguage()
-
+  
   return (
-    <div className="min-h-screen bg-background grain">
+    <div className={cn("min-h-screen bg-background grain", isRTL ? "rtl" : "ltr")} dir={isRTL ? "rtl" : "ltr"}>
       <DashboardSidebar user={user} profile={profile} />
-      <div className={isRTL ? "lg:pr-72" : "lg:pl-72"}>
+      <div className={cn("lg:pl-72", isRTL && "lg:pl-0 lg:pr-72")}>
         <DashboardHeader user={user} profile={profile} />
         <main className="p-6">
           {children}
