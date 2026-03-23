@@ -45,10 +45,10 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   icons: {
     icon: [
-      { url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logofinal-PZbiQeLnxWCwGAnKLe1T8Zm8ykqTSo.svg', type: 'image/svg+xml' },
+      { url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/X-eAmSMekxX64wBy3m0bYsUkpFVDw3XE.svg', type: 'image/svg+xml' },
     ],
-    shortcut: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logofinal-PZbiQeLnxWCwGAnKLe1T8Zm8ykqTSo.svg',
-    apple: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logofinal-PZbiQeLnxWCwGAnKLe1T8Zm8ykqTSo.svg',
+    shortcut: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/X-eAmSMekxX64wBy3m0bYsUkpFVDw3XE.svg',
+    apple: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/X-eAmSMekxX64wBy3m0bYsUkpFVDw3XE.svg',
   },
   appleWebApp: {
     capable: true,
