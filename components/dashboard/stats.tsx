@@ -58,23 +58,17 @@ export function DashboardStats({
       {stats.map((stat) => (
         <div
           key={stat.name}
-          className="bg-card border-4 border-red-500 rounded-xl p-6 relative"
+          className="bg-card border border-border rounded-xl p-6 relative"
         >
-          <p className="text-red-500 font-bold mb-2">V0 EDIT WORKING</p>
-          {/* Badge in top right */}
-          <span className="absolute top-6 right-6 text-sm font-medium text-green-500">
+          <span className="absolute top-6 right-6 text-lg font-bold text-green-500">
             {stat.change}
           </span>
           
-          {/* Icon box and text both start at same left edge */}
-          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-            <stat.Icon className="w-6 h-6 text-primary" />
+          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+            <stat.Icon className="w-5 h-5 text-primary" />
           </div>
           
-          {/* Value */}
-          <p className="text-2xl font-bold text-foreground">{stat.value}</p>
-          
-          {/* Label */}
+          <p className="text-2xl font-bold text-foreground mt-4">{stat.value}</p>
           <p className="text-sm text-muted-foreground">{stat.name}</p>
         </div>
       ))}
