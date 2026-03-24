@@ -62,13 +62,11 @@ export function DashboardStats({
       {stats.map((stat) => (
         <div
           key={stat.name}
-          className="glass rounded-xl p-6 hover:border-primary/30 transition-all duration-300 group"
+          className="glass rounded-xl p-6 hover:border-primary/30 transition-all duration-300 group relative"
         >
-          <div className="flex justify-between mb-4">
-            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-              <stat.icon className="w-6 h-6 text-primary" />
-            </div>
-            <span className="text-sm font-medium text-green-500">{stat.change}</span>
+          <span className="absolute top-6 right-6 text-sm font-medium text-green-500">{stat.change}</span>
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors mb-4">
+            <stat.icon className="w-6 h-6 text-primary" />
           </div>
           <p className="text-2xl font-bold">{stat.value}</p>
           <p className="text-sm text-muted-foreground">{stat.name}</p>
