@@ -49,7 +49,8 @@ export function OnboardingProvider({ children, hasShop }: OnboardingProviderProp
       {children}
       {showWalkthrough && (
         <OnboardingWalkthroughModal 
-          onClose={() => setShowWalkthrough(false)} 
+          onClose={() => setShowWalkthrough(false)}
+          hasShop={hasShop}
         />
       )}
     </OnboardingContext.Provider>
@@ -87,8 +88,9 @@ const steps = [
   }
 ]
 
-function OnboardingWalkthroughModal({ onClose }: { onClose: () => void }) {
-  const [currentStep, setCurrentStep] = useState(0)
+function OnboardingWalkthroughModal({ onClose, hasShop }: { onClose: () => void; hasShop: boolean }) {
+  // If no shop, force step 0; otherwise allow any step
+  const [currentStep, setCurrentStep] = useState(hasShop ? 1 : 0)
   const { t, isRTL } = useLanguage()
   const router = useRouter()
   
@@ -105,6 +107,13 @@ function OnboardingWalkthroughModal({ onClose }: { onClose: () => void }) {
   }
   
   const nextStep = () => {
+    // If no shop, can't proceed past step 0
+    if (!hasShop && currentStep === 0) {
+      // Just go to settings, don't advance
+      goToStep(0)
+      return
+    }
+    
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1)
     } else {
@@ -121,6 +130,8 @@ function OnboardingWalkthroughModal({ onClose }: { onClose: () => void }) {
   const step = steps[currentStep]
   const StepIcon = step.icon
   const isLastStep = currentStep === steps.length - 1
+  const isShopStep = currentStep === 0
+  const needsShopFirst = !hasShop && currentStep > 0
   
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4">
@@ -166,6 +177,13 @@ function OnboardingWalkthroughModal({ onClose }: { onClose: () => void }) {
             <p className="text-muted-foreground mb-4">
               {t(step.descriptionKey)}
             </p>
+            
+            {/* Warning if no shop and trying to do other steps */}
+            {!hasShop && isShopStep && (
+              <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 mb-4 text-sm text-primary">
+                {t("onboarding.completeThisFirst")}
+              </div>
+            )}
             
             {/* Go to this step button */}
             <Button 
