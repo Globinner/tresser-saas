@@ -694,50 +694,42 @@ export default function DemoPage() {
                   {/* Stats */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <Card className="bg-card border-border">
-                      <CardContent className="p-6">
-                        <div className="flex items-center justify-between">
-                          <div className="p-3 bg-primary/10 rounded-xl">
-                            <Calendar className="h-6 w-6 text-primary" />
-                          </div>
-                          <Badge className="bg-green-500/20 text-green-400">+12%</Badge>
+                      <CardContent className="p-6 relative">
+                        <Badge className="absolute top-6 end-6 bg-green-500/20 text-green-400">+12%</Badge>
+                        <div className="p-3 bg-primary/10 rounded-xl w-fit mb-4">
+                          <Calendar className="h-6 w-6 text-primary" />
                         </div>
-                        <p className="text-3xl font-bold mt-4">5</p>
+                        <p className="text-3xl font-bold">5</p>
                         <p className="text-sm text-muted-foreground">{t("demo.todaysAppointments")}</p>
                       </CardContent>
                     </Card>
                     <Card className="bg-card border-border">
-                      <CardContent className="p-6">
-                        <div className="flex items-center justify-between">
-                          <div className="p-3 bg-primary/10 rounded-xl">
-                            <Users className="h-6 w-6 text-primary" />
-                          </div>
-                          <Badge className="bg-green-500/20 text-green-400">+8%</Badge>
+                      <CardContent className="p-6 relative">
+                        <Badge className="absolute top-6 end-6 bg-green-500/20 text-green-400">+8%</Badge>
+                        <div className="p-3 bg-primary/10 rounded-xl w-fit mb-4">
+                          <Users className="h-6 w-6 text-primary" />
                         </div>
-                        <p className="text-3xl font-bold mt-4">127</p>
+                        <p className="text-3xl font-bold">127</p>
                         <p className="text-sm text-muted-foreground">{t("demo.totalClientsLabel")}</p>
                       </CardContent>
                     </Card>
                     <Card className="bg-card border-border">
-                      <CardContent className="p-6">
-                        <div className="flex items-center justify-between">
-                          <div className="p-3 bg-primary/10 rounded-xl">
-                            <DollarSign className="h-6 w-6 text-primary" />
-                          </div>
-                          <Badge className="bg-green-500/20 text-green-400">+23%</Badge>
+                      <CardContent className="p-6 relative">
+                        <Badge className="absolute top-6 end-6 bg-green-500/20 text-green-400">+23%</Badge>
+                        <div className="p-3 bg-primary/10 rounded-xl w-fit mb-4">
+                          <DollarSign className="h-6 w-6 text-primary" />
                         </div>
-                        <p className="text-3xl font-bold mt-4">$4,750</p>
+                        <p className="text-3xl font-bold">$4,750</p>
                         <p className="text-sm text-muted-foreground">{t("demo.thisWeekRevenue")}</p>
                       </CardContent>
                     </Card>
                     <Card className="bg-card border-border">
-                      <CardContent className="p-6">
-                        <div className="flex items-center justify-between">
-                          <div className="p-3 bg-primary/10 rounded-xl">
-                            <Clock className="h-6 w-6 text-primary" />
-                          </div>
-                          <Badge className="bg-yellow-500/20 text-yellow-400">3</Badge>
+                      <CardContent className="p-6 relative">
+                        <Badge className="absolute top-6 end-6 bg-yellow-500/20 text-yellow-400">3</Badge>
+                        <div className="p-3 bg-primary/10 rounded-xl w-fit mb-4">
+                          <Clock className="h-6 w-6 text-primary" />
                         </div>
-                        <p className="text-3xl font-bold mt-4">3</p>
+                        <p className="text-3xl font-bold">3</p>
                         <p className="text-sm text-muted-foreground">{t("demo.walkInsWaiting")}</p>
                       </CardContent>
                     </Card>
