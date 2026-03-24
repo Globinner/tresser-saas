@@ -64,7 +64,7 @@ export function DashboardStats({
             {stat.change}
           </span>
           
-          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-end justify-start pl-1 pb-1">
             <stat.Icon className="w-5 h-5 text-primary" />
           </div>
           
