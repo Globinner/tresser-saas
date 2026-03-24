@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { InventoryManagement } from "@/components/dashboard/inventory-management"
+import { CreateShopFirst } from "@/components/dashboard/create-shop-first"
 
 export default async function InventoryPage() {
   const supabase = await createClient()
@@ -17,7 +18,7 @@ export default async function InventoryPage() {
     .single()
 
   if (!profile?.shop_id) {
-    redirect("/dashboard")
+    return <CreateShopFirst featureName="Inventory" />
   }
 
   return (

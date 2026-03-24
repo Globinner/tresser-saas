@@ -4,7 +4,7 @@ import { TodayAppointments } from "@/components/dashboard/today-appointments"
 import { RevenueChart } from "@/components/dashboard/revenue-chart"
 import { RecentClients } from "@/components/dashboard/recent-clients"
 import { QuickActions } from "@/components/dashboard/quick-actions"
-import { SeedDemoButton } from "@/components/dashboard/seed-demo-button"
+import { WelcomeCard } from "@/components/dashboard/welcome-card"
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -67,13 +67,12 @@ export default async function DashboardPage() {
     .order("created_at", { ascending: false })
     .limit(5)
 
-  // Check if shop has any clients (to show seed button)
-  const hasData = (totalClients || 0) > 0
+  const hasShop = !!shopId
 
   return (
     <div className="space-y-6">
-      {/* Show seed demo data button if no data exists */}
-      {!hasData && <SeedDemoButton />}
+      {/* Show welcome card for new users without a shop */}
+      {!hasShop && <WelcomeCard />}
       
       {/* Stats cards */}
       <DashboardStats

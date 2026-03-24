@@ -6,6 +6,7 @@ import { ProfileSettings } from "./profile-settings"
 import { ShopSettings } from "./shop-settings"
 import { BookingSettings } from "./booking-settings"
 import { ReminderSettings } from "./reminder-settings"
+import { SetupGuideButton } from "./setup-guide-button"
 import { User, Store, Globe, Bell } from "lucide-react"
 import type { User as SupabaseUser } from "@supabase/supabase-js"
 
@@ -74,6 +75,9 @@ export function SettingsTabs({ user, profile }: SettingsTabsProps) {
           </TabsContent>
         </>
       )}
+
+      {/* Setup Guide Button - always visible */}
+      <SetupGuideButton />
     </Tabs>
   )
 }

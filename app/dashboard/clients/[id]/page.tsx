@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect, notFound } from "next/navigation"
 import { ClientDetailView } from "@/components/dashboard/client-detail-view"
+import { CreateShopFirst } from "@/components/dashboard/create-shop-first"
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -24,7 +25,7 @@ export default async function ClientDetailPage({ params }: PageProps) {
     .single()
 
   if (!profile?.shop_id) {
-    redirect("/dashboard")
+    return <CreateShopFirst featureName="Client Details" />
   }
 
   // Get the client
