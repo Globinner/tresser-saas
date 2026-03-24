@@ -25,7 +25,7 @@ export function DashboardStats({
       maximumFractionDigits: 0,
     }).format(amount)
   }
-  
+
   const stats = [
     {
       name: "Today's Appointments",
@@ -54,22 +54,89 @@ export function DashboardStats({
   ]
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" dir="ltr">
-      {stats.map((stat) => (
-        <div
-          key={stat.name}
-          className="glass rounded-xl p-6 hover:border-primary/30 transition-all duration-300 group"
-        >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-            <div style={{ width: '48px', height: '48px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="bg-primary/10 group-hover:bg-primary/20 transition-colors">
-              <stat.icon style={{ width: '24px', height: '24px' }} className="text-primary" />
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gap: '16px',
+        direction: 'ltr',
+      }}
+    >
+      {stats.map((stat) => {
+        const Icon = stat.icon
+        return (
+          <div
+            key={stat.name}
+            style={{
+              background: 'rgba(30, 30, 30, 0.8)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '12px',
+              padding: '24px',
+              position: 'relative',
+              direction: 'ltr',
+              textAlign: 'left',
+            }}
+          >
+            {/* Percentage badge - top right */}
+            <span
+              style={{
+                position: 'absolute',
+                top: '24px',
+                right: '24px',
+                fontSize: '14px',
+                fontWeight: 500,
+                color: '#22c55e',
+              }}
+            >
+              {stat.change}
+            </span>
+
+            {/* Icon - no box, just the icon aligned left */}
+            <div
+              style={{
+                width: '48px',
+                height: '48px',
+                borderRadius: '8px',
+                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '16px',
+              }}
+            >
+              <Icon
+                style={{
+                  width: '24px',
+                  height: '24px',
+                  color: '#f59e0b',
+                }}
+              />
             </div>
-            <span className="text-sm font-medium text-green-500">{stat.change}</span>
+
+            {/* Value */}
+            <div
+              style={{
+                fontSize: '24px',
+                fontWeight: 700,
+                color: '#ffffff',
+                marginBottom: '4px',
+              }}
+            >
+              {stat.value}
+            </div>
+
+            {/* Label */}
+            <div
+              style={{
+                fontSize: '14px',
+                color: 'rgba(255, 255, 255, 0.6)',
+              }}
+            >
+              {stat.name}
+            </div>
           </div>
-          <p style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '4px' }}>{stat.value}</p>
-          <p className="text-sm text-muted-foreground">{stat.name}</p>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }
