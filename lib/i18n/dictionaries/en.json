@@ -604,7 +604,11 @@
     "createShopDescription": "To access this feature, you need to set up your shop. It only takes a minute!",
     "goToSettings": "Go to Settings",
     "welcome": "Welcome to Tresser!",
+    "welcomeSubtitle": "This is your first step to streamline your workflow",
+    "welcomeDescription": "Let us guide you through setting up your shop. It only takes a few minutes and you'll be ready to manage appointments, clients, and grow your business.",
     "letsGetStarted": "Let's get your shop set up",
+    "startSetupGuide": "Start Setup Guide",
+    "maybeLater": "Maybe Later",
     "step1Title": "Name Your Shop",
     "step1Description": "Go to Settings and enter your shop name",
     "step2Title": "Add Your Services",
@@ -619,6 +623,8 @@
     "nextStep": "Next",
     "previousStep": "Back",
     "finishTour": "Finish",
-    "stepOf": "Step {current} of {total}"
+    "stepOf": "Step {current} of {total}",
+    "helpButton": "Setup Guide",
+    "helpButtonDescription": "Need help setting up? Start the guided tour anytime."
   }
 }

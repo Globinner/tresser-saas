@@ -1,6 +1,47 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { createContext, useContext, useState, useCallback, ReactNode } from "react"
+import { OnboardingWalkthrough } from "./onboarding-walkthrough"
+
+interface OnboardingContextType {
+  startWalkthrough: () => void
+}
+
+const OnboardingContext = createContext<OnboardingContextType | null>(null)
+
+export function useOnboardingTrigger() {
+  const context = useContext(OnboardingContext)
+  if (!context) {
+    throw new Error("useOnboardingTrigger must be used within OnboardingProvider")
+  }
+  return context
+}
+
+interface OnboardingProviderProps {
+  children: ReactNode
+  hasShop: boolean
+}
+
+export function OnboardingProvider({ children, hasShop }: OnboardingProviderProps) {
+  const [showWalkthrough, setShowWalkthrough] = useState(false)
+
+  const startWalkthrough = useCallback(() => {
+    setShowWalkthrough(true)
+  }, [])
+
+  return (
+    <OnboardingContext.Provider value={{ startWalkthrough }}>
+      {children}
+      {showWalkthrough && (
+        <OnboardingWalkthroughModal 
+          onClose={() => setShowWalkthrough(false)} 
+        />
+      )}
+    </OnboardingContext.Provider>
+  )
+}
+
+// Separate modal component
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { 
@@ -17,16 +58,7 @@ import {
 import Link from "next/link"
 import { useLanguage } from "@/lib/i18n/context"
 
-const ONBOARDING_STORAGE_KEY = "tresser-onboarding-completed"
-
-interface OnboardingStep {
-  icon: React.ReactNode
-  titleKey: string
-  descriptionKey: string
-  link: string
-}
-
-const steps: OnboardingStep[] = [
+const steps = [
   {
     icon: <Store className="w-6 h-6" />,
     titleKey: "onboarding.step1Title",
@@ -53,26 +85,13 @@ const steps: OnboardingStep[] = [
   }
 ]
 
-export function OnboardingWalkthrough() {
-  const [isVisible, setIsVisible] = useState(false)
+function OnboardingWalkthroughModal({ onClose }: { onClose: () => void }) {
   const [currentStep, setCurrentStep] = useState(0)
   const { t, isRTL } = useLanguage()
   
-  useEffect(() => {
-    // Check if onboarding was already completed
-    const completed = localStorage.getItem(ONBOARDING_STORAGE_KEY)
-    if (!completed) {
-      setIsVisible(true)
-    }
-  }, [])
-  
   const handleComplete = () => {
-    localStorage.setItem(ONBOARDING_STORAGE_KEY, "true")
-    setIsVisible(false)
-  }
-  
-  const handleSkip = () => {
-    handleComplete()
+    localStorage.setItem("tresser-onboarding-completed", "true")
+    onClose()
   }
   
   const nextStep = () => {
@@ -89,8 +108,6 @@ export function OnboardingWalkthrough() {
     }
   }
   
-  if (!isVisible) return null
-  
   const step = steps[currentStep]
   const isLastStep = currentStep === steps.length - 1
   
@@ -104,7 +121,7 @@ export function OnboardingWalkthrough() {
               <Sparkles className="w-5 h-5" />
               <span className="font-medium">{t("onboarding.welcome")}</span>
             </div>
-            <Button variant="ghost" size="icon" onClick={handleSkip}>
+            <Button variant="ghost" size="icon" onClick={onClose}>
               <X className="w-4 h-4" />
             </Button>
           </div>
@@ -124,7 +141,7 @@ export function OnboardingWalkthrough() {
           {/* Step content */}
           <div className="text-center mb-8">
             <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 ${
-              currentStep === steps.length - 1 
+              isLastStep 
                 ? "bg-green-500/10 text-green-500" 
                 : "bg-primary/10 text-primary"
             }`}>
@@ -139,7 +156,6 @@ export function OnboardingWalkthrough() {
               {t(step.descriptionKey)}
             </p>
             
-            {/* Step indicator */}
             <p className="text-sm text-muted-foreground mt-4">
               {t("onboarding.stepOf")
                 .replace("{current}", String(currentStep + 1))
@@ -151,7 +167,7 @@ export function OnboardingWalkthrough() {
           <div className="flex items-center justify-between gap-3">
             <Button 
               variant="ghost" 
-              onClick={handleSkip}
+              onClick={onClose}
               className="text-muted-foreground"
             >
               {t("onboarding.skipTour")}
@@ -191,12 +207,4 @@ export function OnboardingWalkthrough() {
       </Card>
     </div>
   )
-}
-
-// Hook to reset onboarding (for testing)
-export function useResetOnboarding() {
-  return () => {
-    localStorage.removeItem(ONBOARDING_STORAGE_KEY)
-    window.location.reload()
-  }
 }
