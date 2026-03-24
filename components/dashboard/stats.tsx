@@ -58,17 +58,18 @@ export function DashboardStats({
       {stats.map((stat) => (
         <div
           key={stat.name}
-          className="bg-card border border-border rounded-xl p-6 relative"
+          className="bg-card border border-border rounded-xl p-6"
         >
-          <span className="absolute top-6 right-6 text-lg font-bold text-green-500">
-            {stat.change}
-          </span>
-          
-          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-end justify-start pl-1 pb-1">
-            <stat.Icon className="w-5 h-5 text-primary" />
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+              <stat.Icon className="w-6 h-6 text-primary" />
+            </div>
+            <span className="text-xl font-bold text-green-500">
+              {stat.change}
+            </span>
           </div>
           
-          <p className="text-2xl font-bold text-foreground mt-4">{stat.value}</p>
+          <p className="text-2xl font-bold text-foreground">{stat.value}</p>
           <p className="text-sm text-muted-foreground">{stat.name}</p>
         </div>
       ))}
