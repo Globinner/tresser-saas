@@ -32,44 +32,41 @@ export function DashboardStats({
       value: todayAppointments,
       icon: Calendar,
       change: "+12%",
-      changeType: "positive" as const,
     },
     {
       name: "Total Clients",
       value: totalClients,
       icon: Users,
       change: "+8%",
-      changeType: "positive" as const,
     },
     {
       name: "Monthly Revenue",
       value: formatPrice(monthlyRevenue),
       icon: DollarSign,
       change: "+23%",
-      changeType: "positive" as const,
     },
     {
       name: "Completed Appointments",
       value: completedAppointments,
       icon: CheckCircle,
       change: "+15%",
-      changeType: "positive" as const,
     },
   ]
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" dir="ltr">
       {stats.map((stat) => (
         <div
           key={stat.name}
-          className="glass rounded-xl p-6 hover:border-primary/30 transition-all duration-300 group relative"
-          dir="ltr"
+          className="glass rounded-xl p-6 hover:border-primary/30 transition-all duration-300 group"
         >
-          <span className="absolute top-6 right-6 text-sm font-medium text-green-500">{stat.change}</span>
-          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors mb-4">
-            <stat.icon className="w-6 h-6 text-primary" />
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="bg-primary/10 group-hover:bg-primary/20 transition-colors">
+              <stat.icon style={{ width: '24px', height: '24px' }} className="text-primary" />
+            </div>
+            <span className="text-sm font-medium text-green-500">{stat.change}</span>
           </div>
-          <p className="text-2xl font-bold">{stat.value}</p>
+          <p style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '4px' }}>{stat.value}</p>
           <p className="text-sm text-muted-foreground">{stat.name}</p>
         </div>
       ))}
