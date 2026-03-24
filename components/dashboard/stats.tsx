@@ -70,7 +70,7 @@ export function DashboardStats({
             </div>
             <span className="text-sm font-medium text-green-500">{stat.change}</span>
           </div>
-          <div>
+          <div className="flex flex-col items-start">
             <p className="text-2xl font-bold">{stat.value}</p>
             <p className="text-sm text-muted-foreground">{stat.name}</p>
           </div>
