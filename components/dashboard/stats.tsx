@@ -91,7 +91,7 @@ export function DashboardStats({
               {stat.change}
             </span>
 
-            {/* Icon - no box, just the icon aligned left */}
+            {/* Icon box with icon aligned to bottom-left to match text alignment */}
             <div
               style={{
                 width: '48px',
@@ -99,8 +99,9 @@ export function DashboardStats({
                 borderRadius: '8px',
                 backgroundColor: 'rgba(245, 158, 11, 0.1)',
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                alignItems: 'flex-end',
+                justifyContent: 'flex-start',
+                padding: '8px',
                 marginBottom: '16px',
               }}
             >
