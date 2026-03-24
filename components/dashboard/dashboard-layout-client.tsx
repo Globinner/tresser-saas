@@ -2,6 +2,7 @@
 
 import { DashboardSidebar } from "@/components/dashboard/sidebar"
 import { DashboardHeader } from "@/components/dashboard/header"
+import { OnboardingWalkthrough } from "@/components/dashboard/onboarding-walkthrough"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { cn } from "@/lib/utils"
 import type { User } from "@supabase/supabase-js"
@@ -36,6 +37,7 @@ export function DashboardLayoutClient({ user, profile, children }: DashboardLayo
           {children}
         </main>
       </div>
+      <OnboardingWalkthrough />
     </div>
   )
 }

@@ -72,8 +72,8 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      {/* Show seed demo data button - always visible, with clear option if has data */}
-      <SeedDemoButton hasData={hasData} />
+      {/* Show seed demo data button if no data exists */}
+      {!hasData && <SeedDemoButton />}
       
       {/* Stats cards */}
       <DashboardStats

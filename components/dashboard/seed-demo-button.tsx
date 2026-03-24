@@ -2,16 +2,11 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Database, Loader2, CheckCircle, AlertCircle, Trash2 } from "lucide-react"
+import { Database, Loader2, CheckCircle, AlertCircle } from "lucide-react"
 import { useRouter } from "next/navigation"
 
-interface SeedDemoButtonProps {
-  hasData?: boolean
-}
-
-export function SeedDemoButton({ hasData = false }: SeedDemoButtonProps) {
+export function SeedDemoButton() {
   const [loading, setLoading] = useState(false)
-  const [clearing, setClearing] = useState(false)
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
   const [message, setMessage] = useState("")
   const router = useRouter()
@@ -43,37 +38,6 @@ export function SeedDemoButton({ hasData = false }: SeedDemoButtonProps) {
     }
   }
 
-  const handleClear = async () => {
-    if (!confirm("Are you sure you want to clear all data? This action cannot be undone.")) {
-      return
-    }
-    
-    setClearing(true)
-    setStatus("idle")
-    
-    try {
-      const response = await fetch("/api/clear-demo-data", {
-        method: "POST",
-      })
-      
-      const data = await response.json()
-      
-      if (response.ok) {
-        setStatus("success")
-        setMessage("All data has been cleared successfully")
-        router.refresh()
-      } else {
-        setStatus("error")
-        setMessage(data.error || "Failed to clear data")
-      }
-    } catch {
-      setStatus("error")
-      setMessage("An error occurred while clearing data")
-    } finally {
-      setClearing(false)
-    }
-  }
-
   return (
     <div className="rounded-lg border border-dashed border-border/50 bg-card/50 p-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -83,52 +47,29 @@ export function SeedDemoButton({ hasData = false }: SeedDemoButtonProps) {
             Add sample clients, services, inventory, and appointments to test the app
           </p>
         </div>
-        <div className="flex gap-2">
-          {hasData && (
-            <Button 
-              onClick={handleClear} 
-              disabled={loading || clearing}
-              variant="destructive"
-              size="sm"
-              className="shrink-0"
-            >
-              {clearing ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Clearing...
-                </>
-              ) : (
-                <>
-                  <Trash2 className="mr-2 h-4 w-4" />
-                  Clear All Data
-                </>
-              )}
-            </Button>
+        <Button 
+          onClick={handleSeed} 
+          disabled={loading}
+          variant={status === "success" ? "outline" : "default"}
+          className="shrink-0"
+        >
+          {loading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Seeding...
+            </>
+          ) : status === "success" ? (
+            <>
+              <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
+              Done!
+            </>
+          ) : (
+            <>
+              <Database className="mr-2 h-4 w-4" />
+              Add Demo Data
+            </>
           )}
-          <Button 
-            onClick={handleSeed} 
-            disabled={loading || clearing}
-            variant={status === "success" ? "outline" : "default"}
-            className="shrink-0"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Seeding...
-              </>
-            ) : status === "success" ? (
-              <>
-                <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
-                Done!
-              </>
-            ) : (
-              <>
-                <Database className="mr-2 h-4 w-4" />
-                Add Demo Data
-              </>
-            )}
-          </Button>
-        </div>
+        </Button>
       </div>
       
       {message && (
