@@ -13,6 +13,7 @@ import type { User as SupabaseUser } from "@supabase/supabase-js"
 interface Profile {
   id: string
   full_name: string | null
+  display_name: string | null
   avatar_url: string | null
   role: string
   shop_id: string | null
