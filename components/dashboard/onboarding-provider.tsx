@@ -1,7 +1,22 @@
 "use client"
 
 import { createContext, useContext, useState, useCallback, ReactNode } from "react"
-import { OnboardingWalkthrough } from "./onboarding-walkthrough"
+import { useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { 
+  Store, 
+  Scissors, 
+  Clock, 
+  Link2, 
+  X, 
+  ChevronLeft, 
+  ChevronRight,
+  CheckCircle2,
+  Sparkles,
+  ArrowRight
+} from "lucide-react"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 interface OnboardingContextType {
   startWalkthrough: () => void
@@ -41,56 +56,51 @@ export function OnboardingProvider({ children, hasShop }: OnboardingProviderProp
   )
 }
 
-// Separate modal component
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { 
-  Store, 
-  Scissors, 
-  Clock, 
-  Link2, 
-  X, 
-  ChevronLeft, 
-  ChevronRight,
-  CheckCircle2,
-  Sparkles
-} from "lucide-react"
-import Link from "next/link"
-import { useLanguage } from "@/lib/i18n/context"
-
 const steps = [
   {
-    icon: <Store className="w-6 h-6" />,
+    icon: Store,
     titleKey: "onboarding.step1Title",
     descriptionKey: "onboarding.step1Description",
-    link: "/dashboard/settings"
+    route: "/dashboard/settings?tab=shop",
+    actionKey: "onboarding.goToShopSettings"
   },
   {
-    icon: <Scissors className="w-6 h-6" />,
+    icon: Scissors,
     titleKey: "onboarding.step2Title",
     descriptionKey: "onboarding.step2Description",
-    link: "/dashboard/services"
+    route: "/dashboard/services",
+    actionKey: "onboarding.goToServices"
   },
   {
-    icon: <Clock className="w-6 h-6" />,
+    icon: Clock,
     titleKey: "onboarding.step3Title",
     descriptionKey: "onboarding.step3Description",
-    link: "/dashboard/settings?tab=booking"
+    route: "/dashboard/settings?tab=booking",
+    actionKey: "onboarding.goToBookingSettings"
   },
   {
-    icon: <Link2 className="w-6 h-6" />,
+    icon: Link2,
     titleKey: "onboarding.step4Title",
     descriptionKey: "onboarding.step4Description",
-    link: "/dashboard/settings?tab=booking"
+    route: "/dashboard/settings?tab=booking",
+    actionKey: "onboarding.goToBookingLink"
   }
 ]
 
 function OnboardingWalkthroughModal({ onClose }: { onClose: () => void }) {
   const [currentStep, setCurrentStep] = useState(0)
   const { t, isRTL } = useLanguage()
+  const router = useRouter()
   
   const handleComplete = () => {
     localStorage.setItem("tresser-onboarding-completed", "true")
+    onClose()
+  }
+  
+  const goToStep = (stepIndex: number) => {
+    const step = steps[stepIndex]
+    // Navigate to the step's route and close modal
+    router.push(step.route)
     onClose()
   }
   
@@ -109,6 +119,7 @@ function OnboardingWalkthroughModal({ onClose }: { onClose: () => void }) {
   }
   
   const step = steps[currentStep]
+  const StepIcon = step.icon
   const isLastStep = currentStep === steps.length - 1
   
   return (
@@ -139,22 +150,31 @@ function OnboardingWalkthroughModal({ onClose }: { onClose: () => void }) {
           </div>
           
           {/* Step content */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-6">
             <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 ${
               isLastStep 
                 ? "bg-green-500/10 text-green-500" 
                 : "bg-primary/10 text-primary"
             }`}>
-              {isLastStep ? <CheckCircle2 className="w-8 h-8" /> : step.icon}
+              {isLastStep ? <CheckCircle2 className="w-8 h-8" /> : <StepIcon className="w-8 h-8" />}
             </div>
             
             <h3 className="text-xl font-semibold mb-2">
               {t(step.titleKey)}
             </h3>
             
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground mb-4">
               {t(step.descriptionKey)}
             </p>
+            
+            {/* Go to this step button */}
+            <Button 
+              onClick={() => goToStep(currentStep)}
+              className="bg-primary text-primary-foreground"
+            >
+              {t(step.actionKey)}
+              <ArrowRight className={`w-4 h-4 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
+            </Button>
             
             <p className="text-sm text-muted-foreground mt-4">
               {t("onboarding.stepOf")
@@ -163,8 +183,8 @@ function OnboardingWalkthroughModal({ onClose }: { onClose: () => void }) {
             </p>
           </div>
           
-          {/* Actions */}
-          <div className="flex items-center justify-between gap-3">
+          {/* Navigation */}
+          <div className="flex items-center justify-between gap-3 pt-4 border-t border-border">
             <Button 
               variant="ghost" 
               onClick={onClose}
@@ -175,32 +195,25 @@ function OnboardingWalkthroughModal({ onClose }: { onClose: () => void }) {
             
             <div className="flex gap-2">
               {currentStep > 0 && (
-                <Button variant="outline" onClick={prevStep}>
+                <Button variant="outline" size="sm" onClick={prevStep}>
                   {isRTL ? (
-                    <ChevronRight className="w-4 h-4 mr-1" />
+                    <ChevronRight className="w-4 h-4" />
                   ) : (
-                    <ChevronLeft className="w-4 h-4 mr-1" />
+                    <ChevronLeft className="w-4 h-4" />
                   )}
-                  {t("onboarding.previousStep")}
                 </Button>
               )}
               
-              {isLastStep ? (
-                <Button onClick={handleComplete} asChild>
-                  <Link href={step.link}>
-                    {t("onboarding.finishTour")}
-                  </Link>
-                </Button>
-              ) : (
-                <Button onClick={nextStep}>
-                  {t("onboarding.nextStep")}
-                  {isRTL ? (
-                    <ChevronLeft className="w-4 h-4 ml-1" />
+              <Button variant="outline" size="sm" onClick={nextStep}>
+                {isLastStep ? t("onboarding.finishTour") : t("onboarding.nextStep")}
+                {!isLastStep && (
+                  isRTL ? (
+                    <ChevronLeft className="w-4 h-4" />
                   ) : (
-                    <ChevronRight className="w-4 h-4 ml-1" />
-                  )}
-                </Button>
-              )}
+                    <ChevronRight className="w-4 h-4" />
+                  )
+                )}
+              </Button>
             </div>
           </div>
         </CardContent>

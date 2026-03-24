@@ -5,8 +5,32 @@ import { ArrowRight, Play, Sparkles, Users, Calendar, TrendingUp } from "lucide-
 import { useLanguage } from "@/lib/i18n/language-context"
 
 export function HeroSection() {
-  const { t, isRTL, locale } = useLanguage()
+  const { t, isRTL, locale, isLoading } = useLanguage()
   const isHebrew = locale === 'he'
+
+  // Show nothing until language is loaded to prevent flash
+  if (isLoading) {
+    return (
+      <section className="relative min-h-screen flex items-center justify-center pt-20 pb-12 overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-5xl mx-auto text-center">
+            {/* Skeleton loader */}
+            <div className="animate-pulse">
+              <div className="h-8 w-48 bg-muted/20 rounded-full mx-auto mb-8" />
+              <div className="h-16 w-3/4 bg-muted/20 rounded-lg mx-auto mb-4" />
+              <div className="h-16 w-2/3 bg-muted/20 rounded-lg mx-auto mb-4" />
+              <div className="h-16 w-1/2 bg-muted/20 rounded-lg mx-auto mb-8" />
+              <div className="h-6 w-2/3 bg-muted/20 rounded-lg mx-auto mb-10" />
+              <div className="flex gap-4 justify-center mb-16">
+                <div className="h-14 w-40 bg-muted/20 rounded-lg" />
+                <div className="h-14 w-40 bg-muted/20 rounded-lg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 pb-12 overflow-hidden" dir={isRTL ? 'rtl' : 'ltr'}>

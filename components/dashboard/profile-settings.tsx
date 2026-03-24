@@ -5,12 +5,15 @@ import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { User, Loader2 } from "lucide-react"
+import { useLanguage } from "@/lib/i18n/language-context"
 import type { User as SupabaseUser } from "@supabase/supabase-js"
 
 interface Profile {
   id: string
   full_name: string | null
+  display_name: string | null
   avatar_url: string | null
   role: string
 }
@@ -20,13 +23,22 @@ interface ProfileSettingsProps {
   profile: Profile | null
 }
 
+const ROLES = [
+  { value: "owner", labelKey: "settings.roleOwner" },
+  { value: "barber", labelKey: "settings.roleBarber" },
+  { value: "receptionist", labelKey: "settings.roleReceptionist" },
+]
+
 export function ProfileSettings({ user, profile }: ProfileSettingsProps) {
   const [fullName, setFullName] = useState(profile?.full_name || "")
+  const [displayName, setDisplayName] = useState(profile?.display_name || "")
+  const [role, setRole] = useState(profile?.role || "barber")
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null)
   
   const router = useRouter()
   const supabase = createClient()
+  const { t } = useLanguage()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -35,13 +47,17 @@ export function ProfileSettings({ user, profile }: ProfileSettingsProps) {
 
     const { error } = await supabase
       .from("profiles")
-      .update({ full_name: fullName })
+      .update({ 
+        full_name: fullName,
+        display_name: displayName || null,
+        role: role
+      })
       .eq("id", user.id)
 
     if (error) {
       setMessage({ type: "error", text: error.message })
     } else {
-      setMessage({ type: "success", text: "Profile updated successfully" })
+      setMessage({ type: "success", text: t("settings.profileUpdated") })
       router.refresh()
     }
 
@@ -55,42 +71,60 @@ export function ProfileSettings({ user, profile }: ProfileSettingsProps) {
           <User className="w-5 h-5 text-primary" />
         </div>
         <div>
-          <h2 className="font-semibold">Profile Settings</h2>
-          <p className="text-sm text-muted-foreground">Update your personal information</p>
+          <h2 className="font-semibold">{t("settings.profileSettings")}</h2>
+          <p className="text-sm text-muted-foreground">{t("settings.profileSettingsDesc")}</p>
         </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Email</label>
+          <label className="text-sm font-medium">{t("settings.email")}</label>
           <Input
             type="email"
             value={user.email || ""}
             disabled
             className="bg-secondary/50 border-border text-muted-foreground"
           />
-          <p className="text-xs text-muted-foreground">Email cannot be changed</p>
+          <p className="text-xs text-muted-foreground">{t("settings.emailCannotChange")}</p>
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Full Name</label>
+          <label className="text-sm font-medium">{t("settings.fullName")}</label>
           <Input
             type="text"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
-            placeholder="Your full name"
+            placeholder={t("settings.fullNamePlaceholder")}
             className="bg-input border-border"
           />
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Role</label>
+          <label className="text-sm font-medium">{t("settings.displayName")}</label>
           <Input
             type="text"
-            value={profile?.role || "barber"}
-            disabled
-            className="bg-secondary/50 border-border text-muted-foreground capitalize"
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value)}
+            placeholder={t("settings.displayNamePlaceholder")}
+            className="bg-input border-border"
           />
+          <p className="text-xs text-muted-foreground">{t("settings.displayNameHint")}</p>
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-sm font-medium">{t("settings.role")}</label>
+          <Select value={role} onValueChange={setRole}>
+            <SelectTrigger className="bg-input border-border">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {ROLES.map((r) => (
+                <SelectItem key={r.value} value={r.value}>
+                  {t(r.labelKey)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         {message && (
@@ -111,10 +145,10 @@ export function ProfileSettings({ user, profile }: ProfileSettingsProps) {
           {loading ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Saving...
+              {t("common.saving")}
             </>
           ) : (
-            "Save Changes"
+            t("common.save")
           )}
         </Button>
       </form>

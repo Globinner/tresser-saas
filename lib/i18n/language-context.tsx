@@ -21,32 +21,31 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(defaultLocale)
   const [dict, setDict] = useState<Dictionary | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [mounted, setMounted] = useState(false)
+  const [localeInitialized, setLocaleInitialized] = useState(false)
 
-  // Set mounted on client
+  // Initialize locale from localStorage FIRST, then load dictionary
   useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // Load saved locale on mount
-  useEffect(() => {
-    if (!mounted) return
+    // Get saved locale or detect from browser
+    let initialLocale: Locale = defaultLocale
     
     const saved = localStorage.getItem(STORAGE_KEY) as Locale | null
     if (saved && locales.includes(saved)) {
-      setLocaleState(saved)
+      initialLocale = saved
     } else {
       // Try to detect browser language
       const browserLang = navigator.language.split('-')[0] as Locale
       if (locales.includes(browserLang)) {
-        setLocaleState(browserLang)
+        initialLocale = browserLang
       }
     }
-  }, [mounted])
+    
+    setLocaleState(initialLocale)
+    setLocaleInitialized(true)
+  }, [])
 
-  // Load dictionary when locale changes
+  // Load dictionary ONLY after locale is initialized
   useEffect(() => {
-    if (!mounted) return
+    if (!localeInitialized) return
     
     setIsLoading(true)
     getDictionary(locale).then((dictionary) => {
@@ -70,7 +69,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         body.classList.add('font-sans')
       }
     })
-  }, [locale, mounted])
+  }, [locale, localeInitialized])
 
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale)

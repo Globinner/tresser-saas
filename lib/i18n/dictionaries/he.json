@@ -4,6 +4,7 @@
     "tagline": "מערכת ההפעלה למספרות מודרניות",
     "loading": "טוען...",
     "save": "שמור",
+    "saving": "שומר...",
     "cancel": "ביטול",
     "delete": "מחק",
     "edit": "ערוך",
@@ -170,7 +171,7 @@
       "description": "אפשר ללקוחות לה��מין 24/7 עם תזמון חכם שמונע הזמנות כפולות ומייעל את היום שלך."
     },
     "clients": {
-      "title": "ניהול לקוחות",
+      "title": "ניהול לקוחו��",
       "description": "פרופילי לקוחות מלאים עם היסטוריית ביקורים, העדפות ורשומות כימיות בהישג יד."
     },
     "payments": {
@@ -454,11 +455,24 @@
     "notifications": "התראות",
     "security": "אבטחה",
     "shopName": "שם המספרה",
-    "address": "כתו��ת",
+    "address": "כתובת",
     "phone": "טלפון",
     "email": "אימייל",
     "timezone": "אזור זמן",
-    "currency": "מטבע"
+    "currency": "מטבע",
+    "profileSettings": "הגדרות פרופיל",
+    "profileSettingsDesc": "עדכן את המידע האישי שלך",
+    "profileUpdated": "הפרופיל עודכן בהצלחה",
+    "fullName": "שם מלא",
+    "fullNamePlaceholder": "השם המלא שלך",
+    "displayName": "שם תצוגה",
+    "displayNamePlaceholder": "שם המותג או המספרה שלך (אופציונלי)",
+    "displayNameHint": "יוצג במקום השם שלך אם מוגדר",
+    "role": "תפקיד",
+    "roleOwner": "בעלים",
+    "roleBarber": "ספר",
+    "roleReceptionist": "קבלן",
+    "emailCannotChange": "לא ניתן לשנות את האימייל"
   },
   "auth": {
     "login": "התחברות",
@@ -570,7 +584,7 @@
       "quote": "סוף סוף תוכנה שמבינה ספרים. מעקב המלאי לבדו משתלם.",
       "author": "מייקל צ'ן",
       "role": "בעלים, Urban Cuts",
-      "location": "לוס אנג'לס, ארה״ב"
+      "location": "לוס אנג'לס, ארה״��"
     },
     "testimonial6": {
       "quote": "הפרודוקטיביות של הצוות שלי עלתה ב-40% מאז שהתחלנו להשתמש ב-Tresser. ממליץ בחום!",
@@ -609,13 +623,17 @@
     "startSetupGuide": "התחל מדריך הגדרה",
     "maybeLater": "אולי מאוחר יותר",
     "step1Title": "תן שם למספרה",
-    "step1Description": "עבור להגדרות והזן את שם המספרה",
+    "step1Description": "הזן את שם המספרה ופרטים בסיסיים",
     "step2Title": "הוסף שירותים",
     "step2Description": "צור את השירותים שאתה מציע עם מחירים",
     "step3Title": "קבע שעות פעילות",
     "step3Description": "הגדר את שעות הפעילות שלך",
     "step4Title": "התחל לקבל הזמנות",
     "step4Description": "שתף את קישור ההזמנה עם לקוחות",
+    "goToShopSettings": "פתח הגדרות מספרה",
+    "goToServices": "פתח שירותים",
+    "goToBookingSettings": "פתח הגדרות הזמנות",
+    "goToBookingLink": "קבל קישור הזמנה",
     "gotIt": "הבנתי!",
     "showMeHow": "הראה לי איך",
     "skipTour": "דלג על הסיור",
