@@ -18,7 +18,7 @@ export function DashboardStats({
   currency = "ILS",
 }: DashboardStatsProps) {
   const formatPrice = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('he-IL', {
       style: 'currency',
       currency: currency,
       minimumFractionDigits: 0,
@@ -30,114 +30,53 @@ export function DashboardStats({
     {
       name: "Today's Appointments",
       value: todayAppointments,
-      icon: Calendar,
+      Icon: Calendar,
       change: "+12%",
     },
     {
       name: "Total Clients",
       value: totalClients,
-      icon: Users,
+      Icon: Users,
       change: "+8%",
     },
     {
       name: "Monthly Revenue",
       value: formatPrice(monthlyRevenue),
-      icon: DollarSign,
+      Icon: DollarSign,
       change: "+23%",
     },
     {
       name: "Completed Appointments",
       value: completedAppointments,
-      icon: CheckCircle,
+      Icon: CheckCircle,
       change: "+15%",
     },
   ]
 
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: '16px',
-        direction: 'ltr',
-      }}
-    >
-      {stats.map((stat) => {
-        const Icon = stat.icon
-        return (
-          <div
-            key={stat.name}
-            style={{
-              background: 'rgba(30, 30, 30, 0.8)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '12px',
-              padding: '24px',
-              position: 'relative',
-              direction: 'ltr',
-              textAlign: 'left',
-            }}
-          >
-            {/* Percentage badge - top right */}
-            <span
-              style={{
-                position: 'absolute',
-                top: '24px',
-                right: '24px',
-                fontSize: '14px',
-                fontWeight: 500,
-                color: '#22c55e',
-              }}
-            >
-              {stat.change}
-            </span>
-
-            {/* Icon box with icon aligned to bottom-left to match text alignment */}
-            <div
-              style={{
-                width: '48px',
-                height: '48px',
-                borderRadius: '8px',
-                backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                display: 'flex',
-                alignItems: 'flex-end',
-                justifyContent: 'flex-start',
-                padding: '8px',
-                marginBottom: '16px',
-              }}
-            >
-              <Icon
-                style={{
-                  width: '24px',
-                  height: '24px',
-                  color: '#f59e0b',
-                }}
-              />
-            </div>
-
-            {/* Value */}
-            <div
-              style={{
-                fontSize: '24px',
-                fontWeight: 700,
-                color: '#ffffff',
-                marginBottom: '4px',
-              }}
-            >
-              {stat.value}
-            </div>
-
-            {/* Label */}
-            <div
-              style={{
-                fontSize: '14px',
-                color: 'rgba(255, 255, 255, 0.6)',
-              }}
-            >
-              {stat.name}
-            </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" dir="ltr">
+      {stats.map((stat) => (
+        <div
+          key={stat.name}
+          className="bg-card border border-border rounded-xl p-6 relative"
+        >
+          {/* Badge in top right */}
+          <span className="absolute top-6 right-6 text-sm font-medium text-green-500">
+            {stat.change}
+          </span>
+          
+          {/* Icon - just the icon with background, no centering */}
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+            <stat.Icon className="w-6 h-6 text-primary" />
           </div>
-        )
-      })}
+          
+          {/* Value */}
+          <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+          
+          {/* Label */}
+          <p className="text-sm text-muted-foreground">{stat.name}</p>
+        </div>
+      ))}
     </div>
   )
 }
