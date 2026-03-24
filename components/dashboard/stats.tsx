@@ -63,6 +63,7 @@ export function DashboardStats({
         <div
           key={stat.name}
           className="glass rounded-xl p-6 hover:border-primary/30 transition-all duration-300 group relative"
+          dir="ltr"
         >
           <span className="absolute top-6 right-6 text-sm font-medium text-green-500">{stat.change}</span>
           <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors mb-4">
