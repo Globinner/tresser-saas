@@ -644,6 +644,7 @@
     "stepOf": "Step {current} of {total}",
     "helpButton": "Setup Guide",
     "helpButtonDescription": "Need help setting up? Start the guided tour anytime.",
-    "completeThisFirst": "Complete this step first before moving to the next one"
+    "completeThisFirst": "Complete this step first before moving to the next one",
+    "youAreHere": "You're here! Fill in the details above."
   }
 }

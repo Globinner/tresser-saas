@@ -643,6 +643,7 @@
     "stepOf": "שלב {current} מתוך {total}",
     "helpButton": "מדריך הגדרה",
     "helpButtonDescription": "צריך עזרה בהגדרה? התחל את הסיור המודרך בכל עת.",
-    "completeThisFirst": "השלם את השלב הזה לפני שתעבור לשלב הבא"
+    "completeThisFirst": "השלם את השלב הזה לפני שתעבור לשלב הבא",
+    "youAreHere": "אתה כאן! מלא את הפרטים למעלה."
   }
 }
