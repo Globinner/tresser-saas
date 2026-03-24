@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { WalkInQueue } from "@/components/dashboard/walk-in-queue"
+import { ShopSetupRequired } from "@/components/dashboard/shop-setup-required"
 
 export default async function QueuePage() {
   const supabase = await createClient()
@@ -17,7 +18,7 @@ export default async function QueuePage() {
     .single()
 
   if (!profile?.shop_id) {
-    redirect("/dashboard")
+    return <ShopSetupRequired userId={user.id} featureName="Walk-in Queue" />
   }
 
   return (

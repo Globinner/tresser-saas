@@ -67,13 +67,13 @@ export default async function DashboardPage() {
     .order("created_at", { ascending: false })
     .limit(5)
 
-  // Check if shop has any clients (to show seed button)
+  // Check if shop has any data
   const hasData = (totalClients || 0) > 0
 
   return (
     <div className="space-y-6">
-      {/* Show seed demo data button if no data exists */}
-      {!hasData && <SeedDemoButton />}
+      {/* Show seed demo data button - always visible, with clear option if has data */}
+      <SeedDemoButton hasData={hasData} />
       
       {/* Stats cards */}
       <DashboardStats
