@@ -613,6 +613,22 @@
     "contact": "Contact",
     "copyright": "All rights reserved."
   },
+  "shop": {
+    "createTitle": "Create Your Shop",
+    "createDescription": "Set up your shop to start managing appointments",
+    "createButton": "Create Shop",
+    "created": "Shop created successfully!",
+    "name": "Shop Name",
+    "namePlaceholder": "My Barbershop",
+    "address": "Address",
+    "addressPlaceholder": "123 Main St, City",
+    "phone": "Phone",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "email": "Email",
+    "emailPlaceholder": "shop@example.com",
+    "currency": "Currency",
+    "currencyPlaceholder": "Select currency"
+  },
   "onboarding": {
     "createShopFirst": "Create Your Shop First",
     "createShopDescription": "To access this feature, you need to set up your shop. It only takes a minute!",
