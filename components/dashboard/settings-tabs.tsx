@@ -7,7 +7,6 @@ import { ShopSettings } from "./shop-settings"
 import { CreateShopForm } from "./create-shop-form"
 import { BookingSettings } from "./booking-settings"
 import { ReminderSettings } from "./reminder-settings"
-import { SetupGuideButton } from "./setup-guide-button"
 import { User, Store, Globe, Bell } from "lucide-react"
 import type { User as SupabaseUser } from "@supabase/supabase-js"
 
@@ -37,24 +36,36 @@ export function SettingsTabs({ user, profile }: SettingsTabsProps) {
 
   return (
     <Tabs defaultValue={defaultTab} className="space-y-6">
-      <TabsList className="bg-secondary/50 flex-wrap h-auto p-1">
-        <TabsTrigger value="profile" className="flex items-center gap-2">
-          <User className="w-4 h-4" />
-          <span className="hidden sm:inline">Profile</span>
+      <TabsList className="bg-secondary/30 border border-primary/30 flex-wrap h-auto p-2 gap-2">
+        <TabsTrigger 
+          value="profile" 
+          className="flex items-center gap-2 px-6 py-3 text-base font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+        >
+          <User className="w-5 h-5" />
+          <span>Profile</span>
         </TabsTrigger>
         {profile?.role === "owner" && (
           <>
-            <TabsTrigger value="shop" className="flex items-center gap-2">
-              <Store className="w-4 h-4" />
-              <span className="hidden sm:inline">Shop</span>
+            <TabsTrigger 
+              value="shop" 
+              className="flex items-center gap-2 px-6 py-3 text-base font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            >
+              <Store className="w-5 h-5" />
+              <span>Shop</span>
             </TabsTrigger>
-            <TabsTrigger value="booking" className="flex items-center gap-2">
-              <Globe className="w-4 h-4" />
-              <span className="hidden sm:inline">Online Booking</span>
+            <TabsTrigger 
+              value="booking" 
+              className="flex items-center gap-2 px-6 py-3 text-base font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            >
+              <Globe className="w-5 h-5" />
+              <span>Online Booking</span>
             </TabsTrigger>
-            <TabsTrigger value="reminders" className="flex items-center gap-2">
-              <Bell className="w-4 h-4" />
-              <span className="hidden sm:inline">Reminders</span>
+            <TabsTrigger 
+              value="reminders" 
+              className="flex items-center gap-2 px-6 py-3 text-base font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            >
+              <Bell className="w-5 h-5" />
+              <span>Reminders</span>
             </TabsTrigger>
           </>
         )}
@@ -85,9 +96,6 @@ export function SettingsTabs({ user, profile }: SettingsTabsProps) {
           )}
         </>
       )}
-
-      {/* Setup Guide Button - always visible */}
-      <SetupGuideButton />
     </Tabs>
   )
 }

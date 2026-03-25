@@ -4,7 +4,6 @@ import { TodayAppointments } from "@/components/dashboard/today-appointments"
 import { RevenueChart } from "@/components/dashboard/revenue-chart"
 import { RecentClients } from "@/components/dashboard/recent-clients"
 import { QuickActions } from "@/components/dashboard/quick-actions"
-import { WelcomeCard } from "@/components/dashboard/welcome-card"
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -67,13 +66,8 @@ export default async function DashboardPage() {
     .order("created_at", { ascending: false })
     .limit(5)
 
-  const hasShop = !!shopId
-
   return (
     <div className="space-y-6">
-      {/* Show welcome card for new users without a shop */}
-      {!hasShop && <WelcomeCard />}
-      
       {/* Stats cards */}
       <DashboardStats
         todayAppointments={todayAppointments?.length || 0}
