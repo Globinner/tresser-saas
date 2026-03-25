@@ -119,12 +119,12 @@ export default function PublicBookingPage() {
     setServices(servicesData || [])
 
     // Load barbers (team members linked to this shop)
-    const { data: barbersData } = await supabase
+    const { data: barbersData, error: barbersError } = await supabase
       .from("profiles")
       .select("id, full_name, display_name, avatar_url")
       .eq("shop_id", shopData.id)
-      .eq("is_active", true)
 
+    console.log("[v0] Barbers loaded:", barbersData, "Error:", barbersError)
     setBarbers(barbersData || [])
 
     // Load existing appointments for the next booking_advance_days
@@ -133,7 +133,7 @@ export default function PublicBookingPage() {
     maxDate.setDate(maxDate.getDate() + (shopData.booking_advance_days || 14))
     const maxDateStr = maxDate.toISOString().split("T")[0]
 
-    const { data: appointmentsData } = await supabase
+    const { data: appointmentsData, error: appointmentsError } = await supabase
       .from("appointments")
       .select("date, start_time, end_time, barber_id")
       .eq("shop_id", shopData.id)
@@ -141,6 +141,7 @@ export default function PublicBookingPage() {
       .lte("date", maxDateStr)
       .in("status", ["scheduled", "confirmed", "pending"])
 
+    console.log("[v0] Existing appointments:", appointmentsData, "Error:", appointmentsError)
     setExistingAppointments(appointmentsData || [])
     setLoading(false)
   }
