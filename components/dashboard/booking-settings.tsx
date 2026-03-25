@@ -7,33 +7,27 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { 
   Globe, 
   Copy, 
   Check, 
   ExternalLink,
   Clock,
-  Calendar
+  Calendar,
+  Loader2
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-interface BookingSettings {
+interface ShopBookingSettings {
   id: string
-  is_enabled: boolean
+  public_booking_enabled: boolean
   booking_slug: string
   booking_advance_days: number
-  slot_duration_minutes: number
-  business_hours: Record<string, { open: string; close: string; closed?: boolean }>
-}
-
-const DEFAULT_HOURS = {
-  monday: { open: "09:00", close: "18:00" },
-  tuesday: { open: "09:00", close: "18:00" },
-  wednesday: { open: "09:00", close: "18:00" },
-  thursday: { open: "09:00", close: "18:00" },
-  friday: { open: "09:00", close: "18:00" },
-  saturday: { open: "09:00", close: "17:00" },
-  sunday: { open: "10:00", close: "16:00", closed: true }
+  booking_slot_duration: number
+  booking_start_time: string
+  booking_end_time: string
+  booking_days_open: string[]
 }
 
 const DAYS = [
@@ -46,40 +40,50 @@ const DAYS = [
   { key: "sunday", label: "Sunday" }
 ]
 
+const SLOT_DURATIONS = [
+  { value: 15, label: "15 minutes" },
+  { value: 30, label: "30 minutes" },
+  { value: 45, label: "45 minutes" },
+  { value: 60, label: "1 hour" },
+]
+
 export function BookingSettings({ shopId }: { shopId: string }) {
-  const [settings, setSettings] = useState<BookingSettings | null>(null)
+  const [settings, setSettings] = useState<ShopBookingSettings | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const supabase = createClient()
 
   useEffect(() => {
     loadSettings()
   }, [shopId])
 
   async function loadSettings() {
-    const supabase = createClient()
-    const { data } = await supabase
-      .from("public_booking_settings")
-      .select("*")
-      .eq("shop_id", shopId)
+    setLoading(true)
+    setError(null)
+    
+    const { data, error: fetchError } = await supabase
+      .from("shops")
+      .select("id, public_booking_enabled, booking_slug, booking_advance_days, booking_slot_duration, booking_start_time, booking_end_time, booking_days_open")
+      .eq("id", shopId)
       .single()
 
+    if (fetchError) {
+      setError(fetchError.message)
+      setLoading(false)
+      return
+    }
+
     if (data) {
-      setSettings(data)
-    } else {
-      // Create default settings
-      const slug = `shop-${shopId.slice(0, 8)}`
-      const { data: newSettings } = await supabase
-        .from("public_booking_settings")
-        .insert({
-          shop_id: shopId,
-          booking_slug: slug,
-          business_hours: DEFAULT_HOURS
-        })
-        .select()
-        .single()
-      
-      setSettings(newSettings)
+      setSettings({
+        ...data,
+        booking_days_open: data.booking_days_open || ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
+        booking_start_time: data.booking_start_time || '09:00',
+        booking_end_time: data.booking_end_time || '18:00',
+        booking_slot_duration: data.booking_slot_duration || 30,
+        booking_advance_days: data.booking_advance_days || 14,
+      })
     }
     setLoading(false)
   }
@@ -87,19 +91,24 @@ export function BookingSettings({ shopId }: { shopId: string }) {
   async function saveSettings() {
     if (!settings) return
     setSaving(true)
+    setError(null)
     
-    const supabase = createClient()
-    await supabase
-      .from("public_booking_settings")
+    const { error: updateError } = await supabase
+      .from("shops")
       .update({
-        is_enabled: settings.is_enabled,
+        public_booking_enabled: settings.public_booking_enabled,
         booking_slug: settings.booking_slug,
         booking_advance_days: settings.booking_advance_days,
-        slot_duration_minutes: settings.slot_duration_minutes,
-        business_hours: settings.business_hours
+        booking_slot_duration: settings.booking_slot_duration,
+        booking_start_time: settings.booking_start_time,
+        booking_end_time: settings.booking_end_time,
+        booking_days_open: settings.booking_days_open,
       })
-      .eq("id", settings.id)
+      .eq("id", shopId)
 
+    if (updateError) {
+      setError(updateError.message)
+    }
     setSaving(false)
   }
 
@@ -110,30 +119,47 @@ export function BookingSettings({ shopId }: { shopId: string }) {
     setTimeout(() => setCopied(false), 2000)
   }
 
-  function updateHours(day: string, field: "open" | "close" | "closed", value: string | boolean) {
+  function toggleDay(day: string) {
     if (!settings) return
-    
-    const newHours = { ...settings.business_hours }
-    if (field === "closed") {
-      newHours[day] = { ...newHours[day], closed: value as boolean }
+    const days = settings.booking_days_open || []
+    if (days.includes(day)) {
+      setSettings({ ...settings, booking_days_open: days.filter(d => d !== day) })
     } else {
-      newHours[day] = { ...newHours[day], [field]: value as string }
+      setSettings({ ...settings, booking_days_open: [...days, day] })
     }
-    
-    setSettings({ ...settings, business_hours: newHours })
   }
 
   if (loading) {
     return (
       <Card className="glass">
-        <CardContent className="p-8 text-center">
-          <div className="animate-pulse text-muted-foreground">Loading settings...</div>
+        <CardContent className="p-8 flex items-center justify-center">
+          <Loader2 className="w-6 h-6 animate-spin text-primary" />
+          <span className="ml-2 text-muted-foreground">Loading settings...</span>
         </CardContent>
       </Card>
     )
   }
 
-  if (!settings) return null
+  if (error) {
+    return (
+      <Card className="glass">
+        <CardContent className="p-8 text-center">
+          <p className="text-destructive">{error}</p>
+          <Button onClick={loadSettings} className="mt-4">Try Again</Button>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (!settings) {
+    return (
+      <Card className="glass">
+        <CardContent className="p-8 text-center">
+          <p className="text-muted-foreground">Could not load booking settings</p>
+        </CardContent>
+      </Card>
+    )
+  }
 
   const bookingUrl = `${typeof window !== "undefined" ? window.location.origin : ""}/book/${settings.booking_slug}`
 
@@ -151,12 +177,12 @@ export function BookingSettings({ shopId }: { shopId: string }) {
               <CardDescription>Allow clients to book appointments online</CardDescription>
             </div>
             <Switch
-              checked={settings.is_enabled}
-              onCheckedChange={(checked) => setSettings({ ...settings, is_enabled: checked })}
+              checked={settings.public_booking_enabled || false}
+              onCheckedChange={(checked) => setSettings({ ...settings, public_booking_enabled: checked })}
             />
           </div>
         </CardHeader>
-        {settings.is_enabled && (
+        {settings.public_booking_enabled && (
           <CardContent className="pt-0">
             <div className="flex items-center gap-2 p-3 bg-secondary/50 rounded-lg">
               <Input
@@ -187,7 +213,7 @@ export function BookingSettings({ shopId }: { shopId: string }) {
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">/book/</span>
             <Input
-              value={settings.booking_slug}
+              value={settings.booking_slug || ''}
               onChange={(e) => setSettings({ ...settings, booking_slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "") })}
               className="bg-secondary/50 max-w-xs"
               placeholder="your-shop-name"
@@ -205,30 +231,34 @@ export function BookingSettings({ shopId }: { shopId: string }) {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>Advance Booking (days)</Label>
               <Input
                 type="number"
                 min={1}
                 max={90}
-                value={settings.booking_advance_days}
+                value={settings.booking_advance_days || 14}
                 onChange={(e) => setSettings({ ...settings, booking_advance_days: parseInt(e.target.value) || 14 })}
                 className="bg-secondary/50"
               />
               <p className="text-xs text-muted-foreground">How far in advance clients can book</p>
             </div>
             <div className="space-y-2">
-              <Label>Time Slot Duration (min)</Label>
-              <Input
-                type="number"
-                min={15}
-                max={120}
-                step={15}
-                value={settings.slot_duration_minutes}
-                onChange={(e) => setSettings({ ...settings, slot_duration_minutes: parseInt(e.target.value) || 30 })}
-                className="bg-secondary/50"
-              />
+              <Label>Time Slot Duration</Label>
+              <Select 
+                value={String(settings.booking_slot_duration || 30)}
+                onValueChange={(val) => setSettings({ ...settings, booking_slot_duration: parseInt(val) })}
+              >
+                <SelectTrigger className="bg-secondary/50">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {SLOT_DURATIONS.map(d => (
+                    <SelectItem key={d.value} value={String(d.value)}>{d.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <p className="text-xs text-muted-foreground">Interval between available slots</p>
             </div>
           </div>
@@ -244,53 +274,62 @@ export function BookingSettings({ shopId }: { shopId: string }) {
           </CardTitle>
           <CardDescription>Set your available hours for online booking</CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            {DAYS.map(day => {
-              const hours = settings.business_hours[day.key] || { open: "09:00", close: "18:00", closed: true }
-              return (
-                <div key={day.key} className="flex items-center gap-4">
-                  <div className="w-24">
-                    <span className={cn(
-                      "text-sm font-medium",
-                      hours.closed && "text-muted-foreground"
-                    )}>
-                      {day.label}
-                    </span>
-                  </div>
-                  <Switch
-                    checked={!hours.closed}
-                    onCheckedChange={(checked) => updateHours(day.key, "closed", !checked)}
-                  />
-                  {!hours.closed && (
-                    <>
-                      <Input
-                        type="time"
-                        value={hours.open}
-                        onChange={(e) => updateHours(day.key, "open", e.target.value)}
-                        className="bg-secondary/50 w-32"
-                      />
-                      <span className="text-muted-foreground">to</span>
-                      <Input
-                        type="time"
-                        value={hours.close}
-                        onChange={(e) => updateHours(day.key, "close", e.target.value)}
-                        className="bg-secondary/50 w-32"
-                      />
-                    </>
-                  )}
-                  {hours.closed && (
-                    <span className="text-sm text-muted-foreground">Closed</span>
-                  )}
-                </div>
-              )
-            })}
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label>Opening Time</Label>
+              <Input
+                type="time"
+                value={settings.booking_start_time || '09:00'}
+                onChange={(e) => setSettings({ ...settings, booking_start_time: e.target.value })}
+                className="bg-secondary/50"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Closing Time</Label>
+              <Input
+                type="time"
+                value={settings.booking_end_time || '18:00'}
+                onChange={(e) => setSettings({ ...settings, booking_end_time: e.target.value })}
+                className="bg-secondary/50"
+              />
+            </div>
+          </div>
+          
+          <div className="space-y-2">
+            <Label>Open Days</Label>
+            <div className="flex flex-wrap gap-2">
+              {DAYS.map(day => {
+                const isOpen = (settings.booking_days_open || []).includes(day.key)
+                return (
+                  <Button
+                    key={day.key}
+                    type="button"
+                    variant={isOpen ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => toggleDay(day.key)}
+                    className={cn(
+                      isOpen && "bg-primary text-primary-foreground"
+                    )}
+                  >
+                    {day.label.slice(0, 3)}
+                  </Button>
+                )
+              })}
+            </div>
           </div>
         </CardContent>
       </Card>
 
-      <Button onClick={saveSettings} disabled={saving} className="w-full glow-amber-soft">
-        {saving ? "Saving..." : "Save Booking Settings"}
+      <Button onClick={saveSettings} disabled={saving} className="w-full bg-primary text-primary-foreground">
+        {saving ? (
+          <>
+            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+            Saving...
+          </>
+        ) : (
+          "Save Booking Settings"
+        )}
       </Button>
     </div>
   )
