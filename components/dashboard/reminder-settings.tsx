@@ -4,95 +4,80 @@ import { useState, useEffect } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Label } from "@/components/ui/label"
 import { 
   Bell, 
   Mail, 
   MessageSquare, 
   Clock,
   Check,
-  AlertCircle,
-  Settings
+  Loader2
 } from "lucide-react"
-import { cn } from "@/lib/utils"
 
-interface ReminderSettings {
+interface ReminderSettingsData {
   id: string
+  shop_id: string
   email_enabled: boolean
-  email_hours_before: number
-  email_template: string
   sms_enabled: boolean
-  sms_hours_before: number
-  sms_template: string
-  follow_up_enabled: boolean
-  follow_up_days_after: number
-  follow_up_template: string
+  reminder_24h: boolean
+  reminder_2h: boolean
+  custom_message: string | null
 }
 
-const DEFAULT_EMAIL_TEMPLATE = `Hi {{client_name}},
-
-This is a friendly reminder about your upcoming appointment at {{shop_name}}.
-
-📅 Date: {{date}}
-⏰ Time: {{time}}
-✂️ Service: {{service}}
-
-We look forward to seeing you!
-
-To reschedule or cancel, please contact us at {{shop_phone}}.
-
-Best regards,
-{{shop_name}}`
-
-const DEFAULT_SMS_TEMPLATE = `Hi {{client_name}}! Reminder: You have an appointment at {{shop_name}} on {{date}} at {{time}} for {{service}}. See you soon!`
-
-const DEFAULT_FOLLOW_UP_TEMPLATE = `Hi {{client_name}},
-
-Thanks for visiting {{shop_name}}! We hope you loved your {{service}}.
-
-We'd love to see you again soon. Book your next appointment at {{booking_link}}.
-
-Best regards,
-{{shop_name}}`
-
 export function ReminderSettings({ shopId }: { shopId: string }) {
-  const [settings, setSettings] = useState<ReminderSettings | null>(null)
+  const [settings, setSettings] = useState<ReminderSettingsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const supabase = createClient()
 
   useEffect(() => {
     loadSettings()
   }, [shopId])
 
   async function loadSettings() {
-    const supabase = createClient()
-    const { data } = await supabase
-      .from("appointment_reminders")
+    setLoading(true)
+    setError(null)
+    
+    const { data, error: fetchError } = await supabase
+      .from("reminder_settings")
       .select("*")
       .eq("shop_id", shopId)
       .single()
+
+    if (fetchError && fetchError.code !== 'PGRST116') {
+      // PGRST116 = no rows returned, which is fine
+      setError(fetchError.message)
+      setLoading(false)
+      return
+    }
 
     if (data) {
       setSettings(data)
     } else {
       // Create default settings
-      const { data: newSettings } = await supabase
-        .from("appointment_reminders")
+      const { data: newSettings, error: insertError } = await supabase
+        .from("reminder_settings")
         .insert({
           shop_id: shopId,
-          email_template: DEFAULT_EMAIL_TEMPLATE,
-          sms_template: DEFAULT_SMS_TEMPLATE,
-          follow_up_template: DEFAULT_FOLLOW_UP_TEMPLATE
+          email_enabled: true,
+          sms_enabled: false,
+          reminder_24h: true,
+          reminder_2h: true,
+          custom_message: null
         })
         .select()
         .single()
       
-      setSettings(newSettings)
+      if (insertError) {
+        setError(insertError.message)
+      } else {
+        setSettings(newSettings)
+      }
     }
     setLoading(false)
   }
@@ -100,49 +85,53 @@ export function ReminderSettings({ shopId }: { shopId: string }) {
   async function saveSettings() {
     if (!settings) return
     setSaving(true)
+    setError(null)
     
-    const supabase = createClient()
-    await supabase
-      .from("appointment_reminders")
+    const { error: updateError } = await supabase
+      .from("reminder_settings")
       .update({
         email_enabled: settings.email_enabled,
-        email_hours_before: settings.email_hours_before,
-        email_template: settings.email_template,
         sms_enabled: settings.sms_enabled,
-        sms_hours_before: settings.sms_hours_before,
-        sms_template: settings.sms_template,
-        follow_up_enabled: settings.follow_up_enabled,
-        follow_up_days_after: settings.follow_up_days_after,
-        follow_up_template: settings.follow_up_template
+        reminder_24h: settings.reminder_24h,
+        reminder_2h: settings.reminder_2h,
+        custom_message: settings.custom_message
       })
       .eq("id", settings.id)
 
+    if (updateError) {
+      setError(updateError.message)
+    } else {
+      setSaved(true)
+      setTimeout(() => setSaved(false), 2000)
+    }
     setSaving(false)
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2000)
   }
 
   if (loading) {
     return (
       <Card className="glass">
         <CardContent className="p-8 text-center">
-          <div className="animate-pulse text-muted-foreground">Loading settings...</div>
+          <Loader2 className="w-6 h-6 animate-spin mx-auto text-primary" />
+          <p className="text-muted-foreground mt-2">Loading settings...</p>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (error) {
+    return (
+      <Card className="glass">
+        <CardContent className="p-8 text-center">
+          <p className="text-destructive">{error}</p>
+          <Button onClick={loadSettings} className="mt-4">
+            Try Again
+          </Button>
         </CardContent>
       </Card>
     )
   }
 
   if (!settings) return null
-
-  const variables = [
-    { name: "{{client_name}}", desc: "Client's full name" },
-    { name: "{{shop_name}}", desc: "Your shop name" },
-    { name: "{{date}}", desc: "Appointment date" },
-    { name: "{{time}}", desc: "Appointment time" },
-    { name: "{{service}}", desc: "Service name" },
-    { name: "{{shop_phone}}", desc: "Shop phone number" },
-    { name: "{{booking_link}}", desc: "Online booking URL" },
-  ]
 
   return (
     <div className="space-y-6">
@@ -154,212 +143,115 @@ export function ReminderSettings({ shopId }: { shopId: string }) {
             Appointment Reminders
           </h2>
           <p className="text-sm text-muted-foreground">
-            Reduce no-shows with automated email and SMS reminders
+            Reduce no-shows with automated reminders
           </p>
         </div>
-        <Button onClick={saveSettings} disabled={saving} className="glow-amber-soft">
+        <Button onClick={saveSettings} disabled={saving}>
           {saved ? (
             <>
               <Check className="w-4 h-4 mr-2" />
               Saved!
             </>
           ) : saving ? (
-            "Saving..."
+            <>
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              Saving...
+            </>
           ) : (
             "Save Changes"
           )}
         </Button>
       </div>
 
-      <Tabs defaultValue="email" className="space-y-4">
-        <TabsList className="bg-secondary/50">
-          <TabsTrigger value="email" className="flex items-center gap-2">
-            <Mail className="w-4 h-4" />
-            Email
-          </TabsTrigger>
-          <TabsTrigger value="sms" className="flex items-center gap-2">
-            <MessageSquare className="w-4 h-4" />
-            SMS
-          </TabsTrigger>
-          <TabsTrigger value="followup" className="flex items-center gap-2">
-            <Clock className="w-4 h-4" />
-            Follow-up
-          </TabsTrigger>
-        </TabsList>
-
-        {/* Email Settings */}
-        <TabsContent value="email">
-          <Card className="glass">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="text-base">Email Reminders</CardTitle>
-                  <CardDescription>Send email reminders before appointments</CardDescription>
-                </div>
-                <Switch
-                  checked={settings.email_enabled}
-                  onCheckedChange={(checked) => setSettings({ ...settings, email_enabled: checked })}
-                />
-              </div>
-            </CardHeader>
-            {settings.email_enabled && (
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label>Send reminder</Label>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      type="number"
-                      min={1}
-                      max={72}
-                      value={settings.email_hours_before}
-                      onChange={(e) => setSettings({ ...settings, email_hours_before: parseInt(e.target.value) || 24 })}
-                      className="bg-secondary/50 w-24"
-                    />
-                    <span className="text-muted-foreground">hours before appointment</span>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label>Email Template</Label>
-                  <Textarea
-                    value={settings.email_template}
-                    onChange={(e) => setSettings({ ...settings, email_template: e.target.value })}
-                    className="bg-secondary/50 min-h-[250px] font-mono text-sm"
-                  />
-                </div>
-              </CardContent>
-            )}
-          </Card>
-        </TabsContent>
-
-        {/* SMS Settings */}
-        <TabsContent value="sms">
-          <Card className="glass">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="text-base">SMS Reminders</CardTitle>
-                  <CardDescription>Send text message reminders before appointments</CardDescription>
-                </div>
-                <Switch
-                  checked={settings.sms_enabled}
-                  onCheckedChange={(checked) => setSettings({ ...settings, sms_enabled: checked })}
-                />
-              </div>
-            </CardHeader>
-            {settings.sms_enabled && (
-              <CardContent className="space-y-4">
-                <div className="p-3 bg-primary/10 rounded-lg border border-primary/20">
-                  <div className="flex items-start gap-2">
-                    <AlertCircle className="w-4 h-4 text-primary mt-0.5" />
-                    <div className="text-sm">
-                      <p className="font-medium text-primary">SMS Integration Required</p>
-                      <p className="text-muted-foreground">
-                        To send SMS reminders, you&apos;ll need to connect a provider like Twilio or MessageBird.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label>Send reminder</Label>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      type="number"
-                      min={1}
-                      max={72}
-                      value={settings.sms_hours_before}
-                      onChange={(e) => setSettings({ ...settings, sms_hours_before: parseInt(e.target.value) || 24 })}
-                      className="bg-secondary/50 w-24"
-                    />
-                    <span className="text-muted-foreground">hours before appointment</span>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label>SMS Template</Label>
-                  <Textarea
-                    value={settings.sms_template}
-                    onChange={(e) => setSettings({ ...settings, sms_template: e.target.value })}
-                    className="bg-secondary/50 min-h-[100px] font-mono text-sm"
-                    maxLength={160}
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    {settings.sms_template.length}/160 characters (standard SMS limit)
-                  </p>
-                </div>
-              </CardContent>
-            )}
-          </Card>
-        </TabsContent>
-
-        {/* Follow-up Settings */}
-        <TabsContent value="followup">
-          <Card className="glass">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="text-base">Follow-up Messages</CardTitle>
-                  <CardDescription>Send thank you emails after appointments</CardDescription>
-                </div>
-                <Switch
-                  checked={settings.follow_up_enabled}
-                  onCheckedChange={(checked) => setSettings({ ...settings, follow_up_enabled: checked })}
-                />
-              </div>
-            </CardHeader>
-            {settings.follow_up_enabled && (
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label>Send follow-up</Label>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      type="number"
-                      min={1}
-                      max={14}
-                      value={settings.follow_up_days_after}
-                      onChange={(e) => setSettings({ ...settings, follow_up_days_after: parseInt(e.target.value) || 1 })}
-                      className="bg-secondary/50 w-24"
-                    />
-                    <span className="text-muted-foreground">days after appointment</span>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label>Follow-up Template</Label>
-                  <Textarea
-                    value={settings.follow_up_template}
-                    onChange={(e) => setSettings({ ...settings, follow_up_template: e.target.value })}
-                    className="bg-secondary/50 min-h-[200px] font-mono text-sm"
-                  />
-                </div>
-              </CardContent>
-            )}
-          </Card>
-        </TabsContent>
-      </Tabs>
-
-      {/* Template Variables */}
+      {/* Notification Channels */}
       <Card className="glass">
         <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2">
-            <Settings className="w-4 h-4 text-primary" />
-            Available Variables
-          </CardTitle>
-          <CardDescription>Use these placeholders in your templates</CardDescription>
+          <CardTitle className="text-base">Notification Channels</CardTitle>
+          <CardDescription>Choose how to send reminders to clients</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg">
+            <div className="flex items-center gap-3">
+              <Mail className="w-5 h-5 text-primary" />
+              <div>
+                <p className="font-medium">Email Reminders</p>
+                <p className="text-sm text-muted-foreground">Send reminders via email</p>
+              </div>
+            </div>
+            <Switch
+              checked={settings.email_enabled}
+              onCheckedChange={(checked) => setSettings({ ...settings, email_enabled: checked })}
+            />
+          </div>
+
+          <div className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg">
+            <div className="flex items-center gap-3">
+              <MessageSquare className="w-5 h-5 text-primary" />
+              <div>
+                <p className="font-medium">SMS Reminders</p>
+                <p className="text-sm text-muted-foreground">Send reminders via text message</p>
+              </div>
+            </div>
+            <Switch
+              checked={settings.sms_enabled}
+              onCheckedChange={(checked) => setSettings({ ...settings, sms_enabled: checked })}
+            />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Timing */}
+      <Card className="glass">
+        <CardHeader>
+          <CardTitle className="text-base">Reminder Timing</CardTitle>
+          <CardDescription>When to send reminders before appointments</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg">
+            <div className="flex items-center gap-3">
+              <Clock className="w-5 h-5 text-primary" />
+              <div>
+                <p className="font-medium">24 Hours Before</p>
+                <p className="text-sm text-muted-foreground">Send a reminder one day before</p>
+              </div>
+            </div>
+            <Switch
+              checked={settings.reminder_24h}
+              onCheckedChange={(checked) => setSettings({ ...settings, reminder_24h: checked })}
+            />
+          </div>
+
+          <div className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg">
+            <div className="flex items-center gap-3">
+              <Clock className="w-5 h-5 text-primary" />
+              <div>
+                <p className="font-medium">2 Hours Before</p>
+                <p className="text-sm text-muted-foreground">Send a reminder 2 hours before</p>
+              </div>
+            </div>
+            <Switch
+              checked={settings.reminder_2h}
+              onCheckedChange={(checked) => setSettings({ ...settings, reminder_2h: checked })}
+            />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Custom Message */}
+      <Card className="glass">
+        <CardHeader>
+          <CardTitle className="text-base">Custom Message</CardTitle>
+          <CardDescription>Add a personal message to your reminders (optional)</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {variables.map(v => (
-              <div 
-                key={v.name} 
-                className="p-2 bg-secondary/30 rounded-lg border border-border/30"
-              >
-                <code className="text-xs text-primary">{v.name}</code>
-                <p className="text-xs text-muted-foreground mt-1">{v.desc}</p>
-              </div>
-            ))}
-          </div>
+          <Label htmlFor="custom-message" className="sr-only">Custom Message</Label>
+          <Textarea
+            id="custom-message"
+            placeholder="e.g., We look forward to seeing you! Please arrive 5 minutes early."
+            value={settings.custom_message || ""}
+            onChange={(e) => setSettings({ ...settings, custom_message: e.target.value || null })}
+            className="bg-secondary/50 min-h-[100px]"
+          />
         </CardContent>
       </Card>
     </div>
