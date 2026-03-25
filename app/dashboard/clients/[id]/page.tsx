@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect, notFound } from "next/navigation"
 import { ClientDetailView } from "@/components/dashboard/client-detail-view"
-import { CreateShopFirst } from "@/components/dashboard/create-shop-first"
+import Link from "next/link"
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -25,7 +25,15 @@ export default async function ClientDetailPage({ params }: PageProps) {
     .single()
 
   if (!profile?.shop_id) {
-    return <CreateShopFirst featureName="Client Details" />
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
+        <h2 className="text-xl font-semibold mb-2">Create Your Shop First</h2>
+        <p className="text-muted-foreground mb-4">Go to Settings &gt; Shop to set up your shop</p>
+        <Link href="/dashboard/settings?tab=shop" className="bg-primary text-primary-foreground px-4 py-2 rounded-lg">
+          Go to Settings
+        </Link>
+      </div>
+    )
   }
 
   // Get the client
