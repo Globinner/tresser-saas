@@ -27,21 +27,44 @@ export function CreateShopForm({ userId }: CreateShopFormProps) {
   const supabase = createClient()
   const { t } = useLanguage()
 
+  // Generate URL-friendly slug from shop name
+  function generateSlug(shopName: string): string {
+    const baseSlug = shopName
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '') // Remove special chars
+      .replace(/\s+/g, '-') // Replace spaces with dashes
+      .replace(/-+/g, '-') // Remove consecutive dashes
+    // Add random suffix for uniqueness
+    const randomSuffix = Math.random().toString(36).substring(2, 8)
+    return `${baseSlug}-${randomSuffix}`
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
     setMessage(null)
 
-    // Create the shop with owner_id for RLS
+    const slug = generateSlug(name)
+
+    // Create the shop with all required fields
     const { data: shop, error: shopError } = await supabase
       .from("shops")
       .insert({
         name,
+        slug,
+        booking_slug: slug,
         address: address || null,
         phone: phone || null,
         email: email || null,
         currency,
         owner_id: userId,
+        public_booking_enabled: false,
+        booking_slot_duration: 30,
+        booking_advance_days: 14,
+        booking_start_time: '09:00',
+        booking_end_time: '18:00',
+        booking_days_open: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
       })
       .select()
       .single()
