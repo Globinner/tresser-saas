@@ -84,16 +84,24 @@ export function SettingsTabs({ user, profile }: SettingsTabsProps) {
               <CreateShopForm userId={user.id} />
             )}
           </TabsContent>
-          {profile?.shops && (
-            <>
-              <TabsContent value="booking">
-                <BookingSettings shopId={profile.shop_id!} />
-              </TabsContent>
-              <TabsContent value="reminders">
-                <ReminderSettings shopId={profile.shop_id!} />
-              </TabsContent>
-            </>
-          )}
+          <TabsContent value="booking">
+            {profile?.shop_id ? (
+              <BookingSettings shopId={profile.shop_id} />
+            ) : (
+              <div className="glass rounded-xl p-6 text-center">
+                <p className="text-muted-foreground">Create your shop first in the Shop tab</p>
+              </div>
+            )}
+          </TabsContent>
+          <TabsContent value="reminders">
+            {profile?.shop_id ? (
+              <ReminderSettings shopId={profile.shop_id} />
+            ) : (
+              <div className="glass rounded-xl p-6 text-center">
+                <p className="text-muted-foreground">Create your shop first in the Shop tab</p>
+              </div>
+            )}
+          </TabsContent>
         </>
       )}
     </Tabs>
