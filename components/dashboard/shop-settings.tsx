@@ -60,12 +60,14 @@ export function ShopSettings({ shop }: ShopSettingsProps) {
         throw new Error(data.error || 'Upload failed')
       }
 
-      setLogoUrl(data.url)
+      // For private blobs, use the file serve API with pathname
+      const imageUrl = `/api/file?pathname=${encodeURIComponent(data.pathname)}`
+      setLogoUrl(imageUrl)
       
       // Update shop with new logo URL
       const { error } = await supabase
         .from("shops")
-        .update({ logo_url: data.url })
+        .update({ logo_url: imageUrl })
         .eq("id", shop.id)
 
       if (error) throw error
