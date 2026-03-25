@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ProfileSettings } from "./profile-settings"
 import { ShopSettings } from "./shop-settings"
+import { CreateShopForm } from "./create-shop-form"
 import { BookingSettings } from "./booking-settings"
 import { ReminderSettings } from "./reminder-settings"
 import { SetupGuideButton } from "./setup-guide-button"
@@ -63,17 +64,25 @@ export function SettingsTabs({ user, profile }: SettingsTabsProps) {
         <ProfileSettings user={user} profile={profile} />
       </TabsContent>
 
-      {profile?.role === "owner" && profile?.shops && (
+      {profile?.role === "owner" && (
         <>
           <TabsContent value="shop">
-            <ShopSettings shop={profile.shops} />
+            {profile?.shops ? (
+              <ShopSettings shop={profile.shops} />
+            ) : (
+              <CreateShopForm userId={user.id} />
+            )}
           </TabsContent>
-          <TabsContent value="booking">
-            <BookingSettings shopId={profile.shop_id!} />
-          </TabsContent>
-          <TabsContent value="reminders">
-            <ReminderSettings shopId={profile.shop_id!} />
-          </TabsContent>
+          {profile?.shops && (
+            <>
+              <TabsContent value="booking">
+                <BookingSettings shopId={profile.shop_id!} />
+              </TabsContent>
+              <TabsContent value="reminders">
+                <ReminderSettings shopId={profile.shop_id!} />
+              </TabsContent>
+            </>
+          )}
         </>
       )}
 

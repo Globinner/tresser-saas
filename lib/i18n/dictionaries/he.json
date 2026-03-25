@@ -569,7 +569,7 @@
       "location": "מיאמי, ארה״ב"
     },
     "testimonial3": {
-      "quote": "רשומות הכימיה של הלקוחות משנות את כללי המשחק. עכשיו אני יכול לשחזר נוסחאות מושלמות בכל פע��.",
+      "quote": "רשומות הכימיה של הלקוחות משנות את כללי המשחק. עכשיו אני יכול לשחזר נוסחאות מושלמות בכל פע����.",
       "author": "ג'יימס מיטשל",
       "role": "מייסד, The Gentleman's Cut",
       "location": "לונדון, בריטניה"
@@ -611,6 +611,22 @@
     "terms": "תנאי שירות",
     "contact": "צור קשר",
     "copyright": "כל הזכויות שמורות."
+  },
+  "shop": {
+    "createTitle": "צור את המספרה שלך",
+    "createDescription": "הגדר את המספרה כדי להתחיל לנהל תורים",
+    "createButton": "צור מספרה",
+    "created": "המספרה נוצרה בהצלחה!",
+    "name": "שם המספרה",
+    "namePlaceholder": "המספרה שלי",
+    "address": "כתובת",
+    "addressPlaceholder": "רחוב הראשי 123, עיר",
+    "phone": "טלפון",
+    "phonePlaceholder": "050-123-4567",
+    "email": "אימייל",
+    "emailPlaceholder": "shop@example.com",
+    "currency": "מטבע",
+    "currencyPlaceholder": "בחר מטבע"
   },
   "onboarding": {
     "createShopFirst": "צור את המספרה שלך קודם",
