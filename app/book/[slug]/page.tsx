@@ -17,7 +17,8 @@ import {
   ChevronRight,
   MapPin,
   Phone,
-  Star
+  Star,
+  User
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -139,7 +140,7 @@ export default function PublicBookingPage() {
       .eq("shop_id", shopData.id)
       .gte("date", today)
       .lte("date", maxDateStr)
-      .in("status", ["scheduled", "confirmed", "pending"])
+      .in("status", ["scheduled", "confirmed", "in_progress"])
 
     console.log("[v0] Appointments loaded:", appointmentsData?.length, "Error:", appointmentsError)
     console.log("[v0] Appointments data:", appointmentsData)
@@ -388,7 +389,7 @@ export default function PublicBookingPage() {
       date: selectedDate.toISOString().split("T")[0],
       start_time: selectedTime,
       end_time: `${endHours.toString().padStart(2, "0")}:${endMinutes.toString().padStart(2, "0")}`,
-      status: "pending",
+      status: "scheduled",
       notes: customerDetails.notes || null,
       total_price: selectedService.price
     }
