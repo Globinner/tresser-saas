@@ -132,7 +132,7 @@ export default function PublicBookingPage() {
     maxDate.setDate(maxDate.getDate() + (shopData.booking_advance_days || 14))
     const maxDateStr = maxDate.toISOString().split("T")[0]
 
-    const { data: appointmentsData } = await supabase
+    const { data: appointmentsData, error: appointmentsError } = await supabase
       .from("appointments")
       .select("date, start_time, end_time, barber_id")
       .eq("shop_id", shopData.id)
@@ -140,6 +140,8 @@ export default function PublicBookingPage() {
       .lte("date", maxDateStr)
       .in("status", ["scheduled", "confirmed", "pending"])
 
+    console.log("[v0] Appointments loaded:", appointmentsData?.length, "Error:", appointmentsError)
+    console.log("[v0] Appointments data:", appointmentsData)
     setExistingAppointments(appointmentsData || [])
     setLoading(false)
   }
@@ -188,6 +190,8 @@ export default function PublicBookingPage() {
       // If no barber selected but we have barbers, the slot is available if ANY barber is free
       return true
     })
+    
+    console.log("[v0] Date:", dateStr, "Total appointments:", existingAppointments.length, "Day appointments:", dayAppointments.length, "Barbers:", barbers.length)
     
     while (currentMinutes + serviceDuration <= closeMinutes) {
       const h = Math.floor(currentMinutes / 60)
@@ -414,21 +418,64 @@ export default function PublicBookingPage() {
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <Card className="max-w-md w-full glass-strong">
           <CardContent className="pt-6 text-center">
-            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
-              <Check className="w-8 h-8 text-green-500" />
+            <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
+              <Check className="w-10 h-10 text-green-500" />
             </div>
-            <h2 className="text-2xl font-bold mb-2">Booking Confirmed!</h2>
-            <p className="text-muted-foreground mb-4">
-              Your appointment at {shop.name} has been scheduled.
+            <h2 className="text-2xl font-bold mb-2">See You Soon!</h2>
+            <p className="text-lg text-muted-foreground mb-6">
+              We're looking forward to seeing you at <span className="text-foreground font-medium">{shop.name}</span>
             </p>
-            <div className="bg-secondary/50 rounded-lg p-4 text-left space-y-2">
-              <p><strong>Service:</strong> {selectedService?.name}</p>
-              <p><strong>Date:</strong> {selectedDate?.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}</p>
-              <p><strong>Time:</strong> {selectedTime}</p>
+            <div className="bg-primary/10 border border-primary/20 rounded-xl p-5 text-left space-y-3">
+              <div className="flex items-center gap-3">
+                <Calendar className="w-5 h-5 text-primary" />
+                <div>
+                  <p className="text-sm text-muted-foreground">Date</p>
+                  <p className="font-semibold">{selectedDate?.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Clock className="w-5 h-5 text-primary" />
+                <div>
+                  <p className="text-sm text-muted-foreground">Time</p>
+                  <p className="font-semibold">{selectedTime}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Scissors className="w-5 h-5 text-primary" />
+                <div>
+                  <p className="text-sm text-muted-foreground">Service</p>
+                  <p className="font-semibold">{selectedService?.name}</p>
+                </div>
+              </div>
+              {selectedBarber && (
+                <div className="flex items-center gap-3">
+                  <User className="w-5 h-5 text-primary" />
+                  <div>
+                    <p className="text-sm text-muted-foreground">Professional</p>
+                    <p className="font-semibold">{selectedBarber.display_name || selectedBarber.full_name}</p>
+                  </div>
+                </div>
+              )}
+              {shop.address && (
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-5 h-5 text-primary" />
+                  <div>
+                    <p className="text-sm text-muted-foreground">Location</p>
+                    <p className="font-semibold">{shop.address}</p>
+                  </div>
+                </div>
+              )}
             </div>
-            <p className="text-sm text-muted-foreground mt-4">
-              A confirmation has been sent to {customerDetails.email}
+            <p className="text-sm text-muted-foreground mt-6">
+              A confirmation has been sent to <span className="font-medium">{customerDetails.email}</span>
             </p>
+            <Button 
+              variant="outline" 
+              className="mt-4"
+              onClick={() => window.location.reload()}
+            >
+              Book Another Appointment
+            </Button>
           </CardContent>
         </Card>
       </div>
