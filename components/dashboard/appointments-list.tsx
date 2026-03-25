@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { createClient } from "@/lib/supabase/client"
-import { useRouter } from "next/navigation"
 import { 
   Clock, 
   User, 
@@ -21,6 +20,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useRealtimeAppointments } from "@/hooks/use-realtime-appointments"
 
 interface Appointment {
   id: string
@@ -47,6 +47,7 @@ interface Appointment {
 
 interface AppointmentsListProps {
   appointments: Appointment[]
+  shopId: string
 }
 
 const statusConfig = {
@@ -57,10 +58,12 @@ const statusConfig = {
   "no-show": { icon: XCircle, color: "text-muted-foreground", bg: "bg-muted", label: "No Show" },
 }
 
-export function AppointmentsList({ appointments }: AppointmentsListProps) {
-  const router = useRouter()
+export function AppointmentsList({ appointments: initialAppointments, shopId }: AppointmentsListProps) {
   const supabase = createClient()
   const [updating, setUpdating] = useState<string | null>(null)
+  
+  // Use realtime hook for live updates across all devices
+  const appointments = useRealtimeAppointments(shopId, initialAppointments as any)
 
   // Group appointments by date
   const groupedAppointments = appointments.reduce((acc, appointment) => {
@@ -82,7 +85,7 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
       .update({ status: newStatus })
       .eq("id", appointmentId)
     
-    router.refresh()
+    // No need for router.refresh() - realtime will update automatically
     setUpdating(null)
   }
 

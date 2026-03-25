@@ -88,7 +88,7 @@ export default async function AppointmentsPage({
 
       {/* Appointments list */}
       <Suspense fallback={<div className="text-center py-12">Loading appointments...</div>}>
-        <AppointmentsList appointments={appointments || []} />
+        <AppointmentsList appointments={appointments || []} shopId={shopId || ""} />
       </Suspense>
     </div>
   )

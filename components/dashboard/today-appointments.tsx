@@ -4,6 +4,7 @@ import { Clock, User, CheckCircle, XCircle, AlertCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { useRealtimeAppointments } from "@/hooks/use-realtime-appointments"
 
 interface Appointment {
   id: string
@@ -27,6 +28,7 @@ interface Appointment {
 
 interface TodayAppointmentsProps {
   appointments: Appointment[]
+  shopId: string
 }
 
 const statusConfig = {
@@ -37,7 +39,20 @@ const statusConfig = {
   "no-show": { icon: XCircle, color: "text-muted-foreground", bg: "bg-muted" },
 }
 
-export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
+export function TodayAppointments({ appointments: initialAppointments, shopId }: TodayAppointmentsProps) {
+  // Use realtime hook for live updates
+  const allAppointments = useRealtimeAppointments(shopId, initialAppointments as any)
+  
+  // Filter to only today's appointments
+  const today = new Date()
+  const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime()
+  const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).getTime()
+  
+  const appointments = allAppointments.filter((apt) => {
+    const aptTime = new Date(apt.appointment_time).getTime()
+    return aptTime >= startOfDay && aptTime < endOfDay
+  })
+
   return (
     <div className="glass rounded-xl p-6">
       <div className="flex items-center justify-between mb-6">
