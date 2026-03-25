@@ -84,17 +84,48 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
           {/* Page title */}
           <h1 className="text-lg font-semibold">{currentPage}</h1>
 
+          {/* Shop/User name */}
+          <div className={cn("hidden md:flex items-center gap-3 px-4 py-2 rounded-lg bg-secondary/30 border border-border", isRTL ? "mr-auto" : "ml-auto")}>
+            {profile?.avatar_url ? (
+              <img 
+                src={profile.avatar_url} 
+                alt={profile?.full_name || "User"} 
+                className="w-8 h-8 rounded-full object-cover"
+              />
+            ) : (
+              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-medium text-sm">
+                {profile?.shops?.name?.charAt(0) || profile?.full_name?.charAt(0) || user.email?.charAt(0)?.toUpperCase()}
+              </div>
+            )}
+            <div className="flex flex-col">
+              <span className="text-sm font-medium truncate max-w-[150px]">
+                {profile?.shops?.name || profile?.display_name || profile?.full_name || "My Shop"}
+              </span>
+              <span className="text-xs text-muted-foreground truncate max-w-[150px]">
+                {profile?.full_name || user.email}
+              </span>
+            </div>
+          </div>
+
           {/* Right side actions */}
-          <div className={cn("flex items-center gap-4", isRTL ? "mr-auto" : "ml-auto")}>
+          <div className={cn("flex items-center gap-4", isRTL ? "" : "")}>
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full" />
             </Button>
             
-            <div className="hidden sm:flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center text-primary font-medium text-sm">
-                {profile?.full_name?.charAt(0) || user.email?.charAt(0)?.toUpperCase()}
-              </div>
+            <div className="md:hidden flex items-center">
+              {profile?.avatar_url ? (
+                <img 
+                  src={profile.avatar_url} 
+                  alt={profile?.full_name || "User"} 
+                  className="w-9 h-9 rounded-full object-cover"
+                />
+              ) : (
+                <div className="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center text-primary font-medium text-sm">
+                  {profile?.full_name?.charAt(0) || user.email?.charAt(0)?.toUpperCase()}
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -1,12 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Store, Loader2, MapPin, Phone, Mail, Coins } from "lucide-react"
+import { Store, Loader2, MapPin, Phone, Mail, Coins, Camera, Upload } from "lucide-react"
 import { CURRENCY_OPTIONS, type CurrencyCode } from "@/lib/currency"
 
 interface Shop {
@@ -16,6 +16,7 @@ interface Shop {
   phone: string | null
   email: string | null
   currency: string | null
+  logo_url?: string | null
 }
 
 interface ShopSettingsProps {
@@ -28,11 +29,55 @@ export function ShopSettings({ shop }: ShopSettingsProps) {
   const [phone, setPhone] = useState(shop.phone || "")
   const [email, setEmail] = useState(shop.email || "")
   const [currency, setCurrency] = useState<CurrencyCode>((shop.currency as CurrencyCode) || "USD")
+  const [logoUrl, setLogoUrl] = useState(shop.logo_url || "")
   const [loading, setLoading] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   
   const router = useRouter()
   const supabase = createClient()
+
+  async function handleLogoUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    setMessage(null)
+
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Upload failed')
+      }
+
+      setLogoUrl(data.url)
+      
+      // Update shop with new logo URL
+      const { error } = await supabase
+        .from("shops")
+        .update({ logo_url: data.url })
+        .eq("id", shop.id)
+
+      if (error) throw error
+
+      setMessage({ type: "success", text: "Shop logo updated!" })
+      router.refresh()
+    } catch (error: any) {
+      setMessage({ type: "error", text: error.message })
+    } finally {
+      setUploading(false)
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -72,7 +117,53 @@ export function ShopSettings({ shop }: ShopSettingsProps) {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Shop Logo Upload */}
+        <div className="flex items-center gap-6">
+          <div className="relative">
+            {logoUrl ? (
+              <img 
+                src={logoUrl} 
+                alt={name} 
+                className="w-20 h-20 rounded-xl object-cover border-2 border-primary/30"
+              />
+            ) : (
+              <div className="w-20 h-20 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-2xl font-medium">
+                {name?.charAt(0) || "S"}
+              </div>
+            )}
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 transition-colors"
+            >
+              {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Camera className="w-4 h-4" />}
+            </button>
+          </div>
+          <div className="flex-1">
+            <h3 className="font-medium">Shop Logo</h3>
+            <p className="text-sm text-muted-foreground mb-2">This will be shown in the booking page for customers</p>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+            >
+              <Upload className="w-4 h-4 mr-2" />
+              {uploading ? "Uploading..." : "Upload Logo"}
+            </Button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleLogoUpload}
+              className="hidden"
+            />
+          </div>
+        </div>
+
         <div className="space-y-2">
           <label className="text-sm font-medium">Shop Name</label>
           <div className="relative">
