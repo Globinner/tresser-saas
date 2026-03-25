@@ -84,6 +84,7 @@ export default function PublicBookingPage() {
   })
   const [submitting, setSubmitting] = useState(false)
   const [booked, setBooked] = useState(false)
+  const [bookingError, setBookingError] = useState<string | null>(null)
 
   useEffect(() => {
     loadShopData()
@@ -317,19 +318,27 @@ export default function PublicBookingPage() {
   }
 
   async function handleSubmit() {
-    if (!shop || !selectedService || !selectedDate || !selectedTime) return
+    if (!shop || !selectedService || !selectedDate || !selectedTime) {
+      console.log("[v0] Missing required data:", { shop: !!shop, selectedService: !!selectedService, selectedDate: !!selectedDate, selectedTime: !!selectedTime })
+      return
+    }
     
     setSubmitting(true)
+    setBookingError(null)
     const supabase = createClient()
+    
+    console.log("[v0] Starting booking submission...")
     
     // Create or find client
     let clientId: string
-    const { data: existingClient } = await supabase
+    const { data: existingClient, error: findClientError } = await supabase
       .from("clients")
       .select("id")
       .eq("shop_id", shop.id)
       .eq("email", customerDetails.email)
       .single()
+
+    console.log("[v0] Find client result:", existingClient, findClientError)
 
     if (existingClient) {
       clientId = existingClient.id
@@ -339,6 +348,7 @@ export default function PublicBookingPage() {
       const firstName = nameParts[0] || ""
       const lastName = nameParts.slice(1).join(" ") || ""
       
+      console.log("[v0] Creating new client...")
       const { data: newClient, error: clientError } = await supabase
         .from("clients")
         .insert({
@@ -346,12 +356,16 @@ export default function PublicBookingPage() {
           first_name: firstName,
           last_name: lastName,
           email: customerDetails.email,
-          phone: customerDetails.phone
+          phone: customerDetails.phone || null
         })
         .select("id")
         .single()
 
+      console.log("[v0] Create client result:", newClient, clientError)
+
       if (clientError || !newClient) {
+        console.error("[v0] Client creation failed:", clientError)
+        setBookingError(`Failed to create client: ${clientError?.message || "Unknown error"}`)
         setSubmitting(false)
         return
       }
@@ -362,31 +376,40 @@ export default function PublicBookingPage() {
     const [hours, minutes] = selectedTime.split(":").map(Number)
     const endHours = hours + Math.floor((minutes + selectedService.duration_minutes) / 60)
     const endMinutes = (minutes + selectedService.duration_minutes) % 60
+    
+    const appointmentData = {
+      shop_id: shop.id,
+      client_id: clientId,
+      client_name: customerDetails.name,
+      client_email: customerDetails.email,
+      client_phone: customerDetails.phone || null,
+      service_id: selectedService.id,
+      barber_id: selectedBarber?.id || (barbers.length === 1 ? barbers[0].id : null),
+      date: selectedDate.toISOString().split("T")[0],
+      start_time: selectedTime,
+      end_time: `${endHours.toString().padStart(2, "0")}:${endMinutes.toString().padStart(2, "0")}`,
+      status: "pending",
+      notes: customerDetails.notes || null,
+      total_price: selectedService.price
+    }
+    
+    console.log("[v0] Creating appointment with data:", appointmentData)
 
-    const { error: appointmentError } = await supabase
+    const { data: appointmentResult, error: appointmentError } = await supabase
       .from("appointments")
-      .insert({
-        shop_id: shop.id,
-        client_id: clientId,
-        client_name: customerDetails.name,
-        client_email: customerDetails.email,
-        client_phone: customerDetails.phone || null,
-        service_id: selectedService.id,
-        barber_id: selectedBarber?.id || (barbers.length === 1 ? barbers[0].id : null),
-        date: selectedDate.toISOString().split("T")[0],
-        start_time: selectedTime,
-        end_time: `${endHours.toString().padStart(2, "0")}:${endMinutes.toString().padStart(2, "0")}`,
-        status: "pending",
-        notes: customerDetails.notes || null,
-        total_price: selectedService.price
-      })
+      .insert(appointmentData)
+      .select()
+
+    console.log("[v0] Appointment result:", appointmentResult, appointmentError)
 
     if (appointmentError) {
-      console.error("Booking error:", appointmentError)
+      console.error("[v0] Booking error:", appointmentError)
+      setBookingError(`Failed to book appointment: ${appointmentError.message}`)
       setSubmitting(false)
       return
     }
 
+    console.log("[v0] Booking successful!")
     setBooked(true)
     setSubmitting(false)
   }
@@ -913,6 +936,12 @@ export default function PublicBookingPage() {
                 )}
               </CardContent>
             </Card>
+
+            {bookingError && (
+              <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+                {bookingError}
+              </div>
+            )}
 
             <Button 
               className="w-full glow-amber" 
