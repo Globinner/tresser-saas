@@ -5,6 +5,10 @@ import { RevenueChart } from "@/components/dashboard/revenue-chart"
 import { RecentClients } from "@/components/dashboard/recent-clients"
 import { QuickActions } from "@/components/dashboard/quick-actions"
 
+// Disable caching - always fetch fresh data
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 export default async function DashboardPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -21,17 +25,22 @@ export default async function DashboardPage() {
   const shopId = profile?.shop_id
 
   // Get today's appointments
-  const today = new Date().toISOString().split("T")[0]
+  const today = new Date()
+  const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString()
+  const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString()
+  
   const { data: todayAppointments } = await supabase
     .from("appointments")
     .select(`
       *,
-      clients(first_name, last_name, phone),
-      services(name, duration_minutes, price)
+      clients(id, full_name, phone),
+      services(name, duration_minutes, price),
+      profiles!appointments_barber_id_fkey(full_name)
     `)
     .eq("shop_id", shopId)
-    .eq("date", today)
-    .order("start_time", { ascending: true })
+    .gte("appointment_time", startOfDay)
+    .lt("appointment_time", endOfDay)
+    .order("appointment_time", { ascending: true })
 
   // Get stats
   const { count: totalClients } = await supabase

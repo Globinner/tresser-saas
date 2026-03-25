@@ -12,8 +12,7 @@ interface Appointment {
   client_id: string | null
   clients: {
     id: string
-    first_name: string
-    last_name: string | null
+    full_name: string
     phone: string | null
   } | null
   services: {
@@ -88,7 +87,7 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
                         href={`/dashboard/clients/${appointment.clients.id}`}
                         className="font-medium truncate hover:text-primary transition-colors"
                       >
-                        {appointment.clients.first_name} {appointment.clients.last_name || ""}
+                        {appointment.clients.full_name}
                       </Link>
                     ) : (
                       <p className="font-medium truncate">Walk-in</p>

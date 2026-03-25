@@ -5,6 +5,10 @@ import { NewAppointmentModal } from "@/components/dashboard/new-appointment-moda
 import { Calendar, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
+// Disable caching for this page - always fetch fresh data
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 export default async function AppointmentsPage({
   searchParams,
 }: {
