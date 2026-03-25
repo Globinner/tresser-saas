@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
+import { createClient } from "@/lib/supabase/client"
 import { 
   Clock, 
   User, 
@@ -11,7 +11,8 @@ import {
   AlertCircle,
   MoreVertical,
   Phone,
-  Scissors
+  Scissors,
+  RefreshCw
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -58,9 +59,16 @@ const statusConfig = {
 }
 
 export function AppointmentsList({ appointments }: AppointmentsListProps) {
-  const router = useRouter()
   const supabase = createClient()
+  const router = useRouter()
   const [updating, setUpdating] = useState<string | null>(null)
+  const [refreshing, setRefreshing] = useState(false)
+
+  const handleRefresh = () => {
+    setRefreshing(true)
+    router.refresh()
+    setTimeout(() => setRefreshing(false), 1000)
+  }
 
   // Group appointments by date
   const groupedAppointments = appointments.reduce((acc, appointment) => {
@@ -102,6 +110,17 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
 
   return (
     <div className="space-y-8">
+      <div className="flex justify-end">
+        <Button 
+          variant="outline" 
+          size="sm"
+          onClick={handleRefresh}
+          disabled={refreshing}
+        >
+          <RefreshCw className={cn("w-4 h-4 mr-2", refreshing && "animate-spin")} />
+          Refresh
+        </Button>
+      </div>
       {Object.entries(groupedAppointments).map(([date, dayAppointments]) => (
         <div key={date}>
           <h3 className="text-sm font-medium text-muted-foreground mb-4">{date}</h3>

@@ -1,6 +1,8 @@
 "use client"
 
-import { Clock, User, CheckCircle, XCircle, AlertCircle } from "lucide-react"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { Clock, User, CheckCircle, XCircle, AlertCircle, RefreshCw } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -38,15 +40,35 @@ const statusConfig = {
 }
 
 export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
+  const router = useRouter()
+  const [refreshing, setRefreshing] = useState(false)
+
+  const handleRefresh = () => {
+    setRefreshing(true)
+    router.refresh()
+    setTimeout(() => setRefreshing(false), 1000)
+  }
+
   return (
     <div className="glass rounded-xl p-6">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-lg font-semibold">Today's Schedule</h2>
-        <Link href="/dashboard/appointments">
-          <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80">
-            View all
+        <div className="flex items-center gap-2">
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={handleRefresh}
+            disabled={refreshing}
+            title="Refresh"
+          >
+            <RefreshCw className={cn("w-4 h-4", refreshing && "animate-spin")} />
           </Button>
-        </Link>
+          <Link href="/dashboard/appointments">
+            <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80">
+              View all
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {appointments.length === 0 ? (
