@@ -75,10 +75,10 @@ export function CreateShopForm({ userId }: CreateShopFormProps) {
       return
     }
 
-    // Link shop to user profile
+    // Link shop to user profile AND set role to owner
     const { error: profileError } = await supabase
       .from("profiles")
-      .update({ shop_id: shop.id })
+      .update({ shop_id: shop.id, role: "owner" })
       .eq("id", userId)
 
     if (profileError) {
