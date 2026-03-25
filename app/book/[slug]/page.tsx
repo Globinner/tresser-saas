@@ -44,7 +44,21 @@ interface Service {
   duration_minutes: number
 }
 
-type Step = "service" | "datetime" | "details" | "confirm"
+interface Barber {
+  id: string
+  full_name: string | null
+  display_name: string | null
+  avatar_url: string | null
+}
+
+interface ExistingAppointment {
+  date: string
+  start_time: string
+  end_time: string
+  barber_id: string | null
+}
+
+type Step = "service" | "barber" | "datetime" | "details" | "confirm"
 
 export default function PublicBookingPage() {
   const params = useParams()
@@ -52,11 +66,14 @@ export default function PublicBookingPage() {
   
   const [shop, setShop] = useState<Shop | null>(null)
   const [services, setServices] = useState<Service[]>([])
+  const [barbers, setBarbers] = useState<Barber[]>([])
+  const [existingAppointments, setExistingAppointments] = useState<ExistingAppointment[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   
   const [step, setStep] = useState<Step>("service")
   const [selectedService, setSelectedService] = useState<Service | null>(null)
+  const [selectedBarber, setSelectedBarber] = useState<Barber | null>(null)
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
   const [customerDetails, setCustomerDetails] = useState({
@@ -100,6 +117,31 @@ export default function PublicBookingPage() {
       .order("name")
 
     setServices(servicesData || [])
+
+    // Load barbers (team members linked to this shop)
+    const { data: barbersData } = await supabase
+      .from("profiles")
+      .select("id, full_name, display_name, avatar_url")
+      .eq("shop_id", shopData.id)
+      .eq("is_active", true)
+
+    setBarbers(barbersData || [])
+
+    // Load existing appointments for the next booking_advance_days
+    const today = new Date().toISOString().split("T")[0]
+    const maxDate = new Date()
+    maxDate.setDate(maxDate.getDate() + (shopData.booking_advance_days || 14))
+    const maxDateStr = maxDate.toISOString().split("T")[0]
+
+    const { data: appointmentsData } = await supabase
+      .from("appointments")
+      .select("date, start_time, end_time, barber_id")
+      .eq("shop_id", shopData.id)
+      .gte("date", today)
+      .lte("date", maxDateStr)
+      .in("status", ["scheduled", "confirmed", "pending"])
+
+    setExistingAppointments(appointmentsData || [])
     setLoading(false)
   }
 
@@ -135,11 +177,82 @@ export default function PublicBookingPage() {
     let currentMinutes = openHour * 60 + openMin
     const closeMinutes = closeHour * 60 + closeMin
     const slotDuration = shop.booking_slot_duration || 30
+    const serviceDuration = selectedService?.duration_minutes || 30
     
-    while (currentMinutes + (selectedService?.duration_minutes || 30) <= closeMinutes) {
+    const dateStr = date.toISOString().split("T")[0]
+    
+    // Get appointments for this date and selected barber
+    const dayAppointments = existingAppointments.filter(apt => {
+      if (apt.date !== dateStr) return false
+      // If a barber is selected, only check their appointments
+      if (selectedBarber && apt.barber_id !== selectedBarber.id) return false
+      // If no barber selected but we have barbers, the slot is available if ANY barber is free
+      return true
+    })
+    
+    while (currentMinutes + serviceDuration <= closeMinutes) {
       const h = Math.floor(currentMinutes / 60)
       const m = currentMinutes % 60
-      slots.push(`${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`)
+      const timeStr = `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`
+      
+      // Check if this slot overlaps with any existing appointment
+      const slotStart = currentMinutes
+      const slotEnd = currentMinutes + serviceDuration
+      
+      let isAvailable = true
+      
+      if (selectedBarber) {
+        // Check if selected barber is busy
+        for (const apt of dayAppointments) {
+          const [aptStartH, aptStartM] = apt.start_time.split(":").map(Number)
+          const [aptEndH, aptEndM] = apt.end_time.split(":").map(Number)
+          const aptStart = aptStartH * 60 + aptStartM
+          const aptEnd = aptEndH * 60 + aptEndM
+          
+          // Check for overlap
+          if (slotStart < aptEnd && slotEnd > aptStart) {
+            isAvailable = false
+            break
+          }
+        }
+      } else if (barbers.length > 0) {
+        // If no barber selected, check if at least one barber is free
+        isAvailable = barbers.some(barber => {
+          const barberAppointments = existingAppointments.filter(
+            apt => apt.date === dateStr && apt.barber_id === barber.id
+          )
+          
+          for (const apt of barberAppointments) {
+            const [aptStartH, aptStartM] = apt.start_time.split(":").map(Number)
+            const [aptEndH, aptEndM] = apt.end_time.split(":").map(Number)
+            const aptStart = aptStartH * 60 + aptStartM
+            const aptEnd = aptEndH * 60 + aptEndM
+            
+            if (slotStart < aptEnd && slotEnd > aptStart) {
+              return false // This barber is busy
+            }
+          }
+          return true // This barber is free
+        })
+      } else {
+        // No barbers in system, check all appointments without barber filter
+        for (const apt of dayAppointments) {
+          const [aptStartH, aptStartM] = apt.start_time.split(":").map(Number)
+          const [aptEndH, aptEndM] = apt.end_time.split(":").map(Number)
+          const aptStart = aptStartH * 60 + aptStartM
+          const aptEnd = aptEndH * 60 + aptEndM
+          
+          if (slotStart < aptEnd && slotEnd > aptStart) {
+            isAvailable = false
+            break
+          }
+        }
+      }
+      
+      if (isAvailable) {
+        slots.push(timeStr)
+      }
+      
       currentMinutes += slotDuration
     }
     
@@ -256,6 +369,7 @@ export default function PublicBookingPage() {
         client_email: customerDetails.email,
         client_phone: customerDetails.phone || null,
         service_id: selectedService.id,
+        barber_id: selectedBarber?.id || (barbers.length === 1 ? barbers[0].id : null),
         date: selectedDate.toISOString().split("T")[0],
         start_time: selectedTime,
         end_time: `${endHours.toString().padStart(2, "0")}:${endMinutes.toString().padStart(2, "0")}`,
@@ -322,12 +436,21 @@ export default function PublicBookingPage() {
     )
   }
 
-  const steps: { key: Step; label: string }[] = [
-    { key: "service", label: "Service" },
-    { key: "datetime", label: "Date & Time" },
-    { key: "details", label: "Your Details" },
-    { key: "confirm", label: "Confirm" }
-  ]
+  // Build steps dynamically based on whether there are barbers
+  const steps: { key: Step; label: string }[] = barbers.length > 1
+    ? [
+        { key: "service", label: "Service" },
+        { key: "barber", label: "Professional" },
+        { key: "datetime", label: "Date & Time" },
+        { key: "details", label: "Your Details" },
+        { key: "confirm", label: "Confirm" }
+      ]
+    : [
+        { key: "service", label: "Service" },
+        { key: "datetime", label: "Date & Time" },
+        { key: "details", label: "Your Details" },
+        { key: "confirm", label: "Confirm" }
+      ]
 
   const currentStepIndex = steps.findIndex(s => s.key === step)
 
@@ -427,6 +550,70 @@ export default function PublicBookingPage() {
             <Button 
               className="w-full mt-4" 
               disabled={!selectedService}
+              onClick={() => {
+                // If only one barber, auto-select them
+                if (barbers.length === 1) {
+                  setSelectedBarber(barbers[0])
+                  setStep("datetime")
+                } else if (barbers.length > 1) {
+                  setStep("barber")
+                } else {
+                  setStep("datetime")
+                }
+              }}
+            >
+              Continue
+            </Button>
+          </div>
+        )}
+
+        {/* Barber Selection Step */}
+        {step === "barber" && (
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="icon" onClick={() => setStep("service")}>
+                <ChevronLeft className="w-5 h-5" />
+              </Button>
+              <h2 className="text-xl font-semibold">Choose Your Professional</h2>
+            </div>
+            <div className="grid gap-3">
+              {barbers.map(barber => (
+                <Card 
+                  key={barber.id}
+                  className={cn(
+                    "cursor-pointer transition-all hover:border-primary/50",
+                    selectedBarber?.id === barber.id && "border-primary glow-amber-soft"
+                  )}
+                  onClick={() => setSelectedBarber(barber)}
+                >
+                  <CardContent className="p-4 flex items-center gap-4">
+                    {barber.avatar_url ? (
+                      <img 
+                        src={barber.avatar_url} 
+                        alt={barber.display_name || barber.full_name || "Professional"} 
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className={cn(
+                        "w-12 h-12 rounded-full flex items-center justify-center text-lg font-medium",
+                        selectedBarber?.id === barber.id ? "bg-primary/20 text-primary" : "bg-secondary text-muted-foreground"
+                      )}>
+                        {(barber.display_name || barber.full_name || "?").charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    <div>
+                      <h3 className="font-medium">{barber.display_name || barber.full_name || "Professional"}</h3>
+                    </div>
+                    {selectedBarber?.id === barber.id && (
+                      <Check className="w-5 h-5 text-primary ml-auto" />
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <Button 
+              className="w-full mt-4" 
+              disabled={!selectedBarber}
               onClick={() => setStep("datetime")}
             >
               Continue
@@ -437,10 +624,21 @@ export default function PublicBookingPage() {
         {step === "datetime" && (
           <div className="space-y-6">
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="icon" onClick={() => setStep("service")}>
+              <Button variant="ghost" size="icon" onClick={() => {
+                if (barbers.length > 1) {
+                  setStep("barber")
+                } else {
+                  setStep("service")
+                }
+              }}>
                 <ChevronLeft className="w-5 h-5" />
               </Button>
               <h2 className="text-xl font-semibold">Choose Date & Time</h2>
+              {selectedBarber && (
+                <span className="text-sm text-muted-foreground ml-auto">
+                  with {selectedBarber.display_name || selectedBarber.full_name}
+                </span>
+              )}
             </div>
 
             {/* Calendar */}
@@ -508,22 +706,30 @@ export default function PublicBookingPage() {
                   <Clock className="w-4 h-4 text-primary" />
                   Available Times
                 </h3>
-                <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
-                  {generateTimeSlots(selectedDate).map(time => (
-                    <button
-                      key={time}
-                      className={cn(
-                        "py-2 px-3 rounded-lg text-sm border transition-colors",
-                        selectedTime === time 
-                          ? "border-primary bg-primary/20 text-primary" 
-                          : "border-border hover:border-primary/50"
-                      )}
-                      onClick={() => setSelectedTime(time)}
-                    >
-                      {time}
-                    </button>
-                  ))}
-                </div>
+                {generateTimeSlots(selectedDate).length > 0 ? (
+                  <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+                    {generateTimeSlots(selectedDate).map(time => (
+                      <button
+                        key={time}
+                        className={cn(
+                          "py-2 px-3 rounded-lg text-sm border transition-colors",
+                          selectedTime === time 
+                            ? "border-primary bg-primary/20 text-primary" 
+                            : "border-border hover:border-primary/50"
+                        )}
+                        onClick={() => setSelectedTime(time)}
+                      >
+                        {time}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <Clock className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                    <p>No available times on this date.</p>
+                    <p className="text-sm">Please select another day.</p>
+                  </div>
+                )}
               </div>
             )}
 
