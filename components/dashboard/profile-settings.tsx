@@ -65,12 +65,14 @@ export function ProfileSettings({ user, profile }: ProfileSettingsProps) {
         throw new Error(data.error || 'Upload failed')
       }
 
-      setAvatarUrl(data.url)
+      // For private blobs, use the file serve API with pathname
+      const imageUrl = `/api/file?pathname=${encodeURIComponent(data.pathname)}`
+      setAvatarUrl(imageUrl)
       
       // Update profile with new avatar URL
       const { error } = await supabase
         .from("profiles")
-        .update({ avatar_url: data.url })
+        .update({ avatar_url: imageUrl })
         .eq("id", user.id)
 
       if (error) throw error

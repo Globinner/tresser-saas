@@ -32,16 +32,16 @@ export async function POST(request: NextRequest) {
 
     // Generate unique filename
     const ext = file.name.split('.').pop() || 'jpg'
-    const filename = `${user.id}-${Date.now()}.${ext}`
+    const filename = `avatars/${user.id}-${Date.now()}.${ext}`
 
-    // Upload to Vercel Blob (public access for profile/shop images)
+    // Upload to Vercel Blob - use private access since that's what the store is configured for
     const blob = await put(filename, file, {
-      access: 'public',
+      access: 'private',
     })
 
-    return NextResponse.json({ url: blob.url })
-  } catch (error) {
+    return NextResponse.json({ url: blob.url, pathname: blob.pathname })
+  } catch (error: any) {
     console.error('Upload error:', error)
-    return NextResponse.json({ error: 'Upload failed' }, { status: 500 })
+    return NextResponse.json({ error: error.message || 'Upload failed' }, { status: 500 })
   }
 }
