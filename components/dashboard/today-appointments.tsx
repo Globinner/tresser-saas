@@ -1,10 +1,11 @@
 "use client"
 
-import { Clock, User, CheckCircle, XCircle, AlertCircle } from "lucide-react"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { Clock, User, CheckCircle, XCircle, AlertCircle, RefreshCw } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { useRealtimeAppointments } from "@/hooks/use-realtime-appointments"
 
 interface Appointment {
   id: string
@@ -28,7 +29,6 @@ interface Appointment {
 
 interface TodayAppointmentsProps {
   appointments: Appointment[]
-  shopId: string
 }
 
 const statusConfig = {
@@ -39,29 +39,36 @@ const statusConfig = {
   "no-show": { icon: XCircle, color: "text-muted-foreground", bg: "bg-muted" },
 }
 
-export function TodayAppointments({ appointments: initialAppointments, shopId }: TodayAppointmentsProps) {
-  // Use realtime hook for live updates
-  const allAppointments = useRealtimeAppointments(shopId, initialAppointments as any)
-  
-  // Filter to only today's appointments
-  const today = new Date()
-  const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime()
-  const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).getTime()
-  
-  const appointments = allAppointments.filter((apt) => {
-    const aptTime = new Date(apt.appointment_time).getTime()
-    return aptTime >= startOfDay && aptTime < endOfDay
-  })
+export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
+  const router = useRouter()
+  const [refreshing, setRefreshing] = useState(false)
+
+  const handleRefresh = () => {
+    setRefreshing(true)
+    router.refresh()
+    setTimeout(() => setRefreshing(false), 1000)
+  }
 
   return (
     <div className="glass rounded-xl p-6">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-lg font-semibold">Today's Schedule</h2>
-        <Link href="/dashboard/appointments">
-          <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80">
-            View all
+        <div className="flex items-center gap-2">
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={handleRefresh}
+            disabled={refreshing}
+            title="Refresh"
+          >
+            <RefreshCw className={cn("w-4 h-4", refreshing && "animate-spin")} />
           </Button>
-        </Link>
+          <Link href="/dashboard/appointments">
+            <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80">
+              View all
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {appointments.length === 0 ? (

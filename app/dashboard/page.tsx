@@ -91,7 +91,7 @@ export default async function DashboardPage() {
       {/* Main grid */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Today's appointments */}
-        <TodayAppointments appointments={todayAppointments || []} shopId={shopId || ""} />
+        <TodayAppointments appointments={todayAppointments || []} />
 
         {/* Revenue chart */}
         <RevenueChart shopId={shopId} />

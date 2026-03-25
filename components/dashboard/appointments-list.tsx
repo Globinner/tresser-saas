@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { 
   Clock, 
@@ -10,7 +11,8 @@ import {
   AlertCircle,
   MoreVertical,
   Phone,
-  Scissors
+  Scissors,
+  RefreshCw
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -20,7 +22,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useRealtimeAppointments } from "@/hooks/use-realtime-appointments"
 
 interface Appointment {
   id: string
@@ -47,7 +48,6 @@ interface Appointment {
 
 interface AppointmentsListProps {
   appointments: Appointment[]
-  shopId: string
 }
 
 const statusConfig = {
@@ -58,12 +58,17 @@ const statusConfig = {
   "no-show": { icon: XCircle, color: "text-muted-foreground", bg: "bg-muted", label: "No Show" },
 }
 
-export function AppointmentsList({ appointments: initialAppointments, shopId }: AppointmentsListProps) {
+export function AppointmentsList({ appointments }: AppointmentsListProps) {
   const supabase = createClient()
+  const router = useRouter()
   const [updating, setUpdating] = useState<string | null>(null)
-  
-  // Use realtime hook for live updates across all devices
-  const appointments = useRealtimeAppointments(shopId, initialAppointments as any)
+  const [refreshing, setRefreshing] = useState(false)
+
+  const handleRefresh = () => {
+    setRefreshing(true)
+    router.refresh()
+    setTimeout(() => setRefreshing(false), 1000)
+  }
 
   // Group appointments by date
   const groupedAppointments = appointments.reduce((acc, appointment) => {
@@ -85,7 +90,7 @@ export function AppointmentsList({ appointments: initialAppointments, shopId }: 
       .update({ status: newStatus })
       .eq("id", appointmentId)
     
-    // No need for router.refresh() - realtime will update automatically
+    router.refresh()
     setUpdating(null)
   }
 
@@ -105,6 +110,17 @@ export function AppointmentsList({ appointments: initialAppointments, shopId }: 
 
   return (
     <div className="space-y-8">
+      <div className="flex justify-end">
+        <Button 
+          variant="outline" 
+          size="sm"
+          onClick={handleRefresh}
+          disabled={refreshing}
+        >
+          <RefreshCw className={cn("w-4 h-4 mr-2", refreshing && "animate-spin")} />
+          Refresh
+        </Button>
+      </div>
       {Object.entries(groupedAppointments).map(([date, dayAppointments]) => (
         <div key={date}>
           <h3 className="text-sm font-medium text-muted-foreground mb-4">{date}</h3>
