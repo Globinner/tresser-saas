@@ -32,7 +32,7 @@ export function CreateShopForm({ userId }: CreateShopFormProps) {
     setLoading(true)
     setMessage(null)
 
-    // Create the shop
+    // Create the shop with owner_id for RLS
     const { data: shop, error: shopError } = await supabase
       .from("shops")
       .insert({
@@ -41,6 +41,7 @@ export function CreateShopForm({ userId }: CreateShopFormProps) {
         phone: phone || null,
         email: email || null,
         currency,
+        owner_id: userId,
       })
       .select()
       .single()
