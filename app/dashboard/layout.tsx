@@ -22,18 +22,31 @@ export default async function DashboardLayout({
     redirect("/auth/login")
   }
 
-  // Get user's profile and shop
+  // Get user's profile
   const { data: profile } = await supabase
     .from("profiles")
-    .select("*, shops(*)")
+    .select("*")
     .eq("id", user.id)
     .single()
 
-  const shopCurrency = profile?.shops?.currency || "USD"
+  // Get shop separately if profile has shop_id
+  let shopData = null
+  if (profile?.shop_id) {
+    const { data: shop } = await supabase
+      .from("shops")
+      .select("*")
+      .eq("id", profile.shop_id)
+      .single()
+    shopData = shop
+  }
+
+  // Combine profile with shop
+  const profileWithShop = profile ? { ...profile, shops: shopData } : null
+  const shopCurrency = shopData?.currency || "USD"
 
   return (
     <CurrencyProvider currency={shopCurrency}>
-      <DashboardLayoutClient user={user} profile={profile}>
+      <DashboardLayoutClient user={user} profile={profileWithShop}>
         {children}
       </DashboardLayoutClient>
     </CurrencyProvider>

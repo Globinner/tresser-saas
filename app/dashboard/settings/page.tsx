@@ -10,12 +10,26 @@ export default async function SettingsPage() {
     redirect("/auth/login")
   }
 
-  // Get user's profile and shop
+  // Get user's profile
   const { data: profile } = await supabase
     .from("profiles")
-    .select("*, shops(*)")
+    .select("*")
     .eq("id", user.id)
     .single()
+
+  // Get shop separately if profile has shop_id
+  let shopData = null
+  if (profile?.shop_id) {
+    const { data: shop } = await supabase
+      .from("shops")
+      .select("*")
+      .eq("id", profile.shop_id)
+      .single()
+    shopData = shop
+  }
+
+  // Combine profile with shop
+  const profileWithShop = profile ? { ...profile, shops: shopData } : null
 
   return (
     <div className="space-y-6">
@@ -24,7 +38,7 @@ export default async function SettingsPage() {
         <p className="text-muted-foreground">Manage your account, shop, and integrations</p>
       </div>
 
-      <SettingsTabs user={user} profile={profile} />
+      <SettingsTabs user={user} profile={profileWithShop} />
     </div>
   )
 }
