@@ -172,20 +172,34 @@ export function ClientsList({ clients }: ClientsListProps) {
                 )}
                 {client.notes && (
                   <div className="text-sm mt-3 space-y-1">
-                    {client.notes.split('\n').map((line, idx) => {
-                      const colonIndex = line.indexOf(':')
-                      if (colonIndex > 0) {
-                        const label = line.substring(0, colonIndex + 1)
-                        const value = line.substring(colonIndex + 1)
-                        return (
-                          <p key={idx} className="text-muted-foreground">
-                            <span className="text-primary font-medium">{label}</span>
-                            {value}
-                          </p>
-                        )
-                      }
-                      return <p key={idx} className="text-muted-foreground italic">{line}</p>
-                    })}
+                    {(() => {
+                      // Labels to highlight
+                      const labels = ['Preferred styles:', 'Cutting:', 'ALLERGIES:', 'Preferences:']
+                      let text = client.notes
+                      const parts: { label?: string; value: string }[] = []
+                      
+                      // Split by labels while keeping them
+                      labels.forEach(label => {
+                        const idx = text.indexOf(label)
+                        if (idx !== -1) {
+                          if (idx > 0) {
+                            parts.push({ value: text.substring(0, idx).trim() })
+                          }
+                          text = text.substring(idx)
+                        }
+                      })
+                      
+                      // Parse remaining text with labels
+                      const regex = /(Preferred styles:|Cutting:|ALLERGIES:|Preferences:)/g
+                      const segments = client.notes.split(regex).filter(Boolean)
+                      
+                      return segments.map((segment, idx) => {
+                        if (labels.includes(segment)) {
+                          return <span key={idx} className="text-primary font-medium">{segment} </span>
+                        }
+                        return <span key={idx} className="text-muted-foreground">{segment.trim()} </span>
+                      })
+                    })()}
                   </div>
                 )}
               </div>
