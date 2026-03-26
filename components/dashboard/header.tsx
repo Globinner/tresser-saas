@@ -15,7 +15,10 @@ import {
   LogOut,
   BarChart3,
   CreditCard,
-  Bell
+  Bell,
+  UsersRound,
+  Package,
+  Globe
 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
@@ -50,10 +53,14 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
   const navigation = [
     { name: t("sidebar.dashboard"), href: "/dashboard", icon: LayoutDashboard },
     { name: t("sidebar.appointments"), href: "/dashboard/appointments", icon: Calendar },
+    { name: t("sidebar.queue"), href: "/dashboard/queue", icon: UsersRound },
     { name: t("sidebar.clients"), href: "/dashboard/clients", icon: Users },
     { name: t("sidebar.team"), href: "/dashboard/team", icon: Briefcase },
     { name: t("sidebar.services"), href: "/dashboard/services", icon: Scissors },
+    { name: t("sidebar.inventory"), href: "/dashboard/inventory", icon: Package },
     { name: t("sidebar.analytics"), href: "/dashboard/analytics", icon: BarChart3 },
+    { name: t("sidebar.onlineBooking"), href: "/dashboard/settings?tab=booking", icon: Globe },
+    { name: t("sidebar.reminders"), href: "/dashboard/settings?tab=reminders", icon: Bell },
     { name: t("sidebar.billing"), href: "/dashboard/billing", icon: CreditCard },
     { name: t("sidebar.settings"), href: "/dashboard/settings", icon: Settings },
   ]
