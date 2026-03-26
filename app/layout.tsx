@@ -1,3 +1,4 @@
+// Tresser SaaS v0.1.1 - Fixed booking, analytics, RLS policies
 import type { Metadata, Viewport } from 'next'
 import { Space_Grotesk, JetBrains_Mono, Heebo, Noto_Sans_Arabic, Rubik } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
