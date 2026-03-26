@@ -46,25 +46,26 @@ export function AnalyticsOverview({
   totalClients,
   topServices,
 }: AnalyticsOverviewProps) {
+  // Only show change percentage if there's previous data to compare
   const appointmentChange = lastMonthAppointments > 0 
     ? ((thisMonthAppointments - lastMonthAppointments) / lastMonthAppointments * 100).toFixed(1)
-    : "100"
+    : null
   
   const revenueChange = lastMonthRevenue > 0
     ? ((thisMonthRevenue - lastMonthRevenue) / lastMonthRevenue * 100).toFixed(1)
-    : "100"
+    : null
 
   const stats = [
     {
       name: "Appointments This Month",
       value: thisMonthAppointments,
-      change: parseFloat(appointmentChange),
+      change: appointmentChange ? parseFloat(appointmentChange) : undefined,
       icon: Calendar,
     },
     {
       name: "Revenue This Month",
       value: `$${thisMonthRevenue.toLocaleString()}`,
-      change: parseFloat(revenueChange),
+      change: revenueChange ? parseFloat(revenueChange) : undefined,
       icon: DollarSign,
     },
     {
@@ -82,12 +83,12 @@ export function AnalyticsOverview({
     },
   ]
 
-  // Mock weekly data for chart
+  // Weekly data - starts at 0 when no data
   const weeklyData = [
-    { week: "Week 1", appointments: Math.floor(Math.random() * 30) + 10, revenue: Math.floor(Math.random() * 2000) + 500 },
-    { week: "Week 2", appointments: Math.floor(Math.random() * 30) + 10, revenue: Math.floor(Math.random() * 2000) + 500 },
-    { week: "Week 3", appointments: Math.floor(Math.random() * 30) + 10, revenue: Math.floor(Math.random() * 2000) + 500 },
-    { week: "Week 4", appointments: Math.floor(Math.random() * 30) + 10, revenue: Math.floor(Math.random() * 2000) + 500 },
+    { week: "Week 1", appointments: 0, revenue: 0 },
+    { week: "Week 2", appointments: 0, revenue: 0 },
+    { week: "Week 3", appointments: 0, revenue: 0 },
+    { week: "Week 4", appointments: 0, revenue: 0 },
   ]
 
   return (

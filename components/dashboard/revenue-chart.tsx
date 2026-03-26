@@ -23,13 +23,13 @@ export function RevenueChart({ shopId }: RevenueChartProps) {
   useEffect(() => {
     async function fetchData() {
       if (!shopId) {
-        // Generate placeholder data if no shop
+        // Show empty data if no shop - all zeros
         const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-        const placeholderData = days.map((day) => ({
+        const emptyData = days.map((day) => ({
           day,
-          revenue: Math.floor(Math.random() * 500) + 100,
+          revenue: 0,
         }))
-        setData(placeholderData)
+        setData(emptyData)
         setLoading(false)
         return
       }
