@@ -143,10 +143,10 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
         <div className="lg:hidden fixed inset-0 z-50">
           <div className="fixed inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
           <div className={cn(
-            "fixed inset-y-0 w-72 glass-strong p-6 border-border",
+            "fixed inset-y-0 w-72 glass-strong p-6 border-border flex flex-col",
             isRTL ? "right-0 border-l" : "left-0 border-r"
           )}>
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center glow-amber-soft">
                   <Scissors className="w-5 h-5 text-primary" />
@@ -170,11 +170,11 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
             )}
 
             {/* Language Switcher in mobile */}
-            <div className="mb-6">
+            <div className="mb-4">
               <LanguageSwitcher />
             </div>
 
-            <nav className="flex flex-col gap-1">
+            <nav className="flex flex-col gap-1 flex-1 overflow-y-auto pb-4">
               {navigation.map((item) => {
                 const isActive = pathname === item.href
                 return (
@@ -196,7 +196,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
               })}
             </nav>
 
-            <div className="mt-auto pt-6 border-t border-border absolute bottom-6 left-6 right-6">
+            <div className="pt-4 border-t border-border mt-auto">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-medium">
                   {profile?.full_name?.charAt(0) || user.email?.charAt(0)?.toUpperCase()}
