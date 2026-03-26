@@ -171,9 +171,22 @@ export function ClientsList({ clients }: ClientsListProps) {
                   </div>
                 )}
                 {client.notes && (
-                  <p className="text-sm text-muted-foreground italic mt-3 line-clamp-2">
-                    {client.notes}
-                  </p>
+                  <div className="text-sm mt-3 space-y-1">
+                    {client.notes.split('\n').map((line, idx) => {
+                      const colonIndex = line.indexOf(':')
+                      if (colonIndex > 0) {
+                        const label = line.substring(0, colonIndex + 1)
+                        const value = line.substring(colonIndex + 1)
+                        return (
+                          <p key={idx} className="text-muted-foreground">
+                            <span className="text-primary font-medium">{label}</span>
+                            {value}
+                          </p>
+                        )
+                      }
+                      return <p key={idx} className="text-muted-foreground italic">{line}</p>
+                    })}
+                  </div>
                 )}
               </div>
             </div>
