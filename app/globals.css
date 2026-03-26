@@ -148,16 +148,17 @@
   * {
     @apply border-border outline-ring/50;
   }
-  html {
+  html, body {
     background-color: #0d0d0f;
+    /* Extend background behind system bars */
+    overflow-x: hidden;
   }
   body {
     @apply bg-background text-foreground;
-    /* Safe area insets for edge-to-edge display */
     padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
     min-height: 100vh;
     min-height: 100dvh;
   }
