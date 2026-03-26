@@ -11,21 +11,46 @@ export default async function SettingsPage() {
   }
 
   // Get user's profile
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", user.id)
     .single()
 
+  console.log("[v0] Settings - User ID:", user.id)
+  console.log("[v0] Settings - Profile:", profile)
+  console.log("[v0] Settings - Profile Error:", profileError)
+
   // Get shop separately if profile has shop_id
   let shopData = null
   if (profile?.shop_id) {
-    const { data: shop } = await supabase
+    const { data: shop, error: shopError } = await supabase
       .from("shops")
       .select("*")
       .eq("id", profile.shop_id)
       .single()
     shopData = shop
+    console.log("[v0] Settings - Shop:", shop)
+    console.log("[v0] Settings - Shop Error:", shopError)
+  } else {
+    // Also try fetching shop by owner_id as fallback
+    const { data: ownedShop, error: ownedShopError } = await supabase
+      .from("shops")
+      .select("*")
+      .eq("owner_id", user.id)
+      .single()
+    
+    console.log("[v0] Settings - Owned Shop fallback:", ownedShop)
+    console.log("[v0] Settings - Owned Shop Error:", ownedShopError)
+    
+    if (ownedShop) {
+      shopData = ownedShop
+      // Also update profile with shop_id for next time
+      await supabase
+        .from("profiles")
+        .update({ shop_id: ownedShop.id, role: 'owner' })
+        .eq("id", user.id)
+    }
   }
 
   // Combine profile with shop
