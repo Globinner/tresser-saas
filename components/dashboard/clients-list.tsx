@@ -171,34 +171,32 @@ export function ClientsList({ clients }: ClientsListProps) {
                   </div>
                 )}
                 {client.notes && (
-                  <div className="text-sm mt-3 space-y-1">
+                  <div className="text-sm mt-3">
                     {(() => {
-                      // Labels to highlight
-                      const labels = ['Preferred styles:', 'Cutting:', 'ALLERGIES:', 'Preferences:']
-                      let text = client.notes
-                      const parts: { label?: string; value: string }[] = []
+                      // Replace labels with styled versions
+                      const notes = client.notes
+                      const labelPatterns = [
+                        { pattern: 'Preferred styles:', label: 'Preferred styles:' },
+                        { pattern: 'Cutting:', label: 'Cutting:' },
+                        { pattern: 'ALLERGIES:', label: 'ALLERGIES:' },
+                        { pattern: 'Preferences:', label: 'Preferences:' },
+                      ]
                       
-                      // Split by labels while keeping them
-                      labels.forEach(label => {
-                        const idx = text.indexOf(label)
-                        if (idx !== -1) {
-                          if (idx > 0) {
-                            parts.push({ value: text.substring(0, idx).trim() })
-                          }
-                          text = text.substring(idx)
-                        }
-                      })
+                      // Create parts array by splitting on all labels
+                      const allLabels = labelPatterns.map(p => p.pattern)
+                      const regex = new RegExp(`(${allLabels.join('|')})`, 'g')
+                      const parts = notes.split(regex)
                       
-                      // Parse remaining text with labels
-                      const regex = /(Preferred styles:|Cutting:|ALLERGIES:|Preferences:)/g
-                      const segments = client.notes.split(regex).filter(Boolean)
-                      
-                      return segments.map((segment, idx) => {
-                        if (labels.includes(segment)) {
-                          return <span key={idx} className="text-primary font-medium">{segment} </span>
-                        }
-                        return <span key={idx} className="text-muted-foreground">{segment.trim()} </span>
-                      })
+                      return (
+                        <p className="text-muted-foreground leading-relaxed">
+                          {parts.map((part, idx) => {
+                            if (allLabels.includes(part)) {
+                              return <span key={idx} className="text-primary font-semibold">{part} </span>
+                            }
+                            return <span key={idx}>{part.trim()} </span>
+                          })}
+                        </p>
+                      )
                     })()}
                   </div>
                 )}

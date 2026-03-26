@@ -116,9 +116,14 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
 
           {/* Right side actions */}
           <div className={cn("flex items-center gap-4", isRTL ? "" : "")}>
-            <Button variant="ghost" size="icon" className="relative">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="relative"
+              onClick={() => router.push("/dashboard/settings?tab=reminders")}
+            >
               <Bell className="h-5 w-5" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full" />
+              <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full animate-pulse" />
             </Button>
             
             <div className="md:hidden flex items-center">
