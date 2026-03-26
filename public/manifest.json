@@ -2,11 +2,13 @@
   "name": "Tresser - Premium Barber SaaS",
   "short_name": "Tresser",
   "description": "The ultimate operating system for modern barbershops",
-  "start_url": "/",
+  "start_url": "/dashboard",
   "display": "standalone",
+  "display_override": ["standalone", "fullscreen"],
   "background_color": "#0d0d0f",
   "theme_color": "#0d0d0f",
   "orientation": "portrait-primary",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/favicon.svg",
