@@ -326,18 +326,23 @@ export function NewClientModal({
             <label className="text-sm font-medium text-foreground">Other Preferences</label>
             <div className="flex flex-wrap gap-2">
               {OTHER_PREFERENCES.map((pref) => (
-                <Badge
+                <button
                   key={pref}
-                  variant={selectedOther.includes(pref) ? "default" : "outline"}
-                  className={`cursor-pointer transition-colors ${
-                    selectedOther.includes(pref) 
-                      ? "bg-secondary text-secondary-foreground" 
-                      : "hover:bg-secondary/50"
-                  }`}
+                  type="button"
                   onClick={() => toggleSelection(pref, selectedOther, setSelectedOther)}
+                  className="focus:outline-none"
                 >
-                  {pref}
-                </Badge>
+                  <Badge
+                    variant={selectedOther.includes(pref) ? "default" : "outline"}
+                    className={`cursor-pointer transition-colors ${
+                      selectedOther.includes(pref) 
+                        ? "bg-primary text-primary-foreground" 
+                        : "hover:bg-primary/20"
+                    }`}
+                  >
+                    {pref}
+                  </Badge>
+                </button>
               ))}
             </div>
           </div>
