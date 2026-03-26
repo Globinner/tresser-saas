@@ -31,25 +31,21 @@ export function DashboardStats({
       name: "Today's Appointments",
       value: todayAppointments,
       Icon: Calendar,
-      change: "+12%",
     },
     {
       name: "Total Clients",
       value: totalClients,
       Icon: Users,
-      change: "+8%",
     },
     {
       name: "Monthly Revenue",
       value: formatPrice(monthlyRevenue),
       Icon: DollarSign,
-      change: "+23%",
     },
     {
       name: "Completed Appointments",
       value: completedAppointments,
       Icon: CheckCircle,
-      change: "+15%",
     },
   ]
 
@@ -64,9 +60,6 @@ export function DashboardStats({
             <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
               <stat.Icon className="w-6 h-6 text-primary" />
             </div>
-            <span className="text-xl font-bold text-green-500">
-              {stat.change}
-            </span>
           </div>
           
           <p className="text-2xl font-bold text-foreground">{stat.value}</p>
