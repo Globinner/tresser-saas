@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, ReactNode } from "react"
+import { useState, ReactNode, useMemo, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Loader2, X, Calendar, Clock } from "lucide-react"
+import { Loader2, X, Calendar, Clock, Search, User, UserPlus } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -55,11 +55,39 @@ export function NewAppointmentModal({
   const [error, setError] = useState<string | null>(null)
   
   const [clientId, setClientId] = useState("")
+  const [clientSearch, setClientSearch] = useState("")
+  const [showClientDropdown, setShowClientDropdown] = useState(false)
   const [serviceId, setServiceId] = useState("")
   const [barberId, setBarberId] = useState("")
   const [date, setDate] = useState("")
   const [time, setTime] = useState("")
   const [notes, setNotes] = useState("")
+
+  // Filter clients based on search
+  const filteredClients = useMemo(() => {
+    if (!clientSearch) return clients
+    const search = clientSearch.toLowerCase()
+    return clients.filter(
+      (c) =>
+        c.full_name.toLowerCase().includes(search) ||
+        c.phone?.toLowerCase().includes(search) ||
+        c.email?.toLowerCase().includes(search)
+    )
+  }, [clients, clientSearch])
+
+  const selectedClient = clients.find((c) => c.id === clientId)
+  const clientDropdownRef = useRef<HTMLDivElement>(null)
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (clientDropdownRef.current && !clientDropdownRef.current.contains(event.target as Node)) {
+        setShowClientDropdown(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
 
   const router = useRouter()
   const supabase = createClient()
@@ -102,6 +130,8 @@ export function NewAppointmentModal({
 
   function resetForm() {
     setClientId("")
+    setClientSearch("")
+    setShowClientDropdown(false)
     setServiceId("")
     setBarberId("")
     setDate("")
@@ -127,23 +157,95 @@ export function NewAppointmentModal({
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
-          {/* Client selection */}
+          {/* Client selection with search */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">
               Client (optional for walk-ins)
             </label>
-            <select
-              value={clientId}
-              onChange={(e) => setClientId(e.target.value)}
-              className="w-full h-10 rounded-lg bg-input border border-border px-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary"
-            >
-              <option value="">Walk-in client</option>
-              {clients.map((client) => (
-                <option key={client.id} value={client.id}>
-                  {client.full_name} {client.phone ? `- ${client.phone}` : ""}
-                </option>
-              ))}
-            </select>
+            <div className="relative" ref={clientDropdownRef}>
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                type="text"
+                placeholder={selectedClient ? selectedClient.full_name : "Search or select client..."}
+                value={clientSearch}
+                onChange={(e) => {
+                  setClientSearch(e.target.value)
+                  setShowClientDropdown(true)
+                }}
+                onFocus={() => setShowClientDropdown(true)}
+                className="pl-10 bg-input border-border"
+              />
+              {selectedClient && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setClientId("")
+                    setClientSearch("")
+                  }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+              
+              {/* Client dropdown */}
+              {showClientDropdown && (
+                <div className="absolute z-50 mt-1 w-full max-h-60 overflow-y-auto rounded-lg bg-secondary border border-border shadow-lg">
+                  {/* Walk-in option */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setClientId("")
+                      setClientSearch("")
+                      setShowClientDropdown(false)
+                    }}
+                    className="w-full px-3 py-2 text-left text-sm hover:bg-primary/10 flex items-center gap-2 border-b border-border"
+                  >
+                    <UserPlus className="w-4 h-4 text-primary" />
+                    <span className="font-medium">Walk-in client</span>
+                  </button>
+                  
+                  {/* Client list */}
+                  {filteredClients.length > 0 ? (
+                    filteredClients.map((client) => (
+                      <button
+                        type="button"
+                        key={client.id}
+                        onClick={() => {
+                          setClientId(client.id)
+                          setClientSearch("")
+                          setShowClientDropdown(false)
+                        }}
+                        className={`w-full px-3 py-2 text-left text-sm hover:bg-primary/10 flex items-center gap-2 ${
+                          clientId === client.id ? "bg-primary/20" : ""
+                        }`}
+                      >
+                        <User className="w-4 h-4 text-muted-foreground" />
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium truncate">{client.full_name}</p>
+                          <p className="text-xs text-muted-foreground truncate">
+                            {client.phone || client.email || "No contact info"}
+                          </p>
+                        </div>
+                      </button>
+                    ))
+                  ) : (
+                    <div className="px-3 py-4 text-sm text-muted-foreground text-center">
+                      No clients found
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+            {selectedClient && (
+              <div className="flex items-center gap-2 p-2 rounded-lg bg-primary/10 border border-primary/20">
+                <User className="w-4 h-4 text-primary" />
+                <div className="text-sm">
+                  <span className="font-medium">{selectedClient.full_name}</span>
+                  {selectedClient.phone && <span className="text-muted-foreground"> - {selectedClient.phone}</span>}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Service selection */}
