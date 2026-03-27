@@ -1,5 +1,14 @@
-import { CreditCard, Check, Zap, Star, Rocket, Users, Calendar, BarChart3, Bell, Scissors, Package, Globe, Crown } from "lucide-react"
+"use client"
+
+import { CreditCard, Check, Zap, Star, Rocket, Users, Calendar, BarChart3, Bell, Scissors, Package, Globe, Crown, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 
 const plans = [
   {
@@ -15,7 +24,7 @@ const plans = [
       { text: "Team management", icon: Users },
       { text: "Services & pricing", icon: Scissors },
       { text: "Client preferences tracking", icon: Star },
-      { text: "SMS/Email reminders", icon: Bell },
+      { text: "WhatsApp/Email reminders", icon: Bell },
       { text: "Inventory management", icon: Package },
     ],
     current: true,
@@ -34,7 +43,7 @@ const plans = [
       { text: "Team management", icon: Users },
       { text: "Services & pricing", icon: Scissors },
       { text: "Client preferences tracking", icon: Star },
-      { text: "SMS/Email reminders", icon: Bell },
+      { text: "WhatsApp/Email reminders", icon: Bell },
       { text: "Inventory management", icon: Package },
       { text: "Priority email support", icon: Bell },
     ],
@@ -54,7 +63,7 @@ const plans = [
       { text: "Team management", icon: Users },
       { text: "Services & pricing", icon: Scissors },
       { text: "Client preferences tracking", icon: Star },
-      { text: "SMS/Email reminders", icon: Bell },
+      { text: "WhatsApp/Email reminders", icon: Bell },
       { text: "Inventory management", icon: Package },
       { text: "Priority support", icon: Bell },
       { text: "Featured on Tresser homepage", icon: Crown, highlight: true },
@@ -68,6 +77,12 @@ const plans = [
 
 export default function BillingPage() {
   const currentPlan = plans.find(p => p.current)
+  const [invoicesOpen, setInvoicesOpen] = useState(false)
+  
+  // Mock invoices - will be real data later
+  const invoices = [
+    { id: "INV-001", date: "Mar 1, 2026", amount: "$0.00", status: "Free Trial", plan: "Free" },
+  ]
   
   return (
     <div className="space-y-6">
@@ -101,11 +116,41 @@ export default function BillingPage() {
           <Button variant="outline" className="border-border">
             Manage Subscription
           </Button>
-          <Button variant="outline" className="border-border">
+          <Button variant="outline" className="border-border" onClick={() => setInvoicesOpen(true)}>
             View Invoices
           </Button>
         </div>
       </div>
+      
+      {/* Invoices Dialog */}
+      <Dialog open={invoicesOpen} onOpenChange={setInvoicesOpen}>
+        <DialogContent className="glass border-border">
+          <DialogHeader>
+            <DialogTitle>Invoices</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3">
+            {invoices.length === 0 ? (
+              <p className="text-sm text-muted-foreground text-center py-8">No invoices yet</p>
+            ) : (
+              invoices.map((invoice) => (
+                <div key={invoice.id} className="flex items-center justify-between p-4 rounded-lg bg-secondary/30">
+                  <div className="flex items-center gap-3">
+                    <FileText className="w-5 h-5 text-primary" />
+                    <div>
+                      <p className="font-medium">{invoice.id}</p>
+                      <p className="text-sm text-muted-foreground">{invoice.date} - {invoice.plan}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-medium">{invoice.amount}</p>
+                    <p className="text-xs text-muted-foreground">{invoice.status}</p>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Plans */}
       <div>

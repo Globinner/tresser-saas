@@ -194,7 +194,7 @@
     },
     "reminders": {
       "title": "Smart Reminders",
-      "description": "Reduce no-shows with automated SMS and email reminders sent before appointments."
+      "description": "Reduce no-shows with automated WhatsApp and email reminders sent before appointments."
     },
     "queue": {
       "title": "Walk-in Queue",
@@ -432,7 +432,7 @@
   "reminders": {
     "title": "Reminders",
     "email": "Email Reminders",
-    "sms": "SMS Reminders",
+    "sms": "WhatsApp Reminders",
     "hoursBefore": "Hours Before",
     "template": "Template",
     "followUp": "Follow-up Email"
@@ -535,7 +535,7 @@
         "Chemistry records",
         "Team management (up to 5)",
         "Analytics dashboard",
-        "SMS reminders",
+        "WhatsApp reminders",
         "Priority support"
       ]
     },

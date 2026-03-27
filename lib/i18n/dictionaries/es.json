@@ -175,7 +175,7 @@
     },
     "reminders": {
       "title": "Recordatorios",
-      "description": "Reduce las ausencias con recordatorios automáticos por SMS y email antes de las citas."
+      "description": "Reduce las ausencias con recordatorios automáticos por WhatsApp y email antes de las citas."
     },
     "queue": {
       "title": "Cola de Espera",
@@ -413,7 +413,7 @@
   "reminders": {
     "title": "Recordatorios",
     "email": "Recordatorios por Email",
-    "sms": "Recordatorios por SMS",
+    "sms": "Recordatorios por WhatsApp",
     "hoursBefore": "Horas Antes",
     "template": "Plantilla",
     "followUp": "Email de Seguimiento"
@@ -499,7 +499,7 @@
         "Registros químicos",
         "Gestión de equipo (hasta 5)",
         "Panel de análisis",
-        "Recordatorios SMS",
+        "Recordatorios WhatsApp",
         "Soporte prioritario"
       ]
     },
