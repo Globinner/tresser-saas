@@ -42,11 +42,19 @@ export default async function AppointmentsPage({
     .order("appointment_time", { ascending: true })
 
   // Get clients for the modal
-  const { data: clients } = await supabase
+  const { data: clientsRaw } = await supabase
     .from("clients")
-    .select("id, full_name, phone, email")
+    .select("id, first_name, last_name, phone, email")
     .eq("shop_id", shopId)
-    .order("full_name")
+    .order("first_name")
+  
+  // Map to expected format with full_name
+  const clients = (clientsRaw || []).map(c => ({
+    id: c.id,
+    full_name: `${c.first_name || ''} ${c.last_name || ''}`.trim() || 'Unknown',
+    phone: c.phone,
+    email: c.email,
+  }))
 
   // Get services for the modal
   const { data: services } = await supabase
