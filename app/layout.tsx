@@ -1,4 +1,4 @@
-// Tresser SaaS v0.1.1 - Fixed booking, analytics, RLS policies
+// Tresser SaaS v0.1.2 - Client dropdown fix, appointment reminders, next appointment ticker
 import type { Metadata, Viewport } from 'next'
 import { Space_Grotesk, JetBrains_Mono, Heebo, Noto_Sans_Arabic, Rubik } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
