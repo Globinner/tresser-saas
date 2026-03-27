@@ -12,8 +12,12 @@ import {
   MoreVertical,
   Phone,
   Scissors,
-  RefreshCw
+  RefreshCw,
+  MessageCircle,
+  Mail,
+  Send
 } from "lucide-react"
+import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -63,6 +67,7 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
   const router = useRouter()
   const [updating, setUpdating] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
+  const [sendingReminder, setSendingReminder] = useState<string | null>(null)
 
   const handleRefresh = () => {
     setRefreshing(true)
@@ -92,6 +97,56 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
     
     router.refresh()
     setUpdating(null)
+  }
+
+  async function sendReminder(appointment: Appointment, method: 'whatsapp' | 'email') {
+    if (!appointment.clients) {
+      toast.error("No client information available")
+      return
+    }
+
+    setSendingReminder(appointment.id)
+    
+    const clientName = appointment.clients.full_name
+    const serviceName = appointment.services?.name || "Appointment"
+    const appointmentDate = new Date(appointment.appointment_time).toLocaleDateString()
+    const appointmentTime = new Date(appointment.appointment_time).toLocaleTimeString([], { 
+      hour: "2-digit", 
+      minute: "2-digit" 
+    })
+
+    if (method === 'whatsapp') {
+      const phone = appointment.clients.phone?.replace(/\D/g, '')
+      if (!phone) {
+        toast.error("Client has no phone number")
+        setSendingReminder(null)
+        return
+      }
+      
+      const message = encodeURIComponent(
+        `Hi ${clientName}! This is a reminder for your ${serviceName} appointment on ${appointmentDate} at ${appointmentTime}. We look forward to seeing you!`
+      )
+      
+      window.open(`https://wa.me/${phone}?text=${message}`, '_blank')
+      toast.success("WhatsApp opened with reminder message")
+    } else if (method === 'email') {
+      const email = appointment.clients.email
+      if (!email) {
+        toast.error("Client has no email address")
+        setSendingReminder(null)
+        return
+      }
+      
+      const subject = encodeURIComponent(`Reminder: Your ${serviceName} Appointment`)
+      const body = encodeURIComponent(
+        `Hi ${clientName},\n\nThis is a friendly reminder for your upcoming appointment:\n\nService: ${serviceName}\nDate: ${appointmentDate}\nTime: ${appointmentTime}\n\nWe look forward to seeing you!\n\nBest regards,\nYour Barbershop Team`
+      )
+      
+      window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank')
+      toast.success("Email client opened with reminder")
+    }
+
+    setSendingReminder(null)
   }
 
   if (appointments.length === 0) {
@@ -210,6 +265,26 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="glass-strong">
+                          {/* Send Reminder Options */}
+                          {appointment.clients && (
+                            <>
+                              <DropdownMenuItem 
+                                onClick={() => sendReminder(appointment, 'whatsapp')}
+                                disabled={!appointment.clients.phone || sendingReminder === appointment.id}
+                              >
+                                <MessageCircle className="w-4 h-4 mr-2 text-green-500" />
+                                Send WhatsApp Reminder
+                              </DropdownMenuItem>
+                              <DropdownMenuItem 
+                                onClick={() => sendReminder(appointment, 'email')}
+                                disabled={!appointment.clients.email || sendingReminder === appointment.id}
+                              >
+                                <Mail className="w-4 h-4 mr-2 text-blue-400" />
+                                Send Email Reminder
+                              </DropdownMenuItem>
+                              <div className="h-px bg-border my-1" />
+                            </>
+                          )}
                           <DropdownMenuItem onClick={() => updateStatus(appointment.id, "confirmed")}>
                             <AlertCircle className="w-4 h-4 mr-2 text-primary" />
                             Mark Confirmed
