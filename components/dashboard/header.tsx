@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import { NextAppointmentTicker, useNextAppointmentAlert } from "@/components/dashboard/next-appointment-ticker"
 import type { User } from "@supabase/supabase-js"
 
 interface Profile {
@@ -49,6 +50,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
   const router = useRouter()
   const supabase = createClient()
   const { t, isRTL } = useLanguage()
+  const { isUrgent, minutesUntil } = useNextAppointmentAlert()
   
   const navigation = [
     { name: t("sidebar.dashboard"), href: "/dashboard", icon: LayoutDashboard },
@@ -91,6 +93,9 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
           {/* Page title */}
           <h1 className="text-lg font-semibold">{currentPage}</h1>
 
+          {/* Next Appointment Ticker */}
+          <NextAppointmentTicker />
+
           {/* Shop/User name */}
           <div className={cn("hidden md:flex items-center gap-3 px-4 py-2 rounded-lg bg-secondary/30 border border-border", isRTL ? "mr-auto" : "ml-auto")}>
             {profile?.avatar_url ? (
@@ -119,11 +124,27 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="relative"
-              onClick={() => router.push("/dashboard/settings?tab=reminders")}
+              className={cn(
+                "relative transition-all duration-300",
+                isUrgent && "bg-primary/20 hover:bg-primary/30"
+              )}
+              onClick={() => router.push("/dashboard/appointments")}
+              title={minutesUntil !== null ? `Next appointment in ${minutesUntil} minutes` : "Appointments"}
             >
-              <Bell className="h-5 w-5" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full animate-pulse" />
+              <Bell className={cn(
+                "transition-all duration-300",
+                isUrgent 
+                  ? "h-6 w-6 text-primary animate-bell-ring" 
+                  : "h-5 w-5"
+              )} />
+              {isUrgent && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center text-[10px] font-bold text-primary-foreground animate-bounce">
+                  !
+                </span>
+              )}
+              {!isUrgent && (
+                <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full animate-pulse" />
+              )}
             </Button>
             
             <div className="md:hidden flex items-center">
