@@ -79,7 +79,8 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
   return (
     <>
       <header className="sticky top-0 z-40 glass-strong border-b border-border">
-        <div className="flex h-16 items-center gap-4 px-6">
+        {/* Main header row */}
+        <div className="flex h-14 items-center gap-4 px-4 sm:px-6">
           {/* Mobile menu button */}
           <button
             type="button"
@@ -99,15 +100,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
           </h1>
 
           {/* Spacer */}
-          <div className="hidden sm:flex flex-1" />
-
-          {/* Next Appointment Ticker - Visible on all screens */}
-          <div className="flex justify-center flex-1 overflow-hidden">
-            <NextAppointmentTicker />
-          </div>
-
-          {/* Spacer */}
-          <div className="hidden sm:flex flex-1" />
+          <div className="flex-1" />
 
           {/* Right side actions */}
           <div className={cn("flex items-center gap-4", isRTL ? "" : "")}>
@@ -136,6 +129,13 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
                 <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full animate-pulse" />
               )}
             </Button>
+          </div>
+        </div>
+        
+        {/* Ticker row - full width, separate line */}
+        <div className="w-full overflow-hidden border-t border-border/50 bg-background/50">
+          <div className="animate-marquee-slow py-2 px-4">
+            <NextAppointmentTicker />
           </div>
         </div>
       </header>
