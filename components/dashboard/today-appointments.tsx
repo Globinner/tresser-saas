@@ -112,13 +112,14 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
   }
 
   return (
-    <div className="glass rounded-xl p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-semibold">Today's Schedule</h2>
-        <div className="flex items-center gap-2">
+    <div className="glass rounded-xl p-4 sm:p-6 overflow-hidden">
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
+        <h2 className="text-lg font-semibold">Today&apos;s Schedule</h2>
+        <div className="flex items-center gap-1 sm:gap-2">
           <Button 
             variant="ghost" 
             size="icon"
+            className="h-8 w-8"
             onClick={handleRefresh}
             disabled={refreshing}
             title="Refresh"
@@ -126,7 +127,7 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
             <RefreshCw className={cn("w-4 h-4", refreshing && "animate-spin")} />
           </Button>
           <Link href="/dashboard/appointments">
-            <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80">
+            <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80 text-xs sm:text-sm px-2 sm:px-3">
               View all
             </Button>
           </Link>
@@ -158,47 +159,48 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
             return (
               <div
                 key={appointment.id}
-                className="flex items-center gap-4 p-4 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-colors"
+                className="flex items-center gap-2 sm:gap-4 p-3 sm:p-4 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-colors"
               >
-                <div className="text-center min-w-[60px]">
-                  <p className="text-lg font-bold text-primary">{time}</p>
+                <div className="text-center min-w-[45px] sm:min-w-[60px]">
+                  <p className="text-sm sm:text-lg font-bold text-primary">{time}</p>
                 </div>
                 
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <User className="w-4 h-4 text-muted-foreground" />
+                  <div className="flex items-center gap-1 sm:gap-2">
+                    <User className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground flex-shrink-0" />
                     {appointment.clients?.id ? (
                       <Link 
                         href={`/dashboard/clients/${appointment.clients.id}`}
-                        className="font-medium truncate hover:text-primary transition-colors"
+                        className="font-medium text-sm sm:text-base truncate hover:text-primary transition-colors"
                       >
                         {clientName}
                       </Link>
                     ) : (
-                      <p className="font-medium truncate">{clientName}</p>
+                      <p className="font-medium text-sm sm:text-base truncate">{clientName}</p>
                     )}
                   </div>
-                  <p className="text-sm text-muted-foreground truncate">
+                  <p className="text-xs sm:text-sm text-muted-foreground truncate">
                     {appointment.services?.name} • {appointment.services?.duration_minutes}min
                   </p>
                 </div>
 
-                <div className={cn("hidden sm:flex items-center gap-2 px-3 py-1 rounded-full", status.bg)}>
+                {/* Desktop: full badge */}
+                <div className={cn("hidden sm:flex items-center gap-2 px-3 py-1 rounded-full flex-shrink-0", status.bg)}>
                   <status.icon className={cn("w-4 h-4", status.color)} />
                   <span className={cn("text-xs font-medium capitalize", status.color)}>
                     {appointment.status}
                   </span>
                 </div>
                 {/* Mobile: icon only */}
-                <div className={cn("sm:hidden flex items-center justify-center w-8 h-8 rounded-full", status.bg)}>
-                  <status.icon className={cn("w-4 h-4", status.color)} />
+                <div className={cn("sm:hidden flex items-center justify-center w-7 h-7 rounded-full flex-shrink-0", status.bg)}>
+                  <status.icon className={cn("w-3 h-3", status.color)} />
                 </div>
 
                 {/* 3-dot menu */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="h-8 w-8" disabled={updating === appointment.id}>
-                      <MoreVertical className="w-4 h-4" />
+                    <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-8 sm:w-8 flex-shrink-0" disabled={updating === appointment.id}>
+                      <MoreVertical className="w-3 h-3 sm:w-4 sm:h-4" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="glass-strong">

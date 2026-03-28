@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Plus, Calendar, UserPlus, Scissors } from "lucide-react"
+import { Calendar, UserPlus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function QuickActions() {
@@ -18,12 +18,6 @@ export function QuickActions() {
       description: "Register a new client",
       icon: UserPlus,
       href: "/dashboard/clients?new=true",
-    },
-    {
-      name: "Add Service",
-      description: "Create a new service",
-      icon: Scissors,
-      href: "/dashboard/services?new=true",
     },
   ]
 
