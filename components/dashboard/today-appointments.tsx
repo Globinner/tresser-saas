@@ -159,15 +159,15 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
             return (
               <div
                 key={appointment.id}
-                className="flex items-center gap-2 sm:gap-4 p-3 sm:p-4 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-colors"
+                className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-colors"
               >
-                <div className="text-center min-w-[45px] sm:min-w-[60px]">
-                  <p className="text-sm sm:text-lg font-bold text-primary">{time}</p>
+                <div className="text-center min-w-[50px] sm:min-w-[60px]">
+                  <p className="text-base sm:text-lg font-bold text-primary">{time}</p>
                 </div>
                 
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-1 sm:gap-2">
-                    <User className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground flex-shrink-0" />
+                  <div className="flex items-center gap-2">
+                    <User className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                     {appointment.clients?.id ? (
                       <Link 
                         href={`/dashboard/clients/${appointment.clients.id}`}
@@ -179,7 +179,7 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
                       <p className="font-medium text-sm sm:text-base truncate">{clientName}</p>
                     )}
                   </div>
-                  <p className="text-xs sm:text-sm text-muted-foreground truncate">
+                  <p className="text-sm text-muted-foreground truncate ml-6">
                     {appointment.services?.name} • {appointment.services?.duration_minutes}min
                   </p>
                 </div>
@@ -192,8 +192,8 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
                   </span>
                 </div>
                 {/* Mobile: icon only */}
-                <div className={cn("sm:hidden flex items-center justify-center w-7 h-7 rounded-full flex-shrink-0", status.bg)}>
-                  <status.icon className={cn("w-3 h-3", status.color)} />
+                <div className={cn("sm:hidden flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0", status.bg)}>
+                  <status.icon className={cn("w-4 h-4", status.color)} />
                 </div>
 
                 {/* 3-dot menu */}

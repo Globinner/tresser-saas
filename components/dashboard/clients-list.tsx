@@ -111,16 +111,23 @@ export function ClientsList({ clients }: ClientsListProps) {
               )}
             >
               <div className="flex items-start justify-between mb-4">
-                <Link href={`/dashboard/clients/${client.id}`} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-lg">
+                <Link href={`/dashboard/clients/${client.id}`} className="flex items-center gap-3 hover:opacity-80 transition-opacity flex-1 min-w-0">
+                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-lg flex-shrink-0">
                     {client.first_name.charAt(0).toUpperCase()}
                   </div>
-                  <div>
-                    <h3 className="font-semibold hover:text-primary transition-colors">{fullName}</h3>
+                  <div className="min-w-0">
+                    <h3 className="font-semibold hover:text-primary transition-colors truncate">{fullName}</h3>
                     <p className="text-xs text-muted-foreground">
                       Since {new Date(client.created_at).toLocaleDateString()}
                     </p>
                   </div>
+                </Link>
+
+                {/* Edit button - always visible */}
+                <Link href={`/dashboard/clients/${client.id}/edit`}>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 flex-shrink-0">
+                    <Edit className="w-4 h-4 text-muted-foreground hover:text-primary" />
+                  </Button>
                 </Link>
 
                 <DropdownMenu>
