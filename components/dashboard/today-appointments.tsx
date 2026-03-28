@@ -159,48 +159,50 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
             return (
               <div
                 key={appointment.id}
-                className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-colors"
+                className="flex items-center p-3 sm:p-4 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-colors"
               >
-                <div className="text-center min-w-[50px] sm:min-w-[60px]">
+                {/* Time - fixed width aligned left */}
+                <div className="w-14 sm:w-16 flex-shrink-0">
                   <p className="text-base sm:text-lg font-bold text-primary">{time}</p>
                 </div>
                 
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <User className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                {/* Client info - directly after time, no extra gap */}
+                <div className="flex-1 min-w-0 flex items-center gap-2">
+                  <User className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                  <div className="min-w-0">
                     {appointment.clients?.id ? (
                       <Link 
                         href={`/dashboard/clients/${appointment.clients.id}`}
-                        className="font-medium text-sm sm:text-base truncate hover:text-primary transition-colors"
+                        className="font-medium text-sm sm:text-base truncate block hover:text-primary transition-colors"
                       >
                         {clientName}
                       </Link>
                     ) : (
                       <p className="font-medium text-sm sm:text-base truncate">{clientName}</p>
                     )}
+                    <p className="text-xs sm:text-sm text-muted-foreground truncate">
+                      {appointment.services?.name} • {appointment.services?.duration_minutes}min
+                    </p>
                   </div>
-                  <p className="text-sm text-muted-foreground truncate ml-6">
-                    {appointment.services?.name} • {appointment.services?.duration_minutes}min
-                  </p>
                 </div>
 
                 {/* Desktop: full badge */}
-                <div className={cn("hidden sm:flex items-center gap-2 px-3 py-1 rounded-full flex-shrink-0", status.bg)}>
+                <div className={cn("hidden sm:flex items-center gap-2 px-3 py-1 rounded-full flex-shrink-0 ml-2", status.bg)}>
                   <status.icon className={cn("w-4 h-4", status.color)} />
                   <span className={cn("text-xs font-medium capitalize", status.color)}>
                     {appointment.status}
                   </span>
                 </div>
                 {/* Mobile: icon only */}
-                <div className={cn("sm:hidden flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0", status.bg)}>
-                  <status.icon className={cn("w-4 h-4", status.color)} />
+                <div className={cn("sm:hidden flex items-center justify-center w-7 h-7 rounded-full flex-shrink-0 ml-2", status.bg)}>
+                  <status.icon className={cn("w-3.5 h-3.5", status.color)} />
                 </div>
 
                 {/* 3-dot menu */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-8 sm:w-8 flex-shrink-0" disabled={updating === appointment.id}>
-                      <MoreVertical className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-8 sm:w-8 flex-shrink-0 ml-1" disabled={updating === appointment.id}>
+                      <MoreVertical className="w-4 h-4" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="glass-strong">
