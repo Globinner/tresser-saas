@@ -112,32 +112,40 @@ export function NewAppointmentModal({
     const startDate = new Date()
     startDate.setHours(hours, minutes, 0, 0)
     const endDate = new Date(startDate.getTime() + (service?.duration_minutes || 30) * 60000)
-    const endTime = `${String(endDate.getHours()).padStart(2, '0')}:${String(endDate.getMinutes()).padStart(2, '0')}`
+    const endTime = `${String(endDate.getHours()).padStart(2, '0')}:${String(endDate.getMinutes()).padStart(2, '0')}:00`
+    const startTimeFormatted = `${time}:00` // Format as HH:MM:SS
 
-    const { error: insertError } = await supabase
+    const appointmentData = {
+      shop_id: shopId,
+      client_id: clientId || null,
+      client_name: client?.full_name || null,
+      client_email: client?.email || null,
+      client_phone: client?.phone || null,
+      service_id: serviceId || null,
+      barber_id: barberId || null,
+      date: date,
+      start_time: startTimeFormatted,
+      end_time: endTime,
+      total_price: service?.price || 0,
+      status: "scheduled",
+      notes: notes || null,
+    }
+    
+    console.log("[v0] Creating appointment with data:", appointmentData)
+    
+    const { data: insertedData, error: insertError } = await supabase
       .from("appointments")
-      .insert({
-        shop_id: shopId,
-        client_id: clientId || null,
-        client_name: client?.full_name || null,
-        client_email: client?.email || null,
-        client_phone: client?.phone || null,
-        service_id: serviceId,
-        barber_id: barberId,
-        date: date,
-        start_time: time,
-        end_time: endTime,
-        total_price: service?.price || 0,
-        status: "scheduled",
-        notes: notes || null,
-      })
+      .insert(appointmentData)
+      .select()
 
     if (insertError) {
+      console.log("[v0] Insert error:", insertError)
       setError(insertError.message)
       setLoading(false)
       return
     }
 
+    console.log("[v0] Appointment created successfully:", insertedData)
     setOpen(false)
     resetForm()
     router.refresh()
