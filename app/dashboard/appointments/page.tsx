@@ -34,12 +34,13 @@ export default async function AppointmentsPage({
     .from("appointments")
     .select(`
       *,
-      clients(id, full_name, phone, email),
+      clients(id, first_name, last_name, phone, email),
       services(id, name, duration_minutes, price),
       profiles!appointments_barber_id_fkey(id, full_name)
     `)
     .eq("shop_id", shopId)
-    .order("appointment_time", { ascending: true })
+    .order("date", { ascending: true })
+    .order("start_time", { ascending: true })
 
   // Get clients for the modal
   const { data: clientsRaw } = await supabase
