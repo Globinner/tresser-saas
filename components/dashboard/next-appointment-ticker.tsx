@@ -6,8 +6,10 @@ import { Clock, User, Scissors } from "lucide-react"
 
 interface Appointment {
   id: string
-  appointment_time: string
-  clients: { full_name: string } | null
+  date: string
+  start_time: string
+  client_name: string | null
+  clients: { first_name: string; last_name: string } | null
   services: { name: string } | null
 }
 
@@ -30,19 +32,24 @@ export function NextAppointmentTicker() {
 
       if (!profile?.shop_id) return
 
-      const now = new Date().toISOString()
+      const today = new Date().toISOString().split('T')[0]
+      const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })
+      
       const { data } = await supabase
         .from("appointments")
         .select(`
           id,
-          appointment_time,
-          clients(full_name),
+          date,
+          start_time,
+          client_name,
+          clients(first_name, last_name),
           services(name)
         `)
         .eq("shop_id", profile.shop_id)
         .in("status", ["scheduled", "confirmed"])
-        .gte("appointment_time", now)
-        .order("appointment_time", { ascending: true })
+        .gte("date", today)
+        .order("date", { ascending: true })
+        .order("start_time", { ascending: true })
         .limit(1)
         .single()
 
@@ -58,9 +65,9 @@ export function NextAppointmentTicker() {
     if (!nextAppointment) return
 
     function updateTimeUntil() {
-      const appointmentTime = new Date(nextAppointment.appointment_time)
+      const appointmentDateTime = new Date(`${nextAppointment.date}T${nextAppointment.start_time}`)
       const now = new Date()
-      const diff = appointmentTime.getTime() - now.getTime()
+      const diff = appointmentDateTime.getTime() - now.getTime()
 
       if (diff <= 0) {
         setTimeUntil("NOW")
@@ -92,10 +99,10 @@ export function NextAppointmentTicker() {
 
   if (!nextAppointment) return null
 
-  const time = new Date(nextAppointment.appointment_time).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  })
+  const time = nextAppointment.start_time.slice(0, 5) // Format HH:MM
+  const clientName = nextAppointment.client_name || 
+    (nextAppointment.clients ? `${nextAppointment.clients.first_name || ''} ${nextAppointment.clients.last_name || ''}`.trim() : null) || 
+    "Walk-in"
 
   return (
     <div className="hidden md:flex items-center overflow-hidden">
@@ -114,7 +121,7 @@ export function NextAppointmentTicker() {
           <span className="text-muted-foreground">|</span>
           <User className="w-4 h-4 text-muted-foreground" />
           <span className="text-sm">
-            {nextAppointment.clients?.full_name || "Walk-in"}
+            {clientName}
           </span>
           <span className="text-muted-foreground">|</span>
           <Scissors className="w-4 h-4 text-muted-foreground" />
@@ -149,20 +156,21 @@ export function useNextAppointmentAlert() {
 
       if (!profile?.shop_id) return
 
-      const now = new Date().toISOString()
+      const today = new Date().toISOString().split('T')[0]
       const { data } = await supabase
         .from("appointments")
-        .select("appointment_time")
+        .select("date, start_time")
         .eq("shop_id", profile.shop_id)
         .in("status", ["scheduled", "confirmed"])
-        .gte("appointment_time", now)
-        .order("appointment_time", { ascending: true })
+        .gte("date", today)
+        .order("date", { ascending: true })
+        .order("start_time", { ascending: true })
         .limit(1)
         .single()
 
       if (data) {
-        const appointmentTime = new Date(data.appointment_time)
-        const diffMs = appointmentTime.getTime() - Date.now()
+        const appointmentDateTime = new Date(`${data.date}T${data.start_time}`)
+        const diffMs = appointmentDateTime.getTime() - Date.now()
         const mins = Math.floor(diffMs / 60000)
         setMinutesUntil(mins)
         setIsUrgent(mins <= 15 && mins >= 0)

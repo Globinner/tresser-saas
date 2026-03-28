@@ -103,16 +103,31 @@ export function NewAppointmentModal({
       return
     }
 
-    const appointmentTime = new Date(`${date}T${time}`).toISOString()
+    // Get selected client and service for additional fields
+    const client = clients.find(c => c.id === clientId)
+    const service = services.find(s => s.id === serviceId)
+
+    // Calculate end time based on service duration
+    const [hours, minutes] = time.split(':').map(Number)
+    const startDate = new Date()
+    startDate.setHours(hours, minutes, 0, 0)
+    const endDate = new Date(startDate.getTime() + (service?.duration_minutes || 30) * 60000)
+    const endTime = `${String(endDate.getHours()).padStart(2, '0')}:${String(endDate.getMinutes()).padStart(2, '0')}`
 
     const { error: insertError } = await supabase
       .from("appointments")
       .insert({
         shop_id: shopId,
         client_id: clientId || null,
+        client_name: client?.full_name || null,
+        client_email: client?.email || null,
+        client_phone: client?.phone || null,
         service_id: serviceId,
         barber_id: barberId,
-        appointment_time: appointmentTime,
+        date: date,
+        start_time: time,
+        end_time: endTime,
+        total_price: service?.price || 0,
         status: "scheduled",
         notes: notes || null,
       })
