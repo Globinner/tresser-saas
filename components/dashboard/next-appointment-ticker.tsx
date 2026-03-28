@@ -32,10 +32,12 @@ export function NextAppointmentTicker() {
 
       if (!profile?.shop_id) return
 
-      const today = new Date().toISOString().split('T')[0]
-      const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })
+      const now = new Date()
+      const today = now.toISOString().split('T')[0]
+      const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:00`
       
-      const { data } = await supabase
+      // Get all upcoming appointments (today after current time + future days)
+      const { data: allAppointments } = await supabase
         .from("appointments")
         .select(`
           id,
@@ -50,10 +52,16 @@ export function NextAppointmentTicker() {
         .gte("date", today)
         .order("date", { ascending: true })
         .order("start_time", { ascending: true })
-        .limit(1)
-        .single()
+        .limit(10)
 
-      setNextAppointment(data)
+      // Filter to find the next upcoming one (either today after now, or future date)
+      const nextOne = allAppointments?.find(apt => {
+        if (apt.date > today) return true // Future date
+        if (apt.date === today && apt.start_time > currentTime) return true // Today but after now
+        return false
+      })
+
+      setNextAppointment(nextOne || null)
     }
 
     fetchNextAppointment()
@@ -105,43 +113,23 @@ export function NextAppointmentTicker() {
     "Walk-in"
 
 return (
-    <div className="flex items-center">
-      <div 
-        className={`flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border ${
-          isUrgent 
-            ? "bg-primary/20 border-primary animate-pulse" 
-            : "bg-secondary/30 border-border"
-        }`}
-      >
-        {/* Time */}
-        <Clock className={`w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 ${isUrgent ? "text-primary" : "text-muted-foreground"}`} />
-        <span className={`text-xs sm:text-sm font-medium ${isUrgent ? "text-primary" : ""}`}>
-          {time}
-        </span>
-        
-        <span className="text-muted-foreground">|</span>
-        
-        {/* Client - always visible */}
-        <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground flex-shrink-0" />
-        <span className="text-xs sm:text-sm max-w-[80px] sm:max-w-[120px] truncate">{clientName}</span>
-        
-        <span className="text-muted-foreground hidden sm:inline">|</span>
-        
-        {/* Service - hidden on mobile */}
-        <span className="hidden sm:flex items-center gap-2">
-          <Scissors className="w-4 h-4 text-muted-foreground" />
-          <span className="text-sm text-muted-foreground max-w-[120px] truncate">
-            {nextAppointment.services?.name || "Service"}
-          </span>
-        </span>
-        
-        <span className="text-muted-foreground">|</span>
-        
-        {/* Countdown */}
-        <span className={`text-xs sm:text-sm font-bold ${isUrgent ? "text-primary" : "text-primary/80"}`}>
-          {timeUntil}
-        </span>
-      </div>
+    <div 
+      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs sm:text-sm ${
+        isUrgent 
+          ? "bg-primary/20 border-primary animate-pulse" 
+          : "bg-secondary/30 border-border"
+      }`}
+    >
+      <Clock className={`w-3.5 h-3.5 flex-shrink-0 ${isUrgent ? "text-primary" : "text-muted-foreground"}`} />
+      <span className={`font-medium ${isUrgent ? "text-primary" : ""}`}>{time}</span>
+      <span className="text-muted-foreground">|</span>
+      <User className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+      <span className="truncate max-w-[70px] sm:max-w-[100px]">{clientName}</span>
+      <span className="text-muted-foreground">|</span>
+      <Scissors className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+      <span className="text-muted-foreground truncate max-w-[60px] sm:max-w-[100px]">{nextAppointment.services?.name || "Service"}</span>
+      <span className="text-muted-foreground">|</span>
+      <span className={`font-bold whitespace-nowrap ${isUrgent ? "text-primary" : "text-primary/80"}`}>in {timeUntil}</span>
     </div>
   )
 }
