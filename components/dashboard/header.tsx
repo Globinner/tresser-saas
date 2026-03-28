@@ -93,8 +93,16 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
           {/* Page title */}
           <h1 className="text-lg font-semibold">{currentPage}</h1>
 
-          {/* Next Appointment Ticker */}
-          <NextAppointmentTicker />
+          {/* Spacer */}
+          <div className="flex-1" />
+
+          {/* Next Appointment Ticker - Centered */}
+          <div className="hidden lg:flex justify-center flex-1">
+            <NextAppointmentTicker />
+          </div>
+
+          {/* Spacer */}
+          <div className="flex-1" />
 
           {/* Shop/User name */}
           <div className={cn("hidden md:flex items-center gap-3 px-4 py-2 rounded-lg bg-secondary/30 border border-border", isRTL ? "mr-auto" : "ml-auto")}>
