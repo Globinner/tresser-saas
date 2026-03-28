@@ -105,36 +105,42 @@ export function NextAppointmentTicker() {
     "Walk-in"
 
 return (
-    <div className="flex items-center overflow-hidden max-w-full">
+    <div className="flex items-center">
       <div 
-        className={`flex items-center gap-2 sm:gap-4 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg border ${
+        className={`flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border ${
           isUrgent 
             ? "bg-primary/20 border-primary animate-pulse" 
             : "bg-secondary/30 border-border"
         }`}
       >
-        <div className="flex items-center gap-1.5 sm:gap-4 whitespace-nowrap text-xs sm:text-sm">
-          <Clock className={`w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0 ${isUrgent ? "text-primary" : "text-muted-foreground"}`} />
-          <span className={`font-medium ${isUrgent ? "text-primary" : ""}`}>
-            {time}
+        {/* Time */}
+        <Clock className={`w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 ${isUrgent ? "text-primary" : "text-muted-foreground"}`} />
+        <span className={`text-xs sm:text-sm font-medium ${isUrgent ? "text-primary" : ""}`}>
+          {time}
+        </span>
+        
+        <span className="text-muted-foreground">|</span>
+        
+        {/* Client - always visible */}
+        <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground flex-shrink-0" />
+        <span className="text-xs sm:text-sm max-w-[80px] sm:max-w-[120px] truncate">{clientName}</span>
+        
+        <span className="text-muted-foreground hidden sm:inline">|</span>
+        
+        {/* Service - hidden on mobile */}
+        <span className="hidden sm:flex items-center gap-2">
+          <Scissors className="w-4 h-4 text-muted-foreground" />
+          <span className="text-sm text-muted-foreground max-w-[120px] truncate">
+            {nextAppointment.services?.name || "Service"}
           </span>
-          <span className="text-muted-foreground hidden sm:inline">|</span>
-          <span className="hidden sm:flex items-center gap-1.5">
-            <User className="w-4 h-4 text-muted-foreground" />
-            <span className="max-w-[100px] truncate">{clientName}</span>
-          </span>
-          <span className="text-muted-foreground hidden md:inline">|</span>
-          <span className="hidden md:flex items-center gap-1.5">
-            <Scissors className="w-4 h-4 text-muted-foreground" />
-            <span className="text-muted-foreground">
-              {nextAppointment.services?.name || "Service"}
-            </span>
-          </span>
-          <span className="text-muted-foreground">|</span>
-          <span className={`font-bold ${isUrgent ? "text-primary" : "text-primary/80"}`}>
-            {timeUntil}
-          </span>
-        </div>
+        </span>
+        
+        <span className="text-muted-foreground">|</span>
+        
+        {/* Countdown */}
+        <span className={`text-xs sm:text-sm font-bold ${isUrgent ? "text-primary" : "text-primary/80"}`}>
+          {timeUntil}
+        </span>
       </div>
     </div>
   )
