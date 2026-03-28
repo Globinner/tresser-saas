@@ -89,10 +89,33 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
           {/* Shop name */}
           {profile?.shops && (
             <div className="px-3 py-2 rounded-lg bg-secondary/50 border border-border">
-              <p className="text-xs text-muted-foreground">{t("demo.shopInfo") || "Current Shop"}</p>
+              <p className="text-xs text-muted-foreground">{t("demo.shopInfo") || "Shop Information"}</p>
               <p className="font-medium truncate">{profile.shops.name}</p>
             </div>
           )}
+
+          {/* User info under shop name */}
+          <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-secondary/30 border border-border/50">
+            {profile?.avatar_url ? (
+              <img 
+                src={profile.avatar_url} 
+                alt={profile?.full_name || "User"} 
+                className="w-9 h-9 rounded-full object-cover"
+              />
+            ) : (
+              <div className="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center text-primary font-medium text-sm">
+                {profile?.full_name?.charAt(0) || user.email?.charAt(0)?.toUpperCase()}
+              </div>
+            )}
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium truncate">
+                {profile?.full_name || "User"}
+              </p>
+              <p className="text-xs text-muted-foreground truncate">
+                {user.email}
+              </p>
+            </div>
+          </div>
 
           {/* Language Switcher */}
           <div className="px-1">

@@ -29,12 +29,19 @@ import {
 
 interface Appointment {
   id: string
-  appointment_time: string
+  date: string
+  start_time: string
+  end_time: string
+  client_name: string | null
+  client_phone: string | null
+  client_email: string | null
+  total_price: number
   status: string
   notes: string | null
   clients: {
     id: string
-    full_name: string
+    first_name: string
+    last_name: string
     phone: string | null
     email: string | null
   } | null
@@ -77,14 +84,17 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
 
   // Group appointments by date
   const groupedAppointments = appointments.reduce((acc, appointment) => {
-    const date = new Date(appointment.appointment_time).toLocaleDateString("en-US", {
+    // Parse date as YYYY-MM-DD and format nicely
+    const [year, month, day] = appointment.date.split('-').map(Number)
+    const dateObj = new Date(year, month - 1, day)
+    const dateStr = dateObj.toLocaleDateString("en-US", {
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
     })
-    if (!acc[date]) acc[date] = []
-    acc[date].push(appointment)
+    if (!acc[dateStr]) acc[dateStr] = []
+    acc[dateStr].push(appointment)
     return acc
   }, {} as Record<string, Appointment[]>)
 
@@ -100,23 +110,25 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
   }
 
   async function sendReminder(appointment: Appointment, method: 'whatsapp' | 'email') {
-    if (!appointment.clients) {
+    const clientName = appointment.client_name || 
+      (appointment.clients ? `${appointment.clients.first_name} ${appointment.clients.last_name}`.trim() : null)
+    const clientPhone = appointment.client_phone || appointment.clients?.phone
+    const clientEmail = appointment.client_email || appointment.clients?.email
+    
+    if (!clientName && !clientPhone && !clientEmail) {
       toast.error("No client information available")
       return
     }
 
     setSendingReminder(appointment.id)
     
-    const clientName = appointment.clients.full_name
     const serviceName = appointment.services?.name || "Appointment"
-    const appointmentDate = new Date(appointment.appointment_time).toLocaleDateString()
-    const appointmentTime = new Date(appointment.appointment_time).toLocaleTimeString([], { 
-      hour: "2-digit", 
-      minute: "2-digit" 
-    })
+    const [year, month, day] = appointment.date.split('-').map(Number)
+    const appointmentDate = new Date(year, month - 1, day).toLocaleDateString()
+    const appointmentTime = appointment.start_time.slice(0, 5)
 
     if (method === 'whatsapp') {
-      const phone = appointment.clients.phone?.replace(/\D/g, '')
+      const phone = clientPhone?.replace(/\D/g, '')
       if (!phone) {
         toast.error("Client has no phone number")
         setSendingReminder(null)
@@ -130,7 +142,7 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
       window.open(`https://wa.me/${phone}?text=${message}`, '_blank')
       toast.success("WhatsApp opened with reminder message")
     } else if (method === 'email') {
-      const email = appointment.clients.email
+      const email = clientEmail
       if (!email) {
         toast.error("Client has no email address")
         setSendingReminder(null)
@@ -182,14 +194,13 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
           <div className="space-y-3">
             {dayAppointments.map((appointment) => {
               const status = statusConfig[appointment.status as keyof typeof statusConfig] || statusConfig.scheduled
-              const time = new Date(appointment.appointment_time).toLocaleTimeString([], { 
-                hour: "2-digit", 
-                minute: "2-digit" 
-              })
-              const endTime = new Date(
-                new Date(appointment.appointment_time).getTime() + 
-                (appointment.services?.duration_minutes || 30) * 60000
-              ).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+              const time = appointment.start_time.slice(0, 5) // HH:MM
+              const endTime = appointment.end_time?.slice(0, 5) || time
+              const clientName = appointment.client_name || 
+                (appointment.clients ? `${appointment.clients.first_name} ${appointment.clients.last_name}`.trim() : null) || 
+                "Walk-in"
+              const clientPhone = appointment.client_phone || appointment.clients?.phone
+              const price = appointment.total_price || appointment.services?.price || 0
 
               return (
                 <div
@@ -210,16 +221,14 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-medium">
-                          {appointment.clients?.full_name?.charAt(0) || "W"}
+                          {clientName.charAt(0).toUpperCase()}
                         </div>
                         <div>
-                          <p className="font-semibold">
-                            {appointment.clients?.full_name || "Walk-in"}
-                          </p>
-                          {appointment.clients?.phone && (
+                          <p className="font-semibold">{clientName}</p>
+                          {clientPhone && (
                             <p className="text-sm text-muted-foreground flex items-center gap-1">
                               <Phone className="w-3 h-3" />
-                              {appointment.clients.phone}
+                              {clientPhone}
                             </p>
                           )}
                         </div>
@@ -230,7 +239,7 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
                           <Scissors className="w-4 h-4" />
                           <span>{appointment.services?.name}</span>
                           <span className="text-primary font-medium">
-                            ${appointment.services?.price}
+                            ${price}
                           </span>
                         </div>
                         
@@ -250,12 +259,16 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
                     </div>
 
                     {/* Status & Actions */}
-                    <div className="flex items-center gap-3">
-                      <div className={cn("flex items-center gap-2 px-3 py-1.5 rounded-full", status.bg)}>
+                    <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                      <div className={cn("hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full", status.bg)}>
                         <status.icon className={cn("w-4 h-4", status.color)} />
                         <span className={cn("text-sm font-medium", status.color)}>
                           {status.label}
                         </span>
+                      </div>
+                      {/* Mobile: icon only */}
+                      <div className={cn("sm:hidden flex items-center justify-center w-8 h-8 rounded-full", status.bg)}>
+                        <status.icon className={cn("w-4 h-4", status.color)} />
                       </div>
 
                       <DropdownMenu>
@@ -266,24 +279,26 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="glass-strong">
                           {/* Send Reminder Options */}
-                          {appointment.clients && (
-                            <>
-                              <DropdownMenuItem 
-                                onClick={() => sendReminder(appointment, 'whatsapp')}
-                                disabled={!appointment.clients.phone || sendingReminder === appointment.id}
-                              >
-                                <MessageCircle className="w-4 h-4 mr-2 text-green-500" />
-                                Send WhatsApp Reminder
-                              </DropdownMenuItem>
-                              <DropdownMenuItem 
-                                onClick={() => sendReminder(appointment, 'email')}
-                                disabled={!appointment.clients.email || sendingReminder === appointment.id}
-                              >
-                                <Mail className="w-4 h-4 mr-2 text-blue-400" />
-                                Send Email Reminder
-                              </DropdownMenuItem>
-                              <div className="h-px bg-border my-1" />
-                            </>
+                          {(clientPhone || appointment.clients?.phone) && (
+                            <DropdownMenuItem 
+                              onClick={() => sendReminder(appointment, 'whatsapp')}
+                              disabled={sendingReminder === appointment.id}
+                            >
+                              <MessageCircle className="w-4 h-4 mr-2 text-green-500" />
+                              Send WhatsApp Reminder
+                            </DropdownMenuItem>
+                          )}
+                          {(appointment.client_email || appointment.clients?.email) && (
+                            <DropdownMenuItem 
+                              onClick={() => sendReminder(appointment, 'email')}
+                              disabled={sendingReminder === appointment.id}
+                            >
+                              <Mail className="w-4 h-4 mr-2 text-blue-400" />
+                              Send Email Reminder
+                            </DropdownMenuItem>
+                          )}
+                          {(clientPhone || appointment.client_email || appointment.clients) && (
+                            <div className="h-px bg-border my-1" />
                           )}
                           <DropdownMenuItem onClick={() => updateStatus(appointment.id, "confirmed")}>
                             <AlertCircle className="w-4 h-4 mr-2 text-primary" />

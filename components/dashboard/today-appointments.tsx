@@ -9,12 +9,17 @@ import { Button } from "@/components/ui/button"
 
 interface Appointment {
   id: string
-  appointment_time: string
+  date: string
+  start_time: string
+  end_time: string
+  client_name: string | null
+  client_phone: string | null
   status: string
   client_id: string | null
   clients: {
     id: string
-    full_name: string
+    first_name: string
+    last_name: string
     phone: string | null
   } | null
   services: {
@@ -87,10 +92,10 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
         <div className="space-y-3">
           {appointments.slice(0, 5).map((appointment) => {
             const status = statusConfig[appointment.status as keyof typeof statusConfig] || statusConfig.scheduled
-            const time = new Date(appointment.appointment_time).toLocaleTimeString([], { 
-              hour: "2-digit", 
-              minute: "2-digit" 
-            })
+            const time = appointment.start_time?.slice(0, 5) || "00:00" // HH:MM
+            const clientName = appointment.client_name || 
+              (appointment.clients ? `${appointment.clients.first_name} ${appointment.clients.last_name}`.trim() : null) || 
+              "Walk-in"
             
             return (
               <div
@@ -109,10 +114,10 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
                         href={`/dashboard/clients/${appointment.clients.id}`}
                         className="font-medium truncate hover:text-primary transition-colors"
                       >
-                        {appointment.clients.full_name}
+                        {clientName}
                       </Link>
                     ) : (
-                      <p className="font-medium truncate">Walk-in</p>
+                      <p className="font-medium truncate">{clientName}</p>
                     )}
                   </div>
                   <p className="text-sm text-muted-foreground truncate">
@@ -120,11 +125,15 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
                   </p>
                 </div>
 
-                <div className={cn("flex items-center gap-2 px-3 py-1 rounded-full", status.bg)}>
+                <div className={cn("hidden sm:flex items-center gap-2 px-3 py-1 rounded-full", status.bg)}>
                   <status.icon className={cn("w-4 h-4", status.color)} />
                   <span className={cn("text-xs font-medium capitalize", status.color)}>
                     {appointment.status}
                   </span>
+                </div>
+                {/* Mobile: icon only */}
+                <div className={cn("sm:hidden flex items-center justify-center w-8 h-8 rounded-full", status.bg)}>
+                  <status.icon className={cn("w-4 h-4", status.color)} />
                 </div>
               </div>
             )

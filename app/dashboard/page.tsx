@@ -26,21 +26,19 @@ export default async function DashboardPage() {
 
   // Get today's appointments
   const today = new Date()
-  const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString()
-  const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString()
+  const todayStr = today.toISOString().split('T')[0] // YYYY-MM-DD
   
   const { data: todayAppointments } = await supabase
     .from("appointments")
     .select(`
       *,
-      clients(id, full_name, phone),
+      clients(id, first_name, last_name, phone),
       services(name, duration_minutes, price),
       profiles!appointments_barber_id_fkey(full_name)
     `)
     .eq("shop_id", shopId)
-    .gte("appointment_time", startOfDay)
-    .lt("appointment_time", endOfDay)
-    .order("appointment_time", { ascending: true })
+    .eq("date", todayStr)
+    .order("start_time", { ascending: true })
 
   // Get stats
   const { count: totalClients } = await supabase
