@@ -80,27 +80,29 @@ export function RevenueChart({ shopId }: RevenueChartProps) {
   }, [shopId])
 
   return (
-    <div className="glass rounded-xl p-6">
-      <h2 className="text-lg font-semibold mb-6">Weekly Revenue</h2>
+    <div className="glass rounded-xl p-4 sm:p-6">
+      <h2 className="text-lg font-semibold mb-4 sm:mb-6">Weekly Revenue</h2>
       
-      <div className="h-[300px]">
+      <div className="h-[250px] sm:h-[300px] -ml-2 sm:ml-0">
         {loading ? (
           <div className="h-full flex items-center justify-center">
             <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data}>
+            <BarChart data={data} margin={{ top: 5, right: 5, left: -15, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
               <XAxis 
                 dataKey="day" 
                 stroke="rgba(255,255,255,0.5)"
-                fontSize={12}
+                fontSize={10}
+                tickMargin={5}
               />
               <YAxis 
                 stroke="rgba(255,255,255,0.5)"
-                fontSize={12}
+                fontSize={10}
                 tickFormatter={(value) => `$${value}`}
+                width={35}
               />
               <Tooltip
                 contentStyle={{

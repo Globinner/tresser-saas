@@ -32,7 +32,7 @@ export default async function DashboardPage() {
     .from("appointments")
     .select(`
       *,
-      clients(id, first_name, last_name, phone),
+      clients(id, first_name, last_name, phone, email),
       services(name, duration_minutes, price),
       profiles!appointments_barber_id_fkey(full_name)
     `)
@@ -52,6 +52,21 @@ export default async function DashboardPage() {
     .eq("shop_id", shopId)
     .eq("status", "completed")
 
+  // Get today's revenue from transactions
+  const todayStart = new Date(today)
+  todayStart.setHours(0, 0, 0, 0)
+  const todayEnd = new Date(today)
+  todayEnd.setHours(23, 59, 59, 999)
+  
+  const { data: todayTransactions } = await supabase
+    .from("transactions")
+    .select("amount")
+    .eq("shop_id", shopId)
+    .gte("created_at", todayStart.toISOString())
+    .lte("created_at", todayEnd.toISOString())
+
+  const todayRevenue = todayTransactions?.reduce((sum, t) => sum + Number(t.amount), 0) || 0
+
   // Get this month's revenue
   const startOfMonth = new Date()
   startOfMonth.setDate(1)
@@ -64,6 +79,14 @@ export default async function DashboardPage() {
     .gte("created_at", startOfMonth.toISOString())
 
   const monthlyRevenue = monthTransactions?.reduce((sum, t) => sum + Number(t.amount), 0) || 0
+
+  // Get new clients today
+  const { count: newClientsToday } = await supabase
+    .from("clients")
+    .select("*", { count: "exact", head: true })
+    .eq("shop_id", shopId)
+    .gte("created_at", todayStart.toISOString())
+    .lte("created_at", todayEnd.toISOString())
 
   // Get recent clients
   const { data: recentClients } = await supabase
@@ -79,8 +102,10 @@ export default async function DashboardPage() {
       <DashboardStats
         todayAppointments={todayAppointments?.length || 0}
         totalClients={totalClients || 0}
+        todayRevenue={todayRevenue}
         monthlyRevenue={monthlyRevenue}
         completedAppointments={totalAppointments || 0}
+        newClientsToday={newClientsToday || 0}
       />
 
       {/* Quick actions */}
