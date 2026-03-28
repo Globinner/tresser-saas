@@ -22,11 +22,12 @@ export function QuickActions() {
   ]
 
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="flex items-center gap-3">
       {actions.map((action) => (
         <Link key={action.name} href={action.href}>
           <Button
             variant={action.primary ? "default" : "outline"}
+            size="sm"
             className={action.primary 
               ? "bg-primary text-primary-foreground hover:bg-primary/90 glow-amber-soft" 
               : "border-border hover:bg-secondary hover:border-primary/30"

@@ -1,6 +1,6 @@
 import { Suspense } from "react"
 import { createClient } from "@/lib/supabase/server"
-import { AppointmentsList } from "@/components/dashboard/appointments-list"
+import { AppointmentsList, RefreshButton } from "@/components/dashboard/appointments-list"
 import { NewAppointmentModal } from "@/components/dashboard/new-appointment-modal"
 import { Calendar, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -75,8 +75,9 @@ export default async function AppointmentsPage({
 
   return (
     <div className="space-y-6">
-      {/* Actions - title is already shown in header */}
-      <div className="flex justify-end">
+      {/* Actions - New Appointment + Refresh on same line */}
+      <div className="flex items-center justify-end gap-3">
+        <RefreshButton />
         <NewAppointmentModal
           clients={clients || []}
           services={services || []}

@@ -14,8 +14,7 @@ import {
   Scissors,
   RefreshCw,
   MessageCircle,
-  Mail,
-  Send
+  Mail
 } from "lucide-react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
@@ -67,6 +66,30 @@ const statusConfig = {
   completed: { icon: CheckCircle, color: "text-green-400", bg: "bg-green-400/10", label: "Completed" },
   cancelled: { icon: XCircle, color: "text-red-400", bg: "bg-red-400/10", label: "Cancelled" },
   "no-show": { icon: XCircle, color: "text-muted-foreground", bg: "bg-muted", label: "No Show" },
+}
+
+// Exported RefreshButton component
+export function RefreshButton() {
+  const router = useRouter()
+  const [refreshing, setRefreshing] = useState(false)
+
+  const handleRefresh = () => {
+    setRefreshing(true)
+    router.refresh()
+    setTimeout(() => setRefreshing(false), 1000)
+  }
+
+  return (
+    <Button 
+      variant="outline" 
+      size="sm"
+      onClick={handleRefresh}
+      disabled={refreshing}
+    >
+      <RefreshCw className={cn("w-4 h-4 mr-2", refreshing && "animate-spin")} />
+      Refresh
+    </Button>
+  )
 }
 
 export function AppointmentsList({ appointments }: AppointmentsListProps) {
@@ -177,17 +200,6 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
 
   return (
     <div className="space-y-8">
-      <div className="flex justify-end">
-        <Button 
-          variant="outline" 
-          size="sm"
-          onClick={handleRefresh}
-          disabled={refreshing}
-        >
-          <RefreshCw className={cn("w-4 h-4 mr-2", refreshing && "animate-spin")} />
-          Refresh
-        </Button>
-      </div>
       {Object.entries(groupedAppointments).map(([date, dayAppointments]) => (
         <div key={date}>
           <h3 className="text-sm font-medium text-muted-foreground mb-4">{date}</h3>
