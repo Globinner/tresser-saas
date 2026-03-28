@@ -99,15 +99,15 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
           </h1>
 
           {/* Spacer */}
-          <div className="flex-1" />
+          <div className="hidden sm:flex flex-1" />
 
-          {/* Next Appointment Ticker - Centered */}
-          <div className="hidden lg:flex justify-center flex-1">
+          {/* Next Appointment Ticker - Visible on all screens */}
+          <div className="flex justify-center flex-1 overflow-hidden">
             <NextAppointmentTicker />
           </div>
 
           {/* Spacer */}
-          <div className="flex-1" />
+          <div className="hidden sm:flex flex-1" />
 
           {/* Right side actions */}
           <div className={cn("flex items-center gap-4", isRTL ? "" : "")}>
