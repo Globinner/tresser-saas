@@ -2,10 +2,18 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Clock, User, CheckCircle, XCircle, AlertCircle, RefreshCw } from "lucide-react"
+import { Clock, User, CheckCircle, XCircle, AlertCircle, RefreshCw, MoreVertical, MessageCircle, Mail } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { createClient } from "@/lib/supabase/client"
+import { toast } from "sonner"
 
 interface Appointment {
   id: string
@@ -14,6 +22,7 @@ interface Appointment {
   end_time: string
   client_name: string | null
   client_phone: string | null
+  client_email: string | null
   status: string
   client_id: string | null
   clients: {
@@ -21,6 +30,7 @@ interface Appointment {
     first_name: string
     last_name: string
     phone: string | null
+    email: string | null
   } | null
   services: {
     name: string
@@ -46,12 +56,59 @@ const statusConfig = {
 
 export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
   const router = useRouter()
+  const supabase = createClient()
   const [refreshing, setRefreshing] = useState(false)
+  const [updating, setUpdating] = useState<string | null>(null)
 
   const handleRefresh = () => {
     setRefreshing(true)
     router.refresh()
     setTimeout(() => setRefreshing(false), 1000)
+  }
+
+  async function updateStatus(appointmentId: string, newStatus: string) {
+    setUpdating(appointmentId)
+    await supabase
+      .from("appointments")
+      .update({ status: newStatus })
+      .eq("id", appointmentId)
+    router.refresh()
+    setUpdating(null)
+  }
+
+  function sendReminder(appointment: Appointment, method: 'whatsapp' | 'email') {
+    const clientName = appointment.client_name || 
+      (appointment.clients ? `${appointment.clients.first_name} ${appointment.clients.last_name}`.trim() : null) || "Client"
+    const clientPhone = appointment.client_phone || appointment.clients?.phone
+    const serviceName = appointment.services?.name || "Appointment"
+    const [year, month, day] = appointment.date.split('-').map(Number)
+    const appointmentDate = new Date(year, month - 1, day).toLocaleDateString()
+    const appointmentTime = appointment.start_time.slice(0, 5)
+
+    if (method === 'whatsapp') {
+      const phone = clientPhone?.replace(/\D/g, '')
+      if (!phone) {
+        toast.error("No phone number available")
+        return
+      }
+      const message = encodeURIComponent(
+        `Hi ${clientName}! Reminder for your ${serviceName} on ${appointmentDate} at ${appointmentTime}. See you soon!`
+      )
+      window.open(`https://wa.me/${phone}?text=${message}`, '_blank')
+      toast.success("WhatsApp opened")
+    } else {
+      const email = appointment.client_email || appointment.clients?.email
+      if (!email) {
+        toast.error("No email available")
+        return
+      }
+      const subject = encodeURIComponent(`Reminder: ${serviceName} Appointment`)
+      const body = encodeURIComponent(
+        `Hi ${clientName},\n\nReminder for your ${serviceName} on ${appointmentDate} at ${appointmentTime}.\n\nSee you soon!`
+      )
+      window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank')
+      toast.success("Email opened")
+    }
   }
 
   return (
@@ -96,6 +153,7 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
             const clientName = appointment.client_name || 
               (appointment.clients ? `${appointment.clients.first_name} ${appointment.clients.last_name}`.trim() : null) || 
               "Walk-in"
+            const clientPhone = appointment.client_phone || appointment.clients?.phone
             
             return (
               <div
@@ -135,6 +193,42 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
                 <div className={cn("sm:hidden flex items-center justify-center w-8 h-8 rounded-full", status.bg)}>
                   <status.icon className={cn("w-4 h-4", status.color)} />
                 </div>
+
+                {/* 3-dot menu */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="h-8 w-8" disabled={updating === appointment.id}>
+                      <MoreVertical className="w-4 h-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="glass-strong">
+                    {(clientPhone || appointment.clients?.phone) && (
+                      <DropdownMenuItem onClick={() => sendReminder(appointment, 'whatsapp')}>
+                        <MessageCircle className="w-4 h-4 mr-2 text-green-500" />
+                        WhatsApp Reminder
+                      </DropdownMenuItem>
+                    )}
+                    {(appointment.client_email || appointment.clients?.email) && (
+                      <DropdownMenuItem onClick={() => sendReminder(appointment, 'email')}>
+                        <Mail className="w-4 h-4 mr-2 text-blue-400" />
+                        Email Reminder
+                      </DropdownMenuItem>
+                    )}
+                    <div className="h-px bg-border my-1" />
+                    <DropdownMenuItem onClick={() => updateStatus(appointment.id, "confirmed")}>
+                      <AlertCircle className="w-4 h-4 mr-2 text-primary" />
+                      Mark Confirmed
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => updateStatus(appointment.id, "completed")}>
+                      <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
+                      Mark Completed
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => updateStatus(appointment.id, "cancelled")}>
+                      <XCircle className="w-4 h-4 mr-2 text-red-400" />
+                      Cancel
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             )
           })}

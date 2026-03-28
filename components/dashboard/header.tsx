@@ -90,8 +90,13 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
             <Menu className="h-6 w-6" />
           </button>
 
-          {/* Page title */}
-          <h1 className="text-lg font-semibold">{currentPage}</h1>
+          {/* Page title - On mobile show shop name on dashboard page */}
+          <h1 className="text-lg font-semibold">
+            <span className="hidden sm:inline">{currentPage}</span>
+            <span className="sm:hidden">
+              {pathname === "/dashboard" ? (profile?.shops?.name || currentPage) : currentPage}
+            </span>
+          </h1>
 
           {/* Spacer */}
           <div className="flex-1" />
