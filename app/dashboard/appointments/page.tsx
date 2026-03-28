@@ -75,12 +75,8 @@ export default async function AppointmentsPage({
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold">Appointments</h1>
-          <p className="text-muted-foreground">Manage your bookings and schedule</p>
-        </div>
+      {/* Actions - title is already shown in header */}
+      <div className="flex justify-end">
         <NewAppointmentModal
           clients={clients || []}
           services={services || []}
@@ -94,6 +90,7 @@ export default async function AppointmentsPage({
           </Button>
         </NewAppointmentModal>
       </div>
+      
 
       {/* Appointments list */}
       <Suspense fallback={<div className="text-center py-12">Loading appointments...</div>}>
