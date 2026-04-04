@@ -46,7 +46,7 @@ export function PricingSection() {
     {
       name: "Branch",
       description: t("pricing.branch.description"),
-      price: "49",
+      price: "77",
       period: t("pricing.perMonth"),
       features: [
         t("pricing.branch.feature1"),

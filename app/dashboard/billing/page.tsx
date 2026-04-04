@@ -54,7 +54,7 @@ const plans = [
   {
     id: "branch",
     name: "Branch",
-    price: 49,
+    price: 77,
     period: "/month",
     description: "For shops with multiple locations",
     features: [
