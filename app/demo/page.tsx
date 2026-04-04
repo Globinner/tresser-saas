@@ -323,7 +323,7 @@ const demoServicesHe = [
   { id: 9, name: "שיער + זקן", price: 140, duration: 50, category: "חבילות", active: true },
 ]
 
-const demoAppointments = [
+const demoAppointmentsEn = [
   { id: 1, clientId: "demo-client-1", client: "Marcus Johnson", service: "Fade", time: "09:00", status: "confirmed", barber: "Mike", price: 30 },
   { id: 2, clientId: "demo-client-2", client: "David Chen", service: "Classic Haircut", time: "10:30", status: "confirmed", barber: "Mike", price: 25 },
   { id: 3, clientId: "demo-client-3", client: "James Williams", service: "Beard Trim", time: "11:00", status: "pending", barber: "Sarah", price: 15 },
@@ -331,7 +331,7 @@ const demoAppointments = [
   { id: 5, clientId: "demo-client-5", client: "Michael Rodriguez", service: "Hair & Beard Combo", time: "15:30", status: "confirmed", barber: "Mike", price: 40 },
 ]
 
-const demoQueue = [
+const demoQueueEn = [
   { id: 1, name: "John Smith", service: "Fade", waitTime: 15, addedAt: "10:45 AM", status: "waiting" },
   { id: 2, name: "Robert Brown", service: "Beard Trim", waitTime: 30, addedAt: "10:30 AM", status: "waiting" },
   { id: 3, name: "Chris Davis", service: "Classic Haircut", waitTime: 45, addedAt: "10:15 AM", status: "waiting" },
@@ -557,8 +557,8 @@ export default function DemoPage() {
   
   // Select locale-specific demo data
   const demoClients = isHebrew ? demoClientsHe : demoClientsEn
-  const demoAppointmentsData = isHebrew ? demoAppointmentsHe : demoAppointments
-  const demoQueueData = isHebrew ? demoQueueHe : demoQueue
+  const demoAppointmentsData = isHebrew ? demoAppointmentsHe : demoAppointmentsEn
+  const demoQueueData = isHebrew ? demoQueueHe : demoQueueEn
   const demoBarbersList = isHebrew ? demoBarbersHe : demoBarbersEn
   const demoServices = isHebrew ? demoServicesHe : demoServicesEn
   const demoInventory = isHebrew ? demoInventoryHe : demoInventoryEn
