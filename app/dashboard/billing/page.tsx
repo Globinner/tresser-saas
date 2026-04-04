@@ -1,7 +1,8 @@
 "use client"
 
-import { CreditCard, Check, Zap, Star, Users, Calendar, BarChart3, Bell, Scissors, Package, Globe, Crown, FileText, Building2, Wallet, Loader2 } from "lucide-react"
+import { CreditCard, Check, Zap, Star, Users, Calendar, BarChart3, Bell, Scissors, Package, Globe, Crown, FileText, Building2, Wallet, Loader2, Tag, CheckCircle, XCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { useState, useEffect } from "react"
 import {
   Dialog,
@@ -88,6 +89,9 @@ export default function BillingPage() {
   const [invoicesOpen, setInvoicesOpen] = useState(false)
   const [paypalOpen, setPaypalOpen] = useState(false)
   const [selectedPlan, setSelectedPlan] = useState<typeof plans[0] | null>(null)
+  const [couponCode, setCouponCode] = useState("")
+  const [couponLoading, setCouponLoading] = useState(false)
+  const [couponResult, setCouponResult] = useState<{ success: boolean; message: string; discount?: number; duration?: string } | null>(null)
   
   useEffect(() => {
     async function fetchShop() {
@@ -122,6 +126,99 @@ export default function BillingPage() {
   const handleUpgrade = async (plan: typeof plans[0]) => {
     setSelectedPlan(plan)
     setPaypalOpen(true)
+  }
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim() || !shop) return
+    
+    setCouponLoading(true)
+    setCouponResult(null)
+    
+    try {
+      // Check if coupon exists and is valid
+      const { data: coupon, error } = await supabase
+        .from("coupons")
+        .select("*")
+        .eq("code", couponCode.toUpperCase().trim())
+        .eq("is_active", true)
+        .single()
+      
+      if (error || !coupon) {
+        setCouponResult({ success: false, message: "Invalid coupon code" })
+        return
+      }
+      
+      // Check if expired
+      if (coupon.expires_at && new Date(coupon.expires_at) < new Date()) {
+        setCouponResult({ success: false, message: "This coupon has expired" })
+        return
+      }
+      
+      // Check usage limit
+      if (coupon.max_uses && coupon.times_used >= coupon.max_uses) {
+        setCouponResult({ success: false, message: "This coupon has reached its usage limit" })
+        return
+      }
+      
+      // Check if already redeemed by this shop
+      const { data: existingRedemption } = await supabase
+        .from("coupon_redemptions")
+        .select("id")
+        .eq("coupon_id", coupon.id)
+        .eq("shop_id", shop.id)
+        .single()
+      
+      if (existingRedemption) {
+        setCouponResult({ success: false, message: "You have already used this coupon" })
+        return
+      }
+      
+      // Apply the coupon
+      const expiresAt = new Date()
+      expiresAt.setMonth(expiresAt.getMonth() + coupon.duration_months)
+      
+      // Update shop subscription
+      await supabase
+        .from("shops")
+        .update({
+          subscription_plan: coupon.applies_to_plan || "pro",
+          subscription_status: "active",
+          subscription_start: new Date().toISOString(),
+          subscription_end: expiresAt.toISOString(),
+        })
+        .eq("id", shop.id)
+      
+      // Record the redemption
+      await supabase.from("coupon_redemptions").insert({
+        coupon_id: coupon.id,
+        shop_id: shop.id,
+      })
+      
+      // Increment usage count
+      await supabase
+        .from("coupons")
+        .update({ times_used: coupon.times_used + 1 })
+        .eq("id", coupon.id)
+      
+      setCouponResult({
+        success: true,
+        message: `Coupon applied! You now have ${coupon.discount_percent}% off for ${coupon.duration_months} months.`,
+        discount: coupon.discount_percent,
+        duration: `${coupon.duration_months} months`,
+      })
+      
+      // Refresh the page to show updated subscription
+      setTimeout(() => {
+        router.refresh()
+        window.location.reload()
+      }, 2000)
+      
+    } catch (error) {
+      console.error("Error applying coupon:", error)
+      setCouponResult({ success: false, message: "Error applying coupon. Please try again." })
+    } finally {
+      setCouponLoading(false)
+    }
   }
 
   const handlePayPalCheckout = async () => {
@@ -299,6 +396,55 @@ export default function BillingPage() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Coupon Code */}
+      <div className="glass rounded-xl p-6">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
+            <Tag className="w-5 h-5 text-green-400" />
+          </div>
+          <div>
+            <h2 className="font-semibold">Have a Coupon Code?</h2>
+            <p className="text-sm text-muted-foreground">Enter your code to get a discount</p>
+          </div>
+        </div>
+        
+        <div className="flex gap-3">
+          <Input
+            placeholder="Enter coupon code"
+            value={couponCode}
+            onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+            className="flex-1 bg-secondary/50 border-border uppercase"
+            disabled={couponLoading}
+          />
+          <Button 
+            onClick={handleApplyCoupon}
+            disabled={couponLoading || !couponCode.trim()}
+            className="bg-green-600 hover:bg-green-700 text-white"
+          >
+            {couponLoading ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              "Apply"
+            )}
+          </Button>
+        </div>
+        
+        {couponResult && (
+          <div className={`mt-4 p-3 rounded-lg flex items-center gap-2 ${
+            couponResult.success 
+              ? "bg-green-500/20 text-green-400" 
+              : "bg-red-500/20 text-red-400"
+          }`}>
+            {couponResult.success ? (
+              <CheckCircle className="w-5 h-5 flex-shrink-0" />
+            ) : (
+              <XCircle className="w-5 h-5 flex-shrink-0" />
+            )}
+            <span className="text-sm">{couponResult.message}</span>
+          </div>
+        )}
+      </div>
 
       {/* Plans */}
       <div>
