@@ -519,6 +519,7 @@
     "noCard": "ללא כרטיס אשראי",
     "cancelAnytime": "בטל בכל עת",
     "contactSales": "צור קשר עם מכירות",
+    "getIt": "קבל את זה",
     "solo": {
       "name": "סולו",
       "description": "מושלם לספרים עצמאיים",
@@ -569,7 +570,7 @@
     "sectionLabel": "המלצות",
     "sectionTitle": "מהימן על ידי",
     "sectionTitleHighlight": "ספרים",
-    "sectionTitleEnd": "ברחבי העולם",
+    "sectionTitleEnd": "��רחבי העולם",
     "sectionSubtitle": "ראה מה בעלי מספרות אומרים על Tresser",
     "featured": "מומלץ",
     "testimonial1": {

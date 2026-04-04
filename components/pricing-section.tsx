@@ -1,63 +1,88 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Check, Zap } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Check, Zap, Tag, CheckCircle, XCircle, Loader2 } from "lucide-react"
 import { useLanguage } from "@/lib/i18n/language-context"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 export function PricingSection() {
   const { t, isRTL, locale } = useLanguage()
   const isHebrew = locale === 'he'
+  const router = useRouter()
+  const [couponCode, setCouponCode] = useState("")
+  const [couponLoading, setCouponLoading] = useState(false)
+  const [couponResult, setCouponResult] = useState<{ success: boolean; message: string } | null>(null)
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) return
+    setCouponLoading(true)
+    setCouponResult(null)
+    
+    // Redirect to signup with coupon code
+    router.push(`/signup?coupon=${couponCode.toUpperCase().trim()}`)
+  }
 
   const plans = [
     {
-      name: t("pricing.solo.name"),
-      description: t("pricing.solo.description"),
+      name: "Solo",
+      description: "Perfect for independent barbers",
       price: "22",
-      period: t("pricing.perMonth"),
+      period: "/month",
+      trial: "14-day free trial",
       features: [
-        t("pricing.solo.feature1"),
-        t("pricing.solo.feature2"),
-        t("pricing.solo.feature3"),
-        t("pricing.solo.feature4"),
-        t("pricing.solo.feature5"),
-        t("pricing.solo.feature6"),
+        "Unlimited appointments",
+        "Full client management",
+        "Chemistry records",
+        "Advanced analytics",
+        "WhatsApp reminders",
+        "Inventory management",
+        "Email support",
+        "Online booking page",
       ],
-      cta: t("nav.startFreeTrial"),
+      cta: "Get It",
       popular: false,
+      href: "/signup?plan=solo",
     },
     {
-      name: t("pricing.pro.name"),
-      description: t("pricing.pro.description"),
+      name: "Pro",
+      description: "For growing shops that need more power",
       price: "29",
-      period: t("pricing.perMonth"),
+      period: "/month",
+      trial: "14-day free trial",
       features: [
-        t("pricing.pro.feature1"),
-        t("pricing.pro.feature2"),
-        t("pricing.pro.feature3"),
-        t("pricing.pro.feature4"),
-        t("pricing.pro.feature5"),
-        t("pricing.pro.feature6"),
-        t("pricing.pro.feature7"),
-        t("pricing.pro.feature8"),
+        "Everything in Solo",
+        "Team management (up to 5)",
+        "Online booking page",
+        "Payroll reports",
+        "Priority WhatsApp support",
+        "Custom branding",
+        "SMS reminders",
+        "Advanced reports",
       ],
-      cta: t("nav.startFreeTrial"),
+      cta: "Get It",
       popular: true,
+      href: "/signup?plan=pro",
     },
     {
       name: "Branch",
-      description: t("pricing.branch.description"),
+      description: "For shops with multiple locations",
       price: "77",
-      period: t("pricing.perMonth"),
+      period: "/month",
+      trial: null,
       features: [
-        t("pricing.branch.feature1"),
-        t("pricing.branch.feature2"),
-        t("pricing.branch.feature3"),
-        t("pricing.branch.feature4"),
-        t("pricing.branch.feature5"),
-        t("pricing.branch.feature6"),
+        "Everything in Pro",
+        "Up to 3 locations",
+        "Unlimited team members",
+        "Payroll reports",
+        "Branch analytics",
+        "Priority phone support",
       ],
-      cta: t("pricing.contactSales"),
+      cta: "Get It",
       popular: false,
+      href: "/signup?plan=branch",
     },
   ]
 
@@ -100,7 +125,7 @@ export function PricingSection() {
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                   <span className="px-4 py-1 rounded-full text-sm font-semibold bg-primary text-primary-foreground flex items-center gap-1">
                     <Zap className="w-4 h-4" />
-                    {t("pricing.mostPopular")}
+                    {t("pricing.mostPopular") !== "pricing.mostPopular" ? t("pricing.mostPopular") : "Most Popular"}
                   </span>
                 </div>
               )}
@@ -108,11 +133,14 @@ export function PricingSection() {
               {/* Plan Header */}
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold text-foreground mb-2">{plan.name}</h3>
-                <p className="text-sm text-muted-foreground mb-6">{plan.description}</p>
+                <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
                 <div className="flex items-baseline justify-center gap-1">
                   <span className="text-5xl font-bold text-gradient">${plan.price}</span>
                   <span className="text-muted-foreground">{plan.period}</span>
                 </div>
+                {plan.trial && (
+                  <p className="text-sm text-primary mt-2 font-medium">{plan.trial}</p>
+                )}
               </div>
 
               {/* Features */}
@@ -128,17 +156,53 @@ export function PricingSection() {
               </ul>
 
               {/* CTA */}
-              <Button 
-                className={`w-full py-6 text-lg transition-all duration-300 ${
-                  plan.popular 
-                    ? 'bg-primary text-primary-foreground hover:bg-primary/90 glow-amber-soft' 
-                    : 'bg-secondary hover:bg-secondary/80 text-foreground border border-border/50 hover:border-primary/30'
-                }`}
-              >
-                {plan.cta}
-              </Button>
+              <Link href={plan.href}>
+                <Button 
+                  className={`w-full py-6 text-lg transition-all duration-300 ${
+                    plan.popular 
+                      ? 'bg-primary text-primary-foreground hover:bg-primary/90 glow-amber-soft' 
+                      : 'bg-secondary hover:bg-secondary/80 text-foreground border border-border/50 hover:border-primary/30'
+                  }`}
+                >
+                  {plan.cta}
+                </Button>
+              </Link>
             </div>
           ))}
+        </div>
+
+        {/* Coupon Code Section */}
+        <div className="max-w-md mx-auto mt-12 glass rounded-xl p-6">
+          <div className={`flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+              <Tag className="w-5 h-5 text-primary" />
+            </div>
+            <div className={isRTL ? 'text-right' : ''}>
+              <h3 className="font-semibold text-foreground">Have a Coupon Code?</h3>
+              <p className="text-sm text-muted-foreground">Enter your code to get started with a discount</p>
+            </div>
+          </div>
+          
+          <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <Input
+              placeholder="Enter coupon code"
+              value={couponCode}
+              onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+              className="flex-1 bg-secondary/50 border-border uppercase"
+              disabled={couponLoading}
+            />
+            <Button 
+              onClick={handleApplyCoupon}
+              disabled={couponLoading || !couponCode.trim()}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground"
+            >
+              {couponLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                "Apply"
+              )}
+            </Button>
+          </div>
         </div>
 
         {/* Trust badges */}
