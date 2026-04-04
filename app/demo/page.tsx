@@ -221,7 +221,7 @@ const demoClientsHe = [
     hasChemistry: true,
     visitHistory: [
       { date: "17 מרץ, 2026", service: "צביעת שיער", barber: "שרה", price: 60 },
-      { date: "15 ����בר, 2026", service: "צביעת שיער", barber: "שרה", price: 60 },
+      { date: "15 ������בר, 2026", service: "צביעת שיער", barber: "שרה", price: 60 },
       { date: "20 ינו, 2026", service: "צביעה + תספורת", barber: "שרה", price: 85 },
     ],
     photos: [
@@ -354,7 +354,7 @@ const demoInventoryHe = [
   { id: 1, name: "פומייד פרימיום", stock: 24, minStock: 10, category: "מוצרי שיער", price: 65, sku: "HP-001" },
   { id: 2, name: "ג׳ל חזק", stock: 18, minStock: 10, category: "מוצרי שיער", price: 45, sku: "HP-002" },
   { id: 3, name: "שמן זקן פרימיום", stock: 3, minStock: 5, category: "מוצרי זקן", price: 80, sku: "BP-001", lowStock: true },
-  { id: 4, name: "שמפו מקצועי", stock: 12, minStock: 8, category: "מוצרי ש��ער", price: 55, sku: "HP-003" },
+  { id: 4, name: "שמפו מקצועי", stock: 12, minStock: 8, category: "מוצרי ש����ער", price: 55, sku: "HP-003" },
   { id: 5, name: "צבע שיער - שחור 1N", stock: 8, minStock: 5, category: "צבע", price: 90, sku: "CL-001" },
   { id: 6, name: "מפתח 20 וול", stock: 2, minStock: 5, category: "צבע", price: 45, sku: "CL-002", lowStock: true },
   { id: 7, name: "סכיני מכונה #1", stock: 6, minStock: 4, category: "כלים", price: 120, sku: "TL-001" },
@@ -976,7 +976,7 @@ export default function DemoPage() {
                         <div className="p-3 bg-primary/10 rounded-xl w-fit mb-4">
                           <DollarSign className="h-6 w-6 text-primary" />
                         </div>
-                        <p className="text-3xl font-bold">$4,750</p>
+                        <p className="text-3xl font-bold">{isHebrew ? "₪14,700" : "$4,750"}</p>
                         <p className="text-sm text-muted-foreground">{t("demo.thisWeekRevenue")}</p>
                       </CardContent>
                     </Card>
@@ -1058,23 +1058,168 @@ export default function DemoPage() {
                         <CardDescription>{t("demo.revenueOverWeek")}</CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <div className="flex items-end gap-2 h-[200px]">
+                        <div className="flex items-end gap-2 h-[200px] mb-2">
                           {revenueData.map((data, i) => (
                             <div key={i} className="flex-1 flex flex-col items-center gap-2">
                               <div 
-                                className="w-full bg-primary/20 rounded-t-lg relative group cursor-pointer hover:bg-primary/30 transition-colors"
-                                style={{ height: `${(data.revenue / maxRevenue) * 100}%` }}
+                                className="w-full bg-primary rounded-t-lg relative group cursor-pointer hover:bg-primary/80 transition-colors min-h-[4px]"
+                                style={{ height: `${Math.max((data.revenue / maxRevenue) * 100, 2)}%` }}
                               >
-                                <p className="absolute -top-6 text-xs font-medium">
-                                  {currency}{data.revenue}
+                                <p className="absolute -top-6 text-xs font-medium whitespace-nowrap">
+                                  {currency}{data.revenue.toLocaleString()}
                                 </p>
                               </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="flex gap-2">
+                          {revenueData.map((data, i) => (
+                            <div key={i} className="flex-1 text-center text-xs text-muted-foreground">
+                              {data.day}
                             </div>
                           ))}
                         </div>
                       </CardContent>
                     </Card>
                   </div>
+                </div>
+              )}
+
+              {/* Appointments */}
+              {activeSection === "appointments" && (
+                <div className="space-y-6">
+                  <h1 className="text-2xl font-bold">{isHebrew ? "תורים" : "Appointments"}</h1>
+                  <Card>
+                    <CardContent className="p-0">
+                      <div className="divide-y divide-border">
+                        {appointments.map((apt) => (
+                          <div key={apt.id} className="flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
+                            <div className="flex items-center gap-4">
+                              <div className="text-center min-w-[60px]">
+                                <p className="text-xl font-bold text-primary">{apt.time}</p>
+                              </div>
+                              <Avatar className="h-12 w-12 bg-primary/20">
+                                <AvatarFallback className="text-primary font-bold">
+                                  {apt.client.split(' ').map(n => n[0]).join('')}
+                                </AvatarFallback>
+                              </Avatar>
+                              <div>
+                                <p className="font-semibold">{apt.client}</p>
+                                <p className="text-sm text-muted-foreground">{apt.service} - {currency}{apt.price}</p>
+                                <p className="text-xs text-muted-foreground">{isHebrew ? "ספר" : "Barber"}: {apt.barber}</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Badge variant={apt.status === "confirmed" ? "default" : "secondary"}>
+                                {isHebrew ? (apt.status === "confirmed" ? "מאושר" : "ממתין") : apt.status}
+                              </Badge>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
+
+              {/* Queue */}
+              {activeSection === "queue" && (
+                <div className="space-y-6">
+                  <h1 className="text-2xl font-bold">{isHebrew ? "תור ממתינים" : "Walk-in Queue"}</h1>
+                  <Card>
+                    <CardContent className="p-0">
+                      <div className="divide-y divide-border">
+                        {queue.map((person) => (
+                          <div key={person.id} className="flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
+                            <div className="flex items-center gap-4">
+                              <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                                <span className="text-primary font-bold">{person.id}</span>
+                              </div>
+                              <div>
+                                <p className="font-semibold">{person.name}</p>
+                                <p className="text-sm text-muted-foreground">{person.service}</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-sm font-medium">{person.waitTime} {isHebrew ? "דק׳" : "min"}</p>
+                              <p className="text-xs text-muted-foreground">{isHebrew ? "נוסף" : "Added"}: {person.addedAt}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
+
+              {/* Clients */}
+              {activeSection === "clients" && (
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <h1 className="text-2xl font-bold">{isHebrew ? "לקוחות" : "Clients"}</h1>
+                    <Button onClick={() => setShowAddClient(true)}>
+                      <Plus className="h-4 w-4 mr-2" />
+                      {isHebrew ? "הוסף לקוח" : "Add Client"}
+                    </Button>
+                  </div>
+                  <Card>
+                    <CardContent className="p-0">
+                      <div className="divide-y divide-border">
+                        {demoClients.map((client) => (
+                          <div 
+                            key={client.id} 
+                            className="flex items-center justify-between p-4 hover:bg-muted/30 transition-colors cursor-pointer"
+                            onClick={() => setSelectedClient(client)}
+                          >
+                            <div className="flex items-center gap-4">
+                              <Avatar className="h-12 w-12 bg-primary/20">
+                                <AvatarFallback className="text-primary font-bold">
+                                  {client.name.split(' ').map(n => n[0]).join('')}
+                                </AvatarFallback>
+                              </Avatar>
+                              <div>
+                                <p className="font-semibold">{client.name}</p>
+                                <p className="text-sm text-muted-foreground">{client.phone}</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-sm font-medium">{client.visits} {isHebrew ? "ביקורים" : "visits"}</p>
+                              <p className="text-xs text-muted-foreground">{isHebrew ? "אחרון" : "Last"}: {client.lastVisit}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
+
+              {/* Services */}
+              {activeSection === "services" && (
+                <div className="space-y-6">
+                  <h1 className="text-2xl font-bold">{isHebrew ? "שירותים" : "Services"}</h1>
+                  <Card>
+                    <CardContent className="p-0">
+                      <div className="divide-y divide-border">
+                        {demoServices.map((service) => (
+                          <div key={service.id} className="flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
+                            <div className="flex items-center gap-4">
+                              <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center">
+                                <Scissors className="h-6 w-6 text-primary" />
+                              </div>
+                              <div>
+                                <p className="font-semibold">{service.name}</p>
+                                <p className="text-sm text-muted-foreground">{service.duration} {isHebrew ? "דק׳" : "min"} • {service.category}</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-lg font-bold text-primary">{currency}{service.price}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
               )}
 
