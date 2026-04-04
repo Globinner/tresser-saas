@@ -221,7 +221,7 @@ const demoClientsHe = [
     hasChemistry: true,
     visitHistory: [
       { date: "17 מרץ, 2026", service: "צביעת שיער", barber: "שרה", price: 60 },
-      { date: "15 ��בר, 2026", service: "צביעת שיער", barber: "שרה", price: 60 },
+      { date: "15 ����בר, 2026", service: "צביעת שיער", barber: "שרה", price: 60 },
       { date: "20 ינו, 2026", service: "צביעה + תספורת", barber: "שרה", price: 85 },
     ],
     photos: [
@@ -1074,7 +1074,6 @@ export default function DemoPage() {
                         </div>
                       </CardContent>
                     </Card>
-                  )}
 
                   <Card>
                     <CardContent className="p-0">
