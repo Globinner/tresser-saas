@@ -1063,12 +1063,14 @@ export default function DemoPage() {
                             <div key={i} className="flex-1 flex flex-col items-center gap-2">
                               <div 
                                 className="w-full bg-primary/20 rounded-t-lg relative group cursor-pointer hover:bg-primary/30 transition-colors"
-style={{ height: `${(data.revenue / maxRevenue) * 100}%` }}
-                                  />
-                                  <p className="absolute -top-6 text-xs font-medium">
-                                    {currency}{data.revenue}
-                                  </p>
-                          </div>
+                                style={{ height: `${(data.revenue / maxRevenue) * 100}%` }}
+                              >
+                                <p className="absolute -top-6 text-xs font-medium">
+                                  {currency}{data.revenue}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
                         </div>
                       </CardContent>
                     </Card>
