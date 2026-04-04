@@ -524,24 +524,26 @@
     "solo": {
       "name": "Solo",
       "description": "Perfect for independent barbers",
-      "feature1": "Up to 100 appointments/month",
-      "feature2": "Client management",
-      "feature3": "Online booking page",
-      "feature4": "Email reminders",
-      "feature5": "Basic analytics",
-      "feature6": "Email support"
+      "feature1": "Unlimited appointments",
+      "feature2": "Full client management",
+      "feature3": "Chemistry records",
+      "feature4": "Advanced analytics",
+      "feature5": "WhatsApp reminders",
+      "feature6": "Inventory management",
+      "feature7": "Email support",
+      "feature8": "Online booking page"
     },
     "pro": {
       "name": "Pro",
       "description": "For growing shops that need more power",
-      "feature1": "Unlimited appointments",
-      "feature2": "Full client management",
-      "feature3": "Chemistry records",
-      "feature4": "Team management (up to 5)",
-      "feature5": "Advanced analytics",
-      "feature6": "WhatsApp reminders",
-      "feature7": "Inventory management",
-      "feature8": "Priority support"
+      "feature1": "Everything in Solo",
+      "feature2": "Team management (up to 5)",
+      "feature3": "Online booking page",
+      "feature4": "Payroll reports",
+      "feature5": "Priority WhatsApp support",
+      "feature6": "Custom branding",
+      "feature7": "SMS reminders",
+      "feature8": "Advanced reports"
     },
     "branch": {
       "name": "Branch",
