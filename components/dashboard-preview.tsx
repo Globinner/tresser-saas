@@ -8,17 +8,17 @@ export function DashboardPreview() {
   const isHebrew = locale === 'he'
 
   const appointments = isHebrew ? [
-    { time: "09:00", client: "יוסי כהן", service: t("services.categories.haircut"), avatar: "יכ", status: "confirmed" },
-    { time: "10:30", client: "דוד לוי", service: t("services.categories.haircut"), avatar: "דל", status: "confirmed" },
-    { time: "12:00", client: "אבי מזרחי", service: t("services.categories.package"), avatar: "אמ", status: "pending" },
-    { time: "14:00", client: "משה פרץ", service: t("services.categories.haircut"), avatar: "מפ", status: "confirmed" },
-    { time: "15:30", client: "רון ביטון", service: t("services.categories.beard"), avatar: "רב", status: "confirmed" },
+    { time: "09:00", client: "יוסי כהן", service: "פייד", barber: "מיכאל", avatar: "יכ", status: "confirmed" },
+    { time: "10:30", client: "דוד לוי", service: "תספורת קלאסית", barber: "מיכאל", avatar: "דל", status: "confirmed" },
+    { time: "12:00", client: "אבי מזרחי", service: "עיצוב זקן", barber: "שרה", avatar: "אמ", status: "pending" },
+    { time: "14:00", client: "משה פרץ", service: "צביעת שיער", barber: "שרה", avatar: "מפ", status: "confirmed" },
+    { time: "15:30", client: "רון ביטון", service: "שיער + זקן", barber: "מיכאל", avatar: "רב", status: "confirmed" },
   ] : [
-    { time: "09:00", client: "Marcus Johnson", service: t("services.categories.haircut"), avatar: "MJ", status: "confirmed" },
-    { time: "10:30", client: "David Chen", service: t("services.categories.haircut"), avatar: "DC", status: "confirmed" },
-    { time: "12:00", client: "James Wilson", service: t("services.categories.package"), avatar: "JW", status: "pending" },
-    { time: "14:00", client: "Alex Thompson", service: t("services.categories.haircut"), avatar: "AT", status: "confirmed" },
-    { time: "15:30", client: "Ryan Martinez", service: t("services.categories.beard"), avatar: "RM", status: "confirmed" },
+    { time: "09:00", client: "Marcus Johnson", service: "Fade", barber: "Mike", avatar: "MJ", status: "confirmed" },
+    { time: "10:30", client: "David Chen", service: "Classic Haircut", barber: "Mike", avatar: "DC", status: "confirmed" },
+    { time: "12:00", client: "James Wilson", service: "Beard Trim", barber: "Sarah", avatar: "JW", status: "pending" },
+    { time: "14:00", client: "Alex Thompson", service: "Hair Color", barber: "Sarah", avatar: "AT", status: "confirmed" },
+    { time: "15:30", client: "Michael Rodriguez", service: "Hair & Beard Combo", barber: "Mike", avatar: "MR", status: "confirmed" },
   ]
 
   const statsData = isHebrew ? [
@@ -115,7 +115,7 @@ export function DashboardPreview() {
                       </div>
                       <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
                         <p className="font-medium text-foreground truncate">{apt.client}</p>
-                        <p className="text-sm text-muted-foreground truncate">{apt.service}</p>
+                        <p className="text-sm text-muted-foreground truncate">{apt.service} • {apt.barber}</p>
                       </div>
                       <div className={`px-2 py-1 rounded-full text-xs font-medium ${
                         apt.status === 'confirmed' 
@@ -136,28 +136,40 @@ export function DashboardPreview() {
               <div className="bg-secondary/30 rounded-xl p-4 border border-border/30">
                 <h4 className={`font-semibold text-foreground mb-4 ${isRTL ? 'text-right' : ''}`}>{t("dashboardPreview.weeklyRevenue")}</h4>
                 <div className="space-y-3">
-                  {[t("dashboardPreview.days.mon"), t("dashboardPreview.days.tue"), t("dashboardPreview.days.wed"), t("dashboardPreview.days.thu"), t("dashboardPreview.days.fri"), t("dashboardPreview.days.sat"), t("dashboardPreview.days.sun")].map((day, index) => {
-                    const widths = [60, 75, 55, 80, 95, 100, 70]
-                    const values = ['$520', '$650', '$480', '$720', '$850', '$920', '$610']
-                    return (
-                      <div key={day} className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                        <span className="text-xs text-muted-foreground w-8">{day}</span>
-                        <div className="flex-1 h-6 bg-background/50 rounded-full overflow-hidden">
-                          <div 
-                            className={`h-full bg-gradient-to-r from-primary/80 to-primary rounded-full transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
-                            style={{ width: `${widths[index]}%` }}
-                          />
-                        </div>
-                        <span className={`text-xs font-medium text-foreground w-12 font-mono ${isRTL ? 'text-left' : 'text-right'}`}>
-                          {values[index]}
-                        </span>
+                  {(isHebrew ? [
+                    { day: "א׳", width: 60, value: "₪1,850" },
+                    { day: "ב׳", width: 75, value: "₪2,300" },
+                    { day: "ג׳", width: 55, value: "₪1,700" },
+                    { day: "ד׳", width: 80, value: "₪2,550" },
+                    { day: "ה׳", width: 95, value: "₪3,020" },
+                    { day: "ו׳", width: 100, value: "₪3,280" },
+                    { day: "ש׳", width: 0, value: "₪0" },
+                  ] : [
+                    { day: t("dashboardPreview.days.mon"), width: 60, value: "$520" },
+                    { day: t("dashboardPreview.days.tue"), width: 75, value: "$650" },
+                    { day: t("dashboardPreview.days.wed"), width: 55, value: "$480" },
+                    { day: t("dashboardPreview.days.thu"), width: 80, value: "$720" },
+                    { day: t("dashboardPreview.days.fri"), width: 95, value: "$850" },
+                    { day: t("dashboardPreview.days.sat"), width: 100, value: "$920" },
+                    { day: t("dashboardPreview.days.sun"), width: 70, value: "$610" },
+                  ]).map((item, index) => (
+                    <div key={index} className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      <span className="text-xs text-muted-foreground w-8">{item.day}</span>
+                      <div className="flex-1 h-6 bg-background/50 rounded-full overflow-hidden">
+                        <div 
+                          className={`h-full bg-gradient-to-r from-primary/80 to-primary rounded-full transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
+                          style={{ width: `${item.width}%` }}
+                        />
                       </div>
-                    )
-                  })}
+                      <span className={`text-xs font-medium text-foreground w-16 font-mono ${isRTL ? 'text-left' : 'text-right'}`}>
+                        {item.value}
+                      </span>
+                    </div>
+                  ))}
                 </div>
                 <div className={`mt-4 pt-4 border-t border-border/30 flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <span className="text-sm text-muted-foreground">{t("analytics.thisWeek")}</span>
-                  <span className="text-lg font-bold text-gradient">$4,750</span>
+                  <span className="text-lg font-bold text-gradient">{isHebrew ? "₪14,700" : "$4,750"}</span>
                 </div>
               </div>
             </div>
