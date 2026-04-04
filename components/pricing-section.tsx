@@ -22,7 +22,7 @@ export function PricingSection() {
     setCouponResult(null)
     
     // Redirect to signup with coupon code
-    router.push(`/signup?coupon=${couponCode.toUpperCase().trim()}`)
+    router.push(`/auth/sign-up?coupon=${couponCode.toUpperCase().trim()}`)
   }
 
   const plans = [
@@ -44,7 +44,7 @@ export function PricingSection() {
       ],
       cta: "Get It",
       popular: false,
-      href: "/signup?plan=solo",
+      href: "/auth/sign-up?plan=solo",
     },
     {
       name: "Pro",
@@ -64,7 +64,7 @@ export function PricingSection() {
       ],
       cta: "Get It",
       popular: true,
-      href: "/signup?plan=pro",
+      href: "/auth/sign-up?plan=pro",
     },
     {
       name: "Branch",
@@ -82,7 +82,7 @@ export function PricingSection() {
       ],
       cta: "Get It",
       popular: false,
-      href: "/signup?plan=branch",
+      href: "/auth/sign-up?plan=branch",
     },
   ]
 
