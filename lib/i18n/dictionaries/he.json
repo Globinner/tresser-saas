@@ -1,7 +1,7 @@
 {
   "common": {
     "appName": "Tresser",
-    "tagline": "מערכת ההפעלה למספרות מודרניות",
+    "tagline": "מערכת ניהול למספרות מעודכנות",
     "loading": "טוען...",
     "save": "שמור",
   "saving": "שומר...",
@@ -569,7 +569,7 @@
     "subtitle": "ראה מה בעלי מספרות אומרים על Tresser",
     "sectionLabel": "המלצות",
     "sectionTitle": "מהימן על ידי",
-    "sectionTitleHighlight": "ספרים",
+    "sectionTitleHighlight": "ספ��ים",
     "sectionTitleEnd": "��רחבי העולם",
     "sectionSubtitle": "ראה מה בעלי מספרות אומרים על Tresser",
     "featured": "מומלץ",

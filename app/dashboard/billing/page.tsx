@@ -3,7 +3,7 @@
 import { CreditCard, Check, Zap, Star, Users, Calendar, BarChart3, Bell, Scissors, Package, Globe, Crown, FileText, Building2, Wallet, Loader2, Tag, CheckCircle, XCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback, Suspense } from "react"
 import {
   Dialog,
   DialogContent,
@@ -80,7 +80,7 @@ interface Shop {
   subscription_end: string | null
 }
 
-export default function BillingPage() {
+function BillingContent() {
   const router = useRouter()
   const supabase = createClient()
   const [shop, setShop] = useState<Shop | null>(null)
@@ -131,18 +131,7 @@ export default function BillingPage() {
     setPaypalOpen(true)
   }
 
-// Auto-apply coupon from URL when shop is loaded
-  useEffect(() => {
-    if (urlCoupon && shop && !autoApplied) {
-      setAutoApplied(true)
-      // Small delay to ensure UI is ready
-      setTimeout(() => {
-        handleApplyCouponInternal(urlCoupon)
-      }, 500)
-    }
-  }, [urlCoupon, shop, autoApplied])
-
-const handleApplyCouponInternal = async (code: string) => {
+const handleApplyCouponInternal = useCallback(async (code: string) => {
     if (!code.trim() || !shop) return
   
   setCouponLoading(true)
@@ -233,7 +222,18 @@ const handleApplyCouponInternal = async (code: string) => {
     } finally {
       setCouponLoading(false)
     }
-  }
+  }, [shop, supabase, router])
+
+  // Auto-apply coupon from URL when shop is loaded
+  useEffect(() => {
+    if (urlCoupon && shop && !autoApplied) {
+      setAutoApplied(true)
+      // Small delay to ensure UI is ready
+      setTimeout(() => {
+        handleApplyCouponInternal(urlCoupon)
+      }, 500)
+    }
+  }, [urlCoupon, shop, autoApplied, handleApplyCouponInternal])
 
   const handleApplyCoupon = () => {
     handleApplyCouponInternal(couponCode)
@@ -563,5 +563,23 @@ const handleApplyCouponInternal = async (code: string) => {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function BillingPage() {
+  return (
+    <Suspense fallback={
+      <div className="space-y-6 animate-pulse">
+        <div className="h-8 w-48 bg-secondary rounded"></div>
+        <div className="h-32 bg-secondary rounded-xl"></div>
+        <div className="grid gap-4 md:grid-cols-3">
+          <div className="h-96 bg-secondary rounded-xl"></div>
+          <div className="h-96 bg-secondary rounded-xl"></div>
+          <div className="h-96 bg-secondary rounded-xl"></div>
+        </div>
+      </div>
+    }>
+      <BillingContent />
+    </Suspense>
   )
 }
