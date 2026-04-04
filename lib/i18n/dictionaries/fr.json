@@ -478,6 +478,45 @@
     "features": "Fonctionnalités",
     "getStarted": "Commencer",
     "currentPlan": "Plan Actuel",
+    "mostPopular": "Le Plus Populaire",
+    "freeTrial": "14 jours d'essai gratuit",
+    "noCard": "Sans carte de crédit",
+    "cancelAnytime": "Annulez quand vous voulez",
+    "contactSales": "Contacter les Ventes",
+    "solo": {
+      "name": "Solo",
+      "description": "Parfait pour les coiffeurs indépendants",
+      "feature1": "Jusqu'à 100 rendez-vous/mois",
+      "feature2": "Gestion des clients",
+      "feature3": "Page de réservation en ligne",
+      "feature4": "Rappels par email",
+      "feature5": "Analyses de base",
+      "feature6": "Support par email"
+    },
+    "pro": {
+      "name": "Pro",
+      "description": "Pour les salons en croissance qui ont besoin de plus de puissance",
+      "feature1": "Rendez-vous illimités",
+      "feature2": "Gestion complète des clients",
+      "feature3": "Fiches techniques",
+      "feature4": "Gestion d'équipe (jusqu'à 5)",
+      "feature5": "Analyses avancées",
+      "feature6": "Rappels WhatsApp",
+      "feature7": "Gestion des stocks",
+      "feature8": "Support prioritaire"
+    },
+    "enterprise": {
+      "name": "Entreprise",
+      "description": "Pour les entreprises multi-sites",
+      "feature1": "Tout dans Pro",
+      "feature2": "Membres d'équipe illimités",
+      "feature3": "Sites multiples",
+      "feature4": "Intégrations personnalisées",
+      "feature5": "Accès API",
+      "feature6": "Marque personnalisée",
+      "feature7": "Responsable de compte dédié",
+      "feature8": "Support téléphonique 24/7"
+    },
     "starter": {
       "name": "Débutant",
       "price": "0",
@@ -487,33 +526,6 @@
         "Gestion basique des clients",
         "Page de réservation en ligne",
         "Support par email"
-      ]
-    },
-    "pro": {
-      "name": "Pro",
-      "price": "29",
-      "description": "Pour les salons en croissance qui ont besoin de plus de puissance",
-      "features": [
-        "Rendez-vous illimités",
-        "Gestion complète des clients",
-        "Fiches techniques",
-        "Gestion d'équipe (jusqu'à 5)",
-        "Tableau de bord analytique",
-        "Rappels SMS",
-        "Support prioritaire"
-      ]
-    },
-    "enterprise": {
-      "name": "Entreprise",
-      "price": "79",
-      "description": "Pour les entreprises multi-sites",
-      "features": [
-        "Tout dans Pro",
-        "Membres d'équipe illimités",
-        "Sites multiples",
-        "Intégrations personnalisées",
-        "Accès API",
-        "Responsable de compte dédié"
       ]
     }
   },

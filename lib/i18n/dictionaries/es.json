@@ -478,6 +478,45 @@
     "features": "Características",
     "getStarted": "Comenzar",
     "currentPlan": "Plan Actual",
+    "mostPopular": "Más Popular",
+    "freeTrial": "14 días de prueba gratis",
+    "noCard": "Sin tarjeta de crédito",
+    "cancelAnytime": "Cancela cuando quieras",
+    "contactSales": "Contactar Ventas",
+    "solo": {
+      "name": "Solo",
+      "description": "Perfecto para barberos independientes",
+      "feature1": "Hasta 100 citas/mes",
+      "feature2": "Gestión de clientes",
+      "feature3": "Página de reservas online",
+      "feature4": "Recordatorios por email",
+      "feature5": "Análisis básico",
+      "feature6": "Soporte por email"
+    },
+    "pro": {
+      "name": "Pro",
+      "description": "Para barberías en crecimiento que necesitan más poder",
+      "feature1": "Citas ilimitadas",
+      "feature2": "Gestión completa de clientes",
+      "feature3": "Registros químicos",
+      "feature4": "Gestión de equipo (hasta 5)",
+      "feature5": "Análisis avanzado",
+      "feature6": "Recordatorios WhatsApp",
+      "feature7": "Gestión de inventario",
+      "feature8": "Soporte prioritario"
+    },
+    "enterprise": {
+      "name": "Empresarial",
+      "description": "Para negocios con múltiples ubicaciones",
+      "feature1": "Todo en Pro",
+      "feature2": "Miembros de equipo ilimitados",
+      "feature3": "Múltiples ubicaciones",
+      "feature4": "Integraciones personalizadas",
+      "feature5": "Acceso a API",
+      "feature6": "Marca personalizada",
+      "feature7": "Gerente de cuenta dedicado",
+      "feature8": "Soporte telefónico 24/7"
+    },
     "starter": {
       "name": "Inicial",
       "price": "0",
@@ -487,33 +526,6 @@
         "Gestión básica de clientes",
         "Página de reservas online",
         "Soporte por email"
-      ]
-    },
-    "pro": {
-      "name": "Pro",
-      "price": "29",
-      "description": "Para barberías en crecimiento que necesitan más poder",
-      "features": [
-        "Citas ilimitadas",
-        "Gestión completa de clientes",
-        "Registros químicos",
-        "Gestión de equipo (hasta 5)",
-        "Panel de análisis",
-        "Recordatorios WhatsApp",
-        "Soporte prioritario"
-      ]
-    },
-    "enterprise": {
-      "name": "Empresarial",
-      "price": "79",
-      "description": "Para negocios con múltiples ubicaciones",
-      "features": [
-        "Todo en Pro",
-        "Miembros de equipo ilimitados",
-        "Múltiples ubicaciones",
-        "Integraciones personalizadas",
-        "Acceso a API",
-        "Gerente de cuenta dedicado"
       ]
     }
   },

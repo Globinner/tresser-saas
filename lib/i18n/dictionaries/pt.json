@@ -478,6 +478,45 @@
     "features": "Recursos",
     "getStarted": "Começar",
     "currentPlan": "Plano Atual",
+    "mostPopular": "Mais Popular",
+    "freeTrial": "14 dias de teste grátis",
+    "noCard": "Sem cartão de crédito",
+    "cancelAnytime": "Cancele quando quiser",
+    "contactSales": "Falar com Vendas",
+    "solo": {
+      "name": "Solo",
+      "description": "Perfeito para barbeiros independentes",
+      "feature1": "Até 100 agendamentos/mês",
+      "feature2": "Gestão de clientes",
+      "feature3": "Página de agendamento online",
+      "feature4": "Lembretes por email",
+      "feature5": "Análises básicas",
+      "feature6": "Suporte por email"
+    },
+    "pro": {
+      "name": "Pro",
+      "description": "Para barbearias em crescimento que precisam de mais poder",
+      "feature1": "Agendamentos ilimitados",
+      "feature2": "Gestão completa de clientes",
+      "feature3": "Registros químicos",
+      "feature4": "Gestão de equipe (até 5)",
+      "feature5": "Análises avançadas",
+      "feature6": "Lembretes WhatsApp",
+      "feature7": "Gestão de inventário",
+      "feature8": "Suporte prioritário"
+    },
+    "enterprise": {
+      "name": "Empresarial",
+      "description": "Para negócios com múltiplas unidades",
+      "feature1": "Tudo no Pro",
+      "feature2": "Membros de equipe ilimitados",
+      "feature3": "Múltiplas unidades",
+      "feature4": "Integrações personalizadas",
+      "feature5": "Acesso à API",
+      "feature6": "Marca personalizada",
+      "feature7": "Gerente de conta dedicado",
+      "feature8": "Suporte telefônico 24/7"
+    },
     "starter": {
       "name": "Inicial",
       "price": "0",
@@ -487,33 +526,6 @@
         "Gestão básica de clientes",
         "Página de agendamento online",
         "Suporte por email"
-      ]
-    },
-    "pro": {
-      "name": "Pro",
-      "price": "29",
-      "description": "Para barbearias em crescimento que precisam de mais poder",
-      "features": [
-        "Agendamentos ilimitados",
-        "Gestão completa de clientes",
-        "Registros químicos",
-        "Gestão de equipe (até 5)",
-        "Painel de análises",
-        "Lembretes por SMS",
-        "Suporte prioritário"
-      ]
-    },
-    "enterprise": {
-      "name": "Empresarial",
-      "price": "79",
-      "description": "Para negócios com múltiplas unidades",
-      "features": [
-        "Tudo no Pro",
-        "Membros de equipe ilimitados",
-        "Múltiplas unidades",
-        "Integrações personalizadas",
-        "Acesso à API",
-        "Gerente de conta dedicado"
       ]
     }
   },

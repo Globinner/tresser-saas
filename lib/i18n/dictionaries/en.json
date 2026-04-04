@@ -511,9 +511,48 @@
     "save": "Save 20%",
     "perMonth": "/month",
     "popular": "Most Popular",
+    "mostPopular": "Most Popular",
     "features": "Features",
     "getStarted": "Get Started",
     "currentPlan": "Current Plan",
+    "freeTrial": "14-day free trial",
+    "noCard": "No credit card required",
+    "cancelAnytime": "Cancel anytime",
+    "contactSales": "Contact Sales",
+    "solo": {
+      "name": "Solo",
+      "description": "Perfect for independent barbers",
+      "feature1": "Up to 100 appointments/month",
+      "feature2": "Client management",
+      "feature3": "Online booking page",
+      "feature4": "Email reminders",
+      "feature5": "Basic analytics",
+      "feature6": "Email support"
+    },
+    "pro": {
+      "name": "Pro",
+      "description": "For growing shops that need more power",
+      "feature1": "Unlimited appointments",
+      "feature2": "Full client management",
+      "feature3": "Chemistry records",
+      "feature4": "Team management (up to 5)",
+      "feature5": "Advanced analytics",
+      "feature6": "WhatsApp reminders",
+      "feature7": "Inventory management",
+      "feature8": "Priority support"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "description": "For multi-location businesses",
+      "feature1": "Everything in Pro",
+      "feature2": "Unlimited team members",
+      "feature3": "Multiple locations",
+      "feature4": "Custom integrations",
+      "feature5": "API access",
+      "feature6": "Custom branding",
+      "feature7": "Dedicated account manager",
+      "feature8": "24/7 phone support"
+    },
     "starter": {
       "name": "Starter",
       "price": "0",
@@ -523,33 +562,6 @@
         "Basic client management",
         "Online booking page",
         "Email support"
-      ]
-    },
-    "pro": {
-      "name": "Pro",
-      "price": "29",
-      "description": "For growing shops that need more power",
-      "features": [
-        "Unlimited appointments",
-        "Full client management",
-        "Chemistry records",
-        "Team management (up to 5)",
-        "Analytics dashboard",
-        "WhatsApp reminders",
-        "Priority support"
-      ]
-    },
-    "enterprise": {
-      "name": "Enterprise",
-      "price": "79",
-      "description": "For multi-location businesses",
-      "features": [
-        "Everything in Pro",
-        "Unlimited team members",
-        "Multiple locations",
-        "Custom integrations",
-        "API access",
-        "Dedicated account manager"
       ]
     }
   },
