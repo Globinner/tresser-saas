@@ -231,19 +231,20 @@
       "sun": "Dom"
     }
   },
-  "sidebar": {
-    "dashboard": "Panel",
-    "appointments": "Citas",
-    "queue": "Cola de Espera",
-    "clients": "Clientes",
-    "team": "Equipo",
-    "services": "Servicios",
-    "inventory": "Inventario",
-    "analytics": "Análisis",
-    "onlineBooking": "Reservas Online",
-    "reminders": "Recordatorios",
-    "billing": "Facturación",
-    "settings": "Configuración"
+"sidebar": {
+  "dashboard": "Panel",
+  "appointments": "Citas",
+  "queue": "Cola de Espera",
+  "clients": "Clientes",
+  "team": "Equipo",
+  "services": "Servicios",
+  "inventory": "Inventario",
+  "payroll": "Nómina",
+  "analytics": "Análisis",
+  "onlineBooking": "Reservas Online",
+  "reminders": "Recordatorios",
+  "billing": "Facturación",
+  "settings": "Configuración"
   },
   "appointments": {
     "title": "Citas",

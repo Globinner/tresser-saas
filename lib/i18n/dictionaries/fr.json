@@ -231,19 +231,20 @@
       "sun": "Dim"
     }
   },
-  "sidebar": {
-    "dashboard": "Tableau de bord",
-    "appointments": "Rendez-vous",
-    "queue": "File d'Attente",
-    "clients": "Clients",
-    "team": "Équipe",
-    "services": "Services",
-    "inventory": "Inventaire",
-    "analytics": "Analyses",
-    "onlineBooking": "Réservation en Ligne",
-    "reminders": "Rappels",
-    "billing": "Facturation",
-    "settings": "Paramètres"
+"sidebar": {
+  "dashboard": "Tableau de bord",
+  "appointments": "Rendez-vous",
+  "queue": "File d'Attente",
+  "clients": "Clients",
+  "team": "Équipe",
+  "services": "Services",
+  "inventory": "Inventaire",
+  "payroll": "Paie",
+  "analytics": "Analyses",
+  "onlineBooking": "Réservation en Ligne",
+  "reminders": "Rappels",
+  "billing": "Facturation",
+  "settings": "Paramètres"
   },
   "appointments": {
     "title": "Rendez-vous",

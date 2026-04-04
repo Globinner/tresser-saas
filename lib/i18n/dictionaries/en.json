@@ -250,19 +250,20 @@
       "sun": "Sun"
     }
   },
-  "sidebar": {
-    "dashboard": "Dashboard",
-    "appointments": "Appointments",
-    "queue": "Walk-in Queue",
-    "clients": "Clients",
-    "team": "Team",
-    "services": "Services",
-    "inventory": "Inventory",
-    "analytics": "Analytics",
-    "onlineBooking": "Online Booking",
-    "reminders": "Reminders",
-    "billing": "Billing",
-    "settings": "Settings"
+"sidebar": {
+  "dashboard": "Dashboard",
+  "appointments": "Appointments",
+  "queue": "Walk-in Queue",
+  "clients": "Clients",
+  "team": "Team",
+  "services": "Services",
+  "inventory": "Inventory",
+  "payroll": "Payroll",
+  "analytics": "Analytics",
+  "onlineBooking": "Online Booking",
+  "reminders": "Reminders",
+  "billing": "Billing",
+  "settings": "Settings"
   },
   "appointments": {
     "title": "Appointments",

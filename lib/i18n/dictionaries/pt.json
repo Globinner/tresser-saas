@@ -231,19 +231,20 @@
       "sun": "Dom"
     }
   },
-  "sidebar": {
-    "dashboard": "Painel",
-    "appointments": "Agendamentos",
-    "queue": "Fila de Espera",
-    "clients": "Clientes",
-    "team": "Equipe",
-    "services": "Serviços",
-    "inventory": "Estoque",
-    "analytics": "Análises",
-    "onlineBooking": "Agendamento Online",
-    "reminders": "Lembretes",
-    "billing": "Faturamento",
-    "settings": "Configurações"
+"sidebar": {
+  "dashboard": "Painel",
+  "appointments": "Agendamentos",
+  "queue": "Fila de Espera",
+  "clients": "Clientes",
+  "team": "Equipe",
+  "services": "Serviços",
+  "inventory": "Estoque",
+  "payroll": "Folha de Pagamento",
+  "analytics": "Análises",
+  "onlineBooking": "Agendamento Online",
+  "reminders": "Lembretes",
+  "billing": "Faturamento",
+  "settings": "Configurações"
   },
   "appointments": {
     "title": "Agendamentos",

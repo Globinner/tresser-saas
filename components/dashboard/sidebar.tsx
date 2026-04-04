@@ -15,7 +15,8 @@ import {
   UsersRound,
   Package,
   Globe,
-  Bell
+  Bell,
+  Wallet
 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
@@ -54,6 +55,7 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
     { name: t("sidebar.team"), href: "/dashboard/team", icon: Briefcase },
     { name: t("sidebar.services"), href: "/dashboard/services", icon: Scissors },
     { name: t("sidebar.inventory"), href: "/dashboard/inventory", icon: Package },
+    { name: t("sidebar.payroll") || "Payroll", href: "/dashboard/payroll", icon: Wallet },
     { name: t("sidebar.analytics"), href: "/dashboard/analytics", icon: BarChart3 },
     { name: t("sidebar.onlineBooking"), href: "/dashboard/settings?tab=booking", icon: Globe },
     { name: t("sidebar.reminders"), href: "/dashboard/settings?tab=reminders", icon: Bell },

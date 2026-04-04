@@ -231,19 +231,20 @@
       "sun": "أحد"
     }
   },
-  "sidebar": {
-    "dashboard": "لوحة التحكم",
-    "appointments": "المواعيد",
-    "queue": "قائمة الانتظار",
-    "clients": "العملاء",
-    "team": "الفريق",
-    "services": "الخدمات",
-    "inventory": "المخزون",
-    "analytics": "التحليلات",
-    "onlineBooking": "الحجز الإلكتروني",
-    "reminders": "التذكيرات",
-    "billing": "الفواتير",
-    "settings": "الإعدادات"
+"sidebar": {
+  "dashboard": "لوحة التحكم",
+  "appointments": "المواعيد",
+  "queue": "قائمة الانتظار",
+  "clients": "العملاء",
+  "team": "الفريق",
+  "services": "الخدمات",
+  "inventory": "المخزون",
+  "payroll": "الرواتب",
+  "analytics": "التحليلات",
+  "onlineBooking": "الحجز الإلكتروني",
+  "reminders": "التذكيرات",
+  "billing": "الفواتير",
+  "settings": "الإعدادات"
   },
   "appointments": {
     "title": "المواعيد",
@@ -376,7 +377,7 @@
     "lowStock": "مخزون منخفض",
     "quantity": "الكمية",
     "minStock": "الحد الأدنى",
-    "cost": "����لتكلفة",
+    "cost": "������لتكلفة",
     "sku": "رمز المنتج",
     "transactions": "المعاملات"
   },
