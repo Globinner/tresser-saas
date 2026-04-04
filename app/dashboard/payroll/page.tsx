@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
 import { PayrollDashboard } from "@/components/dashboard/payroll-dashboard"
+import { SubscriptionGate } from "@/components/dashboard/subscription-gate"
 
 export default async function PayrollPage() {
   const supabase = await createClient()
@@ -66,13 +67,15 @@ export default async function PayrollPage() {
     .lte("created_at", endOfMonth + "T23:59:59")
 
   return (
-    <PayrollDashboard 
-      teamMembers={teamMembers || []}
-      appointments={appointments || []}
-      transactions={transactions || []}
-      shopId={shopId}
-      startDate={startOfMonth}
-      endDate={endOfMonth}
-    />
+    <SubscriptionGate feature="payroll" featureName="Payroll Reports" requiredPlan="pro">
+      <PayrollDashboard 
+        teamMembers={teamMembers || []}
+        appointments={appointments || []}
+        transactions={transactions || []}
+        shopId={shopId}
+        startDate={startOfMonth}
+        endDate={endOfMonth}
+      />
+    </SubscriptionGate>
   )
 }

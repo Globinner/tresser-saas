@@ -47,6 +47,10 @@ export function CreateShopForm({ userId }: CreateShopFormProps) {
 
     const slug = generateSlug(name)
 
+    // Calculate trial end date (14 days from now)
+    const trialEndDate = new Date()
+    trialEndDate.setDate(trialEndDate.getDate() + 14)
+
     // Create the shop with all required fields
     const { data: shop, error: shopError } = await supabase
       .from("shops")
@@ -65,6 +69,10 @@ export function CreateShopForm({ userId }: CreateShopFormProps) {
         booking_start_time: '09:00',
         booking_end_time: '18:00',
         booking_days_open: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
+        subscription_plan: 'trial',
+        subscription_status: 'active',
+        subscription_start: new Date().toISOString(),
+        subscription_end: trialEndDate.toISOString(),
       })
       .select()
       .single()
