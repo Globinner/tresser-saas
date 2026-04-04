@@ -354,7 +354,7 @@ const demoInventoryHe = [
   { id: 1, name: "פומייד פרימיום", stock: 24, minStock: 10, category: "מוצרי שיער", price: 65, sku: "HP-001" },
   { id: 2, name: "ג׳ל חזק", stock: 18, minStock: 10, category: "מוצרי שיער", price: 45, sku: "HP-002" },
   { id: 3, name: "שמן זקן פרימיום", stock: 3, minStock: 5, category: "מוצרי זקן", price: 80, sku: "BP-001", lowStock: true },
-  { id: 4, name: "שמפו מקצועי", stock: 12, minStock: 8, category: "מוצרי שיער", price: 55, sku: "HP-003" },
+  { id: 4, name: "שמפו מקצועי", stock: 12, minStock: 8, category: "מוצרי ש��ער", price: 55, sku: "HP-003" },
   { id: 5, name: "צבע שיער - שחור 1N", stock: 8, minStock: 5, category: "צבע", price: 90, sku: "CL-001" },
   { id: 6, name: "מפתח 20 וול", stock: 2, minStock: 5, category: "צבע", price: 45, sku: "CL-002", lowStock: true },
   { id: 7, name: "סכיני מכונה #1", stock: 6, minStock: 4, category: "כלים", price: 120, sku: "TL-001" },
@@ -1074,7 +1074,14 @@ export default function DemoPage() {
                         </div>
                       </CardContent>
                     </Card>
+                  </div>
+                </div>
+              )}
 
+              {/* Inventory */}
+              {activeSection === "inventory" && (
+                <div className="space-y-6">
+                  <h1 className="text-2xl font-bold">{isHebrew ? "מלאי" : "Inventory"}</h1>
                   <Card>
                     <CardContent className="p-0">
                       <div className="divide-y divide-border">
