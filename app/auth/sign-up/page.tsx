@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
@@ -15,7 +15,11 @@ export default function SignUpPage() {
   const [shopName, setShopName] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [isExistingUser, setIsExistingUser] = useState(false)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const couponCode = searchParams.get("coupon")
+  const planCode = searchParams.get("plan")
   const supabase = createClient()
 
   async function handleSignUp(e: React.FormEvent) {
@@ -42,7 +46,13 @@ export default function SignUpPage() {
     })
 
     if (authError) {
-      setError(authError.message)
+      if (authError.message.toLowerCase().includes("already registered") || 
+          authError.message.toLowerCase().includes("already been registered")) {
+        setIsExistingUser(true)
+        setError("This email is already registered.")
+      } else {
+        setError(authError.message)
+      }
       setLoading(false)
       return
     }
@@ -153,6 +163,14 @@ export default function SignUpPage() {
             {error && (
               <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm">
                 {error}
+                {isExistingUser && (
+                  <Link 
+                    href={`/auth/login${couponCode ? `?coupon=${couponCode}` : planCode ? `?plan=${planCode}` : ''}`}
+                    className="block mt-2 text-primary hover:underline font-medium"
+                  >
+                    Click here to sign in instead
+                  </Link>
+                )}
               </div>
             )}
 

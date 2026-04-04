@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Scissors, ArrowLeft, Loader2, Mail } from "lucide-react"
+import { Scissors, ArrowLeft, Loader2, Mail, Tag } from "lucide-react"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -17,6 +17,8 @@ export default function LoginPage() {
   const [showResend, setShowResend] = useState(false)
   const [resendSuccess, setResendSuccess] = useState(false)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const couponCode = searchParams.get("coupon")
   const supabase = createClient()
 
   async function handleLogin(e: React.FormEvent) {
@@ -48,7 +50,12 @@ export default function LoginPage() {
       }
 
       if (data.user) {
-        router.push("/dashboard")
+        // If there's a coupon code, redirect to billing page to apply it
+        if (couponCode) {
+          router.push(`/dashboard/billing?coupon=${couponCode}`)
+        } else {
+          router.push("/dashboard")
+        }
         router.refresh()
       }
     } catch (err) {
@@ -122,9 +129,16 @@ export default function LoginPage() {
           </div>
 
           <h1 className="text-2xl font-bold text-center mb-2">Welcome back</h1>
-          <p className="text-muted-foreground text-center mb-8">
+          <p className="text-muted-foreground text-center mb-4">
             Sign in to your shop dashboard
           </p>
+          
+          {couponCode && (
+            <div className="p-3 rounded-lg bg-primary/10 border border-primary/20 text-primary text-sm mb-6 flex items-center gap-2">
+              <Tag className="w-4 h-4" />
+              <span>Coupon <strong>{couponCode}</strong> will be applied after sign in</span>
+            </div>
+          )}
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
