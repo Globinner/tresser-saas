@@ -505,17 +505,15 @@
       "feature7": "Gestion des stocks",
       "feature8": "Support prioritaire"
     },
-    "enterprise": {
-      "name": "Entreprise",
-      "description": "Pour les entreprises multi-sites",
+    "branch": {
+      "name": "Succursale",
+      "description": "Pour les salons avec plusieurs sites",
       "feature1": "Tout dans Pro",
-      "feature2": "Membres d'équipe illimités",
-      "feature3": "Sites multiples",
-      "feature4": "Intégrations personnalisées",
-      "feature5": "Accès API",
-      "feature6": "Marque personnalisée",
-      "feature7": "Responsable de compte dédié",
-      "feature8": "Support téléphonique 24/7"
+      "feature2": "Jusqu'à 3 sites",
+      "feature3": "Membres d'équipe illimités",
+      "feature4": "Rapports de paie",
+      "feature5": "Analyses par succursale",
+      "feature6": "Support téléphonique prioritaire"
     },
     "starter": {
       "name": "Débutant",

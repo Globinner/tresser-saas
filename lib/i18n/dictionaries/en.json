@@ -541,17 +541,15 @@
       "feature7": "Inventory management",
       "feature8": "Priority support"
     },
-    "enterprise": {
-      "name": "Enterprise",
-      "description": "For multi-location businesses",
+    "branch": {
+      "name": "Branch",
+      "description": "For shops with multiple locations",
       "feature1": "Everything in Pro",
-      "feature2": "Unlimited team members",
-      "feature3": "Multiple locations",
-      "feature4": "Custom integrations",
-      "feature5": "API access",
-      "feature6": "Custom branding",
-      "feature7": "Dedicated account manager",
-      "feature8": "24/7 phone support"
+      "feature2": "Up to 3 locations",
+      "feature3": "Unlimited team members",
+      "feature4": "Payroll reports",
+      "feature5": "Branch analytics",
+      "feature6": "Priority phone support"
     },
     "starter": {
       "name": "Starter",

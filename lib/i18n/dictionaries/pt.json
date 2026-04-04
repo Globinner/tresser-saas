@@ -505,17 +505,15 @@
       "feature7": "Gestão de inventário",
       "feature8": "Suporte prioritário"
     },
-    "enterprise": {
-      "name": "Empresarial",
-      "description": "Para negócios com múltiplas unidades",
+    "branch": {
+      "name": "Filial",
+      "description": "Para barbearias com múltiplas unidades",
       "feature1": "Tudo no Pro",
-      "feature2": "Membros de equipe ilimitados",
-      "feature3": "Múltiplas unidades",
-      "feature4": "Integrações personalizadas",
-      "feature5": "Acesso à API",
-      "feature6": "Marca personalizada",
-      "feature7": "Gerente de conta dedicado",
-      "feature8": "Suporte telefônico 24/7"
+      "feature2": "Até 3 unidades",
+      "feature3": "Membros de equipe ilimitados",
+      "feature4": "Relatórios de folha de pagamento",
+      "feature5": "Análises por filial",
+      "feature6": "Suporte telefônico prioritário"
     },
     "starter": {
       "name": "Inicial",

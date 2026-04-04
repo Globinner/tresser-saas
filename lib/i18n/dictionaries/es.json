@@ -505,17 +505,15 @@
       "feature7": "Gestión de inventario",
       "feature8": "Soporte prioritario"
     },
-    "enterprise": {
-      "name": "Empresarial",
-      "description": "Para negocios con múltiples ubicaciones",
+    "branch": {
+      "name": "Sucursal",
+      "description": "Para barberías con múltiples ubicaciones",
       "feature1": "Todo en Pro",
-      "feature2": "Miembros de equipo ilimitados",
-      "feature3": "Múltiples ubicaciones",
-      "feature4": "Integraciones personalizadas",
-      "feature5": "Acceso a API",
-      "feature6": "Marca personalizada",
-      "feature7": "Gerente de cuenta dedicado",
-      "feature8": "Soporte telefónico 24/7"
+      "feature2": "Hasta 3 ubicaciones",
+      "feature3": "Miembros de equipo ilimitados",
+      "feature4": "Informes de nómina",
+      "feature5": "Análisis por sucursal",
+      "feature6": "Soporte telefónico prioritario"
     },
     "starter": {
       "name": "Inicial",
