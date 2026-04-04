@@ -12,7 +12,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog"
 import { createClient } from "@/lib/supabase/client"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 
 const plans = [
   {
@@ -89,9 +89,12 @@ export default function BillingPage() {
   const [invoicesOpen, setInvoicesOpen] = useState(false)
   const [paypalOpen, setPaypalOpen] = useState(false)
   const [selectedPlan, setSelectedPlan] = useState<typeof plans[0] | null>(null)
-  const [couponCode, setCouponCode] = useState("")
+  const searchParams = useSearchParams()
+  const urlCoupon = searchParams.get("coupon")
+  const [couponCode, setCouponCode] = useState(urlCoupon || "")
   const [couponLoading, setCouponLoading] = useState(false)
   const [couponResult, setCouponResult] = useState<{ success: boolean; message: string; discount?: number; duration?: string } | null>(null)
+  const [autoApplied, setAutoApplied] = useState(false)
   
   useEffect(() => {
     async function fetchShop() {
@@ -128,18 +131,29 @@ export default function BillingPage() {
     setPaypalOpen(true)
   }
 
-  const handleApplyCoupon = async () => {
-    if (!couponCode.trim() || !shop) return
-    
-    setCouponLoading(true)
-    setCouponResult(null)
-    
-    try {
-      // Check if coupon exists and is valid
-      const { data: coupon, error } = await supabase
-        .from("coupons")
-        .select("*")
-        .eq("code", couponCode.toUpperCase().trim())
+// Auto-apply coupon from URL when shop is loaded
+  useEffect(() => {
+    if (urlCoupon && shop && !autoApplied) {
+      setAutoApplied(true)
+      // Small delay to ensure UI is ready
+      setTimeout(() => {
+        handleApplyCouponInternal(urlCoupon)
+      }, 500)
+    }
+  }, [urlCoupon, shop, autoApplied])
+
+const handleApplyCouponInternal = async (code: string) => {
+    if (!code.trim() || !shop) return
+  
+  setCouponLoading(true)
+  setCouponResult(null)
+  
+  try {
+    // Check if coupon exists and is valid
+    const { data: coupon, error } = await supabase
+    .from("coupons")
+    .select("*")
+    .eq("code", code.toUpperCase().trim())
         .eq("is_active", true)
         .single()
       
@@ -219,6 +233,10 @@ export default function BillingPage() {
     } finally {
       setCouponLoading(false)
     }
+  }
+
+  const handleApplyCoupon = () => {
+    handleApplyCouponInternal(couponCode)
   }
 
   const handlePayPalCheckout = async () => {
