@@ -10,53 +10,53 @@ export function PricingSection() {
 
   const plans = [
     {
-      name: t("pricing.solo.name"),
-      description: t("pricing.solo.description"),
+      name: t("pricing.solo.name") !== "pricing.solo.name" ? t("pricing.solo.name") : "Solo",
+      description: t("pricing.solo.description") !== "pricing.solo.description" ? t("pricing.solo.description") : "Perfect for independent barbers",
       price: "22",
-      period: t("pricing.perMonth"),
+      period: t("pricing.perMonth") !== "pricing.perMonth" ? t("pricing.perMonth") : "/month",
       features: [
-        t("pricing.solo.feature1"),
-        t("pricing.solo.feature2"),
-        t("pricing.solo.feature3"),
-        t("pricing.solo.feature4"),
-        t("pricing.solo.feature5"),
-        t("pricing.solo.feature6"),
+        t("pricing.solo.feature1") !== "pricing.solo.feature1" ? t("pricing.solo.feature1") : "Up to 100 appointments/month",
+        t("pricing.solo.feature2") !== "pricing.solo.feature2" ? t("pricing.solo.feature2") : "Client management",
+        t("pricing.solo.feature3") !== "pricing.solo.feature3" ? t("pricing.solo.feature3") : "Online booking page",
+        t("pricing.solo.feature4") !== "pricing.solo.feature4" ? t("pricing.solo.feature4") : "Email reminders",
+        t("pricing.solo.feature5") !== "pricing.solo.feature5" ? t("pricing.solo.feature5") : "Basic analytics",
+        t("pricing.solo.feature6") !== "pricing.solo.feature6" ? t("pricing.solo.feature6") : "Email support",
       ],
-      cta: t("nav.startFreeTrial"),
+      cta: t("pricing.getIt") !== "pricing.getIt" ? t("pricing.getIt") : "Get It",
       popular: false,
     },
     {
-      name: t("pricing.pro.name"),
-      description: t("pricing.pro.description"),
+      name: t("pricing.pro.name") !== "pricing.pro.name" ? t("pricing.pro.name") : "Pro",
+      description: t("pricing.pro.description") !== "pricing.pro.description" ? t("pricing.pro.description") : "For growing shops that need more power",
       price: "29",
-      period: t("pricing.perMonth"),
+      period: t("pricing.perMonth") !== "pricing.perMonth" ? t("pricing.perMonth") : "/month",
       features: [
-        t("pricing.pro.feature1"),
-        t("pricing.pro.feature2"),
-        t("pricing.pro.feature3"),
-        t("pricing.pro.feature4"),
-        t("pricing.pro.feature5"),
-        t("pricing.pro.feature6"),
-        t("pricing.pro.feature7"),
-        t("pricing.pro.feature8"),
+        t("pricing.pro.feature1") !== "pricing.pro.feature1" ? t("pricing.pro.feature1") : "Unlimited appointments",
+        t("pricing.pro.feature2") !== "pricing.pro.feature2" ? t("pricing.pro.feature2") : "Full client management",
+        t("pricing.pro.feature3") !== "pricing.pro.feature3" ? t("pricing.pro.feature3") : "Chemistry records",
+        t("pricing.pro.feature4") !== "pricing.pro.feature4" ? t("pricing.pro.feature4") : "Team management (up to 5)",
+        t("pricing.pro.feature5") !== "pricing.pro.feature5" ? t("pricing.pro.feature5") : "Advanced analytics",
+        t("pricing.pro.feature6") !== "pricing.pro.feature6" ? t("pricing.pro.feature6") : "WhatsApp reminders",
+        t("pricing.pro.feature7") !== "pricing.pro.feature7" ? t("pricing.pro.feature7") : "Inventory management",
+        t("pricing.pro.feature8") !== "pricing.pro.feature8" ? t("pricing.pro.feature8") : "Priority support",
       ],
-      cta: t("nav.startFreeTrial"),
+      cta: t("pricing.getIt") !== "pricing.getIt" ? t("pricing.getIt") : "Get It",
       popular: true,
     },
     {
       name: "Branch",
-      description: t("pricing.branch.description"),
+      description: t("pricing.branch.description") !== "pricing.branch.description" ? t("pricing.branch.description") : "For shops with multiple locations",
       price: "77",
-      period: t("pricing.perMonth"),
+      period: t("pricing.perMonth") !== "pricing.perMonth" ? t("pricing.perMonth") : "/month",
       features: [
-        t("pricing.branch.feature1"),
-        t("pricing.branch.feature2"),
-        t("pricing.branch.feature3"),
-        t("pricing.branch.feature4"),
-        t("pricing.branch.feature5"),
-        t("pricing.branch.feature6"),
+        t("pricing.branch.feature1") !== "pricing.branch.feature1" ? t("pricing.branch.feature1") : "Everything in Pro",
+        t("pricing.branch.feature2") !== "pricing.branch.feature2" ? t("pricing.branch.feature2") : "Up to 3 locations",
+        t("pricing.branch.feature3") !== "pricing.branch.feature3" ? t("pricing.branch.feature3") : "Unlimited team members",
+        t("pricing.branch.feature4") !== "pricing.branch.feature4" ? t("pricing.branch.feature4") : "Payroll reports",
+        t("pricing.branch.feature5") !== "pricing.branch.feature5" ? t("pricing.branch.feature5") : "Branch analytics",
+        t("pricing.branch.feature6") !== "pricing.branch.feature6" ? t("pricing.branch.feature6") : "Priority phone support",
       ],
-      cta: t("pricing.contactSales"),
+      cta: t("pricing.getIt") !== "pricing.getIt" ? t("pricing.getIt") : "Get It",
       popular: false,
     },
   ]
@@ -100,7 +100,7 @@ export function PricingSection() {
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                   <span className="px-4 py-1 rounded-full text-sm font-semibold bg-primary text-primary-foreground flex items-center gap-1">
                     <Zap className="w-4 h-4" />
-                    {t("pricing.mostPopular")}
+                    {t("pricing.mostPopular") !== "pricing.mostPopular" ? t("pricing.mostPopular") : "Most Popular"}
                   </span>
                 </div>
               )}
