@@ -3,6 +3,7 @@
 import { DashboardSidebar } from "@/components/dashboard/sidebar"
 import { DashboardHeader } from "@/components/dashboard/header"
 import { useLanguage } from "@/lib/i18n/language-context"
+import { useBookingNotifications } from "@/hooks/use-booking-notifications"
 import { cn } from "@/lib/utils"
 import type { User } from "@supabase/supabase-js"
 
@@ -11,6 +12,7 @@ interface Profile {
   full_name: string | null
   avatar_url: string | null
   role: string
+  shop_id?: string | null
   shops: {
     id: string
     name: string
@@ -26,6 +28,9 @@ interface DashboardLayoutClientProps {
 
 export function DashboardLayoutClient({ user, profile, children }: DashboardLayoutClientProps) {
   const { isRTL } = useLanguage()
+  
+  // Enable real-time booking notifications with sound
+  useBookingNotifications(profile?.shop_id || profile?.shops?.id)
   
   return (
     <div className={cn("min-h-screen bg-background grain", isRTL ? "rtl" : "ltr")} dir={isRTL ? "rtl" : "ltr"}>

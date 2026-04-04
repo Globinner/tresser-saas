@@ -33,9 +33,9 @@ export function LanguageSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
-          <Globe className="h-5 w-5" />
-          <span className="sr-only">Switch language</span>
+        <Button variant="ghost" className="text-muted-foreground hover:text-foreground gap-2 px-3">
+          <Globe className="h-4 w-4" />
+          <span className="text-sm">{getFlagEmoji(locale)} {localeNames[locale]}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="glass border-border/50">
