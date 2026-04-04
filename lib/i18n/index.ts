@@ -7,6 +7,7 @@ const dictionaries = {
   fr: () => import('./dictionaries/fr.json').then((module) => module.default),
   ar: () => import('./dictionaries/ar.json').then((module) => module.default),
   he: () => import('./dictionaries/he.json').then((module) => module.default),
+  ru: () => import('./dictionaries/ru.json').then((module) => module.default),
 }
 
 export type Dictionary = Awaited<ReturnType<typeof dictionaries.en>>

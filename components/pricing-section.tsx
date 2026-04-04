@@ -12,7 +12,7 @@ export function PricingSection() {
     {
       name: t("pricing.solo.name"),
       description: t("pricing.solo.description"),
-      price: "29",
+      price: "22",
       period: t("pricing.perMonth"),
       features: [
         t("pricing.solo.feature1"),
@@ -28,7 +28,7 @@ export function PricingSection() {
     {
       name: t("pricing.pro.name"),
       description: t("pricing.pro.description"),
-      price: "79",
+      price: "29",
       period: t("pricing.perMonth"),
       features: [
         t("pricing.pro.feature1"),
@@ -44,19 +44,17 @@ export function PricingSection() {
       popular: true,
     },
     {
-      name: t("pricing.enterprise.name"),
-      description: t("pricing.enterprise.description"),
-      price: "199",
+      name: "Branch",
+      description: t("pricing.branch.description"),
+      price: "77",
       period: t("pricing.perMonth"),
       features: [
-        t("pricing.enterprise.feature1"),
-        t("pricing.enterprise.feature2"),
-        t("pricing.enterprise.feature3"),
-        t("pricing.enterprise.feature4"),
-        t("pricing.enterprise.feature5"),
-        t("pricing.enterprise.feature6"),
-        t("pricing.enterprise.feature7"),
-        t("pricing.enterprise.feature8"),
+        t("pricing.branch.feature1"),
+        t("pricing.branch.feature2"),
+        t("pricing.branch.feature3"),
+        t("pricing.branch.feature4"),
+        t("pricing.branch.feature5"),
+        t("pricing.branch.feature6"),
       ],
       cta: t("pricing.contactSales"),
       popular: false,

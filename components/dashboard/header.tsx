@@ -103,7 +103,12 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
           <div className="flex-1" />
 
           {/* Right side actions */}
-          <div className={cn("flex items-center gap-4", isRTL ? "" : "")}>
+          <div className={cn("flex items-center gap-2", isRTL ? "" : "")}>
+            {/* Language Switcher - visible on desktop */}
+            <div className="hidden sm:block">
+              <LanguageSwitcher />
+            </div>
+            
             <Button 
               variant="ghost" 
               size="icon" 

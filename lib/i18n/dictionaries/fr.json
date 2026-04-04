@@ -231,19 +231,20 @@
       "sun": "Dim"
     }
   },
-  "sidebar": {
-    "dashboard": "Tableau de bord",
-    "appointments": "Rendez-vous",
-    "queue": "File d'Attente",
-    "clients": "Clients",
-    "team": "Équipe",
-    "services": "Services",
-    "inventory": "Inventaire",
-    "analytics": "Analyses",
-    "onlineBooking": "Réservation en Ligne",
-    "reminders": "Rappels",
-    "billing": "Facturation",
-    "settings": "Paramètres"
+"sidebar": {
+  "dashboard": "Tableau de bord",
+  "appointments": "Rendez-vous",
+  "queue": "File d'Attente",
+  "clients": "Clients",
+  "team": "Équipe",
+  "services": "Services",
+  "inventory": "Inventaire",
+  "payroll": "Paie",
+  "analytics": "Analyses",
+  "onlineBooking": "Réservation en Ligne",
+  "reminders": "Rappels",
+  "billing": "Facturation",
+  "settings": "Paramètres"
   },
   "appointments": {
     "title": "Rendez-vous",
@@ -478,6 +479,43 @@
     "features": "Fonctionnalités",
     "getStarted": "Commencer",
     "currentPlan": "Plan Actuel",
+    "mostPopular": "Le Plus Populaire",
+    "freeTrial": "14 jours d'essai gratuit",
+    "noCard": "Sans carte de crédit",
+    "cancelAnytime": "Annulez quand vous voulez",
+    "contactSales": "Contacter les Ventes",
+    "solo": {
+      "name": "Solo",
+      "description": "Parfait pour les coiffeurs indépendants",
+      "feature1": "Jusqu'à 100 rendez-vous/mois",
+      "feature2": "Gestion des clients",
+      "feature3": "Page de réservation en ligne",
+      "feature4": "Rappels par email",
+      "feature5": "Analyses de base",
+      "feature6": "Support par email"
+    },
+    "pro": {
+      "name": "Pro",
+      "description": "Pour les salons en croissance qui ont besoin de plus de puissance",
+      "feature1": "Rendez-vous illimités",
+      "feature2": "Gestion complète des clients",
+      "feature3": "Fiches techniques",
+      "feature4": "Gestion d'équipe (jusqu'à 5)",
+      "feature5": "Analyses avancées",
+      "feature6": "Rappels WhatsApp",
+      "feature7": "Gestion des stocks",
+      "feature8": "Support prioritaire"
+    },
+    "branch": {
+      "name": "Succursale",
+      "description": "Pour les salons avec plusieurs sites",
+      "feature1": "Tout dans Pro",
+      "feature2": "Jusqu'à 3 sites",
+      "feature3": "Membres d'équipe illimités",
+      "feature4": "Rapports de paie",
+      "feature5": "Analyses par succursale",
+      "feature6": "Support téléphonique prioritaire"
+    },
     "starter": {
       "name": "Débutant",
       "price": "0",
@@ -487,33 +525,6 @@
         "Gestion basique des clients",
         "Page de réservation en ligne",
         "Support par email"
-      ]
-    },
-    "pro": {
-      "name": "Pro",
-      "price": "29",
-      "description": "Pour les salons en croissance qui ont besoin de plus de puissance",
-      "features": [
-        "Rendez-vous illimités",
-        "Gestion complète des clients",
-        "Fiches techniques",
-        "Gestion d'équipe (jusqu'à 5)",
-        "Tableau de bord analytique",
-        "Rappels SMS",
-        "Support prioritaire"
-      ]
-    },
-    "enterprise": {
-      "name": "Entreprise",
-      "price": "79",
-      "description": "Pour les entreprises multi-sites",
-      "features": [
-        "Tout dans Pro",
-        "Membres d'équipe illimités",
-        "Sites multiples",
-        "Intégrations personnalisées",
-        "Accès API",
-        "Responsable de compte dédié"
       ]
     }
   },
