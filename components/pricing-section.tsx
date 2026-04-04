@@ -44,7 +44,7 @@ export function PricingSection() {
       popular: true,
     },
     {
-      name: t("pricing.branch.name"),
+      name: "Branch",
       description: t("pricing.branch.description"),
       price: "49",
       period: t("pricing.perMonth"),
