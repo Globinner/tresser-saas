@@ -221,7 +221,7 @@ const demoClientsHe = [
     hasChemistry: true,
     visitHistory: [
       { date: "17 מרץ, 2026", service: "צביעת שיער", barber: "שרה", price: 60 },
-      { date: "15 פבר, 2026", service: "צביעת שיער", barber: "שרה", price: 60 },
+      { date: "15 ��בר, 2026", service: "צביעת שיער", barber: "שרה", price: 60 },
       { date: "20 ינו, 2026", service: "צביעה + תספורת", barber: "שרה", price: 85 },
     ],
     photos: [
@@ -286,11 +286,11 @@ const demoClientsHe = [
 ]
 
 const demoAppointmentsHe = [
-  { id: 1, clientId: "demo-client-1", client: "יוסי כהן", service: "פייד", time: "09:00", status: "confirmed", barber: "מייק", price: 30 },
-  { id: 2, clientId: "demo-client-2", client: "דוד לוי", service: "תספורת קלאסית", time: "10:30", status: "confirmed", barber: "מייק", price: 25 },
-  { id: 3, clientId: "demo-client-3", client: "משה פרץ", service: "זקן", time: "11:00", status: "pending", barber: "שרה", price: 15 },
-  { id: 4, clientId: "demo-client-4", client: "אבי מזרחי", service: "צביעת שיער", time: "14:00", status: "confirmed", barber: "שרה", price: 60 },
-  { id: 5, clientId: "demo-client-5", client: "רון ביטון", service: "שיער + זקן", time: "15:30", status: "confirmed", barber: "מייק", price: 40 },
+  { id: 1, clientId: "demo-client-1", client: "יוסי כהן", service: "פייד", time: "09:00", status: "confirmed", barber: "מיכאל", price: 110 },
+  { id: 2, clientId: "demo-client-2", client: "דוד לוי", service: "תספורת קלאסית", time: "10:30", status: "confirmed", barber: "מיכאל", price: 90 },
+  { id: 3, clientId: "demo-client-3", client: "משה פרץ", service: "עיצוב זקן", time: "11:00", status: "pending", barber: "שרה", price: 50 },
+  { id: 4, clientId: "demo-client-4", client: "אבי מזרחי", service: "צביעת שיער", time: "14:00", status: "confirmed", barber: "שרה", price: 220 },
+  { id: 5, clientId: "demo-client-5", client: "רון ביטון", service: "שיער + זקן", time: "15:30", status: "confirmed", barber: "מיכאל", price: 140 },
 ]
 
 const demoQueueHe = [
@@ -299,7 +299,7 @@ const demoQueueHe = [
   { id: 3, name: "נועם אברהם", service: "תספורת קלאסית", waitTime: 45, addedAt: "10:15", status: "waiting" },
 ]
 
-const demoServices = [
+const demoServicesEn = [
   { id: 1, name: "Classic Haircut", price: 25, duration: 30, category: "Haircuts", active: true },
   { id: 2, name: "Fade", price: 30, duration: 45, category: "Haircuts", active: true },
   { id: 3, name: "Buzz Cut", price: 20, duration: 20, category: "Haircuts", active: true },
@@ -309,6 +309,18 @@ const demoServices = [
   { id: 7, name: "Hair Color", price: 60, duration: 90, category: "Color", active: true },
   { id: 8, name: "Highlights", price: 80, duration: 120, category: "Color", active: true },
   { id: 9, name: "Hair & Beard Combo", price: 40, duration: 50, category: "Combos", active: true },
+]
+
+const demoServicesHe = [
+  { id: 1, name: "תספורת קלאסית", price: 90, duration: 30, category: "תספורות", active: true },
+  { id: 2, name: "פייד", price: 110, duration: 45, category: "תספורות", active: true },
+  { id: 3, name: "באז קאט", price: 70, duration: 20, category: "תספורות", active: true },
+  { id: 4, name: "תספורת ילדים", price: 65, duration: 25, category: "תספורות", active: true },
+  { id: 5, name: "עיצוב זקן", price: 50, duration: 15, category: "זקן", active: true },
+  { id: 6, name: "גילוח זקן", price: 70, duration: 20, category: "זקן", active: true },
+  { id: 7, name: "צביעת שיער", price: 220, duration: 90, category: "צבע", active: true },
+  { id: 8, name: "גוונים", price: 280, duration: 120, category: "צבע", active: true },
+  { id: 9, name: "שיער + זקן", price: 140, duration: 50, category: "חבילות", active: true },
 ]
 
 const demoAppointments = [
@@ -325,7 +337,7 @@ const demoQueue = [
   { id: 3, name: "Chris Davis", service: "Classic Haircut", waitTime: 45, addedAt: "10:15 AM", status: "waiting" },
 ]
 
-const demoInventory = [
+const demoInventoryEn = [
   { id: 1, name: "Premium Pomade", stock: 24, minStock: 10, category: "Hair Products", price: 18, sku: "HP-001" },
   { id: 2, name: "Hair Gel Strong Hold", stock: 18, minStock: 10, category: "Hair Products", price: 12, sku: "HP-002" },
   { id: 3, name: "Beard Oil Premium", stock: 3, minStock: 5, category: "Beard Products", price: 22, sku: "BP-001", lowStock: true },
@@ -338,7 +350,20 @@ const demoInventory = [
   { id: 10, name: "Styling Wax", stock: 15, minStock: 8, category: "Hair Products", price: 16, sku: "HP-004" },
 ]
 
-const revenueData = [
+const demoInventoryHe = [
+  { id: 1, name: "פומייד פרימיום", stock: 24, minStock: 10, category: "מוצרי שיער", price: 65, sku: "HP-001" },
+  { id: 2, name: "ג׳ל חזק", stock: 18, minStock: 10, category: "מוצרי שיער", price: 45, sku: "HP-002" },
+  { id: 3, name: "שמן זקן פרימיום", stock: 3, minStock: 5, category: "מוצרי זקן", price: 80, sku: "BP-001", lowStock: true },
+  { id: 4, name: "שמפו מקצועי", stock: 12, minStock: 8, category: "מוצרי שיער", price: 55, sku: "HP-003" },
+  { id: 5, name: "צבע שיער - שחור 1N", stock: 8, minStock: 5, category: "צבע", price: 90, sku: "CL-001" },
+  { id: 6, name: "מפתח 20 וול", stock: 2, minStock: 5, category: "צבע", price: 45, sku: "CL-002", lowStock: true },
+  { id: 7, name: "סכיני מכונה #1", stock: 6, minStock: 4, category: "כלים", price: 120, sku: "TL-001" },
+  { id: 8, name: "רצועות צוואר (קופסה)", stock: 150, minStock: 50, category: "מתכלים", price: 30, sku: "CN-001" },
+  { id: 9, name: "ספריי חיטוי", stock: 4, minStock: 3, category: "מתכלים", price: 45, sku: "CN-002" },
+  { id: 10, name: "ווקס עיצוב", stock: 15, minStock: 8, category: "מוצרי שיער", price: 60, sku: "HP-004" },
+]
+
+const revenueDataEn = [
   { day: "Mon", revenue: 520, appointments: 12 },
   { day: "Tue", revenue: 650, appointments: 15 },
   { day: "Wed", revenue: 480, appointments: 11 },
@@ -346,6 +371,16 @@ const revenueData = [
   { day: "Fri", revenue: 850, appointments: 22 },
   { day: "Sat", revenue: 920, appointments: 25 },
   { day: "Sun", revenue: 610, appointments: 14 },
+]
+
+const revenueDataHe = [
+  { day: "ראשון", revenue: 1850, appointments: 12 },
+  { day: "שני", revenue: 2300, appointments: 15 },
+  { day: "שלישי", revenue: 1700, appointments: 11 },
+  { day: "רביעי", revenue: 2550, appointments: 18 },
+  { day: "חמישי", revenue: 3020, appointments: 22 },
+  { day: "שישי", revenue: 3280, appointments: 25 },
+  { day: "שבת", revenue: 0, appointments: 0 },
 ]
 
 // Navigation keys mapped to translation keys
@@ -363,7 +398,7 @@ const navigationItems = [
 ]
 
 // Demo team data
-const demoTeam = [
+const demoTeamEn = [
   {
     id: 1,
     name: "Mike Rodriguez",
@@ -430,16 +465,91 @@ const demoTeam = [
   },
 ]
 
+const demoTeamHe = [
+  {
+    id: 1,
+    name: "מיכאל כהן",
+    role: "ספר בכיר",
+    email: "michael@mispara.co.il",
+    phone: "054-111-2222",
+    avatar: "/images/features/clients.jpg",
+    status: "working",
+    schedule: "א׳-ה׳ 09:00-18:00",
+    appointments: 156,
+    revenue: 30200,
+    rating: 4.9,
+    specialties: ["פיידים", "עיצובים", "עיצוב זקן"],
+    currentClient: "יוסי כהן",
+    joinDate: "ינו׳ 2023",
+  },
+  {
+    id: 2,
+    name: "שרה לוי",
+    role: "קולוריסטית ומעצבת",
+    email: "sarah@mispara.co.il",
+    phone: "052-222-3333",
+    avatar: "/images/features/clients.jpg",
+    status: "available",
+    schedule: "א׳-ה׳ 10:00-19:00",
+    appointments: 142,
+    revenue: 27800,
+    rating: 4.8,
+    specialties: ["צביעת שיער", "גוונים", "תספורות קלאסיות"],
+    currentClient: null,
+    joinDate: "מרץ 2023",
+  },
+  {
+    id: 3,
+    name: "יעקב מזרחי",
+    role: "ספר",
+    email: "yakov@mispara.co.il",
+    phone: "050-333-4444",
+    avatar: "/images/features/clients.jpg",
+    status: "break",
+    schedule: "א׳-ה׳ 09:00-17:00",
+    appointments: 98,
+    revenue: 16680,
+    rating: 4.7,
+    specialties: ["באז קאט", "תספורות ילדים", "עיצוב זקן"],
+    currentClient: null,
+    joinDate: "יוני 2023",
+  },
+  {
+    id: 4,
+    name: "דוד אברהם",
+    role: "ספר זוטר",
+    email: "david@mispara.co.il",
+    phone: "053-444-5555",
+    avatar: "/images/features/clients.jpg",
+    status: "off",
+    schedule: "א׳-ו׳ 11:00-20:00",
+    appointments: 64,
+    revenue: 10290,
+    rating: 4.5,
+    specialties: ["תספורות קלאסיות", "פיידים"],
+    currentClient: null,
+    joinDate: "דצמ׳ 2023",
+  },
+]
+
 // Available preferences options
-const PREFERENCE_OPTIONS = {
+const PREFERENCE_OPTIONS_EN = {
   styles: ["Low Fade", "Mid Fade", "High Fade", "Skin Fade", "Taper", "Buzz Cut", "Pompadour"],
   cutting: ["Scissors only", "Clippers only", "Both"],
   allergies: ["Hair dye", "Bleach", "Latex", "Certain gels", "Fragrances"],
   other: ["Sensitive scalp", "Thinning hair", "Beard trim", "Hot towel", "Line up"]
 }
 
+const PREFERENCE_OPTIONS_HE = {
+  styles: ["פייד נמוך", "פייד בינוני", "פייד גבוה", "סקין פייד", "טייפר", "באז קאט", "פומפדור"],
+  cutting: ["מספריים בלבד", "מכונה בלבד", "שניהם"],
+  allergies: ["צבע שיער", "הבהרה", "לטקס", "ג׳לים מסוימים", "בשמים"],
+  other: ["קרקפת רגישה", "שיער דליל", "עיצוב זקן", "מגבת חמה", "קו"]
+}
+
 // Demo barbers/team
-const demoBarbers = ["Mike", "Sarah", "Carlos", "Emma"]
+const demoBarbersEn = ["Mike", "Sarah", "Carlos", "Emma"]
+const demoBarbersHe = ["מיכאל", "שרה", "יעקב", "דוד"]
 
 export default function DemoPage() {
   const { t, isRTL, locale } = useLanguage()
@@ -449,7 +559,14 @@ export default function DemoPage() {
   const demoClients = isHebrew ? demoClientsHe : demoClientsEn
   const demoAppointmentsData = isHebrew ? demoAppointmentsHe : demoAppointments
   const demoQueueData = isHebrew ? demoQueueHe : demoQueue
-  const demoBarbersList = isHebrew ? ["מייק", "שרה", "קרלוס", "אמה"] : demoBarbers
+  const demoBarbersList = isHebrew ? demoBarbersHe : demoBarbersEn
+  const demoServices = isHebrew ? demoServicesHe : demoServicesEn
+  const demoInventory = isHebrew ? demoInventoryHe : demoInventoryEn
+  const revenueData = isHebrew ? revenueDataHe : revenueDataEn
+  const demoTeam = isHebrew ? demoTeamHe : demoTeamEn
+  const PREFERENCE_OPTIONS = isHebrew ? PREFERENCE_OPTIONS_HE : PREFERENCE_OPTIONS_EN
+  const shopName = isHebrew ? "המספרה של יוסי" : "Prime Cuts Barbershop"
+  const currency = isHebrew ? "₪" : "$"
   
   const [activeSection, setActiveSection] = useState("dashboard")
   const [queue, setQueue] = useState(demoQueueData)
@@ -529,8 +646,8 @@ export default function DemoPage() {
 
           {/* Shop name */}
           <div className="px-3 py-2 rounded-lg bg-secondary/50 border border-border">
-            <p className="text-xs text-muted-foreground">Demo Shop</p>
-            <p className="font-medium truncate">Prime Cuts Barbershop</p>
+            <p className="text-xs text-muted-foreground">{isHebrew ? "חנות הדגמה" : "Demo Shop"}</p>
+            <p className="font-medium truncate">{shopName}</p>
           </div>
 
           {/* Navigation */}
@@ -568,7 +685,7 @@ export default function DemoPage() {
                   D
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">Demo User</p>
+                  <p className="text-sm font-medium truncate">{isHebrew ? "משתמש הדגמה" : "Demo User"}</p>
                   <p className="text-xs text-muted-foreground truncate">demo@blade.app</p>
                 </div>
               </div>
@@ -644,7 +761,7 @@ export default function DemoPage() {
                           <p className="text-xs text-muted-foreground">Visits</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-2xl font-bold text-primary">${selectedClient.totalSpent}</p>
+                          <p className="text-2xl font-bold text-primary">{currency}{selectedClient.totalSpent}</p>
                           <p className="text-xs text-muted-foreground">Total Spent</p>
                         </div>
                         <div className="text-center">
@@ -734,7 +851,7 @@ export default function DemoPage() {
                                 <p className="text-sm text-muted-foreground">{visit.date} - {visit.barber}</p>
                               </div>
                             </div>
-                            <p className="font-bold text-primary">${visit.price}</p>
+                            <p className="font-bold text-primary">{currency}{visit.price}</p>
                           </div>
                         ))}
                       </div>
@@ -925,7 +1042,7 @@ export default function DemoPage() {
                                   </Select>
                                 )}
                                 <Badge variant={apt.status === "confirmed" ? "default" : "secondary"}>
-                                  {apt.status}
+                                  {isHebrew ? (apt.status === "confirmed" ? "מאושר" : "ממתין") : apt.status}
                                 </Badge>
                               </div>
                             </div>
@@ -946,276 +1063,11 @@ export default function DemoPage() {
                             <div key={i} className="flex-1 flex flex-col items-center gap-2">
                               <div 
                                 className="w-full bg-primary/20 rounded-t-lg relative group cursor-pointer hover:bg-primary/30 transition-colors"
-                                style={{ height: `${(data.revenue / maxRevenue) * 100}%` }}
-                              >
-                                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-card px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-border">
-                                  ${data.revenue}
-                                </div>
-                              </div>
-                              <span className="text-xs text-muted-foreground">{data.day}</span>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
-                          <div>
-                            <p className="text-sm text-muted-foreground">{t("demo.totalThisWeek")}</p>
-                            <p className="text-2xl font-bold text-primary">$4,750</p>
-                          </div>
-                          <div className="flex items-center gap-1 text-green-400">
-                            <TrendingUp className="h-4 w-4" />
-                            <span className="text-sm">+23% {t("demo.vsLastWeek")}</span>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              )}
-
-              {/* Appointments */}
-              {activeSection === "appointments" && (
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <h1 className="text-2xl font-bold">{t("demo.appointments")}</h1>
-                    <Button>
-                      <Plus className={`h-4 w-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-                      {t("demo.newAppointment")}
-                    </Button>
-                  </div>
-                  <Card>
-                    <CardContent className="p-0">
-                      <div className="divide-y divide-border">
-                        {appointments.map((apt) => (
-                          <div key={apt.id} className="flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
-                            <div className="flex items-center gap-4">
-                              <div className="text-center min-w-[60px]">
-                                <p className="text-lg font-bold text-primary">{apt.time}</p>
-                              </div>
-                              <Avatar className="h-12 w-12 bg-primary/20">
-                                <AvatarFallback className="text-primary font-bold">
-                                  {apt.client.split(' ').map(n => n[0]).join('')}
-                                </AvatarFallback>
-                              </Avatar>
-                              <div>
-                                <button 
-                                  onClick={() => setActiveSection("clients")}
-                                  className="font-semibold hover:text-primary transition-colors text-left"
-                                >
-                                  {apt.client}
-                                </button>
-                                <p className="text-sm text-muted-foreground">{apt.service} - ${apt.price}</p>
-                                <p className="text-xs text-muted-foreground">Barber: {apt.barber}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                              <Badge variant={apt.status === "confirmed" ? "default" : "secondary"}>
-                                {apt.status}
-                              </Badge>
-                              <Button variant="ghost" size="sm">
-                                <CheckCircle className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              )}
-
-              {/* Queue */}
-              {activeSection === "queue" && (
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <h1 className="text-2xl font-bold">Walk-in Queue</h1>
-                    <Button>
-                      <UserPlus className="h-4 w-4 mr-2" />
-                      Add Walk-in
-                    </Button>
-                  </div>
-                  <Card>
-                    <CardContent className="p-6">
-                      {queue.length === 0 ? (
-                        <div className="text-center py-12 text-muted-foreground">
-                          <Clock className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                          <p>No customers in queue</p>
-                          <p className="text-sm">All walk-ins have been served!</p>
-                        </div>
-                      ) : (
-                        <div className="space-y-4">
-                          {queue.map((entry, index) => (
-                            <div key={entry.id} className="flex items-center justify-between p-4 border border-border rounded-lg">
-                              <div className="flex items-center gap-4">
-                                <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
-                                  {index + 1}
-                                </div>
-                                <Avatar className="h-12 w-12 bg-primary/20">
-                                  <AvatarFallback className="text-primary">
-                                    {entry.name.split(' ').map(n => n[0]).join('')}
-                                  </AvatarFallback>
-                                </Avatar>
-                                <div>
-                                  <p className="font-semibold">{entry.name}</p>
-                                  <p className="text-sm text-muted-foreground">{entry.service}</p>
-                                  <p className="text-xs text-muted-foreground">Added: {entry.addedAt}</p>
-                                </div>
-                              </div>
-                              <div className="flex items-center gap-4">
-                                <div className="text-right">
-                                  <p className="text-sm text-muted-foreground">Est. Wait</p>
-                                  <p className="font-bold text-primary">{entry.waitTime} min</p>
-                                </div>
-                                <div className="flex gap-2">
-                                  {entry.status === "waiting" ? (
-                                    <Button size="sm" onClick={() => startService(entry.id)}>
-                                      <Play className="h-4 w-4 mr-1" />
-                                      Start
-                                    </Button>
-                                  ) : (
-                                    <Badge className="bg-green-500/20 text-green-400">In Progress</Badge>
-                                  )}
-                                  <Button size="sm" variant="outline" onClick={() => completeService(entry.id)}>
-                                    <CheckCircle className="h-4 w-4" />
-                                  </Button>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                </div>
-              )}
-
-              {/* Clients */}
-              {activeSection === "clients" && (
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <h1 className="text-2xl font-bold">{t("demo.clients")}</h1>
-                    <Button onClick={() => setShowAddClient(true)}>
-                      <UserPlus className={`h-4 w-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-                      {t("demo.addClient")}
-                    </Button>
-                  </div>
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="relative flex-1 max-w-sm">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input placeholder="Search clients..." className="pl-10" />
-                    </div>
-                  </div>
-                  <Card>
-                    <CardContent className="p-0">
-                      <div className="divide-y divide-border">
-                        {demoClients.map((client) => (
-                          <div 
-                            key={client.id} 
-                            className="flex items-center justify-between p-4 hover:bg-muted/30 transition-colors cursor-pointer"
-                            onClick={() => setSelectedClient(client)}
-                          >
-                            <div className="flex items-center gap-4">
-                              <Avatar className="h-12 w-12 bg-primary/20">
-                                <AvatarImage src={client.avatar} />
-                                <AvatarFallback className="text-primary font-bold">
-                                  {client.name.split(' ').map(n => n[0]).join('')}
-                                </AvatarFallback>
-                              </Avatar>
-                              <div>
-                                <div className="flex items-center gap-2">
-                                  <p className="font-semibold">{client.name}</p>
-                                  {client.hasChemistry && (
-                                    <Badge variant="outline" className="text-xs">
-                                      <FlaskConical className="h-3 w-3 mr-1" />
-                                      Chemistry
-                                    </Badge>
-                                  )}
-                                </div>
-                                <p className="text-sm text-muted-foreground">{client.phone}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-6 text-sm">
-                              <div className="text-center hidden sm:block">
-                                <p className="font-bold">{client.visits}</p>
-                                <p className="text-muted-foreground">Visits</p>
-                              </div>
-                              <div className="text-center hidden md:block">
-                                <p className="font-bold">${client.totalSpent}</p>
-                                <p className="text-muted-foreground">Spent</p>
-                              </div>
-                              <div className="text-center hidden lg:block">
-                                <p className="font-bold">{client.lastVisit}</p>
-                                <p className="text-muted-foreground">Last Visit</p>
-                              </div>
-                              <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              )}
-
-              {/* Services */}
-              {activeSection === "services" && (
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <h1 className="text-2xl font-bold">{t("demo.services")}</h1>
-                    <Button>
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add Service
-                    </Button>
-                  </div>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {demoServices.map((service) => (
-                      <Card key={service.id} className="hover:border-primary/50 transition-colors cursor-pointer">
-                        <CardContent className="p-4">
-                          <div className="flex items-start justify-between">
-                            <div>
-                              <h3 className="font-semibold">{service.name}</h3>
-                              <p className="text-sm text-muted-foreground">{service.category}</p>
-                            </div>
-                            <Badge variant={service.active ? "default" : "secondary"}>
-                              {service.active ? "Active" : "Inactive"}
-                            </Badge>
-                          </div>
-                          <div className="flex items-center justify-between mt-4">
-                            <div>
-                              <p className="text-2xl font-bold text-primary">${service.price}</p>
-                            </div>
-                            <div className="text-right">
-                              <p className="text-sm text-muted-foreground">{service.duration} min</p>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Inventory */}
-              {activeSection === "inventory" && (
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <h1 className="text-2xl font-bold">{t("demo.inventory")}</h1>
-                    <Button>
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add Product
-                    </Button>
-                  </div>
-                  
-                  {/* Low stock alert */}
-                  {demoInventory.filter(i => i.lowStock).length > 0 && (
-                    <Card className="border-red-500/50 bg-red-500/10">
-                      <CardContent className="p-4">
-                        <div className="flex items-center gap-3">
-                          <AlertTriangle className="h-5 w-5 text-red-500" />
-                          <div>
-                            <p className="font-medium text-red-500">Low Stock Alert</p>
-                            <p className="text-sm text-muted-foreground">
-                              {demoInventory.filter(i => i.lowStock).map(i => i.name).join(", ")} are running low
-                            </p>
+style={{ height: `${(data.revenue / maxRevenue) * 100}%` }}
+                                  />
+                                  <p className="absolute -top-6 text-xs font-medium">
+                                    {currency}{data.revenue}
+                                  </p>
                           </div>
                         </div>
                       </CardContent>
@@ -1249,7 +1101,7 @@ export default function DemoPage() {
                                 <p className="text-xs text-muted-foreground">in stock</p>
                               </div>
                               <div className="text-right">
-                                <p className="font-medium">${item.price}</p>
+                                <p className="font-medium">{currency}{item.price}</p>
                                 <p className="text-xs text-muted-foreground">unit price</p>
                               </div>
                               <Button variant="outline" size="sm">
@@ -1354,7 +1206,7 @@ export default function DemoPage() {
                             ]}>
                               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                               <XAxis dataKey="day" stroke="rgba(255,255,255,0.5)" fontSize={12} />
-                              <YAxis stroke="rgba(255,255,255,0.5)" fontSize={12} tickFormatter={(v) => `$${v}`} />
+                              <YAxis stroke="rgba(255,255,255,0.5)" fontSize={12} tickFormatter={(v) => `${currency}${v}`} />
                               <Tooltip
                                 contentStyle={{
                                   backgroundColor: "rgba(20, 20, 25, 0.95)",
@@ -1363,8 +1215,8 @@ export default function DemoPage() {
                                   color: "#fff",
                                 }}
                                 formatter={(value: number, name: string) => [
-                                  name === "revenue" ? `$${value}` : value,
-                                  name === "revenue" ? "Revenue" : "Appointments"
+name === "revenue" ? `${currency}${value}` : value,
+                          name === "revenue" ? (isHebrew ? "הכנסות" : "Revenue") : (isHebrew ? "תורים" : "Appointments")
                                 ]}
                               />
                               <Bar dataKey="revenue" fill="oklch(0.78 0.18 75)" radius={[4, 4, 0, 0]} />
@@ -1399,7 +1251,7 @@ export default function DemoPage() {
                               </defs>
                               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                               <XAxis dataKey="month" stroke="rgba(255,255,255,0.5)" fontSize={12} />
-                              <YAxis stroke="rgba(255,255,255,0.5)" fontSize={12} tickFormatter={(v) => `$${(v/1000).toFixed(0)}k`} />
+                              <YAxis stroke="rgba(255,255,255,0.5)" fontSize={12} tickFormatter={(v) => `${currency}${(v/1000).toFixed(0)}k`} />
                               <Tooltip
                                 contentStyle={{
                                   backgroundColor: "rgba(20, 20, 25, 0.95)",
@@ -1408,8 +1260,8 @@ export default function DemoPage() {
                                   color: "#fff",
                                 }}
                                 formatter={(value: number, name: string) => [
-                                  name === "revenue" ? `$${value.toLocaleString()}` : value,
-                                  name === "revenue" ? "Revenue" : "Clients"
+name === "revenue" ? `${currency}${value.toLocaleString()}` : value,
+                          name === "revenue" ? (isHebrew ? "הכנסות" : "Revenue") : (isHebrew ? "לקוחות" : "Clients")
                                 ]}
                               />
                               <Area type="monotone" dataKey="revenue" stroke="oklch(0.78 0.18 75)" fillOpacity={1} fill="url(#revenueGradient)" strokeWidth={2} />
@@ -1462,7 +1314,7 @@ export default function DemoPage() {
                                   borderRadius: "8px",
                                   color: "#fff",
                                 }}
-                                formatter={(value: number) => [`$${value.toLocaleString()}`, "Revenue"]}
+                                formatter={(value: number) => [`${currency}${value.toLocaleString()}`, isHebrew ? "הכנסות" : "Revenue"]}
                               />
                               <Legend />
                             </PieChart>
@@ -1475,17 +1327,23 @@ export default function DemoPage() {
                     <Card>
                       <CardHeader>
                         <CardTitle>Top Services</CardTitle>
-                        <CardDescription>Best performing services</CardDescription>
+                        <CardDescription>{isHebrew ? "שירותים מובילים" : "Best performing services"}</CardDescription>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-4">
-                          {[
+                          {(isHebrew ? [
+                            { name: "פייד", bookings: 145, revenue: 15500, growth: 12 },
+                            { name: "תספורת קלאסית", bookings: 98, revenue: 8800, growth: 8 },
+                            { name: "שיער + זקן", bookings: 67, revenue: 9400, growth: 22 },
+                            { name: "צביעת שיער", bookings: 42, revenue: 9200, growth: 15 },
+                            { name: "עיצוב זקן", bookings: 54, revenue: 2700, growth: -5 },
+                          ] : [
                             { name: "Fade", bookings: 145, revenue: 4350, growth: 12 },
                             { name: "Classic Haircut", bookings: 98, revenue: 2450, growth: 8 },
                             { name: "Hair & Beard Combo", bookings: 67, revenue: 2680, growth: 22 },
                             { name: "Hair Color", bookings: 42, revenue: 2520, growth: 15 },
                             { name: "Beard Trim", bookings: 54, revenue: 810, growth: -5 },
-                          ].map((service, i) => (
+                          ]).map((service, i) => (
                             <div key={i} className="flex items-center justify-between">
                               <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm">
@@ -1493,11 +1351,11 @@ export default function DemoPage() {
                                 </div>
                                 <div>
                                   <p className="font-medium">{service.name}</p>
-                                  <p className="text-sm text-muted-foreground">{service.bookings} bookings</p>
+                                  <p className="text-sm text-muted-foreground">{service.bookings} {isHebrew ? "הזמנות" : "bookings"}</p>
                                 </div>
                               </div>
                               <div className="text-right">
-                                <p className="font-bold text-primary">${service.revenue}</p>
+                                <p className="font-bold text-primary">{currency}{service.revenue}</p>
                                 <p className={`text-xs ${service.growth >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                                   {service.growth >= 0 ? '+' : ''}{service.growth}%
                                 </p>
@@ -1558,20 +1416,24 @@ export default function DemoPage() {
                         <table className="w-full">
                           <thead>
                             <tr className="border-b border-border">
-                              <th className="text-left py-3 px-4 font-medium">Barber</th>
-                              <th className="text-left py-3 px-4 font-medium">Appointments</th>
-                              <th className="text-left py-3 px-4 font-medium">Revenue</th>
-                              <th className="text-left py-3 px-4 font-medium">Avg. Rating</th>
-                              <th className="text-left py-3 px-4 font-medium">No-shows</th>
-                              <th className="text-left py-3 px-4 font-medium">Growth</th>
+                              <th className={`${isRTL ? 'text-right' : 'text-left'} py-3 px-4 font-medium`}>{isHebrew ? "ספר" : "Barber"}</th>
+                              <th className={`${isRTL ? 'text-right' : 'text-left'} py-3 px-4 font-medium`}>{isHebrew ? "תורים" : "Appointments"}</th>
+                              <th className={`${isRTL ? 'text-right' : 'text-left'} py-3 px-4 font-medium`}>{isHebrew ? "הכנסות" : "Revenue"}</th>
+                              <th className={`${isRTL ? 'text-right' : 'text-left'} py-3 px-4 font-medium`}>{isHebrew ? "דירוג" : "Avg. Rating"}</th>
+                              <th className={`${isRTL ? 'text-right' : 'text-left'} py-3 px-4 font-medium`}>{isHebrew ? "אי-הגעות" : "No-shows"}</th>
+                              <th className={`${isRTL ? 'text-right' : 'text-left'} py-3 px-4 font-medium`}>{isHebrew ? "צמיחה" : "Growth"}</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {[
+                            {(isHebrew ? [
+                              { name: "מיכאל כהן", appointments: 156, revenue: 30200, rating: 4.9, noShows: 3, growth: 15 },
+                              { name: "שרה לוי", appointments: 142, revenue: 27800, rating: 4.8, noShows: 5, growth: 12 },
+                              { name: "יעקב מזרחי", appointments: 98, revenue: 16680, rating: 4.7, noShows: 8, growth: -3 },
+                            ] : [
                               { name: "Mike Rodriguez", appointments: 156, revenue: 8450, rating: 4.9, noShows: 3, growth: 15 },
                               { name: "Sarah Kim", appointments: 142, revenue: 7820, rating: 4.8, noShows: 5, growth: 12 },
                               { name: "James Wilson", appointments: 98, revenue: 4680, rating: 4.7, noShows: 8, growth: -3 },
-                            ].map((barber, i) => (
+                            ]).map((barber, i) => (
                               <tr key={i} className="border-b border-border/50 hover:bg-muted/30">
                                 <td className="py-3 px-4">
                                   <div className="flex items-center gap-3">
@@ -1584,7 +1446,7 @@ export default function DemoPage() {
                                   </div>
                                 </td>
                                 <td className="py-3 px-4">{barber.appointments}</td>
-                                <td className="py-3 px-4 font-bold text-primary">${barber.revenue.toLocaleString()}</td>
+                                <td className="py-3 px-4 font-bold text-primary">{currency}{barber.revenue.toLocaleString()}</td>
                                 <td className="py-3 px-4">
                                   <div className="flex items-center gap-1">
                                     <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
@@ -1748,7 +1610,7 @@ export default function DemoPage() {
                                   <p className="text-xs text-muted-foreground">Appointments</p>
                                 </div>
                                 <div>
-                                  <p className="text-lg font-bold text-primary">${member.revenue.toLocaleString()}</p>
+                                  <p className="text-lg font-bold text-primary">{currency}{member.revenue.toLocaleString()}</p>
                                   <p className="text-xs text-muted-foreground">Revenue</p>
                                 </div>
                                 <div className="flex items-center gap-1">
@@ -1834,7 +1696,7 @@ export default function DemoPage() {
                       <CardContent className="space-y-4">
                         <div>
                           <label className="text-sm text-muted-foreground">{t("demo.shopName")}</label>
-                          <Input value="Prime Cuts Barbershop" disabled />
+                          <Input value={shopName} disabled />
                         </div>
                         <div>
                           <label className="text-sm text-muted-foreground">{t("demo.address")}</label>

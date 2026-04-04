@@ -21,7 +21,11 @@ export function DashboardPreview() {
     { time: "15:30", client: "Ryan Martinez", service: t("services.categories.beard"), avatar: "RM", status: "confirmed" },
   ]
 
-  const statsData = [
+  const statsData = isHebrew ? [
+    { label: t("dashboard.revenue"), value: "₪3,020", change: "+12%", icon: DollarSign },
+    { label: t("sidebar.appointments"), value: "12", change: "+3", icon: Clock },
+    { label: t("clients.title"), value: "4", change: "+2", icon: Users },
+  ] : [
     { label: t("dashboard.revenue"), value: "$847", change: "+12%", icon: DollarSign },
     { label: t("sidebar.appointments"), value: "12", change: "+3", icon: Clock },
     { label: t("clients.title"), value: "4", change: "+2", icon: Users },
