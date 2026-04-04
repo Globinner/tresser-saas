@@ -7,7 +7,13 @@ export function DashboardPreview() {
   const { t, isRTL, locale } = useLanguage()
   const isHebrew = locale === 'he'
 
-  const appointments = [
+  const appointments = isHebrew ? [
+    { time: "09:00", client: "יוסי כהן", service: t("services.categories.haircut"), avatar: "יכ", status: "confirmed" },
+    { time: "10:30", client: "דוד לוי", service: t("services.categories.haircut"), avatar: "דל", status: "confirmed" },
+    { time: "12:00", client: "אבי מזרחי", service: t("services.categories.package"), avatar: "אמ", status: "pending" },
+    { time: "14:00", client: "משה פרץ", service: t("services.categories.haircut"), avatar: "מפ", status: "confirmed" },
+    { time: "15:30", client: "רון ביטון", service: t("services.categories.beard"), avatar: "רב", status: "confirmed" },
+  ] : [
     { time: "09:00", client: "Marcus Johnson", service: t("services.categories.haircut"), avatar: "MJ", status: "confirmed" },
     { time: "10:30", client: "David Chen", service: t("services.categories.haircut"), avatar: "DC", status: "confirmed" },
     { time: "12:00", client: "James Wilson", service: t("services.categories.package"), avatar: "JW", status: "pending" },

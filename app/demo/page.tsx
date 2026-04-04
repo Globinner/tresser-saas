@@ -49,7 +49,7 @@ import {
 } from "recharts"
 
 // Demo data - comprehensive for realistic experience
-const demoClients = [
+const demoClientsEn = [
   { 
   id: 1,
   name: "Marcus Johnson",
@@ -165,6 +165,138 @@ const demoClients = [
       { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "Mar 18, 2026" },
     ]
   },
+]
+
+const demoClientsHe = [
+  { 
+    id: 1,
+    name: "יוסי כהן",
+    phone: "054-123-4567",
+    email: "yossi.k@email.com",
+    visits: 24,
+    lastVisit: "לפני יומיים",
+    totalSpent: 1250,
+    avatar: "/images/features/clients.jpg",
+    notes: "לקוח קבוע, תמיד בזמן",
+    preferences: ["פייד נמוך", "מספריים בלבד", "ג׳לים מסוימים"],
+    preferredBarber: "מייק",
+    visitHistory: [
+      { date: "15 מרץ, 2026", service: "פייד", barber: "מייק", price: 30 },
+      { date: "28 פבר, 2026", service: "פייד + זקן", barber: "מייק", price: 45 },
+      { date: "10 פבר, 2026", service: "פייד", barber: "מייק", price: 30 },
+    ],
+    photos: [
+      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "15 מרץ, 2026" },
+      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "28 פבר, 2026" },
+    ]
+  },
+  { 
+    id: 2, 
+    name: "דוד לוי", 
+    phone: "052-234-5678",
+    email: "david.l@email.com",
+    visits: 18, 
+    lastVisit: "לפני שבוע", 
+    totalSpent: 890,
+    notes: "אוהב תספורות קלאסיות, תמיד בזמן",
+    preferences: ["טייפר", "מכונה בלבד", "מגבת חמה"],
+    preferredBarber: "שרה",
+    visitHistory: [
+      { date: "10 מרץ, 2026", service: "תספורת קלאסית", barber: "שרה", price: 25 },
+      { date: "20 פבר, 2026", service: "תספורת קלאסית", barber: "שרה", price: 25 },
+    ],
+    photos: []
+  },
+  { 
+    id: 3, 
+    name: "אבי מזרחי", 
+    phone: "050-345-6789",
+    email: "avi.m@email.com",
+    visits: 32, 
+    lastVisit: "אתמול", 
+    totalSpent: 2100,
+    notes: "לקוח צביעה קבוע - כיסוי שיער לבן",
+    preferences: ["מספריים בלבד", "קרקפת רגישה", "צבע שיער"],
+    preferredBarber: "שרה",
+    hasChemistry: true,
+    visitHistory: [
+      { date: "17 מרץ, 2026", service: "צביעת שיער", barber: "שרה", price: 60 },
+      { date: "15 פבר, 2026", service: "צביעת שיער", barber: "שרה", price: 60 },
+      { date: "20 ינו, 2026", service: "צביעה + תספורת", barber: "שרה", price: 85 },
+    ],
+    photos: [
+      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "17 מרץ, 2026" },
+    ],
+    chemistry: [
+      { 
+        date: "17 מרץ, 2026",
+        colorBrand: "Wella Koleston",
+        formula: "6/0 + 7/1",
+        developer: "20 vol",
+        ratio: "1:1",
+        processingTime: "35 דק׳",
+        notes: "כיסוי שיער לבן, תוצאה טבעית"
+      },
+      { 
+        date: "15 פבר, 2026",
+        colorBrand: "Wella Koleston", 
+        formula: "6/0 + 6/1",
+        developer: "20 vol",
+        ratio: "1:1",
+        processingTime: "30 דק׳",
+        notes: "צביעה ראשונה, בדיקת רגישות בוצעה"
+      },
+    ]
+  },
+  { 
+    id: 4, 
+    name: "משה פרץ", 
+    phone: "053-456-7890",
+    email: "moshe.p@email.com",
+    visits: 15, 
+    lastVisit: "לפני 3 ימים", 
+    totalSpent: 720,
+    notes: "מעדיף תורים בבוקר מוקדם",
+    preferences: ["באז קאט", "מכונה בלבד", "קו"],
+    preferredBarber: "מייק",
+    visitHistory: [
+      { date: "14 מרץ, 2026", service: "באז קאט", barber: "מייק", price: 20 },
+    ],
+    photos: []
+  },
+  { 
+    id: 5, 
+    name: "רון ביטון", 
+    phone: "058-567-8901",
+    email: "ron.b@email.com",
+    visits: 28, 
+    lastVisit: "היום", 
+    totalSpent: 1580,
+    notes: "לקוח VIP, תמיד משאיר טיפ",
+    preferences: ["פייד בינוני", "שניהם", "זקן", "מגבת חמה"],
+    preferredBarber: "מייק",
+    visitHistory: [
+      { date: "18 מרץ, 2026", service: "שיער + זקן", barber: "מייק", price: 40 },
+      { date: "1 מרץ, 2026", service: "שיער + זקן", barber: "מייק", price: 40 },
+    ],
+    photos: [
+      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "18 מרץ, 2026" },
+    ]
+  },
+]
+
+const demoAppointmentsHe = [
+  { id: 1, clientId: "demo-client-1", client: "יוסי כהן", service: "פייד", time: "09:00", status: "confirmed", barber: "מייק", price: 30 },
+  { id: 2, clientId: "demo-client-2", client: "דוד לוי", service: "תספורת קלאסית", time: "10:30", status: "confirmed", barber: "מייק", price: 25 },
+  { id: 3, clientId: "demo-client-3", client: "משה פרץ", service: "זקן", time: "11:00", status: "pending", barber: "שרה", price: 15 },
+  { id: 4, clientId: "demo-client-4", client: "אבי מזרחי", service: "צביעת שיער", time: "14:00", status: "confirmed", barber: "שרה", price: 60 },
+  { id: 5, clientId: "demo-client-5", client: "רון ביטון", service: "שיער + זקן", time: "15:30", status: "confirmed", barber: "מייק", price: 40 },
+]
+
+const demoQueueHe = [
+  { id: 1, name: "עומר דהן", service: "פייד", waitTime: 15, addedAt: "10:45", status: "waiting" },
+  { id: 2, name: "איתי שמעון", service: "זקן", waitTime: 30, addedAt: "10:30", status: "waiting" },
+  { id: 3, name: "נועם אברהם", service: "תספורת קלאסית", waitTime: 45, addedAt: "10:15", status: "waiting" },
 ]
 
 const demoServices = [
@@ -310,10 +442,18 @@ const PREFERENCE_OPTIONS = {
 const demoBarbers = ["Mike", "Sarah", "Carlos", "Emma"]
 
 export default function DemoPage() {
-  const { t, isRTL } = useLanguage()
+  const { t, isRTL, locale } = useLanguage()
+  const isHebrew = locale === 'he'
+  
+  // Select locale-specific demo data
+  const demoClients = isHebrew ? demoClientsHe : demoClientsEn
+  const demoAppointmentsData = isHebrew ? demoAppointmentsHe : demoAppointments
+  const demoQueueData = isHebrew ? demoQueueHe : demoQueue
+  const demoBarbersList = isHebrew ? ["מייק", "שרה", "קרלוס", "אמה"] : demoBarbers
+  
   const [activeSection, setActiveSection] = useState("dashboard")
-  const [queue, setQueue] = useState(demoQueue)
-  const [selectedClient, setSelectedClient] = useState<typeof demoClients[0] | null>(null)
+  const [queue, setQueue] = useState(demoQueueData)
+  const [selectedClient, setSelectedClient] = useState<typeof demoClientsEn[0] | null>(null)
   const [clientTab, setClientTab] = useState<"info" | "history" | "photos" | "chemistry">("info")
   const [showAddClient, setShowAddClient] = useState(false)
   
@@ -321,7 +461,7 @@ export default function DemoPage() {
   const [newClientPrefs, setNewClientPrefs] = useState<string[]>([])
   
   // Appointments with barber assignments
-  const [appointments, setAppointments] = useState(demoAppointments)
+  const [appointments, setAppointments] = useState(demoAppointmentsData)
   
   const togglePref = (pref: string) => {
     setNewClientPrefs(prev => 
@@ -776,7 +916,7 @@ export default function DemoPage() {
                                       <SelectValue placeholder="Assign" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                      {demoBarbers.map((barber) => (
+                                      {demoBarbersList.map((barber) => (
                                         <SelectItem key={barber} value={barber}>
                                           {barber}
                                         </SelectItem>
@@ -845,7 +985,7 @@ export default function DemoPage() {
                   <Card>
                     <CardContent className="p-0">
                       <div className="divide-y divide-border">
-                        {demoAppointments.map((apt) => (
+                        {appointments.map((apt) => (
                           <div key={apt.id} className="flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
                             <div className="flex items-center gap-4">
                               <div className="text-center min-w-[60px]">
