@@ -14,9 +14,22 @@ export default async function InventoryPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("shop_id")
+    .select("shop_id, role")
     .eq("id", user.id)
     .single()
+
+  // Only owners can access inventory
+  const isOwner = profile?.role === "owner"
+  if (!isOwner) {
+    return (
+      <div className="flex items-center justify-center h-[60vh]">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold">Access Denied</h2>
+          <p className="text-muted-foreground mt-2">Only shop owners can access inventory.</p>
+        </div>
+      </div>
+    )
+  }
 
   if (!profile?.shop_id) {
     return (

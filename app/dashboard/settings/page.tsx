@@ -18,9 +18,18 @@ export default async function SettingsPage() {
     .eq("id", user.id)
     .single()
 
-  console.log("[v0] Settings - User ID:", user.id)
-  console.log("[v0] Settings - Profile:", profile)
-  console.log("[v0] Settings - Profile Error:", profileError)
+  // Only owners can access full settings
+  const isOwner = profile?.role === "owner"
+  if (!isOwner) {
+    return (
+      <div className="flex items-center justify-center h-[60vh]">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold">Access Denied</h2>
+          <p className="text-muted-foreground mt-2">Only shop owners can access settings.</p>
+        </div>
+      </div>
+    )
+  }
 
   // Get shop separately if profile has shop_id
   let shopData = null
