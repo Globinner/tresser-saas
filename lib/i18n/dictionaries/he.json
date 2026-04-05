@@ -21,7 +21,9 @@
     "yes": "כן",
     "no": "לא",
     "or": "או",
-    "and": "ו"
+    "and": "ו",
+    "refresh": "רענן",
+    "viewAll": "הצג הכל"
   },
   "nav": {
     "features": "תכונות",
@@ -236,7 +238,17 @@
     "addFirstClient": "הוסף את הלקוח הראשון",
     "client": "לקוח",
     "contact": "ליצירת קשר",
-    "joined": "הצטרף"
+    "joined": "הצטרף",
+    "todayAppts": "תורים להיום",
+    "totalClients": "סה״כ לקוחות",
+    "todayRevenue": "הכנסות היום",
+    "monthlyRevenue": "הכנסות החודש",
+    "completed": "הושלמו",
+    "newClients": "לקוחות חדשים",
+    "todaySchedule": "לוח זמנים להיום",
+    "noAppointmentsToday": "אין תורים להיום",
+    "scheduleOne": "קבע תור",
+    "weeklyRevenue": "הכנסות שבועיות"
   },
   "dashboardPreview": {
     "badge": "לוח בקרה אינטואיטיבי",
