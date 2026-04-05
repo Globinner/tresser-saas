@@ -11,6 +11,7 @@ interface LanguageContextType {
   t: (key: string) => string
   isRTL: boolean
   isLoading: boolean
+  isLocaleReady: boolean
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
@@ -90,6 +91,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         t: translate,
         isRTL: isRTL(locale),
         isLoading,
+        isLocaleReady: localeInitialized && !isLoading,
       }}
     >
       {children}
@@ -109,6 +111,7 @@ export function useLanguage(): LanguageContextType {
       t: (key: string) => key,
       isRTL: false,
       isLoading: true,
+      isLocaleReady: false,
     }
   }
   return context
