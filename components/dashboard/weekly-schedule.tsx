@@ -274,7 +274,21 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
   }
 
   function getShiftsForDay(dayIndex: number) {
-    return shifts.filter(s => s.day_of_week === dayIndex)
+    return shifts.filter(s => {
+      if (s.day_of_week !== dayIndex) return false
+      
+      // Owner sees all shifts
+      if (isOwner) return true
+      
+      // Staff sees:
+      // 1. All approved shifts (the final schedule)
+      // 2. Their own pending shifts
+      // 3. NOT rejected shifts (unless their own, to know it was rejected)
+      if (s.status === 'approved') return true
+      if (s.profile_id === currentUserId && s.status === 'pending') return true
+      // Don't show rejected shifts to staff
+      return false
+    })
   }
 
   function formatTime(time: string) {
@@ -304,7 +318,10 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
         <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <CardTitle className={`text-lg flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <Calendar className="w-5 h-5 text-primary" />
-            {isHebrew ? "לוח משמרות שבועי" : "Weekly Schedule"}
+            {isOwner 
+              ? (isHebrew ? "לוח משמרות שבועי" : "Weekly Schedule")
+              : (isHebrew ? "לוח עבודה השבוע" : "This Week's Schedule")
+            }
           </CardTitle>
           {pendingCount > 0 && isOwner && (
             <Badge className="bg-yellow-500 text-black">
@@ -437,7 +454,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
                   <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <AlertCircle className="w-4 h-4 text-yellow-500" />
                     <span className="text-yellow-500">
-                      {isHebrew ? "הבקשה תישלח לאישור הבעלים" : "Request will be sent to owner for approval"}
+                      {isHebrew ? "הבקשה תישלח לאישור הבע��ים" : "Request will be sent to owner for approval"}
                     </span>
                   </div>
                 </div>
@@ -477,16 +494,19 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
             <div className={`flex flex-wrap items-center gap-4 text-xs text-muted-foreground ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
               <div className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <div className="w-3 h-3 rounded-full bg-green-500" />
-                <span>{isHebrew ? "זמין (מאושר)" : "Available (approved)"}</span>
+                <span>{isHebrew ? "זמין" : "Available"}</span>
               </div>
               <div className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <div className="w-3 h-3 rounded-full bg-red-500" />
                 <span>{isHebrew ? "לא זמין" : "Unavailable"}</span>
               </div>
-              <div className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                <span>{isHebrew ? "ממתין לאישור" : "Pending approval"}</span>
-              </div>
+              {/* Only show pending legend to owner or staff who have pending shifts */}
+              {(isOwner || shifts.some(s => s.profile_id === currentUserId && s.status === 'pending')) && (
+                <div className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                  <span>{isHebrew ? "ממתין לאישור" : "Pending approval"}</span>
+                </div>
+              )}
             </div>
 
             {/* Week view - horizontal scrollable on mobile */}
