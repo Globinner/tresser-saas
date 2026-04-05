@@ -230,7 +230,14 @@
     "recentClients": "Recent Clients",
     "quickActions": "Quick Actions",
     "noAppointments": "No appointments scheduled",
-    "viewAll": "View All"
+    "viewAll": "View All",
+    "newAppointment": "New Appointment",
+    "addClient": "Add Client",
+    "noClientsYet": "No clients yet",
+    "addFirstClient": "Add your first client",
+    "client": "Client",
+    "contact": "Contact",
+    "joined": "Joined"
   },
   "dashboardPreview": {
     "badge": "Intuitive Dashboard",

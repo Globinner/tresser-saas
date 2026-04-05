@@ -229,7 +229,14 @@
     "recentClients": "לקוחות אחרונים",
     "quickActions": "פעולות מהירות",
     "noAppointments": "אין תורים מתוזמנים",
-    "viewAll": "הצג הכל"
+    "viewAll": "הצג הכל",
+    "newAppointment": "תור חדש",
+    "addClient": "הוסף לקוח",
+    "noClientsYet": "אין לקוחות עדיין",
+    "addFirstClient": "הוסף את הלקוח הראשון",
+    "client": "לקוח",
+    "contact": "ליצירת קשר",
+    "joined": "הצטרף"
   },
   "dashboardPreview": {
     "badge": "לוח בקרה אינטואיטיבי",
@@ -569,7 +576,7 @@
     "subtitle": "ראה מה בעלי מספרות אומרים על Tresser",
     "sectionLabel": "המלצות",
     "sectionTitle": "מהימן על ידי",
-    "sectionTitleHighlight": "ספ��ים",
+    "sectionTitleHighlight": "ספ����ם",
     "sectionTitleEnd": "��רחבי העולם",
     "sectionSubtitle": "ראה מה בעלי מספרות אומרים על Tresser",
     "featured": "מומלץ",
