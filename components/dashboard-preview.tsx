@@ -163,14 +163,14 @@ export function DashboardPreview() {
                   <h4 className="font-semibold text-foreground">{t("dashboardPreview.weeklyRevenue")}</h4>
                   <div className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <button 
-                      onClick={() => setShowLastWeek(true)}
-                      className={`p-1.5 rounded-md transition-colors ${showLastWeek ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
+                      onClick={() => setShowLastWeek(false)}
+                      className={`p-1.5 rounded-md transition-colors ${!showLastWeek ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
                     <button 
-                      onClick={() => setShowLastWeek(false)}
-                      className={`p-1.5 rounded-md transition-colors ${!showLastWeek ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
+                      onClick={() => setShowLastWeek(true)}
+                      className={`p-1.5 rounded-md transition-colors ${showLastWeek ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
                     >
                       <ChevronRight className="w-4 h-4" />
                     </button>
