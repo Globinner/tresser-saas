@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { Calendar, Users, DollarSign, CheckCircle, TrendingUp, UserPlus } from "lucide-react"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 interface DashboardStatsProps {
   todayAppointments: number
@@ -23,11 +24,13 @@ export function DashboardStats({
   currency = "ILS",
 }: DashboardStatsProps) {
   const router = useRouter()
+  const { t, locale } = useLanguage()
+  const isHebrew = locale === 'he'
   
   const formatPrice = (amount: number) => {
-    return new Intl.NumberFormat('he-IL', {
+    return new Intl.NumberFormat(isHebrew ? 'he-IL' : 'en-US', {
       style: 'currency',
-      currency: currency,
+      currency: isHebrew ? 'ILS' : 'USD',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount)
@@ -35,37 +38,37 @@ export function DashboardStats({
 
   const stats = [
     {
-      name: "Today's Appts",
+      name: isHebrew ? "תורים להיום" : "Today's Appts",
       value: todayAppointments,
       Icon: Calendar,
       href: "/dashboard/appointments",
     },
     {
-      name: "Total Clients",
+      name: isHebrew ? "סה״כ לקוחות" : "Total Clients",
       value: totalClients,
       Icon: Users,
       href: "/dashboard/clients",
     },
     {
-      name: "Today's Revenue",
+      name: isHebrew ? "הכנסות היום" : "Today's Revenue",
       value: formatPrice(todayRevenue),
       Icon: TrendingUp,
       href: "/dashboard/analytics",
     },
     {
-      name: "Monthly Revenue",
+      name: isHebrew ? "הכנסות החודש" : "Monthly Revenue",
       value: formatPrice(monthlyRevenue),
       Icon: DollarSign,
       href: "/dashboard/analytics",
     },
     {
-      name: "Completed",
+      name: isHebrew ? "הושלמו" : "Completed",
       value: completedAppointments,
       Icon: CheckCircle,
       href: "/dashboard/appointments",
     },
     {
-      name: "New Clients",
+      name: isHebrew ? "לקוחות חדשים" : "New Clients",
       value: newClientsToday,
       Icon: UserPlus,
       href: "/dashboard/clients",
