@@ -10,7 +10,8 @@ import {
   MoreVertical,
   Trash2,
   Shield,
-  Mail
+  Mail,
+  Sparkles
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -41,6 +42,7 @@ const roleConfig = {
   owner: { icon: Crown, label: "Owner", color: "text-primary", bg: "bg-primary/10" },
   barber: { icon: Scissors, label: "Barber", color: "text-blue-400", bg: "bg-blue-400/10" },
   admin: { icon: Shield, label: "Admin", color: "text-purple-400", bg: "bg-purple-400/10" },
+  nail_tech: { icon: Sparkles, label: "Nail Tech", color: "text-pink-400", bg: "bg-pink-400/10" },
 }
 
 export function TeamList({ members, currentUserId, isOwner }: TeamListProps) {
@@ -54,6 +56,7 @@ export function TeamList({ members, currentUserId, isOwner }: TeamListProps) {
     owner: isHebrew ? "בעלים" : "Owner",
     barber: isHebrew ? "ספר" : "Barber",
     admin: isHebrew ? "מנהל" : "Admin",
+    nail_tech: isHebrew ? "לק ג'ל בניה ועיצוב ציפורניים" : "Nail Tech",
   }
 
   async function handleRemove(memberId: string) {
@@ -138,6 +141,10 @@ export function TeamList({ members, currentUserId, isOwner }: TeamListProps) {
                     <DropdownMenuItem onClick={() => changeRole(member.id, "barber")}>
                       <Scissors className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
                       {isHebrew ? "הגדר כספר" : "Set as Barber"}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => changeRole(member.id, "nail_tech")}>
+                      <Sparkles className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+                      {isHebrew ? "הגדר כמומחה ציפורניים" : "Set as Nail Tech"}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => changeRole(member.id, "admin")}>
                       <Shield className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
