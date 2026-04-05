@@ -28,7 +28,7 @@ import {
   Bell, Camera, BarChart3, CheckCircle, Play, UserPlus,
   FlaskConical, ArrowLeft, TrendingUp, AlertTriangle,
   LayoutDashboard, UsersRound, Settings, Phone, Mail,
-  ChevronRight, X, Plus, Search, TrendingDown, Star
+  ChevronRight, ChevronLeft, X, Plus, Search, TrendingDown, Star
 } from "lucide-react"
 import {
   BarChart,
@@ -383,6 +383,27 @@ const revenueDataHe = [
   { day: "שבת", revenue: 0, appointments: 0 },
 ]
 
+// Last week revenue data
+const lastWeekRevenueDataEn = [
+  { day: "Mon", revenue: 440, appointments: 10 },
+  { day: "Tue", revenue: 570, appointments: 13 },
+  { day: "Wed", revenue: 410, appointments: 9 },
+  { day: "Thu", revenue: 640, appointments: 16 },
+  { day: "Fri", revenue: 780, appointments: 20 },
+  { day: "Sat", revenue: 820, appointments: 22 },
+  { day: "Sun", revenue: 530, appointments: 12 },
+]
+
+const lastWeekRevenueDataHe = [
+  { day: "ראשון", revenue: 1580, appointments: 10 },
+  { day: "שני", revenue: 2050, appointments: 13 },
+  { day: "שלישי", revenue: 1480, appointments: 9 },
+  { day: "רביעי", revenue: 2300, appointments: 16 },
+  { day: "חמישי", revenue: 2800, appointments: 20 },
+  { day: "שישי", revenue: 2950, appointments: 22 },
+  { day: "שבת", revenue: 0, appointments: 0 },
+]
+
 // Navigation keys mapped to translation keys
 const navigationItems = [
   { key: "dashboard", id: "dashboard", icon: LayoutDashboard },
@@ -563,6 +584,7 @@ export default function DemoPage() {
   const demoServices = isHebrew ? demoServicesHe : demoServicesEn
   const demoInventory = isHebrew ? demoInventoryHe : demoInventoryEn
   const revenueData = isHebrew ? revenueDataHe : revenueDataEn
+  const lastWeekRevenueData = isHebrew ? lastWeekRevenueDataHe : lastWeekRevenueDataEn
   const demoTeam = isHebrew ? demoTeamHe : demoTeamEn
   const PREFERENCE_OPTIONS = isHebrew ? PREFERENCE_OPTIONS_HE : PREFERENCE_OPTIONS_EN
   const shopName = isHebrew ? "המספרה של יוסי" : "Prime Cuts Barbershop"
@@ -579,6 +601,9 @@ export default function DemoPage() {
   
   // Appointments with barber assignments
   const [appointments, setAppointments] = useState(demoAppointmentsData)
+  
+  // Chart week toggle
+  const [showLastWeek, setShowLastWeek] = useState(false)
   
   // Update data when locale changes
   useEffect(() => {
@@ -613,6 +638,7 @@ export default function DemoPage() {
   }
 
   const maxRevenue = Math.max(...revenueData.map(d => d.revenue))
+  const lastWeekMaxRevenue = Math.max(...lastWeekRevenueData.map(d => d.revenue))
 
   return (
     <div className={`min-h-screen bg-background grain ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
@@ -1060,16 +1086,38 @@ export default function DemoPage() {
                     {/* Weekly Revenue Chart */}
                     <Card>
                       <CardHeader>
-                        <CardTitle>{t("demo.weeklyRevenueLabel")}</CardTitle>
-                        <CardDescription>{t("demo.revenueOverWeek")}</CardDescription>
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <CardTitle>{t("demo.weeklyRevenueLabel")}</CardTitle>
+                            <CardDescription>
+                              {showLastWeek 
+                                ? (isHebrew ? "שבוע שעבר" : "Last week") 
+                                : (isHebrew ? "השבוע הנוכחי" : "Current week")}
+                            </CardDescription>
+                          </div>
+                          <div className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                            <button 
+                              onClick={() => setShowLastWeek(false)}
+                              className={`p-1.5 rounded-md transition-colors ${!showLastWeek ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
+                            >
+                              <ChevronLeft className="w-4 h-4" />
+                            </button>
+                            <button 
+                              onClick={() => setShowLastWeek(true)}
+                              className={`p-1.5 rounded-md transition-colors ${showLastWeek ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
+                            >
+                              <ChevronRight className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
                       </CardHeader>
                       <CardContent>
                         <div className="flex items-end gap-2 h-[200px] mb-2">
-                          {revenueData.map((data, i) => (
+                          {(showLastWeek ? lastWeekRevenueData : revenueData).map((data, i) => (
                             <div key={i} className="flex-1 flex flex-col items-center gap-2">
                               <div 
-                                className="w-full bg-primary rounded-t-lg relative group cursor-pointer hover:bg-primary/80 transition-colors min-h-[4px]"
-                                style={{ height: `${Math.max((data.revenue / maxRevenue) * 100, 2)}%` }}
+                                className={`w-full rounded-t-lg relative group cursor-pointer transition-colors min-h-[4px] ${showLastWeek ? 'bg-muted-foreground/60 hover:bg-muted-foreground/80' : 'bg-primary hover:bg-primary/80'}`}
+                                style={{ height: `${Math.max((data.revenue / (showLastWeek ? lastWeekMaxRevenue : maxRevenue)) * 100, 2)}%` }}
                               >
                                 <p className="absolute -top-6 text-xs font-medium whitespace-nowrap">
                                   {currency}{data.revenue.toLocaleString()}
@@ -1079,7 +1127,7 @@ export default function DemoPage() {
                           ))}
                         </div>
                         <div className="flex gap-2">
-                          {revenueData.map((data, i) => (
+                          {(showLastWeek ? lastWeekRevenueData : revenueData).map((data, i) => (
                             <div key={i} className="flex-1 text-center text-xs text-muted-foreground">
                               {data.day}
                             </div>
