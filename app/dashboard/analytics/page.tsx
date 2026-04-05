@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
 import { AnalyticsOverview } from "@/components/dashboard/analytics-overview"
+import { PageHeader } from "@/components/dashboard/page-header"
 
 export default async function AnalyticsPage() {
   const supabase = await createClient()
@@ -92,10 +93,7 @@ export default async function AnalyticsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Analytics</h1>
-        <p className="text-muted-foreground">Track your shop's performance</p>
-      </div>
+      <PageHeader titleKey="analytics.title" subtitleKey="analytics.subtitle" />
 
       <AnalyticsOverview
         thisMonthAppointments={thisMonthAppointments || 0}

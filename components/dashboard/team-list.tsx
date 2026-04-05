@@ -21,6 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 interface TeamMember {
   id: string
@@ -46,9 +47,17 @@ export function TeamList({ members, currentUserId, isOwner }: TeamListProps) {
   const router = useRouter()
   const supabase = createClient()
   const [removing, setRemoving] = useState<string | null>(null)
+  const { locale, isRTL } = useLanguage()
+  const isHebrew = locale === 'he'
+
+  const roleLabels = {
+    owner: isHebrew ? "בעלים" : "Owner",
+    barber: isHebrew ? "ספר" : "Barber",
+    admin: isHebrew ? "מנהל" : "Admin",
+  }
 
   async function handleRemove(memberId: string) {
-    if (!confirm("Are you sure you want to remove this team member?")) return
+    if (!confirm(isHebrew ? "האם אתה בטוח שברצונך להסיר חבר צוות זה?" : "Are you sure you want to remove this team member?")) return
     
     setRemoving(memberId)
     await supabase
@@ -73,9 +82,9 @@ export function TeamList({ members, currentUserId, isOwner }: TeamListProps) {
         <div className="w-20 h-20 rounded-full bg-secondary/50 flex items-center justify-center mx-auto mb-6">
           <User className="w-10 h-10 text-muted-foreground" />
         </div>
-        <h3 className="text-xl font-semibold mb-2">No team members yet</h3>
+        <h3 className="text-xl font-semibold mb-2">{isHebrew ? "אין חברי צוות עדיין" : "No team members yet"}</h3>
         <p className="text-muted-foreground mb-6">
-          Invite barbers and staff to join your shop
+          {isHebrew ? "הזמן ספרים וצוות להצטרף לעסק שלך" : "Invite barbers and staff to join your shop"}
         </p>
       </div>
     )
@@ -109,7 +118,7 @@ export function TeamList({ members, currentUserId, isOwner }: TeamListProps) {
                   </h3>
                   <div className={cn("inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium", role.bg)}>
                     <role.icon className={cn("w-3 h-3", role.color)} />
-                    <span className={role.color}>{role.label}</span>
+                    <span className={role.color}>{roleLabels[member.role as keyof typeof roleLabels] || role.label}</span>
                   </div>
                 </div>
               </div>
@@ -127,20 +136,20 @@ export function TeamList({ members, currentUserId, isOwner }: TeamListProps) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="glass-strong">
                     <DropdownMenuItem onClick={() => changeRole(member.id, "barber")}>
-                      <Scissors className="w-4 h-4 mr-2" />
-                      Set as Barber
+                      <Scissors className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+                      {isHebrew ? "הגדר כספר" : "Set as Barber"}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => changeRole(member.id, "admin")}>
-                      <Shield className="w-4 h-4 mr-2" />
-                      Set as Admin
+                      <Shield className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+                      {isHebrew ? "הגדר כמנהל" : "Set as Admin"}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem 
                       className="text-destructive"
                       onClick={() => handleRemove(member.id)}
                     >
-                      <Trash2 className="w-4 h-4 mr-2" />
-                      Remove from Team
+                      <Trash2 className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+                      {isHebrew ? "הסר מהצוות" : "Remove from Team"}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -148,7 +157,7 @@ export function TeamList({ members, currentUserId, isOwner }: TeamListProps) {
             </div>
 
             <div className="text-sm text-muted-foreground">
-              Joined {new Date(member.created_at).toLocaleDateString()}
+              {isHebrew ? "הצטרף " : "Joined "}{new Date(member.created_at).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US')}
             </div>
           </div>
         )

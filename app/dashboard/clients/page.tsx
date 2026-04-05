@@ -1,8 +1,8 @@
 import { createClient } from "@/lib/supabase/server"
 import { ClientsList } from "@/components/dashboard/clients-list"
 import { NewClientModal } from "@/components/dashboard/new-client-modal"
-import { Plus } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { PageHeader } from "@/components/dashboard/page-header"
+import { AddClientButton } from "@/components/dashboard/add-client-button"
 
 export default async function ClientsPage({
   searchParams,
@@ -43,15 +43,9 @@ export default async function ClientsPage({
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold">Clients</h1>
-          <p className="text-muted-foreground">Manage your client database</p>
-        </div>
+        <PageHeader titleKey="clients.title" subtitleKey="clients.subtitle" />
         <NewClientModal shopId={shopId} defaultOpen={showNewModal}>
-          <Button className="bg-primary text-primary-foreground hover:bg-primary/90 glow-amber-soft">
-            <Plus className="w-4 h-4 mr-2" />
-            Add Client
-          </Button>
+          <AddClientButton />
         </NewClientModal>
       </div>
 

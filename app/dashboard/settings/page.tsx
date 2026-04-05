@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { SettingsTabs } from "@/components/dashboard/settings-tabs"
+import { PageHeader } from "@/components/dashboard/page-header"
 
 export default async function SettingsPage() {
   const supabase = await createClient()
@@ -58,10 +59,7 @@ export default async function SettingsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">Settings</h1>
-        <p className="text-muted-foreground">Manage your account, shop, and integrations</p>
-      </div>
+      <PageHeader titleKey="settings.title" subtitleKey="settings.subtitle" />
 
       <SettingsTabs user={user} profile={profileWithShop} />
     </div>
