@@ -12,7 +12,7 @@ export function InviteMemberButton() {
   return (
     <Button className="bg-primary text-primary-foreground hover:bg-primary/90 glow-amber-soft">
       <Plus className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
-      {isHebrew ? "הזמן חבר צוות" : "Invite Member"}
+      {isHebrew ? "הוסף חבר צוות" : "Add Member"}
     </Button>
   )
 }
