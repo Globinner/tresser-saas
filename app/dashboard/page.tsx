@@ -142,7 +142,8 @@ export default async function DashboardPage() {
       <WeeklySchedule 
         shopId={shopId} 
         teamMembers={teamMembers || []} 
-        isOwner={isOwner} 
+        isOwner={isOwner}
+        currentUserId={user.id}
       />
 
       {/* Recent clients */}
