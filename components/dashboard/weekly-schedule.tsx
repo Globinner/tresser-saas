@@ -22,11 +22,13 @@ import {
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
-import { Calendar, Clock, Plus, Edit2, Trash2, Users, CheckCircle, XCircle, AlertCircle, Send } from "lucide-react"
+import { Calendar, Clock, Plus, Edit2, Trash2, Users, CheckCircle, XCircle, AlertCircle, Send, Lock } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
+import { useSubscription } from "@/hooks/use-subscription"
+import Link from "next/link"
 
 interface TeamMember {
   id: string
@@ -81,6 +83,38 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
   const { locale, isRTL } = useLanguage()
   const isHebrew = locale === 'he'
   const DAYS = isHebrew ? DAYS_HE : DAYS_EN
+  
+  // Check subscription for weekly schedule feature
+  const subscription = useSubscription()
+  const hasAccess = subscription.canAccessFeature("weekly_schedule")
+  
+  // If on Solo plan, show upgrade prompt instead of schedule
+  if (!subscription.loading && !hasAccess) {
+    return (
+      <Card>
+        <CardContent className="py-12">
+          <div className="text-center space-y-4">
+            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+              <Lock className="w-8 h-8 text-primary" />
+            </div>
+            <h3 className="text-xl font-semibold">
+              {isHebrew ? "לוח משמרות צוות" : "Team Schedule"}
+            </h3>
+            <p className="text-muted-foreground max-w-md mx-auto">
+              {isHebrew 
+                ? "ניהול משמרות צוות זמין בתוכנית פרו ומעלה. שדרג כדי לנהל את הזמינות של הצוות שלך."
+                : "Team schedule management is available on Pro plan and above. Upgrade to manage your team's availability."}
+            </p>
+            <Link href="/dashboard/billing">
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                {isHebrew ? "שדרג לפרו" : "Upgrade to Pro"}
+              </Button>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
 
   useEffect(() => {
     loadShifts()

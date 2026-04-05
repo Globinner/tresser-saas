@@ -19,6 +19,7 @@ export interface SubscriptionStatus {
 
 export type FeatureKey = 
   | "team" // Pro+
+  | "weekly_schedule" // Pro+
   | "payroll" // Pro+
   | "booking" // All plans
   | "analytics" // All plans (basic for Solo)
@@ -34,18 +35,18 @@ export type FeatureKey =
 // Feature access matrix
 const FEATURE_ACCESS: Record<PlanType, FeatureKey[]> = {
   trial: [
-    "team", "payroll", "booking", "analytics", "inventory", 
+    "team", "weekly_schedule", "payroll", "booking", "analytics", "inventory", 
     "chemistry", "whatsapp", "sms", "custom_branding", "priority_support"
   ], // Trial gets Pro features
   solo: [
     "booking", "analytics", "inventory", "chemistry", "whatsapp"
   ],
   pro: [
-    "team", "payroll", "booking", "analytics", "inventory", 
+    "team", "weekly_schedule", "payroll", "booking", "analytics", "inventory", 
     "chemistry", "whatsapp", "sms", "custom_branding", "priority_support"
   ],
   branch: [
-    "team", "payroll", "booking", "analytics", "inventory", 
+    "team", "weekly_schedule", "payroll", "booking", "analytics", "inventory", 
     "chemistry", "whatsapp", "sms", "multi_location", "unlimited_team",
     "custom_branding", "priority_support"
   ],
