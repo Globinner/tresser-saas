@@ -77,12 +77,12 @@ export function DashboardPreview() {
         <div className={`max-w-6xl mx-auto ${isRTL ? 'rtl' : ''}`}>
           <div className="glass-strong rounded-3xl p-4 md:p-6 glow-amber-soft">
             {/* Dashboard Header */}
-            <div className={`flex items-center justify-between mb-6 pb-4 border-b border-border/30`}>
-              <div className={`flex items-center gap-2`}>
+            <div className={`flex items-center justify-between mb-6 pb-4 border-b border-border/30 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                 <span className="text-sm text-muted-foreground">14/03/2026</span>
               </div>
-              <div className={isRTL ? 'text-right' : 'text-left'}>
+              <div className={isRTL ? 'text-left' : 'text-right'}>
                 <h3 className="text-xl font-semibold text-foreground">{t("dashboardPreview.greeting")}</h3>
                 <p className="text-sm text-muted-foreground">{t("dashboardPreview.subgreeting")}</p>
               </div>

@@ -41,7 +41,7 @@ interface Shift {
   day_of_week: number
   start_time: string
   end_time: string
-  is_available: boolean
+  is_working: boolean
   status: 'pending' | 'approved' | 'rejected'
   submitted_by: string | null
   notes: string | null
@@ -72,7 +72,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
   const [selectedDay, setSelectedDay] = useState<number>(0)
   const [startTime, setStartTime] = useState("09:00")
   const [endTime, setEndTime] = useState("17:00")
-  const [isAvailable, setIsAvailable] = useState(true)
+  const [isWorking, setIsWorking] = useState(true)
   const [notes, setNotes] = useState("")
   const [saving, setSaving] = useState(false)
   const [pendingCount, setPendingCount] = useState(0)
@@ -133,7 +133,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
             day_of_week: selectedDay,
             start_time: startTime,
             end_time: endTime,
-            is_available: isAvailable,
+            is_working: isWorking,
             notes: notes || null,
           })
           .eq("id", editingShift.id)
@@ -149,7 +149,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
             day_of_week: selectedDay,
             start_time: startTime,
             end_time: endTime,
-            is_available: isAvailable,
+            is_working: isWorking,
             status,
             submitted_by: submittedBy,
             notes: notes || null,
@@ -231,7 +231,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
     setSelectedDay(0)
     setStartTime("09:00")
     setEndTime("17:00")
-    setIsAvailable(true)
+    setIsWorking(true)
     setNotes("")
   }
 
@@ -241,7 +241,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
     setSelectedDay(shift.day_of_week)
     setStartTime(shift.start_time)
     setEndTime(shift.end_time)
-    setIsAvailable(shift.is_available)
+    setIsWorking(shift.is_working)
     setNotes(shift.notes || "")
     setIsDialogOpen(true)
   }
@@ -365,22 +365,28 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
               {isOwner && (
                 <div className="space-y-2">
                   <Label className={isRTL ? 'text-right block' : ''}>{isHebrew ? "חבר צוות" : "Team Member"}</Label>
-                  <Select 
-                    value={selectedMember} 
-                    onValueChange={setSelectedMember} 
-                    disabled={!!editingShift}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder={isHebrew ? "בחר חבר צוות" : "Select team member"} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {teamMembers.map(member => (
-                        <SelectItem key={member.id} value={member.id}>
-                          {getMemberName(member.id)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  {teamMembers.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                      {isHebrew ? "אין חברי צוות. הוסף חברי צוות בדף הצוות." : "No team members. Add team members in the Team page."}
+                    </p>
+                  ) : (
+                    <Select 
+                      value={selectedMember} 
+                      onValueChange={setSelectedMember} 
+                      disabled={!!editingShift}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder={isHebrew ? "בחר חבר צוות" : "Select team member"} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {teamMembers.map(member => (
+                          <SelectItem key={member.id} value={member.id}>
+                            {getMemberName(member.id)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
                 </div>
               )}
 
@@ -435,7 +441,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
 
               <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <Label>{isHebrew ? "זמין לעבודה" : "Available for work"}</Label>
-                <Switch checked={isAvailable} onCheckedChange={setIsAvailable} />
+                <Switch checked={isWorking} onCheckedChange={setIsWorking} />
               </div>
 
               <div className="space-y-2">
@@ -550,8 +556,8 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
                               className={cn(
                                 "rounded-md p-2 text-xs",
                                 shift.status === 'pending' && "bg-yellow-500/20 border border-yellow-500/30",
-                                shift.status === 'approved' && shift.is_available && "bg-green-500/20 border border-green-500/30",
-                                shift.status === 'approved' && !shift.is_available && "bg-red-500/20 border border-red-500/30",
+                                shift.status === 'approved' && shift.is_working && "bg-green-500/20 border border-green-500/30",
+                                shift.status === 'approved' && !shift.is_working && "bg-red-500/20 border border-red-500/30",
                                 shift.status === 'rejected' && "bg-secondary/50 border border-border opacity-50"
                               )}
                             >
