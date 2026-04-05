@@ -88,12 +88,9 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
 
   async function loadShifts() {
     setLoading(true)
-    console.log("[v0] loadShifts - teamMembers:", teamMembers, "shopId:", shopId)
     try {
       const memberIds = teamMembers.map(m => m.id)
-      console.log("[v0] loadShifts - memberIds:", memberIds)
       if (memberIds.length === 0) {
-        console.log("[v0] loadShifts - no members, returning empty")
         setShifts([])
         setLoading(false)
         return
@@ -106,21 +103,18 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
         .order("day_of_week")
         .order("start_time")
 
-      console.log("[v0] loadShifts - data:", data, "error:", error)
       if (error) throw error
       setShifts(data || [])
       setPendingCount((data || []).filter(s => s.status === 'pending').length)
     } catch (error) {
-      console.error("[v0] Error loading shifts:", error)
+      console.error("Error loading shifts:", error)
     } finally {
       setLoading(false)
     }
   }
 
   async function handleSaveShift() {
-    console.log("[v0] handleSaveShift - selectedMember:", selectedMember, "startTime:", startTime, "endTime:", endTime)
     if (!selectedMember || !startTime || !endTime) {
-      console.log("[v0] handleSaveShift - validation failed")
       toast.error(isHebrew ? "נא למלא את כל השדות" : "Please fill all fields")
       return
     }
@@ -131,7 +125,6 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
       // If staff submits, it's pending approval
       const status = isOwner ? 'approved' : 'pending'
       const submittedBy = isOwner ? null : currentUserId
-      console.log("[v0] handleSaveShift - status:", status, "isOwner:", isOwner)
 
       if (editingShift) {
         const { error } = await supabase
@@ -148,25 +141,20 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
         if (error) throw error
         toast.success(isHebrew ? "המשמרת עודכנה" : "Shift updated")
       } else {
-        const insertData = {
-          profile_id: selectedMember,
-          shop_id: shopId,
-          day_of_week: selectedDay,
-          start_time: startTime,
-          end_time: endTime,
-          is_working: isWorking,
-          status,
-          submitted_by: submittedBy,
-          notes: notes || null,
-        }
-        console.log("[v0] handleSaveShift - inserting:", insertData)
-        
-        const { error, data } = await supabase
+        const { error } = await supabase
           .from("team_shifts")
-          .insert(insertData)
-          .select()
+          .insert({
+            profile_id: selectedMember,
+            shop_id: shopId,
+            day_of_week: selectedDay,
+            start_time: startTime,
+            end_time: endTime,
+            is_working: isWorking,
+            status,
+            submitted_by: submittedBy,
+            notes: notes || null,
+          })
 
-        console.log("[v0] handleSaveShift - insert result - error:", error, "data:", data)
         if (error) throw error
         
         if (isOwner) {
@@ -377,22 +365,28 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
               {isOwner && (
                 <div className="space-y-2">
                   <Label className={isRTL ? 'text-right block' : ''}>{isHebrew ? "חבר צוות" : "Team Member"}</Label>
-                  <Select 
-                    value={selectedMember} 
-                    onValueChange={setSelectedMember} 
-                    disabled={!!editingShift}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder={isHebrew ? "בחר חבר צוות" : "Select team member"} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {teamMembers.map(member => (
-                        <SelectItem key={member.id} value={member.id}>
-                          {getMemberName(member.id)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  {teamMembers.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                      {isHebrew ? "אין חברי צוות. הוסף חברי צוות בדף הצוות." : "No team members. Add team members in the Team page."}
+                    </p>
+                  ) : (
+                    <Select 
+                      value={selectedMember} 
+                      onValueChange={setSelectedMember} 
+                      disabled={!!editingShift}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder={isHebrew ? "בחר חבר צוות" : "Select team member"} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {teamMembers.map(member => (
+                          <SelectItem key={member.id} value={member.id}>
+                            {getMemberName(member.id)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
                 </div>
               )}
 
