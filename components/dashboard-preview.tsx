@@ -18,19 +18,26 @@ export function DashboardPreview() {
     )
   }
 
-  const appointments = isHebrew ? [
+  // Hebrew appointment data
+  const hebrewAppointments = [
     { time: "09:00", client: "יוסי כהן", service: "פייד", barber: "מיכאל", avatar: "יכ", status: "confirmed" },
     { time: "10:30", client: "דוד לוי", service: "תספורת קלאסית", barber: "מיכאל", avatar: "דל", status: "confirmed" },
-    { time: "12:00", client: "אבי מזרחי", service: "עיצוב זקן", barber: "שרה", avatar: "אמ", status: "pending" },
-    { time: "14:00", client: "משה פרץ", service: "צביעת שיער", barber: "שרה", avatar: "מפ", status: "confirmed" },
+    { time: "11:00", client: "משה פרץ", service: "עיצוב זקן", barber: "שרה", avatar: "מפ", status: "pending" },
+    { time: "14:00", client: "אבי מזרחי", service: "צביעת שיער", barber: "שרה", avatar: "אמ", status: "confirmed" },
     { time: "15:30", client: "רון ביטון", service: "שיער + זקן", barber: "מיכאל", avatar: "רב", status: "confirmed" },
-  ] : [
+  ]
+  
+  // English appointment data
+  const englishAppointments = [
     { time: "09:00", client: "Marcus Johnson", service: "Fade", barber: "Mike", avatar: "MJ", status: "confirmed" },
     { time: "10:30", client: "David Chen", service: "Classic Haircut", barber: "Mike", avatar: "DC", status: "confirmed" },
-    { time: "12:00", client: "James Wilson", service: "Beard Trim", barber: "Sarah", avatar: "JW", status: "pending" },
+    { time: "11:00", client: "James Williams", service: "Beard Trim", barber: "Sarah", avatar: "JW", status: "pending" },
     { time: "14:00", client: "Alex Thompson", service: "Hair Color", barber: "Sarah", avatar: "AT", status: "confirmed" },
     { time: "15:30", client: "Michael Rodriguez", service: "Hair & Beard Combo", barber: "Mike", avatar: "MR", status: "confirmed" },
   ]
+  
+  // Select based on locale
+  const appointments = isHebrew ? hebrewAppointments : englishAppointments
 
   const statsData = isHebrew ? [
     { label: t("dashboard.revenue"), value: "₪3,020", change: "+12%", icon: DollarSign },
@@ -166,10 +173,10 @@ export function DashboardPreview() {
                   ]).map((item, index) => (
                     <div key={index} className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                       <span className={`text-xs text-muted-foreground ${isHebrew ? 'w-12' : 'w-8'}`}>{item.day}</span>
-                      <div className="flex-1 h-6 bg-background/50 rounded-lg overflow-hidden">
+                      <div className="flex-1 h-7 bg-background/50 rounded-lg overflow-hidden">
                         <div 
-                          className={`h-full bg-primary rounded-lg transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
-                          style={{ width: `${item.width}%`, minWidth: item.width > 0 ? '12px' : '0' }}
+                          className={`h-full bg-gradient-to-r from-primary to-amber-400 rounded-lg transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
+                          style={{ width: `${item.width}%`, minWidth: item.width > 0 ? '16px' : '0' }}
                         />
                       </div>
                       <span className={`text-xs font-medium text-foreground w-16 font-mono ${isRTL ? 'text-left' : 'text-right'}`}>
