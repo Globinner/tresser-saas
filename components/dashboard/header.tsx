@@ -52,13 +52,20 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
   const { t, isRTL } = useLanguage()
   const { isUrgent, minutesUntil } = useNextAppointmentAlert()
   
-  const navigation = [
+  const isOwner = profile?.role === "owner"
+  
+  // All users can see these
+  const baseNavigation = [
     { name: t("sidebar.dashboard"), href: "/dashboard", icon: LayoutDashboard },
     { name: t("sidebar.appointments"), href: "/dashboard/appointments", icon: Calendar },
     { name: t("sidebar.queue"), href: "/dashboard/queue", icon: UsersRound },
     { name: t("sidebar.clients"), href: "/dashboard/clients", icon: Users },
     { name: t("sidebar.team"), href: "/dashboard/team", icon: Briefcase },
     { name: t("sidebar.services"), href: "/dashboard/services", icon: Scissors },
+  ]
+  
+  // Only owners can see these
+  const ownerNavigation = [
     { name: t("sidebar.inventory"), href: "/dashboard/inventory", icon: Package },
     { name: t("sidebar.analytics"), href: "/dashboard/analytics", icon: BarChart3 },
     { name: t("sidebar.onlineBooking"), href: "/dashboard/settings?tab=booking", icon: Globe },
@@ -66,6 +73,8 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
     { name: t("sidebar.billing"), href: "/dashboard/billing", icon: CreditCard },
     { name: t("sidebar.settings"), href: "/dashboard/settings", icon: Settings },
   ]
+  
+  const navigation = isOwner ? [...baseNavigation, ...ownerNavigation] : baseNavigation
 
   async function handleSignOut() {
     await supabase.auth.signOut()

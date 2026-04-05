@@ -8,14 +8,27 @@ export default async function AnalyticsPage() {
 
   if (!user) return null
 
-  // Get user's shop
+  // Get user's shop and role
   const { data: profile } = await supabase
     .from("profiles")
-    .select("shop_id")
+    .select("shop_id, role")
     .eq("id", user.id)
     .single()
 
   const shopId = profile?.shop_id
+  const isOwner = profile?.role === "owner"
+
+  // Only owners can access analytics
+  if (!isOwner) {
+    return (
+      <div className="flex items-center justify-center h-[60vh]">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold">Access Denied</h2>
+          <p className="text-muted-foreground mt-2">Only shop owners can access analytics.</p>
+        </div>
+      </div>
+    )
+  }
 
   // Get monthly stats
   const now = new Date()

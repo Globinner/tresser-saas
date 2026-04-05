@@ -47,13 +47,20 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
   const supabase = createClient()
   const { t, isRTL } = useLanguage()
   
-  const navigation = [
+  const isOwner = profile?.role === "owner"
+  
+  // All users can see these
+  const baseNavigation = [
     { name: t("sidebar.dashboard"), href: "/dashboard", icon: LayoutDashboard },
     { name: t("sidebar.appointments"), href: "/dashboard/appointments", icon: Calendar },
     { name: t("sidebar.queue"), href: "/dashboard/queue", icon: UsersRound },
     { name: t("sidebar.clients"), href: "/dashboard/clients", icon: Users },
     { name: t("sidebar.team"), href: "/dashboard/team", icon: Briefcase },
     { name: t("sidebar.services"), href: "/dashboard/services", icon: Scissors },
+  ]
+  
+  // Only owners can see these
+  const ownerNavigation = [
     { name: t("sidebar.inventory"), href: "/dashboard/inventory", icon: Package },
     { name: t("sidebar.payroll") || "Payroll", href: "/dashboard/payroll", icon: Wallet },
     { name: t("sidebar.analytics"), href: "/dashboard/analytics", icon: BarChart3 },
@@ -62,6 +69,8 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
     { name: t("sidebar.billing"), href: "/dashboard/billing", icon: CreditCard },
     { name: t("sidebar.settings"), href: "/dashboard/settings", icon: Settings },
   ]
+  
+  const navigation = isOwner ? [...baseNavigation, ...ownerNavigation] : baseNavigation
 
   async function handleSignOut() {
     await supabase.auth.signOut()
