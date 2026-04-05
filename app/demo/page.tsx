@@ -563,7 +563,7 @@ const PREFERENCE_OPTIONS_EN = {
 
 const PREFERENCE_OPTIONS_HE = {
   styles: ["פייד נמוך", "פייד בינוני", "פייד גבוה", "סקין פייד", "טייפר", "באז קאט", "פומפדור"],
-  cutting: ["מספריים בלבד", "מכונה בלבד", "שניהם"],
+  cutting: ["מספריים בלבד", "מכונה בלבד", "ש��יהם"],
   allergies: ["צבע שיער", "הבהרה", "לטקס", "ג׳לים מסוימים", "בשמים"],
   other: ["קרקפת רגישה", "שיער דליל", "עיצוב זקן", "מגבת חמה", "קו"]
 }
@@ -1112,27 +1112,38 @@ export default function DemoPage() {
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <div className="flex items-end gap-2 h-[200px] mb-2">
+                        <div className="space-y-3">
                           {(showLastWeek ? lastWeekRevenueData : revenueData).map((data, i) => (
-                            <div key={i} className="flex-1 flex flex-col items-center gap-2">
-                              <div 
-                                className={`w-full rounded-t-lg relative group cursor-pointer transition-colors min-h-[4px] ${showLastWeek ? 'bg-muted-foreground/60 hover:bg-muted-foreground/80' : 'bg-primary hover:bg-primary/80'}`}
-                                style={{ height: `${Math.max((data.revenue / (showLastWeek ? lastWeekMaxRevenue : maxRevenue)) * 100, 2)}%` }}
-                              >
-                                <p className="absolute -top-6 text-xs font-medium whitespace-nowrap">
-                                  {currency}{data.revenue.toLocaleString()}
-                                </p>
+                            <div key={i} className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                              <span className="text-xs text-muted-foreground w-12">{data.day}</span>
+                              <div className="flex-1 h-8 bg-background/50 rounded-md overflow-hidden">
+                                <div 
+                                  className={`h-full rounded-md transition-all duration-500 ${showLastWeek ? 'bg-muted-foreground/60' : 'bg-primary'} ${isRTL ? 'ml-auto' : ''}`}
+                                  style={{ width: `${Math.max((data.revenue / (showLastWeek ? lastWeekMaxRevenue : maxRevenue)) * 100, 5)}%` }}
+                                />
                               </div>
+                              <span className={`text-xs font-medium w-20 font-mono ${isRTL ? 'text-left' : 'text-right'}`}>
+                                {currency}{data.revenue.toLocaleString()}
+                              </span>
                             </div>
                           ))}
                         </div>
-                        <div className="flex gap-2">
-                          {(showLastWeek ? lastWeekRevenueData : revenueData).map((data, i) => (
-                            <div key={i} className="flex-1 text-center text-xs text-muted-foreground">
-                              {data.day}
-                            </div>
-                          ))}
+                        <div className={`mt-4 pt-4 border-t border-border/30 flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <span className="text-sm text-muted-foreground">
+                            {showLastWeek 
+                              ? (isHebrew ? "סה״כ שבוע שעבר" : "Total last week")
+                              : (isHebrew ? "סה״כ השבוע" : "Total this week")}
+                          </span>
+                          <span className={`text-xl font-bold ${showLastWeek ? 'text-muted-foreground' : 'text-primary'}`}>
+                            {currency}{(showLastWeek ? lastWeekRevenueData : revenueData).reduce((sum, d) => sum + d.revenue, 0).toLocaleString()}
+                          </span>
                         </div>
+                        {showLastWeek && (
+                          <div className={`mt-3 flex items-center gap-2 ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
+                            <span className="text-sm text-green-500 font-bold">+11.7%</span>
+                            <span className="text-xs text-muted-foreground">{isHebrew ? "השבוע לעומת שבוע שעבר" : "this week vs last"}</span>
+                          </div>
+                        )}
                       </CardContent>
                     </Card>
                   </div>
