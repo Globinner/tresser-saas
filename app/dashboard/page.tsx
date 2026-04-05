@@ -4,6 +4,7 @@ import { TodayAppointments } from "@/components/dashboard/today-appointments"
 import { RevenueChart } from "@/components/dashboard/revenue-chart"
 import { RecentClients } from "@/components/dashboard/recent-clients"
 import { QuickActions } from "@/components/dashboard/quick-actions"
+import { WeeklySchedule } from "@/components/dashboard/weekly-schedule"
 
 // Disable caching - always fetch fresh data
 export const dynamic = "force-dynamic"
@@ -96,6 +97,23 @@ export default async function DashboardPage() {
     .order("created_at", { ascending: false })
     .limit(5)
 
+  // Get team members for weekly schedule
+  const { data: teamMembers } = await supabase
+    .from("profiles")
+    .select("id, first_name, last_name, role")
+    .eq("shop_id", shopId)
+    .in("role", ["owner", "barber", "admin", "nail_tech"])
+    .order("role")
+
+  // Check if current user is owner
+  const { data: currentProfile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single()
+  
+  const isOwner = currentProfile?.role === "owner"
+
   return (
     <div className="space-y-6">
       {/* Stats cards */}
@@ -119,6 +137,13 @@ export default async function DashboardPage() {
         {/* Revenue chart */}
         <RevenueChart shopId={shopId} />
       </div>
+
+      {/* Weekly Schedule */}
+      <WeeklySchedule 
+        shopId={shopId} 
+        teamMembers={teamMembers || []} 
+        isOwner={isOwner} 
+      />
 
       {/* Recent clients */}
       <RecentClients clients={recentClients || []} />
