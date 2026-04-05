@@ -23,6 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 interface Client {
   id: string
@@ -44,6 +45,8 @@ export function ClientsList({ clients }: ClientsListProps) {
   const [search, setSearch] = useState(searchParams.get("search") || "")
   const [deleting, setDeleting] = useState<string | null>(null)
   const supabase = createClient()
+  const { locale, isRTL } = useLanguage()
+  const isHebrew = locale === 'he'
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault()
@@ -57,7 +60,7 @@ export function ClientsList({ clients }: ClientsListProps) {
   }
 
   async function handleDelete(clientId: string) {
-    if (!confirm("Are you sure you want to delete this client?")) return
+    if (!confirm(isHebrew ? "האם אתה בטוח שברצונך למחוק לקוח זה?" : "Are you sure you want to delete this client?")) return
     
     setDeleting(clientId)
     await supabase.from("clients").delete().eq("id", clientId)
@@ -68,19 +71,19 @@ export function ClientsList({ clients }: ClientsListProps) {
   return (
     <div className="space-y-6">
       {/* Search */}
-      <form onSubmit={handleSearch} className="flex gap-3">
+      <form onSubmit={handleSearch} className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <Search className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground ${isRTL ? 'right-3' : 'left-3'}`} />
           <Input
             type="text"
-            placeholder="Search clients by name, phone, or email..."
+            placeholder={isHebrew ? "חפש לקוחות לפי שם, טלפון או אימייל..." : "Search clients by name, phone, or email..."}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pl-10 bg-input border-border"
+            className={`bg-input border-border ${isRTL ? 'pr-10 text-right' : 'pl-10'}`}
           />
         </div>
         <Button type="submit" variant="outline" className="border-border">
-          Search
+          {isHebrew ? "חפש" : "Search"}
         </Button>
       </form>
 
@@ -90,11 +93,11 @@ export function ClientsList({ clients }: ClientsListProps) {
           <div className="w-20 h-20 rounded-full bg-secondary/50 flex items-center justify-center mx-auto mb-6">
             <User className="w-10 h-10 text-muted-foreground" />
           </div>
-          <h3 className="text-xl font-semibold mb-2">No clients found</h3>
+          <h3 className="text-xl font-semibold mb-2">{isHebrew ? "לא נמצאו לקוחות" : "No clients found"}</h3>
           <p className="text-muted-foreground mb-6">
             {searchParams.get("search") 
-              ? "Try a different search term"
-              : "Add your first client to get started"
+              ? (isHebrew ? "נסה מונח חיפוש אחר" : "Try a different search term")
+              : (isHebrew ? "הוסף את הלקוח הראשון שלך כדי להתחיל" : "Add your first client to get started")
             }
           </p>
         </div>
@@ -118,7 +121,7 @@ export function ClientsList({ clients }: ClientsListProps) {
                   <div className="min-w-0">
                     <h3 className="font-semibold hover:text-primary transition-colors truncate">{fullName}</h3>
                     <p className="text-xs text-muted-foreground">
-                      Since {new Date(client.created_at).toLocaleDateString()}
+                      {isHebrew ? "מאז " : "Since "}{new Date(client.created_at).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US')}
                     </p>
                   </div>
                 </Link>
@@ -142,19 +145,19 @@ export function ClientsList({ clients }: ClientsListProps) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="glass-strong">
                     <DropdownMenuItem>
-                      <Calendar className="w-4 h-4 mr-2" />
-                      Book Appointment
+                      <Calendar className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+                      {isHebrew ? "קבע תור" : "Book Appointment"}
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                      <Edit className="w-4 h-4 mr-2" />
-                      Edit
+                      <Edit className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+                      {isHebrew ? "ערוך" : "Edit"}
                     </DropdownMenuItem>
                     <DropdownMenuItem 
                       className="text-destructive"
                       onClick={() => handleDelete(client.id)}
                     >
-                      <Trash2 className="w-4 h-4 mr-2" />
-                      Delete
+                      <Trash2 className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+                      {isHebrew ? "מחק" : "Delete"}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
