@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -579,6 +579,12 @@ export default function DemoPage() {
   
   // Appointments with barber assignments
   const [appointments, setAppointments] = useState(demoAppointmentsData)
+  
+  // Update data when locale changes
+  useEffect(() => {
+    setQueue(isHebrew ? demoQueueHe : demoQueueEn)
+    setAppointments(isHebrew ? demoAppointmentsHe : demoAppointmentsEn)
+  }, [isHebrew])
   
   const togglePref = (pref: string) => {
     setNewClientPrefs(prev => 
