@@ -27,12 +27,21 @@ export function PricingSection() {
 
   const plans = [
     {
-      name: "Solo",
-      description: "Perfect for independent barbers",
+      name: isHebrew ? "סולו" : "Solo",
+      description: isHebrew ? "מושלם לספרים עצמאיים" : "Perfect for independent barbers",
       price: "22",
-      period: "/month",
-      trial: "14-day free trial",
-      features: [
+      period: isHebrew ? "/חודש" : "/month",
+      trial: isHebrew ? "14 יום ניסיון חינם" : "14-day free trial",
+      features: isHebrew ? [
+        "תורים ללא הגבלה",
+        "ניהול לקוחות מלא",
+        "רשומות כימיה",
+        "ניתוח מתקדם",
+        "תזכורות WhatsApp",
+        "ניהול מלאי",
+        "תמיכה במייל",
+        "דף הזמנות מקוון",
+      ] : [
         "Unlimited appointments",
         "Full client management",
         "Chemistry records",
@@ -42,17 +51,26 @@ export function PricingSection() {
         "Email support",
         "Online booking page",
       ],
-      cta: "Get It",
+      cta: isHebrew ? "קבל את זה" : "Get It",
       popular: false,
       href: "/auth/sign-up?plan=solo",
     },
     {
-      name: "Pro",
-      description: "For growing shops that need more power",
+      name: isHebrew ? "מקצועי" : "Pro",
+      description: isHebrew ? "למספרות צומחות שצריכות יותר עוצמה" : "For growing shops that need more power",
       price: "29",
-      period: "/month",
-      trial: "14-day free trial",
-      features: [
+      period: isHebrew ? "/חודש" : "/month",
+      trial: isHebrew ? "14 יום ניסיון חינם" : "14-day free trial",
+      features: isHebrew ? [
+        "הכל בסולו",
+        "ניהול צוות (עד 5)",
+        "דף הזמנות מקוון",
+        "דוחות שכר",
+        "תמיכת WhatsApp בעדיפות",
+        "מיתוג מותאם אישית",
+        "תזכורות SMS",
+        "דוחות מתקדמים",
+      ] : [
         "Everything in Solo",
         "Team management (up to 5)",
         "Online booking page",
@@ -62,17 +80,24 @@ export function PricingSection() {
         "SMS reminders",
         "Advanced reports",
       ],
-      cta: "Get It",
+      cta: isHebrew ? "קבל את זה" : "Get It",
       popular: true,
       href: "/auth/sign-up?plan=pro",
     },
     {
-      name: "Branch",
-      description: "For shops with multiple locations",
+      name: isHebrew ? "סניף" : "Branch",
+      description: isHebrew ? "למספרות עם מספר סניפים" : "For shops with multiple locations",
       price: "77",
-      period: "/month",
+      period: isHebrew ? "/חודש" : "/month",
       trial: null,
-      features: [
+      features: isHebrew ? [
+        "הכל במקצועי",
+        "עד 3 סניפים",
+        "חברי צוות ללא הגבלה",
+        "דוחות שכר",
+        "ניתוח לפי סניף",
+        "תמיכה טלפונית בעדיפות",
+      ] : [
         "Everything in Pro",
         "Up to 3 locations",
         "Unlimited team members",
@@ -80,7 +105,7 @@ export function PricingSection() {
         "Branch analytics",
         "Priority phone support",
       ],
-      cta: "Get It",
+      cta: isHebrew ? "קבל את זה" : "Get It",
       popular: false,
       href: "/auth/sign-up?plan=branch",
     },
@@ -178,17 +203,17 @@ export function PricingSection() {
               <Tag className="w-5 h-5 text-primary" />
             </div>
             <div className={isRTL ? 'text-right' : ''}>
-              <h3 className="font-semibold text-foreground">Have a Coupon Code?</h3>
-              <p className="text-sm text-muted-foreground">Enter your code to get started with a discount</p>
+              <h3 className="font-semibold text-foreground">{isHebrew ? "יש לך קוד קופון?" : "Have a Coupon Code?"}</h3>
+              <p className="text-sm text-muted-foreground">{isHebrew ? "הזן את הקוד שלך כדי להתחיל עם הנחה" : "Enter your code to get started with a discount"}</p>
             </div>
           </div>
           
           <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <Input
-              placeholder="Enter coupon code"
+              placeholder={isHebrew ? "הזן קוד קופון" : "Enter coupon code"}
               value={couponCode}
               onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-              className="flex-1 bg-secondary/50 border-border uppercase"
+              className={`flex-1 bg-secondary/50 border-border uppercase ${isRTL ? 'text-right' : ''}`}
               disabled={couponLoading}
             />
             <Button 
@@ -199,7 +224,7 @@ export function PricingSection() {
               {couponLoading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
-                "Apply"
+                isHebrew ? "החל" : "Apply"
               )}
             </Button>
           </div>

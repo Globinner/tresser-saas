@@ -21,6 +21,8 @@ import {
 } from "lucide-react"
 import { ClientChemistry } from "./client-chemistry"
 import { ClientPhotos } from "./client-photos"
+import { useLanguage } from "@/lib/i18n/language-context"
+import { cn } from "@/lib/utils"
 
 interface Client {
   id: string
@@ -55,6 +57,8 @@ export function ClientDetailView({ client, shopId }: ClientDetailViewProps) {
   })
   const [loading, setLoading] = useState(true)
   const supabase = createClient()
+  const { locale, isRTL } = useLanguage()
+  const isHebrew = locale === 'he'
 
   useEffect(() => {
     fetchClientData()
@@ -105,7 +109,7 @@ export function ClientDetailView({ client, shopId }: ClientDetailViewProps) {
   }
 
   function formatDate(dateStr: string) {
-    return new Date(dateStr).toLocaleDateString("en-US", {
+    return new Date(dateStr).toLocaleDateString(isHebrew ? "he-IL" : "en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
@@ -131,23 +135,23 @@ export function ClientDetailView({ client, shopId }: ClientDetailViewProps) {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
+      <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <Link href="/dashboard/clients">
             <Button variant="ghost" size="icon" className="rounded-full">
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className={`w-5 h-5 ${isRTL ? 'rotate-180' : ''}`} />
             </Button>
           </Link>
-          <div>
+          <div className={isRTL ? 'text-right' : ''}>
             <h1 className="text-2xl font-bold text-foreground">{client.first_name} {client.last_name || ""}</h1>
             <p className="text-muted-foreground">
-              Client since {formatDate(client.created_at)}
+              {isHebrew ? "לקוח מאז " : "Client since "}{formatDate(client.created_at)}
             </p>
           </div>
         </div>
         <Button variant="outline" className="border-border/50">
-          <Edit className="w-4 h-4 mr-2" />
-          Edit Client
+          <Edit className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+          {isHebrew ? "ערוך לקוח" : "Edit Client"}
         </Button>
       </div>
 
@@ -156,9 +160,9 @@ export function ClientDetailView({ client, shopId }: ClientDetailViewProps) {
         {/* Contact Info */}
         <Card className="glass border-border/50">
           <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className={`text-lg flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <User className="w-5 h-5 text-primary" />
-              Contact Info
+              {isHebrew ? "פרטי קשר" : "Contact Info"}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -176,9 +180,9 @@ export function ClientDetailView({ client, shopId }: ClientDetailViewProps) {
             )}
             {client.notes && (
               <div className="pt-3 border-t border-border/30">
-                <div className="flex items-center gap-2 mb-2">
+                <div className={`flex items-center gap-2 mb-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <MessageSquare className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-sm text-muted-foreground">Notes</span>
+                  <span className="text-sm text-muted-foreground">{isHebrew ? "הערות" : "Notes"}</span>
                 </div>
                 <p className="text-sm text-foreground bg-secondary/30 rounded-lg p-3">
                   {client.notes}
@@ -191,34 +195,34 @@ export function ClientDetailView({ client, shopId }: ClientDetailViewProps) {
         {/* Stats */}
         <Card className="glass border-border/50 lg:col-span-2">
           <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className={`text-lg flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <Star className="w-5 h-5 text-primary" />
-              Client Stats
+              {isHebrew ? "סטטיסטיקות לקוח" : "Client Stats"}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="text-center p-4 rounded-lg bg-secondary/30">
                 <div className="text-3xl font-bold text-primary">{stats.totalVisits}</div>
-                <div className="text-sm text-muted-foreground">Total Visits</div>
+                <div className="text-sm text-muted-foreground">{isHebrew ? "סה״כ ביקורים" : "Total Visits"}</div>
               </div>
               <div className="text-center p-4 rounded-lg bg-secondary/30">
                 <div className="text-3xl font-bold text-foreground">
                   ${stats.totalSpent.toFixed(0)}
                 </div>
-                <div className="text-sm text-muted-foreground">Total Spent</div>
+                <div className="text-sm text-muted-foreground">{isHebrew ? "סה״כ הוצאות" : "Total Spent"}</div>
               </div>
               <div className="text-center p-4 rounded-lg bg-secondary/30">
                 <div className="text-lg font-semibold text-foreground">
                   {stats.lastVisit ? formatDate(stats.lastVisit) : "—"}
                 </div>
-                <div className="text-sm text-muted-foreground">Last Visit</div>
+                <div className="text-sm text-muted-foreground">{isHebrew ? "ביקור אחרון" : "Last Visit"}</div>
               </div>
               <div className="text-center p-4 rounded-lg bg-secondary/30">
                 <div className="text-lg font-semibold text-foreground truncate">
                   {stats.favoriteService || "—"}
                 </div>
-                <div className="text-sm text-muted-foreground">Favorite Service</div>
+                <div className="text-sm text-muted-foreground">{isHebrew ? "שירות מועדף" : "Favorite Service"}</div>
               </div>
             </div>
           </CardContent>
@@ -241,13 +245,13 @@ export function ClientDetailView({ client, shopId }: ClientDetailViewProps) {
 
       {/* Recent Appointments */}
       <Card className="glass border-border/50">
-        <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-lg flex items-center gap-2">
+        <CardHeader className={`flex flex-row items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <CardTitle className={`text-lg flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <Calendar className="w-5 h-5 text-primary" />
-            Appointment History
+            {isHebrew ? "היסטוריית תורים" : "Appointment History"}
           </CardTitle>
           <Link href={`/dashboard/appointments?client=${client.id}`}>
-            <Button variant="ghost" size="sm">View All</Button>
+            <Button variant="ghost" size="sm">{isHebrew ? "הצג הכל" : "View All"}</Button>
           </Link>
         </CardHeader>
         <CardContent>
@@ -258,7 +262,7 @@ export function ClientDetailView({ client, shopId }: ClientDetailViewProps) {
           ) : appointments.length === 0 ? (
             <div className="text-center py-8">
               <Scissors className="w-10 h-10 text-muted-foreground/30 mx-auto mb-3" />
-              <p className="text-muted-foreground">No appointments yet</p>
+              <p className="text-muted-foreground">{isHebrew ? "אין תורים עדיין" : "No appointments yet"}</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -273,7 +277,7 @@ export function ClientDetailView({ client, shopId }: ClientDetailViewProps) {
                         {new Date(apt.date).getDate()}
                       </div>
                       <div className="text-xs text-muted-foreground uppercase">
-                        {new Date(apt.date).toLocaleDateString("en-US", { month: "short" })}
+                        {new Date(apt.date).toLocaleDateString(isHebrew ? "he-IL" : "en-US", { month: "short" })}
                       </div>
                     </div>
                     <div>

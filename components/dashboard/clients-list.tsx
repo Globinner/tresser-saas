@@ -183,13 +183,13 @@ export function ClientsList({ clients }: ClientsListProps) {
                 {client.notes && (
                   <div className="text-sm mt-3">
                     {(() => {
-                      // Replace labels with styled versions
+                      // Replace labels with styled versions - support both English and Hebrew
                       const notes = client.notes
                       const labelPatterns = [
-                        { pattern: 'Preferred styles:', label: 'Preferred styles:' },
-                        { pattern: 'Cutting:', label: 'Cutting:' },
-                        { pattern: 'ALLERGIES:', label: 'ALLERGIES:' },
-                        { pattern: 'Preferences:', label: 'Preferences:' },
+                        { pattern: 'Preferred styles:', label: isHebrew ? 'סגנונות מועדפים:' : 'Preferred styles:' },
+                        { pattern: 'Cutting:', label: isHebrew ? 'גזירה:' : 'Cutting:' },
+                        { pattern: 'ALLERGIES:', label: isHebrew ? 'אלרגיות:' : 'ALLERGIES:' },
+                        { pattern: 'Preferences:', label: isHebrew ? 'העדפות:' : 'Preferences:' },
                       ]
                       
                       // Create parts array by splitting on all labels
@@ -198,10 +198,11 @@ export function ClientsList({ clients }: ClientsListProps) {
                       const parts = notes.split(regex)
                       
                       return (
-                        <p className="text-muted-foreground leading-relaxed">
+                        <p className={`text-muted-foreground leading-relaxed ${isRTL ? 'text-right' : ''}`}>
                           {parts.map((part, idx) => {
-                            if (allLabels.includes(part)) {
-                              return <span key={idx} className="text-primary font-semibold">{part} </span>
+                            const matchingPattern = labelPatterns.find(lp => lp.pattern === part)
+                            if (matchingPattern) {
+                              return <span key={idx} className="text-primary font-semibold">{matchingPattern.label} </span>
                             }
                             return <span key={idx}>{part.trim()} </span>
                           })}
