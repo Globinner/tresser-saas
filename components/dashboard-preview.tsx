@@ -77,14 +77,14 @@ export function DashboardPreview() {
         <div className={`max-w-6xl mx-auto ${isRTL ? 'rtl' : ''}`}>
           <div className="glass-strong rounded-3xl p-4 md:p-6 glow-amber-soft">
             {/* Dashboard Header */}
-            <div className={`flex items-center justify-between mb-6 pb-4 border-b border-border/30 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div className={isRTL ? 'text-right' : ''}>
+            <div className={`flex items-center justify-between mb-6 pb-4 border-b border-border/30`}>
+              <div className={`flex items-center gap-2`}>
+                <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                <span className="text-sm text-muted-foreground">14/03/2026</span>
+              </div>
+              <div className={isRTL ? 'text-right' : 'text-left'}>
                 <h3 className="text-xl font-semibold text-foreground">{t("dashboardPreview.greeting")}</h3>
                 <p className="text-sm text-muted-foreground">{t("dashboardPreview.subgreeting")}</p>
-              </div>
-              <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <span className="text-sm text-muted-foreground">14/03/2026</span>
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               </div>
             </div>
 
@@ -127,16 +127,20 @@ export function DashboardPreview() {
                   {appointments.map((apt, index) => (
                     <div 
                       key={index}
-                      className={`flex items-center gap-4 p-3 rounded-lg bg-background/50 hover:bg-background/80 transition-colors border border-transparent hover:border-primary/20 ${isRTL ? 'flex-row-reverse' : ''}`}
+                      className={`flex items-center gap-4 p-3 rounded-lg bg-background/50 hover:bg-background/80 transition-colors border border-transparent hover:border-primary/20`}
                     >
+                      {/* Time - always first visually */}
                       <span className="text-sm text-muted-foreground w-12 font-mono">{apt.time}</span>
+                      {/* Avatar */}
                       <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-sm font-semibold text-primary border border-primary/30">
                         {apt.avatar}
                       </div>
+                      {/* Name and service */}
                       <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
                         <p className="font-medium text-foreground truncate">{apt.client}</p>
                         <p className="text-sm text-muted-foreground truncate">{apt.service} • {apt.barber}</p>
                       </div>
+                      {/* Status badge */}
                       <div className={`px-2 py-1 rounded-full text-xs font-medium ${
                         apt.status === 'confirmed' 
                           ? 'bg-primary/10 text-primary border border-primary/30' 
@@ -144,6 +148,7 @@ export function DashboardPreview() {
                       }`}>
                         {apt.status === 'confirmed' ? t("appointments.status.confirmed") : t("appointments.status.scheduled")}
                       </div>
+                      {/* Menu dots - always last visually */}
                       <button className="p-2 text-muted-foreground hover:text-foreground transition-colors">
                         <MoreVertical className="w-4 h-4" />
                       </button>
@@ -156,16 +161,16 @@ export function DashboardPreview() {
               <div className="bg-secondary/30 rounded-xl p-4 border border-border/30">
                 <div className={`flex items-center justify-between mb-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <h4 className="font-semibold text-foreground">{t("dashboardPreview.weeklyRevenue")}</h4>
-                  <div className="flex items-center gap-1">
+                  <div className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <button 
-                      onClick={() => setShowLastWeek(isRTL ? false : true)}
-                      className={`p-1.5 rounded-md transition-colors ${(isRTL ? !showLastWeek : showLastWeek) ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
+                      onClick={() => setShowLastWeek(true)}
+                      className={`p-1.5 rounded-md transition-colors ${showLastWeek ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
                     <button 
-                      onClick={() => setShowLastWeek(isRTL ? true : false)}
-                      className={`p-1.5 rounded-md transition-colors ${(isRTL ? showLastWeek : !showLastWeek) ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
+                      onClick={() => setShowLastWeek(false)}
+                      className={`p-1.5 rounded-md transition-colors ${!showLastWeek ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
                     >
                       <ChevronRight className="w-4 h-4" />
                     </button>
