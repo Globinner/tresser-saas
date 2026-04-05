@@ -3,6 +3,7 @@
 import { User, Phone, Mail } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 interface Client {
   id: string
@@ -18,13 +19,15 @@ interface RecentClientsProps {
 }
 
 export function RecentClients({ clients }: RecentClientsProps) {
+  const { t, isRTL, locale } = useLanguage()
+
   return (
     <div className="glass rounded-xl p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-semibold">Recent Clients</h2>
+      <div className={`flex items-center justify-between mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <h2 className="text-lg font-semibold">{t("dashboard.recentClients")}</h2>
         <Link href="/dashboard/clients">
           <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80">
-            View all
+            {t("common.viewAll")}
           </Button>
         </Link>
       </div>
@@ -34,10 +37,10 @@ export function RecentClients({ clients }: RecentClientsProps) {
           <div className="w-16 h-16 rounded-full bg-secondary/50 flex items-center justify-center mx-auto mb-4">
             <User className="w-8 h-8 text-muted-foreground" />
           </div>
-          <p className="text-muted-foreground">No clients yet</p>
+          <p className="text-muted-foreground">{t("dashboard.noClientsYet")}</p>
           <Link href="/dashboard/clients">
             <Button variant="outline" size="sm" className="mt-4">
-              Add your first client
+              {t("dashboard.addFirstClient")}
             </Button>
           </Link>
         </div>
@@ -46,9 +49,9 @@ export function RecentClients({ clients }: RecentClientsProps) {
           <table className="w-full">
             <thead>
               <tr className="border-b border-border">
-                <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Client</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Contact</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Joined</th>
+                <th className={`py-3 px-4 text-sm font-medium text-muted-foreground ${isRTL ? 'text-right' : 'text-left'}`}>{t("dashboard.client")}</th>
+                <th className={`py-3 px-4 text-sm font-medium text-muted-foreground ${isRTL ? 'text-right' : 'text-left'}`}>{t("dashboard.contact")}</th>
+                <th className={`py-3 px-4 text-sm font-medium text-muted-foreground ${isRTL ? 'text-right' : 'text-left'}`}>{t("dashboard.joined")}</th>
               </tr>
             </thead>
             <tbody>
@@ -83,8 +86,8 @@ export function RecentClients({ clients }: RecentClientsProps) {
                       )}
                     </div>
                   </td>
-                  <td className="py-4 px-4 text-sm text-muted-foreground">
-                    {new Date(client.created_at).toLocaleDateString()}
+                  <td className={`py-4 px-4 text-sm text-muted-foreground ${isRTL ? 'text-right' : 'text-left'}`}>
+                    {new Date(client.created_at).toLocaleDateString(locale === 'he' ? 'he-IL' : 'en-US')}
                   </td>
                 </tr>
               )})}

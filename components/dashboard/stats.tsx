@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation"
 import { Calendar, Users, DollarSign, CheckCircle, TrendingUp, UserPlus } from "lucide-react"
-import { useLanguage } from "@/lib/i18n/language-context"
 
 interface DashboardStatsProps {
   todayAppointments: number
@@ -24,13 +23,11 @@ export function DashboardStats({
   currency = "ILS",
 }: DashboardStatsProps) {
   const router = useRouter()
-  const { t, locale } = useLanguage()
-  const isHebrew = locale === 'he'
   
   const formatPrice = (amount: number) => {
-    return new Intl.NumberFormat(isHebrew ? 'he-IL' : 'en-US', {
+    return new Intl.NumberFormat('he-IL', {
       style: 'currency',
-      currency: isHebrew ? 'ILS' : 'USD',
+      currency: currency,
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount)
@@ -38,37 +35,37 @@ export function DashboardStats({
 
   const stats = [
     {
-      name: t("dashboard.todayAppts"),
+      name: "Today's Appts",
       value: todayAppointments,
       Icon: Calendar,
       href: "/dashboard/appointments",
     },
     {
-      name: t("dashboard.totalClients"),
+      name: "Total Clients",
       value: totalClients,
       Icon: Users,
       href: "/dashboard/clients",
     },
     {
-      name: t("dashboard.todayRevenue"),
+      name: "Today's Revenue",
       value: formatPrice(todayRevenue),
       Icon: TrendingUp,
       href: "/dashboard/analytics",
     },
     {
-      name: t("dashboard.monthlyRevenue"),
+      name: "Monthly Revenue",
       value: formatPrice(monthlyRevenue),
       Icon: DollarSign,
       href: "/dashboard/analytics",
     },
     {
-      name: t("dashboard.completed"),
+      name: "Completed",
       value: completedAppointments,
       Icon: CheckCircle,
       href: "/dashboard/appointments",
     },
     {
-      name: t("dashboard.newClients"),
+      name: "New Clients",
       value: newClientsToday,
       Icon: UserPlus,
       href: "/dashboard/clients",
