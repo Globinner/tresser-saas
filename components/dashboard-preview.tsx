@@ -150,44 +150,91 @@ export function DashboardPreview() {
                 </div>
               </div>
 
-              {/* Quick Stats Chart */}
+              {/* This Week Revenue Chart */}
               <div className="bg-secondary/30 rounded-xl p-4 border border-border/30">
-                <h4 className={`font-semibold text-foreground mb-4 ${isRTL ? 'text-right' : ''}`}>{t("dashboardPreview.weeklyRevenue")}</h4>
-                <div className="space-y-3">
+                <h4 className={`font-semibold text-foreground mb-2 ${isRTL ? 'text-right' : ''}`}>{t("dashboardPreview.weeklyRevenue")}</h4>
+                <p className={`text-xs text-muted-foreground mb-4 ${isRTL ? 'text-right' : ''}`}>{isHebrew ? "השבוע הנוכחי" : "Current week"}</p>
+                <div className="space-y-2">
                   {(isHebrew ? [
-                    { day: "ראשון", width: 56, value: "₪1,850" },
-                    { day: "שני", width: 70, value: "₪2,300" },
-                    { day: "שלישי", width: 52, value: "₪1,700" },
-                    { day: "רביעי", width: 78, value: "₪2,550" },
-                    { day: "חמישי", width: 92, value: "₪3,020" },
-                    { day: "שישי", width: 100, value: "₪3,280" },
-                    { day: "שבת", width: 3, value: "₪0" },
+                    { day: "א׳", width: 56, value: "₪1,850" },
+                    { day: "ב׳", width: 70, value: "₪2,300" },
+                    { day: "ג׳", width: 52, value: "₪1,700" },
+                    { day: "ד׳", width: 78, value: "₪2,550" },
+                    { day: "ה׳", width: 92, value: "₪3,020" },
+                    { day: "ו׳", width: 100, value: "₪3,280" },
+                    { day: "ש׳", width: 3, value: "₪0" },
                   ] : [
-                    { day: t("dashboardPreview.days.mon"), width: 57, value: "$520" },
-                    { day: t("dashboardPreview.days.tue"), width: 71, value: "$650" },
-                    { day: t("dashboardPreview.days.wed"), width: 52, value: "$480" },
-                    { day: t("dashboardPreview.days.thu"), width: 78, value: "$720" },
-                    { day: t("dashboardPreview.days.fri"), width: 92, value: "$850" },
-                    { day: t("dashboardPreview.days.sat"), width: 100, value: "$920" },
-                    { day: t("dashboardPreview.days.sun"), width: 66, value: "$610" },
+                    { day: "Mon", width: 57, value: "$520" },
+                    { day: "Tue", width: 71, value: "$650" },
+                    { day: "Wed", width: 52, value: "$480" },
+                    { day: "Thu", width: 78, value: "$720" },
+                    { day: "Fri", width: 92, value: "$850" },
+                    { day: "Sat", width: 100, value: "$920" },
+                    { day: "Sun", width: 66, value: "$610" },
                   ]).map((item, index) => (
                     <div key={index} className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                      <span className={`text-xs text-muted-foreground ${isHebrew ? 'w-12' : 'w-8'}`}>{item.day}</span>
-                      <div className="flex-1 h-7 bg-background/50 rounded-lg overflow-hidden">
+                      <span className={`text-xs text-muted-foreground w-6`}>{item.day}</span>
+                      <div className="flex-1 h-5 bg-background/50 rounded overflow-hidden">
                         <div 
-                          className={`h-full bg-gradient-to-r from-primary to-amber-400 rounded-lg transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
-                          style={{ width: `${item.width}%`, minWidth: item.width > 0 ? '16px' : '0' }}
+                          className={`h-full bg-primary rounded transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
+                          style={{ width: `${item.width}%`, minWidth: item.width > 0 ? '8px' : '0' }}
                         />
                       </div>
-                      <span className={`text-xs font-medium text-foreground w-16 font-mono ${isRTL ? 'text-left' : 'text-right'}`}>
+                      <span className={`text-xs font-medium text-foreground w-14 font-mono ${isRTL ? 'text-left' : 'text-right'}`}>
                         {item.value}
                       </span>
                     </div>
                   ))}
                 </div>
-                <div className={`mt-4 pt-4 border-t border-border/30 flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <span className="text-sm text-muted-foreground">{t("analytics.thisWeek")}</span>
-                  <span className="text-lg font-bold text-gradient">{isHebrew ? "₪14,700" : "$4,750"}</span>
+                <div className={`mt-3 pt-3 border-t border-border/30 flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <span className="text-sm text-muted-foreground">{isHebrew ? "סה״כ השבוע" : "Total this week"}</span>
+                  <span className="text-lg font-bold text-primary">{isHebrew ? "₪14,700" : "$4,750"}</span>
+                </div>
+              </div>
+
+              {/* Last Week Comparison Chart */}
+              <div className="bg-secondary/30 rounded-xl p-4 border border-border/30">
+                <h4 className={`font-semibold text-foreground mb-2 ${isRTL ? 'text-right' : ''}`}>{isHebrew ? "השוואה לשבוע שעבר" : "Last Week Comparison"}</h4>
+                <p className={`text-xs text-muted-foreground mb-4 ${isRTL ? 'text-right' : ''}`}>{isHebrew ? "לפני שבועיים" : "2 weeks ago"}</p>
+                <div className="space-y-2">
+                  {(isHebrew ? [
+                    { day: "א׳", width: 48, value: "₪1,580" },
+                    { day: "ב׳", width: 62, value: "₪2,050" },
+                    { day: "ג׳", width: 45, value: "₪1,480" },
+                    { day: "ד׳", width: 70, value: "₪2,300" },
+                    { day: "ה׳", width: 85, value: "₪2,800" },
+                    { day: "ו׳", width: 90, value: "₪2,950" },
+                    { day: "ש׳", width: 3, value: "₪0" },
+                  ] : [
+                    { day: "Mon", width: 48, value: "$440" },
+                    { day: "Tue", width: 62, value: "$570" },
+                    { day: "Wed", width: 45, value: "$410" },
+                    { day: "Thu", width: 70, value: "$640" },
+                    { day: "Fri", width: 85, value: "$780" },
+                    { day: "Sat", width: 90, value: "$820" },
+                    { day: "Sun", width: 58, value: "$530" },
+                  ]).map((item, index) => (
+                    <div key={index} className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      <span className={`text-xs text-muted-foreground w-6`}>{item.day}</span>
+                      <div className="flex-1 h-5 bg-background/50 rounded overflow-hidden">
+                        <div 
+                          className={`h-full bg-muted-foreground/50 rounded transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
+                          style={{ width: `${item.width}%`, minWidth: item.width > 0 ? '8px' : '0' }}
+                        />
+                      </div>
+                      <span className={`text-xs font-medium text-muted-foreground w-14 font-mono ${isRTL ? 'text-left' : 'text-right'}`}>
+                        {item.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <div className={`mt-3 pt-3 border-t border-border/30 flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <span className="text-sm text-muted-foreground">{isHebrew ? "סה״כ לפני שבועיים" : "Total 2 weeks ago"}</span>
+                  <span className="text-lg font-bold text-muted-foreground">{isHebrew ? "₪13,160" : "$4,190"}</span>
+                </div>
+                <div className={`mt-2 flex items-center gap-1 ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
+                  <span className="text-xs text-green-500 font-medium">+11.7%</span>
+                  <span className="text-xs text-muted-foreground">{isHebrew ? "לעומת לפני שבועיים" : "vs 2 weeks ago"}</span>
                 </div>
               </div>
             </div>
