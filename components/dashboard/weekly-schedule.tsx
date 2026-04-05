@@ -41,7 +41,7 @@ interface Shift {
   day_of_week: number
   start_time: string
   end_time: string
-  is_available: boolean
+  is_working: boolean
   status: 'pending' | 'approved' | 'rejected'
   submitted_by: string | null
   notes: string | null
@@ -72,7 +72,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
   const [selectedDay, setSelectedDay] = useState<number>(0)
   const [startTime, setStartTime] = useState("09:00")
   const [endTime, setEndTime] = useState("17:00")
-  const [isAvailable, setIsAvailable] = useState(true)
+  const [isWorking, setIsWorking] = useState(true)
   const [notes, setNotes] = useState("")
   const [saving, setSaving] = useState(false)
   const [pendingCount, setPendingCount] = useState(0)
@@ -88,9 +88,12 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
 
   async function loadShifts() {
     setLoading(true)
+    console.log("[v0] loadShifts - teamMembers:", teamMembers, "shopId:", shopId)
     try {
       const memberIds = teamMembers.map(m => m.id)
+      console.log("[v0] loadShifts - memberIds:", memberIds)
       if (memberIds.length === 0) {
+        console.log("[v0] loadShifts - no members, returning empty")
         setShifts([])
         setLoading(false)
         return
@@ -103,18 +106,21 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
         .order("day_of_week")
         .order("start_time")
 
+      console.log("[v0] loadShifts - data:", data, "error:", error)
       if (error) throw error
       setShifts(data || [])
       setPendingCount((data || []).filter(s => s.status === 'pending').length)
     } catch (error) {
-      console.error("Error loading shifts:", error)
+      console.error("[v0] Error loading shifts:", error)
     } finally {
       setLoading(false)
     }
   }
 
   async function handleSaveShift() {
+    console.log("[v0] handleSaveShift - selectedMember:", selectedMember, "startTime:", startTime, "endTime:", endTime)
     if (!selectedMember || !startTime || !endTime) {
+      console.log("[v0] handleSaveShift - validation failed")
       toast.error(isHebrew ? "נא למלא את כל השדות" : "Please fill all fields")
       return
     }
@@ -125,6 +131,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
       // If staff submits, it's pending approval
       const status = isOwner ? 'approved' : 'pending'
       const submittedBy = isOwner ? null : currentUserId
+      console.log("[v0] handleSaveShift - status:", status, "isOwner:", isOwner)
 
       if (editingShift) {
         const { error } = await supabase
@@ -133,7 +140,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
             day_of_week: selectedDay,
             start_time: startTime,
             end_time: endTime,
-            is_available: isAvailable,
+            is_working: isWorking,
             notes: notes || null,
           })
           .eq("id", editingShift.id)
@@ -141,20 +148,25 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
         if (error) throw error
         toast.success(isHebrew ? "המשמרת עודכנה" : "Shift updated")
       } else {
-        const { error } = await supabase
+        const insertData = {
+          profile_id: selectedMember,
+          shop_id: shopId,
+          day_of_week: selectedDay,
+          start_time: startTime,
+          end_time: endTime,
+          is_working: isWorking,
+          status,
+          submitted_by: submittedBy,
+          notes: notes || null,
+        }
+        console.log("[v0] handleSaveShift - inserting:", insertData)
+        
+        const { error, data } = await supabase
           .from("team_shifts")
-          .insert({
-            profile_id: selectedMember,
-            shop_id: shopId,
-            day_of_week: selectedDay,
-            start_time: startTime,
-            end_time: endTime,
-            is_available: isAvailable,
-            status,
-            submitted_by: submittedBy,
-            notes: notes || null,
-          })
+          .insert(insertData)
+          .select()
 
+        console.log("[v0] handleSaveShift - insert result - error:", error, "data:", data)
         if (error) throw error
         
         if (isOwner) {
@@ -231,7 +243,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
     setSelectedDay(0)
     setStartTime("09:00")
     setEndTime("17:00")
-    setIsAvailable(true)
+    setIsWorking(true)
     setNotes("")
   }
 
@@ -241,7 +253,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
     setSelectedDay(shift.day_of_week)
     setStartTime(shift.start_time)
     setEndTime(shift.end_time)
-    setIsAvailable(shift.is_available)
+    setIsWorking(shift.is_working)
     setNotes(shift.notes || "")
     setIsDialogOpen(true)
   }
@@ -435,7 +447,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
 
               <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <Label>{isHebrew ? "זמין לעבודה" : "Available for work"}</Label>
-                <Switch checked={isAvailable} onCheckedChange={setIsAvailable} />
+                <Switch checked={isWorking} onCheckedChange={setIsWorking} />
               </div>
 
               <div className="space-y-2">
@@ -550,8 +562,8 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
                               className={cn(
                                 "rounded-md p-2 text-xs",
                                 shift.status === 'pending' && "bg-yellow-500/20 border border-yellow-500/30",
-                                shift.status === 'approved' && shift.is_available && "bg-green-500/20 border border-green-500/30",
-                                shift.status === 'approved' && !shift.is_available && "bg-red-500/20 border border-red-500/30",
+                                shift.status === 'approved' && shift.is_working && "bg-green-500/20 border border-green-500/30",
+                                shift.status === 'approved' && !shift.is_working && "bg-red-500/20 border border-red-500/30",
                                 shift.status === 'rejected' && "bg-secondary/50 border border-border opacity-50"
                               )}
                             >
