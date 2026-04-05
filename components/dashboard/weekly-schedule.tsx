@@ -83,6 +83,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
   const DAYS = isHebrew ? DAYS_HE : DAYS_EN
 
   useEffect(() => {
+    console.log("[v0] WeeklySchedule mounted", { shopId, teamMembers, isOwner, currentUserId })
     loadShifts()
   }, [shopId])
 
@@ -114,7 +115,10 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
   }
 
   async function handleSaveShift() {
+    console.log("[v0] handleSaveShift called", { selectedMember, startTime, endTime, isOwner, currentUserId, shopId })
+    
     if (!selectedMember || !startTime || !endTime) {
+      console.log("[v0] Validation failed - missing fields")
       toast.error(isHebrew ? "נא למלא את כל השדות" : "Please fill all fields")
       return
     }
@@ -125,6 +129,8 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
       // If staff submits, it's pending approval
       const status = isOwner ? 'approved' : 'pending'
       const submittedBy = isOwner ? null : currentUserId
+      
+      console.log("[v0] Preparing to insert/update shift", { status, submittedBy, selectedDay, isAvailable })
 
       if (editingShift) {
         const { error } = await supabase
@@ -141,9 +147,7 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
         if (error) throw error
         toast.success(isHebrew ? "המשמרת עודכנה" : "Shift updated")
       } else {
-        const { error } = await supabase
-          .from("team_shifts")
-          .insert({
+        const insertData = {
             profile_id: selectedMember,
             shop_id: shopId,
             day_of_week: selectedDay,
@@ -153,8 +157,15 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
             status,
             submitted_by: submittedBy,
             notes: notes || null,
-          })
+          }
+        console.log("[v0] Inserting shift data:", insertData)
+        
+        const { error, data } = await supabase
+          .from("team_shifts")
+          .insert(insertData)
+          .select()
 
+        console.log("[v0] Insert result:", { error, data })
         if (error) throw error
         
         if (isOwner) {
@@ -248,9 +259,14 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
 
   function openAddDialog() {
     resetForm()
+    console.log("[v0] openAddDialog - teamMembers:", teamMembers, "isOwner:", isOwner, "currentUserId:", currentUserId)
     // If not owner, pre-select self
     if (!isOwner && currentUserId) {
       setSelectedMember(currentUserId)
+    }
+    // If owner and only one team member, pre-select them
+    if (isOwner && teamMembers.length === 1) {
+      setSelectedMember(teamMembers[0].id)
     }
     setIsDialogOpen(true)
   }
@@ -344,7 +360,14 @@ export function WeeklySchedule({ shopId, teamMembers, isOwner = false, currentUs
               {isOwner && (
                 <div className="space-y-2">
                   <Label className={isRTL ? 'text-right block' : ''}>{isHebrew ? "חבר צוות" : "Team Member"}</Label>
-                  <Select value={selectedMember} onValueChange={setSelectedMember} disabled={!!editingShift}>
+                  <Select 
+                    value={selectedMember} 
+                    onValueChange={(val) => {
+                      console.log("[v0] Team member selected:", val)
+                      setSelectedMember(val)
+                    }} 
+                    disabled={!!editingShift}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder={isHebrew ? "בחר חבר צוות" : "Select team member"} />
                     </SelectTrigger>
