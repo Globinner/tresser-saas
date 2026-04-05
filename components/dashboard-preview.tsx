@@ -1,11 +1,13 @@
 "use client"
 
-import { TrendingUp, Users, DollarSign, Clock, MoreVertical, ArrowUpRight } from "lucide-react"
+import { useState } from "react"
+import { TrendingUp, Users, DollarSign, Clock, MoreVertical, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
 import { useLanguage } from "@/lib/i18n/language-context"
 
 export function DashboardPreview() {
   const { t, isRTL, locale, isLocaleReady } = useLanguage()
   const isHebrew = locale === 'he'
+  const [showLastWeek, setShowLastWeek] = useState(false)
   
   // Don't render until locale is FULLY determined to avoid flash of wrong language
   if (!isLocaleReady) {
@@ -75,14 +77,14 @@ export function DashboardPreview() {
         <div className={`max-w-6xl mx-auto ${isRTL ? 'rtl' : ''}`}>
           <div className="glass-strong rounded-3xl p-4 md:p-6 glow-amber-soft">
             {/* Dashboard Header */}
-            <div className={`flex items-center justify-between mb-6 pb-4 border-b border-border/30 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div className={isRTL ? 'text-right' : ''}>
+            <div className={`flex items-center justify-between mb-6 pb-4 border-b border-border/30`}>
+              <div className={`flex items-center gap-2`}>
+                <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                <span className="text-sm text-muted-foreground">14/03/2026</span>
+              </div>
+              <div className={isRTL ? 'text-right' : 'text-left'}>
                 <h3 className="text-xl font-semibold text-foreground">{t("dashboardPreview.greeting")}</h3>
                 <p className="text-sm text-muted-foreground">{t("dashboardPreview.subgreeting")}</p>
-              </div>
-              <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <span className="text-sm text-muted-foreground">14/03/2026</span>
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               </div>
             </div>
 
@@ -125,16 +127,20 @@ export function DashboardPreview() {
                   {appointments.map((apt, index) => (
                     <div 
                       key={index}
-                      className={`flex items-center gap-4 p-3 rounded-lg bg-background/50 hover:bg-background/80 transition-colors border border-transparent hover:border-primary/20 ${isRTL ? 'flex-row-reverse' : ''}`}
+                      className={`flex items-center gap-4 p-3 rounded-lg bg-background/50 hover:bg-background/80 transition-colors border border-transparent hover:border-primary/20`}
                     >
+                      {/* Time - always first visually */}
                       <span className="text-sm text-muted-foreground w-12 font-mono">{apt.time}</span>
+                      {/* Avatar */}
                       <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-sm font-semibold text-primary border border-primary/30">
                         {apt.avatar}
                       </div>
+                      {/* Name and service */}
                       <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
                         <p className="font-medium text-foreground truncate">{apt.client}</p>
                         <p className="text-sm text-muted-foreground truncate">{apt.service} • {apt.barber}</p>
                       </div>
+                      {/* Status badge */}
                       <div className={`px-2 py-1 rounded-full text-xs font-medium ${
                         apt.status === 'confirmed' 
                           ? 'bg-primary/10 text-primary border border-primary/30' 
@@ -142,6 +148,7 @@ export function DashboardPreview() {
                       }`}>
                         {apt.status === 'confirmed' ? t("appointments.status.confirmed") : t("appointments.status.scheduled")}
                       </div>
+                      {/* Menu dots - always last visually */}
                       <button className="p-2 text-muted-foreground hover:text-foreground transition-colors">
                         <MoreVertical className="w-4 h-4" />
                       </button>
@@ -150,92 +157,99 @@ export function DashboardPreview() {
                 </div>
               </div>
 
-              {/* This Week Revenue Chart */}
+              {/* Weekly Revenue Chart with Toggle */}
               <div className="bg-secondary/30 rounded-xl p-4 border border-border/30">
-                <h4 className={`font-semibold text-foreground mb-2 ${isRTL ? 'text-right' : ''}`}>{t("dashboardPreview.weeklyRevenue")}</h4>
-                <p className={`text-xs text-muted-foreground mb-4 ${isRTL ? 'text-right' : ''}`}>{isHebrew ? "השבוע הנוכחי" : "Current week"}</p>
+                <div className={`flex items-center justify-between mb-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <h4 className="font-semibold text-foreground">{t("dashboardPreview.weeklyRevenue")}</h4>
+                  <div className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                    <button 
+                      onClick={() => setShowLastWeek(false)}
+                      className={`p-1.5 rounded-md transition-colors ${!showLastWeek ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button 
+                      onClick={() => setShowLastWeek(true)}
+                      className={`p-1.5 rounded-md transition-colors ${showLastWeek ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+                <p className={`text-xs text-muted-foreground mb-4 ${isRTL ? 'text-right' : ''}`}>
+                  {showLastWeek 
+                    ? (isHebrew ? "שבוע שעבר" : "Last week") 
+                    : (isHebrew ? "השבוע הנוכחי" : "Current week")}
+                </p>
                 <div className="space-y-2">
-                  {(isHebrew ? [
-                    { day: "א׳", width: 56, value: "₪1,850" },
-                    { day: "ב׳", width: 70, value: "₪2,300" },
-                    { day: "ג׳", width: 52, value: "₪1,700" },
-                    { day: "ד׳", width: 78, value: "₪2,550" },
-                    { day: "ה׳", width: 92, value: "₪3,020" },
-                    { day: "ו׳", width: 100, value: "₪3,280" },
-                    { day: "ש׳", width: 3, value: "₪0" },
-                  ] : [
-                    { day: "Mon", width: 57, value: "$520" },
-                    { day: "Tue", width: 71, value: "$650" },
-                    { day: "Wed", width: 52, value: "$480" },
-                    { day: "Thu", width: 78, value: "$720" },
-                    { day: "Fri", width: 92, value: "$850" },
-                    { day: "Sat", width: 100, value: "$920" },
-                    { day: "Sun", width: 66, value: "$610" },
-                  ]).map((item, index) => (
+                  {(showLastWeek 
+                    ? (isHebrew ? [
+                        { day: "א׳", width: 48, value: "₪1,580" },
+                        { day: "ב׳", width: 62, value: "₪2,050" },
+                        { day: "ג׳", width: 45, value: "₪1,480" },
+                        { day: "ד׳", width: 70, value: "₪2,300" },
+                        { day: "ה׳", width: 85, value: "₪2,800" },
+                        { day: "ו׳", width: 90, value: "₪2,950" },
+                        { day: "ש׳", width: 3, value: "₪0" },
+                      ] : [
+                        { day: "Mon", width: 48, value: "$440" },
+                        { day: "Tue", width: 62, value: "$570" },
+                        { day: "Wed", width: 45, value: "$410" },
+                        { day: "Thu", width: 70, value: "$640" },
+                        { day: "Fri", width: 85, value: "$780" },
+                        { day: "Sat", width: 90, value: "$820" },
+                        { day: "Sun", width: 58, value: "$530" },
+                      ])
+                    : (isHebrew ? [
+                        { day: "א׳", width: 56, value: "₪1,850" },
+                        { day: "ב׳", width: 70, value: "₪2,300" },
+                        { day: "ג׳", width: 52, value: "₪1,700" },
+                        { day: "ד׳", width: 78, value: "₪2,550" },
+                        { day: "ה׳", width: 92, value: "₪3,020" },
+                        { day: "ו׳", width: 100, value: "₪3,280" },
+                        { day: "ש׳", width: 3, value: "₪0" },
+                      ] : [
+                        { day: "Mon", width: 57, value: "$520" },
+                        { day: "Tue", width: 71, value: "$650" },
+                        { day: "Wed", width: 52, value: "$480" },
+                        { day: "Thu", width: 78, value: "$720" },
+                        { day: "Fri", width: 92, value: "$850" },
+                        { day: "Sat", width: 100, value: "$920" },
+                        { day: "Sun", width: 66, value: "$610" },
+                      ])
+                  ).map((item, index) => (
                     <div key={index} className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                       <span className={`text-xs text-muted-foreground w-6`}>{item.day}</span>
-                      <div className="flex-1 h-5 bg-background/50 rounded overflow-hidden">
+                      <div className="flex-1 h-8 bg-background/50 rounded-md overflow-hidden">
                         <div 
-                          className={`h-full bg-primary rounded transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
-                          style={{ width: `${item.width}%`, minWidth: item.width > 0 ? '8px' : '0' }}
+                          className={`h-full ${showLastWeek ? 'bg-muted-foreground/60' : 'bg-primary'} rounded-md transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
+                          style={{ width: `${item.width}%`, minWidth: item.width > 0 ? '12px' : '0' }}
                         />
                       </div>
-                      <span className={`text-xs font-medium text-foreground w-14 font-mono ${isRTL ? 'text-left' : 'text-right'}`}>
+                      <span className={`text-xs font-medium ${showLastWeek ? 'text-muted-foreground' : 'text-foreground'} w-14 font-mono ${isRTL ? 'text-left' : 'text-right'}`}>
                         {item.value}
                       </span>
                     </div>
                   ))}
                 </div>
-                <div className={`mt-3 pt-3 border-t border-border/30 flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <span className="text-sm text-muted-foreground">{isHebrew ? "סה״כ השבוע" : "Total this week"}</span>
-                  <span className="text-lg font-bold text-primary">{isHebrew ? "₪14,700" : "$4,750"}</span>
+                <div className={`mt-4 pt-4 border-t border-border/30 flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <span className="text-sm text-muted-foreground">
+                    {showLastWeek 
+                      ? (isHebrew ? "סה״כ שבוע שעבר" : "Total last week")
+                      : (isHebrew ? "סה״כ השבוע" : "Total this week")}
+                  </span>
+                  <span className={`text-xl font-bold ${showLastWeek ? 'text-muted-foreground' : 'text-primary'}`}>
+                    {showLastWeek 
+                      ? (isHebrew ? "₪13,160" : "$4,190")
+                      : (isHebrew ? "₪14,700" : "$4,750")}
+                  </span>
                 </div>
-              </div>
-
-              {/* Last Week Comparison Chart */}
-              <div className="bg-secondary/30 rounded-xl p-4 border border-border/30">
-                <h4 className={`font-semibold text-foreground mb-2 ${isRTL ? 'text-right' : ''}`}>{isHebrew ? "השוואה לשבוע שעבר" : "Last Week Comparison"}</h4>
-                <p className={`text-xs text-muted-foreground mb-4 ${isRTL ? 'text-right' : ''}`}>{isHebrew ? "לפני שבועיים" : "2 weeks ago"}</p>
-                <div className="space-y-2">
-                  {(isHebrew ? [
-                    { day: "א׳", width: 48, value: "₪1,580" },
-                    { day: "ב׳", width: 62, value: "₪2,050" },
-                    { day: "ג׳", width: 45, value: "₪1,480" },
-                    { day: "ד׳", width: 70, value: "₪2,300" },
-                    { day: "ה׳", width: 85, value: "₪2,800" },
-                    { day: "ו׳", width: 90, value: "₪2,950" },
-                    { day: "ש׳", width: 3, value: "₪0" },
-                  ] : [
-                    { day: "Mon", width: 48, value: "$440" },
-                    { day: "Tue", width: 62, value: "$570" },
-                    { day: "Wed", width: 45, value: "$410" },
-                    { day: "Thu", width: 70, value: "$640" },
-                    { day: "Fri", width: 85, value: "$780" },
-                    { day: "Sat", width: 90, value: "$820" },
-                    { day: "Sun", width: 58, value: "$530" },
-                  ]).map((item, index) => (
-                    <div key={index} className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                      <span className={`text-xs text-muted-foreground w-6`}>{item.day}</span>
-                      <div className="flex-1 h-5 bg-background/50 rounded overflow-hidden">
-                        <div 
-                          className={`h-full bg-muted-foreground/50 rounded transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
-                          style={{ width: `${item.width}%`, minWidth: item.width > 0 ? '8px' : '0' }}
-                        />
-                      </div>
-                      <span className={`text-xs font-medium text-muted-foreground w-14 font-mono ${isRTL ? 'text-left' : 'text-right'}`}>
-                        {item.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-                <div className={`mt-3 pt-3 border-t border-border/30 flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <span className="text-sm text-muted-foreground">{isHebrew ? "סה״כ לפני שבועיים" : "Total 2 weeks ago"}</span>
-                  <span className="text-lg font-bold text-muted-foreground">{isHebrew ? "₪13,160" : "$4,190"}</span>
-                </div>
-                <div className={`mt-2 flex items-center gap-1 ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
-                  <span className="text-xs text-green-500 font-medium">+11.7%</span>
-                  <span className="text-xs text-muted-foreground">{isHebrew ? "לעומת לפני שבועיים" : "vs 2 weeks ago"}</span>
-                </div>
+                {showLastWeek && (
+                  <div className={`mt-3 flex items-center gap-2 ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
+                    <span className="text-sm text-green-500 font-bold">+11.7%</span>
+                    <span className="text-xs text-muted-foreground">{isHebrew ? "השבוע לעומת שבוע שעבר" : "this week vs last"}</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
