@@ -28,7 +28,8 @@ import {
   Bell, Camera, BarChart3, CheckCircle, Play, UserPlus,
   FlaskConical, ArrowLeft, TrendingUp, AlertTriangle,
   LayoutDashboard, UsersRound, Settings, Phone, Mail,
-  ChevronRight, ChevronLeft, X, Plus, Search, TrendingDown, Star
+  ChevronRight, ChevronLeft, X, Plus, Search, TrendingDown, Star,
+  CalendarDays
 } from "lucide-react"
 import {
   BarChart,
@@ -563,7 +564,7 @@ const PREFERENCE_OPTIONS_EN = {
 
 const PREFERENCE_OPTIONS_HE = {
   styles: ["פייד נמוך", "פייד בינוני", "פייד גבוה", "סקין פייד", "טייפר", "באז קאט", "פומפדור"],
-  cutting: ["מספריים בלבד", "מכונה בלבד", "ש��יהם"],
+  cutting: ["מספריים בלבד", "מכונה בלבד", "ש����יהם"],
   allergies: ["צבע שיער", "הבהרה", "לטקס", "ג׳לים מסוימים", "בשמים"],
   other: ["קרקפת רגישה", "שיער דליל", "עיצוב זקן", "מגבת חמה", "קו"]
 }
@@ -1147,6 +1148,96 @@ export default function DemoPage() {
                       </CardContent>
                     </Card>
                   </div>
+
+                  {/* Weekly Team Schedule */}
+                  <Card>
+                    <CardHeader className={`flex flex-row items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      <div>
+                        <CardTitle className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <CalendarDays className="w-5 h-5 text-primary" />
+                          {isHebrew ? "לוח משמרות שבועי" : "Weekly Team Schedule"}
+                        </CardTitle>
+                        <CardDescription>{isHebrew ? "זמינות הצוות השבוע" : "Team availability this week"}</CardDescription>
+                      </div>
+                      <Badge variant="outline" className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
+                        {isHebrew ? "2 ממתינים לאישור" : "2 pending approval"}
+                      </Badge>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="overflow-x-auto">
+                        <table className="w-full min-w-[600px]">
+                          <thead>
+                            <tr className="border-b border-border">
+                              <th className={`${isRTL ? 'text-right' : 'text-left'} py-3 px-4 font-medium`}>{isHebrew ? "חבר צוות" : "Team Member"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "א׳" : "Sun"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ב׳" : "Mon"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ג׳" : "Tue"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ד׳" : "Wed"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ה׳" : "Thu"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ו׳" : "Fri"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ש׳" : "Sat"}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {(isHebrew ? [
+                              { name: "מיכאל כ.", schedule: [true, true, true, true, true, false, false], hours: "09:00-18:00", pending: false },
+                              { name: "שרה ל.", schedule: [true, true, true, true, true, false, false], hours: "10:00-19:00", pending: false },
+                              { name: "יעקב מ.", schedule: [true, true, true, true, true, false, false], hours: "09:00-17:00", pending: true },
+                              { name: "דוד פ.", schedule: [true, true, true, true, true, false, false], hours: "11:00-20:00", pending: true },
+                            ] : [
+                              { name: "Mike R.", schedule: [false, true, true, true, true, true, false], hours: "9AM-6PM", pending: false },
+                              { name: "Sarah K.", schedule: [false, true, true, true, true, true, false], hours: "10AM-7PM", pending: false },
+                              { name: "James W.", schedule: [false, true, true, true, true, false, false], hours: "9AM-5PM", pending: true },
+                              { name: "David P.", schedule: [true, false, true, true, true, true, false], hours: "11AM-8PM", pending: true },
+                            ]).map((member, i) => (
+                              <tr key={i} className="border-b border-border/50">
+                                <td className={`py-3 px-4 ${isRTL ? 'text-right' : ''}`}>
+                                  <div className="flex items-center gap-2">
+                                    <div className="font-medium">{member.name}</div>
+                                    {member.pending && (
+                                      <Badge variant="outline" className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 text-[10px]">
+                                        {isHebrew ? "ממתין" : "Pending"}
+                                      </Badge>
+                                    )}
+                                  </div>
+                                  <div className="text-xs text-muted-foreground">{member.hours}</div>
+                                </td>
+                                {member.schedule.map((working, j) => (
+                                  <td key={j} className="text-center py-3 px-2">
+                                    <div className={`w-6 h-6 mx-auto rounded-full flex items-center justify-center ${
+                                      working 
+                                        ? member.pending 
+                                          ? 'bg-yellow-500/30' 
+                                          : 'bg-green-500/30'
+                                        : 'bg-muted'
+                                    }`}>
+                                      {working && (
+                                        <CheckCircle className={`h-5 w-5 ${member.pending ? 'text-yellow-500' : 'text-green-500'}`} />
+                                      )}
+                                    </div>
+                                  </td>
+                                ))}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className={`mt-4 pt-4 border-t border-border/30 flex items-center gap-4 ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
+                        <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <div className="w-3 h-3 rounded-full bg-green-500" />
+                          <span className="text-xs text-muted-foreground">{isHebrew ? "מאושר" : "Approved"}</span>
+                        </div>
+                        <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                          <span className="text-xs text-muted-foreground">{isHebrew ? "ממתין לאישור" : "Pending"}</span>
+                        </div>
+                        <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <div className="w-3 h-3 rounded-full bg-muted" />
+                          <span className="text-xs text-muted-foreground">{isHebrew ? "יום חופש" : "Day off"}</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
               )}
 
@@ -1866,25 +1957,33 @@ name === "revenue" ? `${currency}${value.toLocaleString()}` : value,
                         <table className="w-full min-w-[600px]">
                           <thead>
                             <tr className="border-b border-border">
-                              <th className="text-left py-3 px-4 font-medium">Team Member</th>
-                              <th className="text-center py-3 px-2 font-medium">Mon</th>
-                              <th className="text-center py-3 px-2 font-medium">Tue</th>
-                              <th className="text-center py-3 px-2 font-medium">Wed</th>
-                              <th className="text-center py-3 px-2 font-medium">Thu</th>
-                              <th className="text-center py-3 px-2 font-medium">Fri</th>
-                              <th className="text-center py-3 px-2 font-medium">Sat</th>
-                              <th className="text-center py-3 px-2 font-medium">Sun</th>
+                              <th className={`${isRTL ? 'text-right' : 'text-left'} py-3 px-4 font-medium`}>{isHebrew ? "חבר צוות" : "Team Member"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "א׳" : "Mon"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ב׳" : "Tue"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ג׳" : "Wed"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ד׳" : "Thu"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ה׳" : "Fri"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ו׳" : "Sat"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ש׳" : "Sun"}</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {[
-                              { name: "Mike R.", schedule: [true, true, true, true, true, true, false] },
-                              { name: "Sarah K.", schedule: [false, true, true, true, true, true, false] },
-                              { name: "James W.", schedule: [true, true, true, true, true, false, false] },
-                              { name: "David P.", schedule: [false, false, true, true, true, true, true] },
-                            ].map((member, i) => (
+                            {(isHebrew ? [
+                              { name: "מיכאל כ.", schedule: [true, true, true, true, true, false, false], hours: "09:00-18:00" },
+                              { name: "שרה ל.", schedule: [true, true, true, true, true, false, false], hours: "10:00-19:00" },
+                              { name: "יעקב מ.", schedule: [true, true, true, true, true, false, false], hours: "09:00-17:00" },
+                              { name: "דוד פ.", schedule: [true, true, true, true, true, false, false], hours: "11:00-20:00" },
+                            ] : [
+                              { name: "Mike R.", schedule: [true, true, true, true, true, true, false], hours: "9AM-6PM" },
+                              { name: "Sarah K.", schedule: [false, true, true, true, true, true, false], hours: "10AM-7PM" },
+                              { name: "James W.", schedule: [true, true, true, true, true, false, false], hours: "9AM-5PM" },
+                              { name: "David P.", schedule: [false, false, true, true, true, true, true], hours: "11AM-8PM" },
+                            ]).map((member, i) => (
                               <tr key={i} className="border-b border-border/50">
-                                <td className="py-3 px-4 font-medium">{member.name}</td>
+                                <td className={`py-3 px-4 font-medium ${isRTL ? 'text-right' : ''}`}>
+                                  <div>{member.name}</div>
+                                  <div className="text-xs text-muted-foreground">{member.hours}</div>
+                                </td>
                                 {member.schedule.map((working, j) => (
                                   <td key={j} className="text-center py-3 px-2">
                                     <div className={`w-6 h-6 mx-auto rounded-full ${working ? 'bg-green-500/30' : 'bg-muted'}`}>

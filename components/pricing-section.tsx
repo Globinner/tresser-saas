@@ -64,6 +64,7 @@ export function PricingSection() {
       features: isHebrew ? [
         "הכל בסולו",
         "ניהול צוות (עד 5)",
+        "לוח משמרות שבועי",
         "דף הזמנות מקוון",
         "דוחות שכר",
         "תזכורות WhatsApp",
@@ -74,6 +75,7 @@ export function PricingSection() {
       ] : [
         "Everything in Solo",
         "Team management (up to 5)",
+        "Weekly team schedule",
         "Online booking page",
         "Payroll reports",
         "WhatsApp reminders",
@@ -96,6 +98,7 @@ export function PricingSection() {
         "הכל במקצועי",
         "עד 3 סניפים",
         "חברי צוות ללא הגבלה",
+        "לוח משמרות לכל הסניפים",
         "דוחות שכר",
         "תזכורות WhatsApp",
         "ניתוח לפי סניף",
@@ -104,6 +107,7 @@ export function PricingSection() {
         "Everything in Pro",
         "Up to 3 locations",
         "Unlimited team members",
+        "Team schedule for all branches",
         "Payroll reports",
         "WhatsApp reminders",
         "Branch analytics",

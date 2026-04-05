@@ -202,6 +202,10 @@
       "title": "Walk-in Queue",
       "description": "Manage walk-in clients with real-time queue tracking and estimated wait times."
     },
+    "teamSchedule": {
+      "title": "Team Schedule",
+      "description": "Manage team shifts, receive availability requests from staff, and approve them easily. View the weekly work schedule."
+    },
     "inventory": {
       "title": "Inventory Tracking",
       "description": "Never run out of supplies. Track stock levels and get alerts when items are low."
