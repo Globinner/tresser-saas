@@ -1057,7 +1057,7 @@ export default function DemoPage() {
                       </CardContent>
                     </Card>
 
-                    {/* Revenue Chart */}
+                    {/* Weekly Revenue Chart */}
                     <Card>
                       <CardHeader>
                         <CardTitle>{t("demo.weeklyRevenueLabel")}</CardTitle>
