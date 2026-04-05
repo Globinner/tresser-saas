@@ -24,9 +24,14 @@ export function RevenueChart({ shopId }: RevenueChartProps) {
 
   useEffect(() => {
     async function fetchData() {
+      // Use index-based array to maintain order
+      const localDayNames = isHebrew 
+        ? ["א׳", "ב׳", "ג׳", "ד׳", "ה׳", "ו׳", "ש׳"]
+        : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+      
       if (!shopId) {
-        // Show empty data if no shop - all zeros
-        const emptyData = dayNames.map((day) => ({
+        // Show empty data if no shop - all zeros, starting from Sunday
+        const emptyData = localDayNames.map((day) => ({
           day,
           revenue: 0,
         }))
@@ -64,36 +69,23 @@ export function RevenueChart({ shopId }: RevenueChartProps) {
           .lte("created_at", lastWeekEndDate.toISOString())
       ])
 
-      // Process current week
-      const currentRevenueByDay: Record<string, number> = {}
-      for (let i = 0; i < 7; i++) {
-        const date = new Date()
-        date.setDate(date.getDate() - (6 - i))
-        const dayIndex = date.getDay()
-        currentRevenueByDay[dayNames[dayIndex]] = 0
-      }
+      // Process current week - use array index to maintain order
+      const currentRevenueByIndex: number[] = [0, 0, 0, 0, 0, 0, 0]
       currentWeekResult.data?.forEach((t) => {
         const dayIndex = new Date(t.created_at).getDay()
-        const dayName = dayNames[dayIndex]
-        currentRevenueByDay[dayName] = (currentRevenueByDay[dayName] || 0) + Number(t.amount)
+        currentRevenueByIndex[dayIndex] += Number(t.amount)
       })
 
       // Process last week
-      const lastRevenueByDay: Record<string, number> = {}
-      for (let i = 0; i < 7; i++) {
-        const date = new Date()
-        date.setDate(date.getDate() - (13 - i))
-        const dayIndex = date.getDay()
-        lastRevenueByDay[dayNames[dayIndex]] = 0
-      }
+      const lastRevenueByIndex: number[] = [0, 0, 0, 0, 0, 0, 0]
       lastWeekResult.data?.forEach((t) => {
         const dayIndex = new Date(t.created_at).getDay()
-        const dayName = dayNames[dayIndex]
-        lastRevenueByDay[dayName] = (lastRevenueByDay[dayName] || 0) + Number(t.amount)
+        lastRevenueByIndex[dayIndex] += Number(t.amount)
       })
 
-      setCurrentWeekData(Object.entries(currentRevenueByDay).map(([day, revenue]) => ({ day, revenue })))
-      setLastWeekData(Object.entries(lastRevenueByDay).map(([day, revenue]) => ({ day, revenue })))
+      // Convert to array with day names in correct order
+      setCurrentWeekData(localDayNames.map((day, i) => ({ day, revenue: currentRevenueByIndex[i] })))
+      setLastWeekData(localDayNames.map((day, i) => ({ day, revenue: lastRevenueByIndex[i] })))
       setLoading(false)
     }
 

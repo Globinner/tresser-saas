@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { createClient } from "@/lib/supabase/client"
 import { toast } from "sonner"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 interface Appointment {
   id: string
@@ -59,6 +60,8 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
   const supabase = createClient()
   const [refreshing, setRefreshing] = useState(false)
   const [updating, setUpdating] = useState<string | null>(null)
+  const { locale, isRTL } = useLanguage()
+  const isHebrew = locale === 'he'
 
   const handleRefresh = () => {
     setRefreshing(true)
@@ -113,22 +116,22 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
 
   return (
     <div className="glass rounded-xl p-4 sm:p-6 overflow-hidden">
-      <div className="flex items-center justify-between mb-4 sm:mb-6">
-        <h2 className="text-lg font-semibold">Today&apos;s Schedule</h2>
-        <div className="flex items-center gap-1 sm:gap-2">
+      <div className={`flex items-center justify-between mb-4 sm:mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <h2 className="text-lg font-semibold">{isHebrew ? "לוח זמנים להיום" : "Today's Schedule"}</h2>
+        <div className={`flex items-center gap-1 sm:gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <Button 
             variant="ghost" 
             size="icon"
             className="h-8 w-8"
             onClick={handleRefresh}
             disabled={refreshing}
-            title="Refresh"
+            title={isHebrew ? "רענן" : "Refresh"}
           >
             <RefreshCw className={cn("w-4 h-4", refreshing && "animate-spin")} />
           </Button>
           <Link href="/dashboard/appointments">
             <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80 text-xs sm:text-sm px-2 sm:px-3">
-              View all
+              {isHebrew ? "הצג הכל" : "View all"}
             </Button>
           </Link>
         </div>
@@ -139,10 +142,10 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
           <div className="w-16 h-16 rounded-full bg-secondary/50 flex items-center justify-center mx-auto mb-4">
             <Clock className="w-8 h-8 text-muted-foreground" />
           </div>
-          <p className="text-muted-foreground">No appointments today</p>
+          <p className="text-muted-foreground">{isHebrew ? "אין תורים להיום" : "No appointments today"}</p>
           <Link href="/dashboard/appointments">
             <Button variant="outline" size="sm" className="mt-4">
-              Schedule one
+              {isHebrew ? "קבע תור" : "Schedule one"}
             </Button>
           </Link>
         </div>
