@@ -174,10 +174,10 @@ export function DashboardPreview() {
                   ]).map((item, index) => (
                     <div key={index} className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                       <span className={`text-xs text-muted-foreground w-6`}>{item.day}</span>
-                      <div className="flex-1 h-5 bg-background/50 rounded overflow-hidden">
+                      <div className="flex-1 h-8 bg-background/50 rounded-md overflow-hidden">
                         <div 
-                          className={`h-full bg-primary rounded transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
-                          style={{ width: `${item.width}%`, minWidth: item.width > 0 ? '8px' : '0' }}
+                          className={`h-full bg-primary rounded-md transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
+                          style={{ width: `${item.width}%`, minWidth: item.width > 0 ? '12px' : '0' }}
                         />
                       </div>
                       <span className={`text-xs font-medium text-foreground w-14 font-mono ${isRTL ? 'text-left' : 'text-right'}`}>
@@ -186,9 +186,9 @@ export function DashboardPreview() {
                     </div>
                   ))}
                 </div>
-                <div className={`mt-3 pt-3 border-t border-border/30 flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <div className={`mt-4 pt-4 border-t border-border/30 flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <span className="text-sm text-muted-foreground">{isHebrew ? "סה״כ השבוע" : "Total this week"}</span>
-                  <span className="text-lg font-bold text-primary">{isHebrew ? "₪14,700" : "$4,750"}</span>
+                  <span className="text-xl font-bold text-primary">{isHebrew ? "₪14,700" : "$4,750"}</span>
                 </div>
               </div>
 
@@ -196,7 +196,7 @@ export function DashboardPreview() {
               <div className="bg-secondary/30 rounded-xl p-4 border border-border/30">
                 <h4 className={`font-semibold text-foreground mb-2 ${isRTL ? 'text-right' : ''}`}>{isHebrew ? "השוואה לשבוע שעבר" : "Last Week Comparison"}</h4>
                 <p className={`text-xs text-muted-foreground mb-4 ${isRTL ? 'text-right' : ''}`}>{isHebrew ? "לפני שבועיים" : "2 weeks ago"}</p>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {(isHebrew ? [
                     { day: "א׳", width: 48, value: "₪1,580" },
                     { day: "ב׳", width: 62, value: "₪2,050" },
@@ -216,10 +216,10 @@ export function DashboardPreview() {
                   ]).map((item, index) => (
                     <div key={index} className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                       <span className={`text-xs text-muted-foreground w-6`}>{item.day}</span>
-                      <div className="flex-1 h-5 bg-background/50 rounded overflow-hidden">
+                      <div className="flex-1 h-8 bg-background/50 rounded-md overflow-hidden">
                         <div 
-                          className={`h-full bg-muted-foreground/50 rounded transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
-                          style={{ width: `${item.width}%`, minWidth: item.width > 0 ? '8px' : '0' }}
+                          className={`h-full bg-muted-foreground/60 rounded-md transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
+                          style={{ width: `${item.width}%`, minWidth: item.width > 0 ? '12px' : '0' }}
                         />
                       </div>
                       <span className={`text-xs font-medium text-muted-foreground w-14 font-mono ${isRTL ? 'text-left' : 'text-right'}`}>
@@ -228,12 +228,12 @@ export function DashboardPreview() {
                     </div>
                   ))}
                 </div>
-                <div className={`mt-3 pt-3 border-t border-border/30 flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <div className={`mt-4 pt-4 border-t border-border/30 flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <span className="text-sm text-muted-foreground">{isHebrew ? "סה״כ לפני שבועיים" : "Total 2 weeks ago"}</span>
-                  <span className="text-lg font-bold text-muted-foreground">{isHebrew ? "₪13,160" : "$4,190"}</span>
+                  <span className="text-xl font-bold text-muted-foreground">{isHebrew ? "₪13,160" : "$4,190"}</span>
                 </div>
-                <div className={`mt-2 flex items-center gap-1 ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
-                  <span className="text-xs text-green-500 font-medium">+11.7%</span>
+                <div className={`mt-3 flex items-center gap-2 ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
+                  <span className="text-sm text-green-500 font-bold">+11.7%</span>
                   <span className="text-xs text-muted-foreground">{isHebrew ? "לעומת לפני שבועיים" : "vs 2 weeks ago"}</span>
                 </div>
               </div>
