@@ -4,11 +4,11 @@ import { TrendingUp, Users, DollarSign, Clock, MoreVertical, ArrowUpRight } from
 import { useLanguage } from "@/lib/i18n/language-context"
 
 export function DashboardPreview() {
-  const { t, isRTL, locale, isLoading } = useLanguage()
+  const { t, isRTL, locale, isLocaleReady } = useLanguage()
   const isHebrew = locale === 'he'
   
-  // Don't render until locale is determined to avoid flash of wrong language
-  if (isLoading) {
+  // Don't render until locale is FULLY determined to avoid flash of wrong language
+  if (!isLocaleReady) {
     return (
       <section id="dashboard" className="relative py-24 md:py-32 overflow-hidden">
         <div className="container mx-auto px-6 flex justify-center items-center min-h-[600px]">
