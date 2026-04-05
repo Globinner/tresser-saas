@@ -101,7 +101,8 @@ export function PayrollDashboard({
 }: PayrollDashboardProps) {
   const router = useRouter()
   const supabase = createClient()
-  const { t, isRTL } = useLanguage()
+  const { t, isRTL, locale } = useLanguage()
+  const isHebrew = locale === 'he'
   const [selectedPeriod, setSelectedPeriod] = useState("current")
   const [editingMember, setEditingMember] = useState<TeamMember | null>(null)
   const [commissionType, setCommissionType] = useState<string>("percentage")
@@ -190,9 +191,9 @@ export function PayrollDashboard({
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold">Payroll</h1>
-          <p className="text-muted-foreground">Track earnings and commissions for your team</p>
+        <div className={isRTL ? "text-right" : ""}>
+          <h1 className="text-2xl font-bold">{isHebrew ? "שכר" : "Payroll"}</h1>
+          <p className="text-muted-foreground">{isHebrew ? "עקוב אחר הכנסות ועמלות לצוות שלך" : "Track earnings and commissions for your team"}</p>
         </div>
         <div className="flex items-center gap-3">
           <DropdownMenu>
@@ -205,19 +206,19 @@ export function PayrollDashboard({
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem onClick={() => setSelectedPeriod("current")}>
-                Current Month
+                {isHebrew ? "החודש הנוכחי" : "Current Month"}
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setSelectedPeriod("previous")}>
-                Previous Month
+                {isHebrew ? "החודש הקודם" : "Previous Month"}
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setSelectedPeriod("custom")}>
-                Custom Range
+                {isHebrew ? "טווח מותאם" : "Custom Range"}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <Button variant="outline" size="sm">
-            <Download className="w-4 h-4 mr-2" />
-            Export
+            <Download className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+            {isHebrew ? "ייצא" : "Export"}
           </Button>
         </div>
       </div>
@@ -226,9 +227,9 @@ export function PayrollDashboard({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="glass-card border-border">
           <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Total Revenue</p>
+            <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div className={isRTL ? 'text-right' : ''}>
+                <p className="text-sm text-muted-foreground">{isHebrew ? "סה״כ הכנסות" : "Total Revenue"}</p>
                 <p className="text-2xl font-bold text-primary">{formatCurrency(totalRevenue)}</p>
               </div>
               <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
@@ -240,9 +241,9 @@ export function PayrollDashboard({
 
         <Card className="glass-card border-border">
           <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Total Commissions</p>
+            <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div className={isRTL ? 'text-right' : ''}>
+                <p className="text-sm text-muted-foreground">{isHebrew ? "סה״כ עמלות" : "Total Commissions"}</p>
                 <p className="text-2xl font-bold">{formatCurrency(totalCommissions)}</p>
               </div>
               <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
@@ -254,9 +255,9 @@ export function PayrollDashboard({
 
         <Card className="glass-card border-border">
           <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Clients Served</p>
+            <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div className={isRTL ? 'text-right' : ''}>
+                <p className="text-sm text-muted-foreground">{isHebrew ? "לקוחות שרותו" : "Clients Served"}</p>
                 <p className="text-2xl font-bold">{totalClients}</p>
               </div>
               <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
@@ -268,9 +269,9 @@ export function PayrollDashboard({
 
         <Card className="glass-card border-border">
           <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Shop Profit</p>
+            <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div className={isRTL ? 'text-right' : ''}>
+                <p className="text-sm text-muted-foreground">{isHebrew ? "רווח העסק" : "Shop Profit"}</p>
                 <p className="text-2xl font-bold text-green-500">{formatCurrency(totalRevenue - totalCommissions)}</p>
               </div>
               <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
@@ -284,19 +285,19 @@ export function PayrollDashboard({
       {/* Team Payroll Table */}
       <Card className="glass-card border-border">
         <CardHeader>
-          <CardTitle>Team Earnings</CardTitle>
-          <CardDescription>Breakdown by team member for {formatDateRange()}</CardDescription>
+          <CardTitle>{isHebrew ? "הכנסות הצוות" : "Team Earnings"}</CardTitle>
+          <CardDescription>{isHebrew ? `פירוט לפי חבר צוות עבור ${formatDateRange()}` : `Breakdown by team member for ${formatDateRange()}`}</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Team Member</TableHead>
-                <TableHead className="text-center">Clients</TableHead>
-                <TableHead className="text-right">Revenue</TableHead>
-                <TableHead className="text-center">Commission Rate</TableHead>
-                <TableHead className="text-right">Earnings</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead className={isRTL ? 'text-right' : ''}>{isHebrew ? "חבר צוות" : "Team Member"}</TableHead>
+                <TableHead className="text-center">{isHebrew ? "לקוחות" : "Clients"}</TableHead>
+                <TableHead className={isRTL ? 'text-left' : 'text-right'}>{isHebrew ? "הכנסות" : "Revenue"}</TableHead>
+                <TableHead className="text-center">{isHebrew ? "אחוז עמלה" : "Commission Rate"}</TableHead>
+                <TableHead className={isRTL ? 'text-left' : 'text-right'}>{isHebrew ? "רווחים" : "Earnings"}</TableHead>
+                <TableHead className={isRTL ? 'text-left' : 'text-right'}>{isHebrew ? "פעולות" : "Actions"}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -366,7 +367,7 @@ export function PayrollDashboard({
               {payrollData.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
-                    No team members found. Add barbers to your team first.
+                    {isHebrew ? "לא נמצאו חברי צוות. הוסף ספרים לצוות שלך קודם." : "No team members found. Add barbers to your team first."}
                   </TableCell>
                 </TableRow>
               )}
@@ -378,23 +379,23 @@ export function PayrollDashboard({
       {/* Totals Row */}
       <Card className="glass-card border-border bg-secondary/30">
         <CardContent className="p-4">
-          <div className="flex items-center justify-between">
-            <span className="font-semibold">Period Totals</span>
-            <div className="flex items-center gap-8">
+          <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <span className="font-semibold">{isHebrew ? "סיכום תקופה" : "Period Totals"}</span>
+            <div className={`flex items-center gap-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <div className="text-center">
-                <p className="text-xs text-muted-foreground">Clients</p>
+                <p className="text-xs text-muted-foreground">{isHebrew ? "לקוחות" : "Clients"}</p>
                 <p className="font-bold">{totalClients}</p>
               </div>
               <div className="text-center">
-                <p className="text-xs text-muted-foreground">Revenue</p>
+                <p className="text-xs text-muted-foreground">{isHebrew ? "הכנסות" : "Revenue"}</p>
                 <p className="font-bold">{formatCurrency(totalRevenue)}</p>
               </div>
               <div className="text-center">
-                <p className="text-xs text-muted-foreground">Commissions</p>
+                <p className="text-xs text-muted-foreground">{isHebrew ? "עמלות" : "Commissions"}</p>
                 <p className="font-bold text-green-500">{formatCurrency(totalCommissions)}</p>
               </div>
               <div className="text-center">
-                <p className="text-xs text-muted-foreground">Shop Profit</p>
+                <p className="text-xs text-muted-foreground">{isHebrew ? "רווח העסק" : "Shop Profit"}</p>
                 <p className="font-bold text-primary">{formatCurrency(totalRevenue - totalCommissions)}</p>
               </div>
             </div>

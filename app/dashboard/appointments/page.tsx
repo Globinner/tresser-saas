@@ -2,8 +2,8 @@ import { Suspense } from "react"
 import { createClient } from "@/lib/supabase/server"
 import { AppointmentsList, RefreshButton } from "@/components/dashboard/appointments-list"
 import { NewAppointmentModal } from "@/components/dashboard/new-appointment-modal"
-import { Calendar, Plus } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { PageHeader } from "@/components/dashboard/page-header"
+import { NewAppointmentButton } from "@/components/dashboard/new-appointment-button"
 
 // Disable caching for this page - always fetch fresh data
 export const dynamic = "force-dynamic"
@@ -75,21 +75,21 @@ export default async function AppointmentsPage({
 
   return (
     <div className="space-y-6">
-      {/* Actions - New Appointment + Refresh on same line */}
-      <div className="flex items-center justify-end gap-3">
-        <RefreshButton />
-        <NewAppointmentModal
-          clients={clients || []}
-          services={services || []}
-          barbers={barbers || []}
-          shopId={shopId}
-          defaultOpen={showNewModal}
-        >
-          <Button className="bg-primary text-primary-foreground hover:bg-primary/90 glow-amber-soft">
-            <Plus className="w-4 h-4 mr-2" />
-            New Appointment
-          </Button>
-        </NewAppointmentModal>
+      {/* Header with actions */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <PageHeader titleKey="appointments.title" subtitleKey="appointments.subtitle" />
+        <div className="flex items-center gap-3">
+          <RefreshButton />
+          <NewAppointmentModal
+            clients={clients || []}
+            services={services || []}
+            barbers={barbers || []}
+            shopId={shopId}
+            defaultOpen={showNewModal}
+          >
+            <NewAppointmentButton />
+          </NewAppointmentModal>
+        </div>
       </div>
       
 

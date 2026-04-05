@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { WalkInQueue } from "@/components/dashboard/walk-in-queue"
+import { PageHeader } from "@/components/dashboard/page-header"
 import Link from "next/link"
 
 export default async function QueuePage() {
@@ -31,10 +32,7 @@ export default async function QueuePage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">Walk-in Queue</h1>
-        <p className="text-muted-foreground">Manage walk-in customers and wait times</p>
-      </div>
+      <PageHeader titleKey="queue.title" subtitleKey="queue.subtitle" />
       
       <WalkInQueue shopId={profile.shop_id} />
     </div>

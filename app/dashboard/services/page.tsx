@@ -1,8 +1,8 @@
 import { createClient } from "@/lib/supabase/server"
 import { ServicesList } from "@/components/dashboard/services-list"
 import { NewServiceModal } from "@/components/dashboard/new-service-modal"
-import { Plus } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { PageHeader } from "@/components/dashboard/page-header"
+import { AddServiceButton } from "@/components/dashboard/add-service-button"
 
 export default async function ServicesPage({
   searchParams,
@@ -37,15 +37,9 @@ export default async function ServicesPage({
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold">Services</h1>
-          <p className="text-muted-foreground">Manage your service offerings and pricing</p>
-        </div>
+        <PageHeader titleKey="services.title" subtitleKey="services.subtitle" />
         <NewServiceModal shopId={shopId} defaultOpen={showNewModal}>
-          <Button className="bg-primary text-primary-foreground hover:bg-primary/90 glow-amber-soft">
-            <Plus className="w-4 h-4 mr-2" />
-            Add Service
-          </Button>
+          <AddServiceButton />
         </NewServiceModal>
       </div>
 

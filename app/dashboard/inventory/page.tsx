@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { InventoryManagement } from "@/components/dashboard/inventory-management"
+import { PageHeader } from "@/components/dashboard/page-header"
 import Link from "next/link"
 
 export default async function InventoryPage() {
@@ -31,10 +32,7 @@ export default async function InventoryPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">Inventory</h1>
-        <p className="text-muted-foreground">Track products, supplies, and stock levels</p>
-      </div>
+      <PageHeader titleKey="inventory.title" subtitleKey="inventory.subtitle" />
       
       <InventoryManagement shopId={profile.shop_id} />
     </div>
