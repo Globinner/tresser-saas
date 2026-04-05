@@ -9,7 +9,8 @@ import {
   Beaker,
   Camera,
   Package,
-  UsersRound
+  UsersRound,
+  CalendarDays
 } from "lucide-react"
 import Image from "next/image"
 import { useLanguage } from "@/lib/i18n/language-context"
@@ -60,6 +61,12 @@ export function FeaturesGrid() {
       title: t("features.queue.title"),
       description: t("features.queue.description"),
       image: "/images/features/queue.jpg",
+    },
+    {
+      icon: CalendarDays,
+      title: t("features.teamSchedule.title"),
+      description: t("features.teamSchedule.description"),
+      image: "/images/features/scheduling.jpg",
     },
     {
       icon: Package,

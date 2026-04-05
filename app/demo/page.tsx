@@ -1866,25 +1866,33 @@ name === "revenue" ? `${currency}${value.toLocaleString()}` : value,
                         <table className="w-full min-w-[600px]">
                           <thead>
                             <tr className="border-b border-border">
-                              <th className="text-left py-3 px-4 font-medium">Team Member</th>
-                              <th className="text-center py-3 px-2 font-medium">Mon</th>
-                              <th className="text-center py-3 px-2 font-medium">Tue</th>
-                              <th className="text-center py-3 px-2 font-medium">Wed</th>
-                              <th className="text-center py-3 px-2 font-medium">Thu</th>
-                              <th className="text-center py-3 px-2 font-medium">Fri</th>
-                              <th className="text-center py-3 px-2 font-medium">Sat</th>
-                              <th className="text-center py-3 px-2 font-medium">Sun</th>
+                              <th className={`${isRTL ? 'text-right' : 'text-left'} py-3 px-4 font-medium`}>{isHebrew ? "חבר צוות" : "Team Member"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "א׳" : "Mon"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ב׳" : "Tue"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ג׳" : "Wed"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ד׳" : "Thu"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ה׳" : "Fri"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ו׳" : "Sat"}</th>
+                              <th className="text-center py-3 px-2 font-medium">{isHebrew ? "ש׳" : "Sun"}</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {[
-                              { name: "Mike R.", schedule: [true, true, true, true, true, true, false] },
-                              { name: "Sarah K.", schedule: [false, true, true, true, true, true, false] },
-                              { name: "James W.", schedule: [true, true, true, true, true, false, false] },
-                              { name: "David P.", schedule: [false, false, true, true, true, true, true] },
-                            ].map((member, i) => (
+                            {(isHebrew ? [
+                              { name: "מיכאל כ.", schedule: [true, true, true, true, true, false, false], hours: "09:00-18:00" },
+                              { name: "שרה ל.", schedule: [true, true, true, true, true, false, false], hours: "10:00-19:00" },
+                              { name: "יעקב מ.", schedule: [true, true, true, true, true, false, false], hours: "09:00-17:00" },
+                              { name: "דוד פ.", schedule: [true, true, true, true, true, false, false], hours: "11:00-20:00" },
+                            ] : [
+                              { name: "Mike R.", schedule: [true, true, true, true, true, true, false], hours: "9AM-6PM" },
+                              { name: "Sarah K.", schedule: [false, true, true, true, true, true, false], hours: "10AM-7PM" },
+                              { name: "James W.", schedule: [true, true, true, true, true, false, false], hours: "9AM-5PM" },
+                              { name: "David P.", schedule: [false, false, true, true, true, true, true], hours: "11AM-8PM" },
+                            ]).map((member, i) => (
                               <tr key={i} className="border-b border-border/50">
-                                <td className="py-3 px-4 font-medium">{member.name}</td>
+                                <td className={`py-3 px-4 font-medium ${isRTL ? 'text-right' : ''}`}>
+                                  <div>{member.name}</div>
+                                  <div className="text-xs text-muted-foreground">{member.hours}</div>
+                                </td>
                                 {member.schedule.map((working, j) => (
                                   <td key={j} className="text-center py-3 px-2">
                                     <div className={`w-6 h-6 mx-auto rounded-full ${working ? 'bg-green-500/30' : 'bg-muted'}`}>
