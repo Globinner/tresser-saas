@@ -146,15 +146,15 @@ export function DashboardPreview() {
               {/* Quick Stats Chart */}
               <div className="bg-secondary/30 rounded-xl p-4 border border-border/30">
                 <h4 className={`font-semibold text-foreground mb-4 ${isRTL ? 'text-right' : ''}`}>{t("dashboardPreview.weeklyRevenue")}</h4>
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {(isHebrew ? [
-                    { day: "א׳", width: 56, value: "₪1,850" },
-                    { day: "ב׳", width: 70, value: "₪2,300" },
-                    { day: "ג׳", width: 52, value: "₪1,700" },
-                    { day: "ד׳", width: 78, value: "₪2,550" },
-                    { day: "ה׳", width: 92, value: "₪3,020" },
-                    { day: "ו׳", width: 100, value: "₪3,280" },
-                    { day: "ש׳", width: 3, value: "₪0" },
+                    { day: "ראשון", width: 56, value: "₪1,850" },
+                    { day: "שני", width: 70, value: "₪2,300" },
+                    { day: "שלישי", width: 52, value: "₪1,700" },
+                    { day: "רביעי", width: 78, value: "₪2,550" },
+                    { day: "חמישי", width: 92, value: "₪3,020" },
+                    { day: "שישי", width: 100, value: "₪3,280" },
+                    { day: "שבת", width: 3, value: "₪0" },
                   ] : [
                     { day: t("dashboardPreview.days.mon"), width: 57, value: "$520" },
                     { day: t("dashboardPreview.days.tue"), width: 71, value: "$650" },
@@ -165,11 +165,11 @@ export function DashboardPreview() {
                     { day: t("dashboardPreview.days.sun"), width: 66, value: "$610" },
                   ]).map((item, index) => (
                     <div key={index} className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                      <span className="text-xs text-muted-foreground w-8">{item.day}</span>
-                      <div className="flex-1 h-8 bg-background/50 rounded-full overflow-hidden">
+                      <span className={`text-xs text-muted-foreground ${isHebrew ? 'w-12' : 'w-8'}`}>{item.day}</span>
+                      <div className="flex-1 h-6 bg-background/50 rounded-lg overflow-hidden">
                         <div 
-                          className={`h-full bg-gradient-to-r from-primary/80 to-primary rounded-full transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
-                          style={{ width: `${item.width}%`, minWidth: item.width > 0 ? '8px' : '0' }}
+                          className={`h-full bg-primary rounded-lg transition-all duration-500 ${isRTL ? 'ml-auto' : ''}`}
+                          style={{ width: `${item.width}%`, minWidth: item.width > 0 ? '12px' : '0' }}
                         />
                       </div>
                       <span className={`text-xs font-medium text-foreground w-16 font-mono ${isRTL ? 'text-left' : 'text-right'}`}>
