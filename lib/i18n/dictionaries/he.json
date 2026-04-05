@@ -21,7 +21,9 @@
     "yes": "כן",
     "no": "לא",
     "or": "או",
-    "and": "ו"
+    "and": "ו",
+    "refresh": "רענן",
+    "viewAll": "הצג הכל"
   },
   "nav": {
     "features": "תכונות",
@@ -229,7 +231,17 @@
     "recentClients": "לקוחות אחרונים",
     "quickActions": "פעולות מהירות",
     "noAppointments": "אין תורים מתוזמנים",
-    "viewAll": "הצג הכל"
+    "viewAll": "הצג הכל",
+    "todayAppts": "תורים להיום",
+    "totalClients": "סה״כ לקוחות",
+    "todayRevenue": "הכנסות היום",
+    "monthlyRevenue": "הכנסות החודש",
+    "completed": "הושלמו",
+    "newClients": "לקוחות חדשים",
+    "todaySchedule": "לוח זמנים להיום",
+    "noAppointmentsToday": "אין תורים להיום",
+    "scheduleOne": "קבע תור",
+    "weeklyRevenue": "הכנסות שבועיות"
   },
   "dashboardPreview": {
     "badge": "לוח בקרה אינטואיטיבי",
@@ -569,7 +581,7 @@
     "subtitle": "ראה מה בעלי מספרות אומרים על Tresser",
     "sectionLabel": "המלצות",
     "sectionTitle": "מהימן על ידי",
-    "sectionTitleHighlight": "ספ��ים",
+    "sectionTitleHighlight": "ספ����ם",
     "sectionTitleEnd": "��רחבי העולם",
     "sectionSubtitle": "ראה מה בעלי מספרות אומרים על Tresser",
     "featured": "מומלץ",

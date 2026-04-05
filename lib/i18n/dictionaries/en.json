@@ -21,7 +21,9 @@
     "yes": "Yes",
     "no": "No",
     "or": "or",
-    "and": "and"
+    "and": "and",
+    "refresh": "Refresh",
+    "viewAll": "View all"
   },
   "nav": {
     "features": "Features",
@@ -230,7 +232,17 @@
     "recentClients": "Recent Clients",
     "quickActions": "Quick Actions",
     "noAppointments": "No appointments scheduled",
-    "viewAll": "View All"
+    "viewAll": "View All",
+    "todayAppts": "Today's Appts",
+    "totalClients": "Total Clients",
+    "todayRevenue": "Today's Revenue",
+    "monthlyRevenue": "Monthly Revenue",
+    "completed": "Completed",
+    "newClients": "New Clients",
+    "todaySchedule": "Today's Schedule",
+    "noAppointmentsToday": "No appointments today",
+    "scheduleOne": "Schedule one",
+    "weeklyRevenue": "Weekly Revenue"
   },
   "dashboardPreview": {
     "badge": "Intuitive Dashboard",
