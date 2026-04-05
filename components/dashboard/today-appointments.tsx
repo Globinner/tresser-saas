@@ -116,9 +116,13 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
 
   return (
     <div className="glass rounded-xl p-4 sm:p-6 overflow-hidden">
-      <div className={`flex items-center justify-between mb-4 sm:mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
-        <h2 className="text-lg font-semibold">{isHebrew ? "לוח זמנים להיום" : "Today's Schedule"}</h2>
-        <div className={`flex items-center gap-1 sm:gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
+        <div className={`flex items-center gap-1 sm:gap-2`}>
+          <Link href="/dashboard/appointments">
+            <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80 text-xs sm:text-sm px-2 sm:px-3">
+              {isHebrew ? "הצג הכל" : "View all"}
+            </Button>
+          </Link>
           <Button 
             variant="ghost" 
             size="icon"
@@ -129,12 +133,8 @@ export function TodayAppointments({ appointments }: TodayAppointmentsProps) {
           >
             <RefreshCw className={cn("w-4 h-4", refreshing && "animate-spin")} />
           </Button>
-          <Link href="/dashboard/appointments">
-            <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80 text-xs sm:text-sm px-2 sm:px-3">
-              {isHebrew ? "הצג הכל" : "View all"}
-            </Button>
-          </Link>
         </div>
+        <h2 className="text-lg font-semibold">{isHebrew ? "לוח זמנים להיום" : "Today's Schedule"}</h2>
       </div>
 
       {appointments.length === 0 ? (

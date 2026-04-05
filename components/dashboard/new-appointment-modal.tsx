@@ -13,6 +13,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { useLanguage } from "@/lib/i18n/language-context"
+import { cn } from "@/lib/utils"
 
 interface Client {
   id: string
@@ -62,6 +64,9 @@ export function NewAppointmentModal({
   const [date, setDate] = useState("")
   const [time, setTime] = useState("")
   const [notes, setNotes] = useState("")
+  const { locale, isRTL } = useLanguage()
+  const isHebrew = locale === 'he'
+  const currency = isHebrew ? '₪' : '$'
 
   // Filter clients based on search
   const filteredClients = useMemo(() => {
@@ -176,20 +181,20 @@ export function NewAppointmentModal({
       </DialogTrigger>
       <DialogContent className="glass-strong border-border sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold">New Appointment</DialogTitle>
+          <DialogTitle className="text-xl font-bold">{isHebrew ? "תור חדש" : "New Appointment"}</DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           {/* Client selection with search */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">
-              Client (optional for walk-ins)
+              {isHebrew ? "לקוח (אופציונלי לכניסה ללא תור)" : "Client (optional for walk-ins)"}
             </label>
             <div className="relative" ref={clientDropdownRef}>
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 type="text"
-                placeholder={selectedClient ? selectedClient.full_name : "Search or select client..."}
+                placeholder={selectedClient ? selectedClient.full_name : (isHebrew ? "חפש או בחר לקוח..." : "Search or select client...")}
                 value={clientSearch}
                 onChange={(e) => {
                   setClientSearch(e.target.value)
@@ -222,10 +227,10 @@ export function NewAppointmentModal({
                       setClientSearch("")
                       setShowClientDropdown(false)
                     }}
-                    className="w-full px-3 py-2 text-left text-sm hover:bg-primary/10 flex items-center gap-2 border-b border-border"
+                    className={cn("w-full px-3 py-2 text-sm hover:bg-primary/10 flex items-center gap-2 border-b border-border", isRTL ? "text-right flex-row-reverse" : "text-left")}
                   >
                     <UserPlus className="w-4 h-4 text-primary" />
-                    <span className="font-medium">Walk-in client</span>
+                    <span className="font-medium">{isHebrew ? "לקוח ללא תור" : "Walk-in client"}</span>
                   </button>
                   
                   {/* Client list */}
@@ -247,14 +252,14 @@ export function NewAppointmentModal({
                         <div className="flex-1 min-w-0">
                           <p className="font-medium truncate">{client.full_name}</p>
                           <p className="text-xs text-muted-foreground truncate">
-                            {client.phone || client.email || "No contact info"}
+                            {client.phone || client.email || (isHebrew ? "אין פרטי קשר" : "No contact info")}
                           </p>
                         </div>
                       </button>
                     ))
                   ) : (
                     <div className="px-3 py-4 text-sm text-muted-foreground text-center">
-                      No clients found
+                      {isHebrew ? "לא נמצאו לקוחות" : "No clients found"}
                     </div>
                   )}
                 </div>
@@ -274,24 +279,24 @@ export function NewAppointmentModal({
           {/* Service selection */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">
-              Service <span className="text-destructive">*</span>
+              {isHebrew ? "שירות" : "Service"} <span className="text-destructive">*</span>
             </label>
             <select
               value={serviceId}
               onChange={(e) => setServiceId(e.target.value)}
               required
-              className="w-full h-10 rounded-lg bg-input border border-border px-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary"
+              className={cn("w-full h-10 rounded-lg bg-input border border-border px-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary", isRTL && "text-right")}
             >
-              <option value="">Select a service</option>
+              <option value="">{isHebrew ? "בחר שירות" : "Select a service"}</option>
               {services.map((service) => (
                 <option key={service.id} value={service.id}>
-                  {service.name} - ${service.price} ({service.duration_minutes}min)
+                  {service.name} - {currency}{service.price} ({service.duration_minutes}{isHebrew ? "ד׳" : "min"})
                 </option>
               ))}
             </select>
             {selectedService && (
               <p className="text-xs text-muted-foreground">
-                Duration: {selectedService.duration_minutes} minutes
+                {isHebrew ? "משך:" : "Duration:"} {selectedService.duration_minutes} {isHebrew ? "דקות" : "minutes"}
               </p>
             )}
           </div>
@@ -299,18 +304,18 @@ export function NewAppointmentModal({
           {/* Barber selection */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">
-              Barber <span className="text-destructive">*</span>
+              {isHebrew ? "ספר" : "Barber"} <span className="text-destructive">*</span>
             </label>
             <select
               value={barberId}
               onChange={(e) => setBarberId(e.target.value)}
               required
-              className="w-full h-10 rounded-lg bg-input border border-border px-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary"
+              className={cn("w-full h-10 rounded-lg bg-input border border-border px-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary", isRTL && "text-right")}
             >
-              <option value="">Select a barber</option>
+              <option value="">{isHebrew ? "בחר ספר" : "Select a barber"}</option>
               {barbers.map((barber) => (
                 <option key={barber.id} value={barber.id}>
-                  {barber.full_name || "Unnamed Barber"}
+                  {barber.full_name || (isHebrew ? "ספר ללא שם" : "Unnamed Barber")}
                 </option>
               ))}
             </select>
@@ -320,7 +325,7 @@ export function NewAppointmentModal({
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">
-                Date <span className="text-destructive">*</span>
+                {isHebrew ? "תאריך" : "Date"} <span className="text-destructive">*</span>
               </label>
               <div className="relative">
                 <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -336,7 +341,7 @@ export function NewAppointmentModal({
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">
-                Time <span className="text-destructive">*</span>
+                {isHebrew ? "שעה" : "Time"} <span className="text-destructive">*</span>
               </label>
               <div className="relative">
                 <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -353,13 +358,13 @@ export function NewAppointmentModal({
 
           {/* Notes */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Notes</label>
+            <label className="text-sm font-medium text-foreground">{isHebrew ? "הערות" : "Notes"}</label>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Any special requests or notes..."
+              placeholder={isHebrew ? "בקשות מיוחדות או הערות..." : "Any special requests or notes..."}
               rows={3}
-              className="w-full rounded-lg bg-input border border-border px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary resize-none"
+              className={cn("w-full rounded-lg bg-input border border-border px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary resize-none", isRTL && "text-right")}
             />
           </div>
 
@@ -369,14 +374,14 @@ export function NewAppointmentModal({
             </div>
           )}
 
-          <div className="flex justify-end gap-3 pt-4">
+          <div className={cn("flex gap-3 pt-4", isRTL ? "justify-start flex-row-reverse" : "justify-end")}>
             <Button
               type="button"
               variant="outline"
               onClick={() => setOpen(false)}
               className="border-border"
             >
-              Cancel
+              {isHebrew ? "ביטול" : "Cancel"}
             </Button>
             <Button
               type="submit"
@@ -385,11 +390,11 @@ export function NewAppointmentModal({
             >
               {loading ? (
                 <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Creating...
+                  <Loader2 className={cn("w-4 h-4 animate-spin", isRTL ? "ml-2" : "mr-2")} />
+                  {isHebrew ? "יוצר..." : "Creating..."}
                 </>
               ) : (
-                "Create Appointment"
+                isHebrew ? "צור תור" : "Create Appointment"
               )}
             </Button>
           </div>

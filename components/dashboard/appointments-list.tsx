@@ -25,6 +25,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 interface Appointment {
   id: string
@@ -60,18 +61,20 @@ interface AppointmentsListProps {
   appointments: Appointment[]
 }
 
-const statusConfig = {
-  scheduled: { icon: Clock, color: "text-blue-400", bg: "bg-blue-400/10", label: "Scheduled" },
-  confirmed: { icon: AlertCircle, color: "text-primary", bg: "bg-primary/10", label: "Confirmed" },
-  completed: { icon: CheckCircle, color: "text-green-400", bg: "bg-green-400/10", label: "Completed" },
-  cancelled: { icon: XCircle, color: "text-red-400", bg: "bg-red-400/10", label: "Cancelled" },
-  "no-show": { icon: XCircle, color: "text-muted-foreground", bg: "bg-muted", label: "No Show" },
-}
+const getStatusConfig = (isHebrew: boolean) => ({
+  scheduled: { icon: Clock, color: "text-blue-400", bg: "bg-blue-400/10", label: isHebrew ? "מתוזמן" : "Scheduled" },
+  confirmed: { icon: AlertCircle, color: "text-primary", bg: "bg-primary/10", label: isHebrew ? "מאושר" : "Confirmed" },
+  completed: { icon: CheckCircle, color: "text-green-400", bg: "bg-green-400/10", label: isHebrew ? "הושלם" : "Completed" },
+  cancelled: { icon: XCircle, color: "text-red-400", bg: "bg-red-400/10", label: isHebrew ? "בוטל" : "Cancelled" },
+  "no-show": { icon: XCircle, color: "text-muted-foreground", bg: "bg-muted", label: isHebrew ? "לא הגיע" : "No Show" },
+})
 
 // Exported RefreshButton component
 export function RefreshButton() {
   const router = useRouter()
   const [refreshing, setRefreshing] = useState(false)
+  const { locale, isRTL } = useLanguage()
+  const isHebrew = locale === 'he'
 
   const handleRefresh = () => {
     setRefreshing(true)
@@ -86,8 +89,8 @@ export function RefreshButton() {
       onClick={handleRefresh}
       disabled={refreshing}
     >
-      <RefreshCw className={cn("w-4 h-4 mr-2", refreshing && "animate-spin")} />
-      Refresh
+      <RefreshCw className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2", refreshing && "animate-spin")} />
+      {isHebrew ? "רענן" : "Refresh"}
     </Button>
   )
 }
@@ -98,6 +101,9 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
   const [updating, setUpdating] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
   const [sendingReminder, setSendingReminder] = useState<string | null>(null)
+  const { locale, isRTL } = useLanguage()
+  const isHebrew = locale === 'he'
+  const statusConfig = getStatusConfig(isHebrew)
 
   const handleRefresh = () => {
     setRefreshing(true)
@@ -110,7 +116,7 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
     // Parse date as YYYY-MM-DD and format nicely
     const [year, month, day] = appointment.date.split('-').map(Number)
     const dateObj = new Date(year, month - 1, day)
-    const dateStr = dateObj.toLocaleDateString("en-US", {
+    const dateStr = dateObj.toLocaleDateString(isHebrew ? "he-IL" : "en-US", {
       weekday: "long",
       year: "numeric",
       month: "long",
@@ -190,9 +196,9 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
         <div className="w-20 h-20 rounded-full bg-secondary/50 flex items-center justify-center mx-auto mb-6">
           <Clock className="w-10 h-10 text-muted-foreground" />
         </div>
-        <h3 className="text-xl font-semibold mb-2">No appointments yet</h3>
+        <h3 className="text-xl font-semibold mb-2">{isHebrew ? "אין תורים עדיין" : "No appointments yet"}</h3>
         <p className="text-muted-foreground mb-6">
-          Get started by scheduling your first appointment
+          {isHebrew ? "התחל על ידי קביעת התור הראשון" : "Get started by scheduling your first appointment"}
         </p>
       </div>
     )
@@ -296,8 +302,8 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
                               onClick={() => sendReminder(appointment, 'whatsapp')}
                               disabled={sendingReminder === appointment.id}
                             >
-                              <MessageCircle className="w-4 h-4 mr-2 text-green-500" />
-                              Send WhatsApp Reminder
+                              <MessageCircle className={cn("w-4 h-4 text-green-500", isRTL ? "ml-2" : "mr-2")} />
+                              {isHebrew ? "שלח תזכורת בוואטסאפ" : "Send WhatsApp Reminder"}
                             </DropdownMenuItem>
                           )}
                           {(appointment.client_email || appointment.clients?.email) && (
@@ -305,28 +311,28 @@ export function AppointmentsList({ appointments }: AppointmentsListProps) {
                               onClick={() => sendReminder(appointment, 'email')}
                               disabled={sendingReminder === appointment.id}
                             >
-                              <Mail className="w-4 h-4 mr-2 text-blue-400" />
-                              Send Email Reminder
+                              <Mail className={cn("w-4 h-4 text-blue-400", isRTL ? "ml-2" : "mr-2")} />
+                              {isHebrew ? "שלח תזכורת באימייל" : "Send Email Reminder"}
                             </DropdownMenuItem>
                           )}
                           {(clientPhone || appointment.client_email || appointment.clients) && (
                             <div className="h-px bg-border my-1" />
                           )}
                           <DropdownMenuItem onClick={() => updateStatus(appointment.id, "confirmed")}>
-                            <AlertCircle className="w-4 h-4 mr-2 text-primary" />
-                            Mark Confirmed
+                            <AlertCircle className={cn("w-4 h-4 text-primary", isRTL ? "ml-2" : "mr-2")} />
+                            {isHebrew ? "סמן כמאושר" : "Mark Confirmed"}
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => updateStatus(appointment.id, "completed")}>
-                            <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
-                            Mark Completed
+                            <CheckCircle className={cn("w-4 h-4 text-green-400", isRTL ? "ml-2" : "mr-2")} />
+                            {isHebrew ? "סמן כהושלם" : "Mark Completed"}
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => updateStatus(appointment.id, "cancelled")}>
-                            <XCircle className="w-4 h-4 mr-2 text-red-400" />
-                            Cancel
+                            <XCircle className={cn("w-4 h-4 text-red-400", isRTL ? "ml-2" : "mr-2")} />
+                            {isHebrew ? "בטל" : "Cancel"}
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => updateStatus(appointment.id, "no-show")}>
-                            <XCircle className="w-4 h-4 mr-2 text-muted-foreground" />
-                            No Show
+                            <XCircle className={cn("w-4 h-4 text-muted-foreground", isRTL ? "ml-2" : "mr-2")} />
+                            {isHebrew ? "לא הגיע" : "No Show"}
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>

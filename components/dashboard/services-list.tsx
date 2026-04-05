@@ -21,6 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 interface Service {
   id: string
@@ -40,6 +41,9 @@ export function ServicesList({ services }: ServicesListProps) {
   const router = useRouter()
   const supabase = createClient()
   const [updating, setUpdating] = useState<string | null>(null)
+  const { locale, isRTL } = useLanguage()
+  const isHebrew = locale === 'he'
+  const currency = isHebrew ? '₪' : '$'
 
   async function toggleActive(serviceId: string, currentStatus: boolean) {
     setUpdating(serviceId)
@@ -52,7 +56,7 @@ export function ServicesList({ services }: ServicesListProps) {
   }
 
   async function handleDelete(serviceId: string) {
-    if (!confirm("Are you sure you want to delete this service?")) return
+    if (!confirm(isHebrew ? "האם אתה בטוח שברצונך למחוק שירות זה?" : "Are you sure you want to delete this service?")) return
     
     setUpdating(serviceId)
     await supabase.from("services").delete().eq("id", serviceId)
@@ -66,9 +70,9 @@ export function ServicesList({ services }: ServicesListProps) {
         <div className="w-20 h-20 rounded-full bg-secondary/50 flex items-center justify-center mx-auto mb-6">
           <Scissors className="w-10 h-10 text-muted-foreground" />
         </div>
-        <h3 className="text-xl font-semibold mb-2">No services yet</h3>
+        <h3 className="text-xl font-semibold mb-2">{isHebrew ? "אין שירותים עדיין" : "No services yet"}</h3>
         <p className="text-muted-foreground mb-6">
-          Create your first service to start booking appointments
+          {isHebrew ? "צור את השירות הראשון שלך כדי להתחיל לקבוע תורים" : "Create your first service to start booking appointments"}
         </p>
       </div>
     )
@@ -97,7 +101,7 @@ export function ServicesList({ services }: ServicesListProps) {
                   ? "bg-green-400/10 text-green-400" 
                   : "bg-muted text-muted-foreground"
               )}>
-                {service.is_active ? "Active" : "Inactive"}
+                {service.is_active ? (isHebrew ? "פעיל" : "Active") : (isHebrew ? "לא פעיל" : "Inactive")}
               </span>
               
               <DropdownMenu>
@@ -114,26 +118,26 @@ export function ServicesList({ services }: ServicesListProps) {
                   <DropdownMenuItem onClick={() => toggleActive(service.id, service.is_active)}>
                     {service.is_active ? (
                       <>
-                        <ToggleLeft className="w-4 h-4 mr-2" />
-                        Deactivate
+                        <ToggleLeft className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+                        {isHebrew ? "השבת" : "Deactivate"}
                       </>
                     ) : (
                       <>
-                        <ToggleRight className="w-4 h-4 mr-2" />
-                        Activate
+                        <ToggleRight className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+                        {isHebrew ? "הפעל" : "Activate"}
                       </>
                     )}
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Edit className="w-4 h-4 mr-2" />
-                    Edit
+                    <Edit className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+                    {isHebrew ? "ערוך" : "Edit"}
                   </DropdownMenuItem>
                   <DropdownMenuItem 
                     className="text-destructive"
                     onClick={() => handleDelete(service.id)}
                   >
-                    <Trash2 className="w-4 h-4 mr-2" />
-                    Delete
+                    <Trash2 className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+                    {isHebrew ? "מחק" : "Delete"}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -148,14 +152,14 @@ export function ServicesList({ services }: ServicesListProps) {
             </p>
           )}
 
-          <div className="flex items-center gap-4 pt-4 border-t border-border">
+          <div className={`flex items-center gap-4 pt-4 border-t border-border ${isRTL ? 'flex-row-reverse' : ''}`}>
             <div className="flex items-center gap-2 text-sm">
               <Clock className="w-4 h-4 text-primary" />
-              <span>{service.duration_minutes} min</span>
+              <span>{service.duration_minutes} {isHebrew ? "דקות" : "min"}</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <DollarSign className="w-4 h-4 text-primary" />
-              <span className="font-semibold">${service.price}</span>
+              <span className="font-semibold">{currency}{service.price}</span>
             </div>
           </div>
         </div>

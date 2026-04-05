@@ -37,6 +37,7 @@ import {
   Timer
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 interface QueueEntry {
   id: string
@@ -70,6 +71,8 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
     party_size: 1,
     service_id: ""
   })
+  const { locale, isRTL } = useLanguage()
+  const isHebrew = locale === 'he'
 
   useEffect(() => {
     loadQueue()
@@ -225,7 +228,7 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
     return (
       <Card className="glass">
         <CardContent className="p-8 text-center">
-          <div className="animate-pulse text-muted-foreground">Loading queue...</div>
+          <div className="animate-pulse text-muted-foreground">{isHebrew ? "טוען תור..." : "Loading queue..."}</div>
         </CardContent>
       </Card>
     )
@@ -242,7 +245,7 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
             </div>
             <div>
               <p className="text-2xl font-bold">{waitingEntries.length}</p>
-              <p className="text-sm text-muted-foreground">Waiting</p>
+              <p className="text-sm text-muted-foreground">{isHebrew ? "ממתינים" : "Waiting"}</p>
             </div>
           </CardContent>
         </Card>
@@ -253,7 +256,7 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
             </div>
             <div>
               <p className="text-2xl font-bold">{inServiceEntries.length}</p>
-              <p className="text-sm text-muted-foreground">In Service</p>
+              <p className="text-sm text-muted-foreground">{isHebrew ? "בשירות" : "In Service"}</p>
             </div>
           </CardContent>
         </Card>
@@ -265,11 +268,11 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
             <div>
               <p className="text-2xl font-bold">
                 {waitingEntries.length > 0 
-                  ? `~${Math.round(waitingEntries.reduce((sum, e) => sum + (e.estimated_wait_minutes || 30), 0) / waitingEntries.length)}m`
-                  : "0m"
+                  ? `~${Math.round(waitingEntries.reduce((sum, e) => sum + (e.estimated_wait_minutes || 30), 0) / waitingEntries.length)}${isHebrew ? "ד׳" : "m"}`
+                  : isHebrew ? "0ד׳" : "0m"
                 }
               </p>
-              <p className="text-sm text-muted-foreground">Avg Wait</p>
+              <p className="text-sm text-muted-foreground">{isHebrew ? "המתנה ממוצעת" : "Avg Wait"}</p>
             </div>
           </CardContent>
         </Card>
@@ -279,29 +282,29 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button className="w-full glow-amber" size="lg">
-            <Plus className="w-5 h-5 mr-2" />
-            Add Walk-in Customer
+            <Plus className={cn("w-5 h-5", isRTL ? "ml-2" : "mr-2")} />
+            {isHebrew ? "הוסף לקוח ללא תור" : "Add Walk-in Customer"}
           </Button>
         </DialogTrigger>
         <DialogContent className="glass-strong">
           <DialogHeader>
-            <DialogTitle>Add to Queue</DialogTitle>
+            <DialogTitle>{isHebrew ? "הוסף לתור" : "Add to Queue"}</DialogTitle>
             <DialogDescription>
-              Add a walk-in customer to the waiting list
+              {isHebrew ? "הוסף לקוח ללא תור לרשימת ההמתנה" : "Add a walk-in customer to the waiting list"}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 pt-4">
             <div className="space-y-2">
-              <Label>Customer Name *</Label>
+              <Label>{isHebrew ? "שם הלקוח *" : "Customer Name *"}</Label>
               <Input
                 value={newEntry.customer_name}
                 onChange={(e) => setNewEntry({ ...newEntry, customer_name: e.target.value })}
-                placeholder="Enter name"
-                className="bg-secondary/50"
+                placeholder={isHebrew ? "הזן שם" : "Enter name"}
+                className={cn("bg-secondary/50", isRTL && "text-right")}
               />
             </div>
             <div className="space-y-2">
-              <Label>Phone (for notifications)</Label>
+              <Label>{isHebrew ? "טלפון (להתראות)" : "Phone (for notifications)"}</Label>
               <Input
                 type="tel"
                 value={newEntry.phone}
@@ -312,7 +315,7 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label>Party Size</Label>
+                <Label>{isHebrew ? "גודל הקבוצה" : "Party Size"}</Label>
                 <Input
                   type="number"
                   min={1}
@@ -323,18 +326,18 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
                 />
               </div>
               <div className="space-y-2">
-                <Label>Service</Label>
+                <Label>{isHebrew ? "שירות" : "Service"}</Label>
                 <Select 
                   value={newEntry.service_id} 
                   onValueChange={(v) => setNewEntry({ ...newEntry, service_id: v })}
                 >
                   <SelectTrigger className="bg-secondary/50">
-                    <SelectValue placeholder="Select..." />
+                    <SelectValue placeholder={isHebrew ? "בחר..." : "Select..."} />
                   </SelectTrigger>
                   <SelectContent>
                     {services.map(service => (
                       <SelectItem key={service.id} value={service.id}>
-                        {service.name} ({service.duration_minutes}min)
+                        {service.name} ({service.duration_minutes}{isHebrew ? "ד׳" : "min"})
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -345,15 +348,15 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
             {waitingEntries.length > 0 && (
               <div className="p-3 bg-secondary/30 rounded-lg">
                 <p className="text-sm text-muted-foreground">
-                  Estimated wait time: <span className="text-foreground font-medium">
-                    ~{waitingEntries.length * 30} minutes
+                  {isHebrew ? "זמן המתנה משוער: " : "Estimated wait time: "}<span className="text-foreground font-medium">
+                    ~{waitingEntries.length * 30} {isHebrew ? "דקות" : "minutes"}
                   </span>
                 </p>
               </div>
             )}
 
             <Button onClick={addToQueue} className="w-full" disabled={!newEntry.customer_name}>
-              Add to Queue
+              {isHebrew ? "הוסף לתור" : "Add to Queue"}
             </Button>
           </div>
         </DialogContent>
@@ -363,29 +366,29 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
       {inServiceEntries.length > 0 && (
         <Card className="glass border-green-500/30">
           <CardHeader>
-            <CardTitle className="text-base flex items-center gap-2">
+            <CardTitle className={`text-base flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <Scissors className="w-5 h-5 text-green-400" />
-              Currently In Service
+              {isHebrew ? "כעת בשירות" : "Currently In Service"}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {inServiceEntries.map(entry => (
               <div 
                 key={entry.id}
-                className="flex items-center justify-between p-4 rounded-lg bg-green-500/10 border border-green-500/30"
+                className={`flex items-center justify-between p-4 rounded-lg bg-green-500/10 border border-green-500/30 ${isRTL ? 'flex-row-reverse' : ''}`}
               >
-                <div className="flex items-center gap-4">
+                <div className={`flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
                     <User className="w-5 h-5 text-green-400" />
                   </div>
-                  <div>
+                  <div className={isRTL ? 'text-right' : ''}>
                     <p className="font-medium">{entry.customer_name}</p>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className={`flex items-center gap-2 text-sm text-muted-foreground ${isRTL ? 'flex-row-reverse' : ''}`}>
                       {entry.services?.name && <span>{entry.services.name}</span>}
                       <span>•</span>
                       <span className="flex items-center gap-1">
                         <Clock className="w-3 h-3" />
-                        Started {entry.service_start_time && getWaitTime(entry.service_start_time)} ago
+                        {isHebrew ? `התחיל לפני ${entry.service_start_time && getWaitTime(entry.service_start_time)}` : `Started ${entry.service_start_time && getWaitTime(entry.service_start_time)} ago`}
                       </span>
                     </div>
                   </div>
@@ -394,8 +397,8 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
                   onClick={() => updateStatus(entry.id, "completed")}
                   className="bg-green-500/20 hover:bg-green-500/30 text-green-400"
                 >
-                  <CheckCircle className="w-4 h-4 mr-2" />
-                  Complete
+                  <CheckCircle className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+                  {isHebrew ? "הושלם" : "Complete"}
                 </Button>
               </div>
             ))}
@@ -406,16 +409,16 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
       {/* Waiting Queue */}
       <Card className="glass">
         <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2">
+          <CardTitle className={`text-base flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <Users className="w-5 h-5 text-primary" />
-            Waiting ({waitingEntries.length})
+            {isHebrew ? `ממתינים (${waitingEntries.length})` : `Waiting (${waitingEntries.length})`}
           </CardTitle>
         </CardHeader>
         <CardContent>
           {waitingEntries.length === 0 ? (
             <div className="text-center py-8">
               <Users className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
-              <p className="text-muted-foreground">No customers waiting</p>
+              <p className="text-muted-foreground">{isHebrew ? "אין לקוחות ממתינים" : "No customers waiting"}</p>
             </div>
           ) : (
             <div className="space-y-2">
@@ -435,7 +438,7 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
                           <p className="font-medium">{entry.customer_name}</p>
                           {entry.party_size > 1 && (
                             <Badge variant="outline" className="text-xs">
-                              {entry.party_size} people
+                              {entry.party_size} {isHebrew ? "אנשים" : "people"}
                             </Badge>
                           )}
                         </div>
@@ -444,7 +447,7 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
                           {entry.services?.name && <span>•</span>}
                           <span className="flex items-center gap-1">
                             <Clock className="w-3 h-3" />
-                            Waiting {getWaitTime(entry.check_in_time)}
+                            {isHebrew ? `ממתין ${getWaitTime(entry.check_in_time)}` : `Waiting ${getWaitTime(entry.check_in_time)}`}
                           </span>
                           {entry.phone && (
                             <>
@@ -494,8 +497,8 @@ export function WalkInQueue({ shopId }: { shopId: string }) {
                         onClick={() => updateStatus(entry.id, "in_service")}
                         className="bg-primary/20 hover:bg-primary/30 text-primary"
                       >
-                        <Play className="w-4 h-4 mr-2" />
-                        Start
+                        <Play className={cn("w-4 h-4", isRTL ? "ml-2" : "mr-2")} />
+                        {isHebrew ? "התחל" : "Start"}
                       </Button>
                     </div>
                   </div>
