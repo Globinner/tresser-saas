@@ -156,16 +156,16 @@ export function DashboardPreview() {
               <div className="bg-secondary/30 rounded-xl p-4 border border-border/30">
                 <div className={`flex items-center justify-between mb-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <h4 className="font-semibold text-foreground">{t("dashboardPreview.weeklyRevenue")}</h4>
-                  <div className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <div className="flex items-center gap-1">
                     <button 
-                      onClick={() => setShowLastWeek(true)}
-                      className={`p-1.5 rounded-md transition-colors ${showLastWeek ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
+                      onClick={() => setShowLastWeek(isRTL ? false : true)}
+                      className={`p-1.5 rounded-md transition-colors ${(isRTL ? !showLastWeek : showLastWeek) ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
                     <button 
-                      onClick={() => setShowLastWeek(false)}
-                      className={`p-1.5 rounded-md transition-colors ${!showLastWeek ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
+                      onClick={() => setShowLastWeek(isRTL ? true : false)}
+                      className={`p-1.5 rounded-md transition-colors ${(isRTL ? showLastWeek : !showLastWeek) ? 'bg-primary/20 text-primary' : 'hover:bg-muted text-muted-foreground hover:text-foreground'}`}
                     >
                       <ChevronRight className="w-4 h-4" />
                     </button>
