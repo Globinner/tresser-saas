@@ -11,13 +11,13 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "/tresserlogo.svg",
+      "src": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tresserlogo-oXjiHRXm3b6u5yNlVyxJiJ30jezifY.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/tresserlogo.svg",
+      "src": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tresserlogo-oXjiHRXm3b6u5yNlVyxJiJ30jezifY.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "maskable"
