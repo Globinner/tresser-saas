@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
-import Image from "next/image"
+import { Menu, X, Scissors } from "lucide-react"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { LanguageSwitcher } from "./language-switcher"
 
@@ -48,14 +47,12 @@ export function Navigation() {
     >
       <nav className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2 group">
-          <Image 
-            src="/tresserlogo.svg" 
-            alt="Tresser" 
-            width={40} 
-            height={40} 
-            className="group-hover:scale-105 transition-transform duration-300"
-          />
+        <a href="#" className="flex items-center gap-3 group">
+          <div className="relative">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/30 group-hover:glow-amber-soft transition-all duration-300">
+              <Scissors className="w-5 h-5 text-primary rotate-[-45deg]" />
+            </div>
+          </div>
           <span className="text-xl font-bold tracking-tight">
             <span className="text-gradient">{"Tresser"}</span>
           </span>
