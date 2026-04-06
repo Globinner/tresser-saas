@@ -93,7 +93,7 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
           {/* Logo */}
           <div className="flex h-16 shrink-0 items-center gap-2">
             <img 
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tresserlogo-oXjiHRXm3b6u5yNlVyxJiJ30jezifY.svg" 
+              src="/tresserlogo.svg" 
               alt="Tresser" 
               width={40} 
               height={40} 

@@ -67,7 +67,7 @@ export function Footer() {
           <div className="col-span-2">
             <a href="#" className={`flex items-center gap-2 mb-6 group ${isRTL ? 'flex-row-reverse' : ''}`}>
               <img 
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tresserlogo-oXjiHRXm3b6u5yNlVyxJiJ30jezifY.svg" 
+                src="/tresserlogo.svg" 
                 alt="Tresser" 
                 width={40} 
                 height={40} 

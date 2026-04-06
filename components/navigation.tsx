@@ -50,7 +50,7 @@ export function Navigation() {
         {/* Logo */}
         <a href="#" className="flex items-center gap-2 group">
           <img 
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tresserlogo-oXjiHRXm3b6u5yNlVyxJiJ30jezifY.svg" 
+            src="/tresserlogo.svg" 
             alt="Tresser" 
             width={40} 
             height={40} 
