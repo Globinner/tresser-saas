@@ -194,10 +194,10 @@ export function PricingSection() {
           {displayPlans.map((plan, index) => (
             <div
               key={index}
-              className={`relative rounded-2xl p-8 transition-all duration-500 bg-card/50 backdrop-blur-sm ${
+              className={`relative rounded-2xl p-8 transition-all duration-500 bg-zinc-900/90 backdrop-blur-sm ${
                 plan.popular 
-                  ? 'border-2 border-primary/60 shadow-[0_0_30px_rgba(245,158,11,0.15)] scale-105 md:scale-110 z-10' 
-                  : 'border border-white/20 shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:border-white/30'
+                  ? 'shadow-[0_0_50px_rgba(245,158,11,0.3),0_0_100px_rgba(245,158,11,0.15),inset_0_1px_0_rgba(255,255,255,0.1)] scale-105 md:scale-110 z-10' 
+                  : 'shadow-[0_0_40px_rgba(255,255,255,0.07),0_0_80px_rgba(255,255,255,0.03),inset_0_1px_0_rgba(255,255,255,0.08)] hover:shadow-[0_0_50px_rgba(255,255,255,0.1),0_0_100px_rgba(255,255,255,0.05)]'
               }`}
             >
               {/* Popular badge */}
