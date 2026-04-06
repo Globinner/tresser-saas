@@ -1,7 +1,8 @@
 "use client"
 
-import { Scissors, Twitter, Instagram, Linkedin, Youtube } from "lucide-react"
+import { Twitter, Instagram, Linkedin, Youtube } from "lucide-react"
 import { useLanguage } from "@/lib/i18n/language-context"
+import Image from "next/image"
 
 export function Footer() {
   const { t, isRTL } = useLanguage()
@@ -40,10 +41,10 @@ export function Footer() {
     legal: {
       title: t("footer.legal"),
       links: [
-        { label: t("footer.privacy"), href: "#" },
-        { label: t("footer.terms"), href: "#" },
-        { label: t("footer.security"), href: "#" },
-        { label: t("footer.gdpr"), href: "#" },
+        { label: t("footer.privacy"), href: "/privacy" },
+        { label: t("footer.terms"), href: "/terms" },
+        { label: t("footer.refundPolicy"), href: "/refund-policy" },
+        { label: t("footer.gdpr"), href: "/privacy#european-privacy-rights-gdpr" },
       ],
     },
   }
@@ -64,10 +65,14 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-6 gap-8 mb-12">
           {/* Brand Column */}
           <div className="col-span-2">
-            <a href="#" className={`flex items-center gap-3 mb-6 group ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/30 group-hover:glow-amber-soft transition-all duration-300">
-                <Scissors className="w-5 h-5 text-primary rotate-[-45deg]" />
-              </div>
+            <a href="#" className={`flex items-center gap-2 mb-6 group ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <Image 
+                src="/tresserlogo.svg" 
+                alt="Tresser" 
+                width={40} 
+                height={40} 
+                className="group-hover:scale-105 transition-transform duration-300"
+              />
               <span className="text-xl font-bold tracking-tight">
                 <span className="text-gradient">Tresser</span>
               </span>
@@ -119,14 +124,14 @@ export function Footer() {
             {t("footer.copyright")}
           </p>
           <div className={`flex items-center gap-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/privacy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               {t("footer.privacyPolicy")}
             </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               {t("footer.termsOfService")}
             </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              {t("footer.cookies")}
+            <a href="/refund-policy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              {t("footer.refundPolicy")}
             </a>
           </div>
         </div>
