@@ -194,10 +194,10 @@ export function PricingSection() {
           {displayPlans.map((plan, index) => (
             <div
               key={index}
-              className={`relative glass rounded-2xl p-8 transition-all duration-500 ${
+              className={`relative glass rounded-2xl p-8 transition-all duration-500 border ${
                 plan.popular 
-                  ? 'border-primary/50 glow-amber-soft scale-105 md:scale-110 z-10' 
-                  : 'hover:border-primary/30'
+                  ? 'border-primary/50 glow-amber-soft scale-105 md:scale-110 z-10 shadow-xl shadow-primary/10' 
+                  : 'border-border/50 hover:border-primary/30 shadow-lg shadow-black/20'
               }`}
             >
               {/* Popular badge */}
