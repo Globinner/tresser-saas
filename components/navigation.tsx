@@ -49,8 +49,8 @@ export function Navigation() {
       <nav className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2 group">
-          <Image 
-            src="/tresserlogo.svg" 
+          <img 
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tresserlogo-j5WTM2f50wXS35y3KmapIcqOpuQloT.svg" 
             alt="Tresser" 
             width={40} 
             height={40} 
