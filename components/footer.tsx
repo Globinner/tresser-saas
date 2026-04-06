@@ -40,10 +40,10 @@ export function Footer() {
     legal: {
       title: t("footer.legal"),
       links: [
-        { label: t("footer.privacy"), href: "#" },
-        { label: t("footer.terms"), href: "#" },
-        { label: t("footer.security"), href: "#" },
-        { label: t("footer.gdpr"), href: "#" },
+        { label: t("footer.privacy"), href: "/privacy" },
+        { label: t("footer.terms"), href: "/terms" },
+        { label: t("footer.refundPolicy"), href: "/refund-policy" },
+        { label: t("footer.gdpr"), href: "/privacy#european-privacy-rights-gdpr" },
       ],
     },
   }
@@ -119,14 +119,14 @@ export function Footer() {
             {t("footer.copyright")}
           </p>
           <div className={`flex items-center gap-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/privacy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               {t("footer.privacyPolicy")}
             </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               {t("footer.termsOfService")}
             </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              {t("footer.cookies")}
+            <a href="/refund-policy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              {t("footer.refundPolicy")}
             </a>
           </div>
         </div>
