@@ -194,10 +194,10 @@ export function PricingSection() {
           {displayPlans.map((plan, index) => (
             <div
               key={index}
-              className={`relative glass rounded-2xl p-8 transition-all duration-500 border ${
+              className={`relative rounded-2xl p-8 transition-all duration-500 bg-card/50 backdrop-blur-sm ${
                 plan.popular 
-                  ? 'border-primary/50 glow-amber-soft scale-105 md:scale-110 z-10 shadow-xl shadow-primary/10' 
-                  : 'border-border/50 hover:border-primary/30 shadow-lg shadow-black/20'
+                  ? 'border-2 border-primary/60 shadow-[0_0_30px_rgba(245,158,11,0.15)] scale-105 md:scale-110 z-10' 
+                  : 'border border-white/20 shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:border-white/30'
               }`}
             >
               {/* Popular badge */}
