@@ -45,9 +45,9 @@ export const metadata: Metadata = {
   generator: 'v0.app',
   manifest: '/manifest.json',
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: '/tresserlogo.svg',
+    shortcut: '/tresserlogo.svg',
+    apple: '/tresserlogo.svg',
   },
   appleWebApp: {
     capable: true,
