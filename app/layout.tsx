@@ -45,9 +45,9 @@ export const metadata: Metadata = {
   generator: 'v0.app',
   manifest: '/manifest.json',
   icons: {
-    icon: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tresserlogo-oXjiHRXm3b6u5yNlVyxJiJ30jezifY.svg',
-    shortcut: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tresserlogo-oXjiHRXm3b6u5yNlVyxJiJ30jezifY.svg',
-    apple: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tresserlogo-oXjiHRXm3b6u5yNlVyxJiJ30jezifY.svg',
+    icon: '/icon-192.png',
+    shortcut: '/icon-192.png',
+    apple: '/icon-512.png',
   },
   appleWebApp: {
     capable: true,
