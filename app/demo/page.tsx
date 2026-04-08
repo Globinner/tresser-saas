@@ -221,7 +221,7 @@ const demoClientsHe = [
     preferredBarber: "שרה",
     hasChemistry: true,
     visitHistory: [
-      { date: "17 מרץ, 2026", service: "צביעת שיער", barber: "שרה", price: 60 },
+      { date: "17 מרץ, 2026", service: "צביעת שיער", barber: "ש��ה", price: 60 },
       { date: "15 ������בר, 2026", service: "צביעת שיער", barber: "שרה", price: 60 },
       { date: "20 ינו, 2026", service: "צביעה + תספורת", barber: "שרה", price: 85 },
     ],
@@ -564,7 +564,7 @@ const PREFERENCE_OPTIONS_EN = {
 
 const PREFERENCE_OPTIONS_HE = {
   styles: ["פייד נמוך", "פייד בינוני", "פייד גבוה", "סקין פייד", "טייפר", "באז קאט", "פומפדור"],
-  cutting: ["מספריים בלבד", "מכונה בלבד", "ש����יהם"],
+  cutting: ["מספריים בלבד", "מ��ונה בלבד", "ש����יהם"],
   allergies: ["צבע שיער", "הבהרה", "לטקס", "ג׳לים מסוימים", "בשמים"],
   other: ["קרקפת רגישה", "שיער דליל", "עיצוב זקן", "מגבת חמה", "קו"]
 }
@@ -655,12 +655,14 @@ export default function DemoPage() {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <LanguageSwitcher />
+            <div className="hidden sm:block">
+              <LanguageSwitcher />
+            </div>
             <Button variant="ghost" size="sm" asChild>
               <Link href="/">{t("demo.backToSite")}</Link>
             </Button>
-            <Button size="sm" asChild>
-              <Link href="/auth/signup">{t("nav.startFreeTrial")}</Link>
+            <Button size="sm" asChild className="hidden sm:inline-flex">
+              <Link href="/auth/sign-up">{t("nav.startFreeTrial")}</Link>
             </Button>
           </div>
         </div>
