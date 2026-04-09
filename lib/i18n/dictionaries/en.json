@@ -226,9 +226,9 @@
       "title": "Revenue Analytics",
       "description": "Real-time insights into your earnings, popular services, and growth trends."
     },
-    "permissions": {
-      "title": "Role-Based Access",
-      "description": "Secure your business data. Team members only see their appointments and clients they serve. Owners have full access to financials and settings."
+    "teamManagement": {
+      "title": "Team Management",
+      "description": "Manage your team with role-based access. Set schedules, track performance, and control permissions. Fired employees lose access immediately."
     }
   },
   "dashboard": {

@@ -200,6 +200,10 @@
     "revenueAnalytics": {
       "title": "Analyse des Revenus",
       "description": "Informations en temps réel sur vos gains, services populaires et tendances de croissance."
+    },
+    "teamManagement": {
+      "title": "Gestion d'Équipe",
+      "description": "Gérez votre équipe avec un accès basé sur les rôles. Définissez les horaires, suivez les performances et contrôlez les permissions. Les employés licenciés perdent l'accès immédiatement."
     }
   },
   "dashboard": {
