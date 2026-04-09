@@ -59,7 +59,7 @@ const demoClientsEn = [
   visits: 24,
   lastVisit: "2 days ago",
   totalSpent: 1250,
-  avatar: "/images/features/clients.jpg",
+  avatar: "https://i.pravatar.cc/150?img=68",
   notes: "Regular customer, always on time",
   preferences: ["Low Fade", "Scissors only", "Certain gels"],
   preferredBarber: "Mike",
@@ -81,6 +81,7 @@ const demoClientsEn = [
     visits: 18, 
     lastVisit: "1 week ago", 
     totalSpent: 890,
+    avatar: "https://i.pravatar.cc/150?img=11",
     notes: "Likes classic cuts, always on time",
     preferences: ["Taper", "Clippers only", "Hot towel"],
     preferredBarber: "Sarah",
@@ -98,6 +99,7 @@ const demoClientsEn = [
     visits: 32, 
     lastVisit: "Yesterday", 
     totalSpent: 2100,
+    avatar: "https://i.pravatar.cc/150?img=33",
     notes: "Regular color client - gray coverage",
     preferences: ["Scissors only", "Sensitive scalp", "Hair dye"],
     preferredBarber: "Sarah",
@@ -139,6 +141,7 @@ const demoClientsEn = [
     visits: 15, 
     lastVisit: "3 days ago", 
     totalSpent: 720,
+    avatar: "https://i.pravatar.cc/150?img=53",
     notes: "Prefers appointments early morning",
     preferences: ["Buzz Cut", "Clippers only", "Line up"],
     preferredBarber: "Mike",
@@ -155,6 +158,7 @@ const demoClientsEn = [
     visits: 28, 
     lastVisit: "Today", 
     totalSpent: 1580,
+    avatar: "https://i.pravatar.cc/150?img=12",
     notes: "VIP client, always tips well",
     preferences: ["Mid Fade", "Both", "Beard trim", "Hot towel"],
     preferredBarber: "Mike",
@@ -177,7 +181,7 @@ const demoClientsHe = [
     visits: 24,
     lastVisit: "לפני יומיים",
     totalSpent: 1250,
-    avatar: "/images/features/clients.jpg",
+    avatar: "https://i.pravatar.cc/150?img=68",
     notes: "לקוח קבוע, תמיד בזמן",
     preferences: ["פייד נמוך", "מספריים בלבד", "ג׳לים מסוימים"],
     preferredBarber: "מייק",
@@ -199,6 +203,7 @@ const demoClientsHe = [
     visits: 18, 
     lastVisit: "לפני שבוע", 
     totalSpent: 890,
+    avatar: "https://i.pravatar.cc/150?img=11",
     notes: "אוהב תספורות קלאסיות, תמיד בזמן",
     preferences: ["טייפר", "מכונה בלבד", "מגבת חמה"],
     preferredBarber: "שרה",
@@ -216,6 +221,7 @@ const demoClientsHe = [
     visits: 32, 
     lastVisit: "אתמול", 
     totalSpent: 2100,
+    avatar: "https://i.pravatar.cc/150?img=33",
     notes: "לקוח צביעה קבוע - כיסוי שיער לבן",
     preferences: ["מספריים בלבד", "קרקפת רגישה", "צבע שיער"],
     preferredBarber: "שרה",
@@ -257,6 +263,7 @@ const demoClientsHe = [
     visits: 15, 
     lastVisit: "לפני 3 ימים", 
     totalSpent: 720,
+    avatar: "https://i.pravatar.cc/150?img=53",
     notes: "מעדיף תורים בבוקר מוקדם",
     preferences: ["באז קאט", "מכונה בלבד", "קו"],
     preferredBarber: "מייק",
@@ -273,6 +280,7 @@ const demoClientsHe = [
     visits: 28, 
     lastVisit: "היום", 
     totalSpent: 1580,
+    avatar: "https://i.pravatar.cc/150?img=12",
     notes: "לקוח VIP, תמיד משאיר טיפ",
     preferences: ["פייד בינוני", "שניהם", "זקן", "מגבת חמה"],
     preferredBarber: "מייק",
@@ -355,7 +363,7 @@ const demoInventoryHe = [
   { id: 1, name: "פומייד פרימיום", stock: 24, minStock: 10, category: "מוצרי שיער", price: 65, sku: "HP-001" },
   { id: 2, name: "ג׳ל חזק", stock: 18, minStock: 10, category: "מוצרי שיער", price: 45, sku: "HP-002" },
   { id: 3, name: "שמן זקן פרימיום", stock: 3, minStock: 5, category: "מוצרי זקן", price: 80, sku: "BP-001", lowStock: true },
-  { id: 4, name: "שמפו מקצועי", stock: 12, minStock: 8, category: "מוצרי ש����ער", price: 55, sku: "HP-003" },
+  { id: 4, name: "שמפו מקצו��י", stock: 12, minStock: 8, category: "מוצרי ש����ער", price: 55, sku: "HP-003" },
   { id: 5, name: "צבע שיער - שחור 1N", stock: 8, minStock: 5, category: "צבע", price: 90, sku: "CL-001" },
   { id: 6, name: "מפתח 20 וול", stock: 2, minStock: 5, category: "צבע", price: 45, sku: "CL-002", lowStock: true },
   { id: 7, name: "סכיני מכונה #1", stock: 6, minStock: 4, category: "כלים", price: 120, sku: "TL-001" },
@@ -564,7 +572,7 @@ const PREFERENCE_OPTIONS_EN = {
 
 const PREFERENCE_OPTIONS_HE = {
   styles: ["פייד נמוך", "פייד בינוני", "פייד גבוה", "סקין פייד", "טייפר", "באז קאט", "פומפדור"],
-  cutting: ["מספריים בלבד", "מ��ונה בלבד", "ש����יהם"],
+  cutting: ["מספריים בלבד", "����ונה בלבד", "ש����יהם"],
   allergies: ["צבע שיער", "הבהרה", "לטקס", "ג׳לים מסוימים", "בשמים"],
   other: ["קרקפת רגישה", "שיער דליל", "עיצוב זקן", "מגבת חמה", "קו"]
 }
@@ -1329,6 +1337,7 @@ export default function DemoPage() {
                           >
                             <div className="flex items-center gap-4">
                               <Avatar className="h-12 w-12 bg-primary/20">
+                                <AvatarImage src={client.avatar} alt={client.name} />
                                 <AvatarFallback className="text-primary font-bold">
                                   {client.name.split(' ').map(n => n[0]).join('')}
                                 </AvatarFallback>
@@ -1795,6 +1804,7 @@ name === "revenue" ? `${currency}${value.toLocaleString()}` : value,
                         <Card key={`${client.id}-${i}`} className="overflow-hidden">
                           <div className="p-3 border-b border-border flex items-center gap-2">
                             <Avatar className="h-8 w-8">
+                              <AvatarImage src={client.avatar} alt={client.name} />
                               <AvatarFallback className="bg-primary/20 text-primary text-xs">
                                 {client.name.split(' ').map(n => n[0]).join('')}
                               </AvatarFallback>

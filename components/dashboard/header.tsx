@@ -75,6 +75,20 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
   ]
   
   const navigation = isOwner ? [...baseNavigation, ...ownerNavigation] : baseNavigation
+  
+  // Mobile menu shows only owner/settings items (main nav is in bottom bar)
+  const mobileMenuNavigation = isOwner ? [
+    { name: t("sidebar.services"), href: "/dashboard/services", icon: Scissors },
+    { name: t("sidebar.inventory"), href: "/dashboard/inventory", icon: Package },
+    { name: t("sidebar.analytics"), href: "/dashboard/analytics", icon: BarChart3 },
+    { name: t("sidebar.onlineBooking"), href: "/dashboard/settings?tab=booking", icon: Globe },
+    { name: t("sidebar.reminders"), href: "/dashboard/settings?tab=reminders", icon: Bell },
+    { name: t("sidebar.billing"), href: "/dashboard/billing", icon: CreditCard },
+    { name: t("sidebar.settings"), href: "/dashboard/settings", icon: Settings },
+  ] : [
+    { name: t("sidebar.services"), href: "/dashboard/services", icon: Scissors },
+    { name: t("sidebar.settings"), href: "/dashboard/settings", icon: Settings },
+  ]
 
   async function handleSignOut() {
     await supabase.auth.signOut()
@@ -165,9 +179,9 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center glow-amber-soft">
-                  <Scissors className="w-5 h-5 text-primary" />
+                  <Settings className="w-5 h-5 text-primary" />
                 </div>
-                <span className="text-xl font-bold tracking-tight">Tresser</span>
+                <span className="text-xl font-bold tracking-tight">{isRTL ? "עוד" : "More"}</span>
               </div>
               <button
                 type="button"
@@ -191,7 +205,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
             </div>
 
             <nav className="flex flex-col gap-1 flex-1 overflow-y-auto pb-4">
-              {navigation.map((item) => {
+              {mobileMenuNavigation.map((item) => {
                 const isActive = pathname === item.href
                 return (
                   <Link

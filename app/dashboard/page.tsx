@@ -124,6 +124,7 @@ export default async function DashboardPage() {
         monthlyRevenue={monthlyRevenue}
         completedAppointments={totalAppointments || 0}
         newClientsToday={newClientsToday || 0}
+        isOwner={isOwner}
       />
 
       {/* Quick actions */}
@@ -134,8 +135,8 @@ export default async function DashboardPage() {
         {/* Today's appointments */}
         <TodayAppointments appointments={todayAppointments || []} />
 
-        {/* Revenue chart */}
-        <RevenueChart shopId={shopId} />
+        {/* Revenue chart - only show to owners */}
+        {isOwner && <RevenueChart shopId={shopId} />}
       </div>
 
       {/* Weekly Schedule */}
