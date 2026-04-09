@@ -16,6 +16,7 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,6 +34,7 @@ interface Client {
   phone: string | null
   notes: string | null
   created_at: string
+  avatar_url: string | null
 }
 
 interface ClientsListProps {
@@ -115,9 +117,12 @@ export function ClientsList({ clients }: ClientsListProps) {
             >
               <div className="flex items-start justify-between mb-4">
                 <Link href={`/dashboard/clients/${client.id}`} className="flex items-center gap-3 hover:opacity-80 transition-opacity flex-1 min-w-0">
-                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-lg flex-shrink-0">
-                    {client.first_name.charAt(0).toUpperCase()}
-                  </div>
+                  <Avatar className="w-12 h-12 flex-shrink-0">
+                    {client.avatar_url && <AvatarImage src={client.avatar_url} alt={fullName} />}
+                    <AvatarFallback className="bg-primary/20 text-primary font-bold text-lg">
+                      {client.first_name.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
                   <div className="min-w-0">
                     <h3 className="font-semibold hover:text-primary transition-colors truncate">{fullName}</h3>
                     <p className="text-xs text-muted-foreground">

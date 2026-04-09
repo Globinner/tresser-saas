@@ -170,6 +170,56 @@ const demoClientsEn = [
       { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "Mar 18, 2026" },
     ]
   },
+  { 
+    id: 6, 
+    name: "Emily Watson", 
+    phone: "(555) 678-9012",
+    email: "emily.w@email.com",
+    visits: 15, 
+    lastVisit: "3 days ago", 
+    totalSpent: 1850,
+    avatar: "https://i.pravatar.cc/150?img=5",
+    notes: "Regular color client, prefers balayage",
+    preferences: ["Balayage", "Scissors only", "Deep conditioning"],
+    preferredBarber: "Sarah",
+    hasChemistry: true,
+    visitHistory: [
+      { date: "Mar 15, 2026", service: "Balayage", barber: "Sarah", price: 120 },
+      { date: "Feb 1, 2026", service: "Highlights + Cut", barber: "Sarah", price: 150 },
+    ],
+    photos: [
+      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "Mar 15, 2026" },
+    ],
+    chemistry: [
+      { 
+        date: "Mar 15, 2026",
+        colorBrand: "Schwarzkopf BlondMe",
+        formula: "9.5-1 + 9.5-49",
+        developer: "30 vol",
+        ratio: "1:2",
+        processingTime: "45 min",
+        notes: "Balayage, warm blonde result"
+      }
+    ]
+  },
+  { 
+    id: 7, 
+    name: "Jessica Martinez", 
+    phone: "(555) 789-0123",
+    email: "jessica.m@email.com",
+    visits: 22, 
+    lastVisit: "1 week ago", 
+    totalSpent: 1420,
+    avatar: "https://i.pravatar.cc/150?img=9",
+    notes: "Loves trendy styles, very social",
+    preferences: ["Layers", "Blowout", "Keratin treatment"],
+    preferredBarber: "Lisa",
+    visitHistory: [
+      { date: "Mar 11, 2026", service: "Cut & Blowout", barber: "Lisa", price: 65 },
+      { date: "Feb 20, 2026", service: "Keratin Treatment", barber: "Lisa", price: 180 },
+    ],
+    photos: []
+  },
 ]
 
 const demoClientsHe = [
@@ -222,7 +272,7 @@ const demoClientsHe = [
     lastVisit: "אתמול", 
     totalSpent: 2100,
     avatar: "https://i.pravatar.cc/150?img=33",
-    notes: "לקוח צביעה קבוע - כיסוי שיער לבן",
+    notes: "לקו�� צביעה קבוע - כיסוי שיער לבן",
     preferences: ["מספריים בלבד", "קרקפת רגישה", "צבע שיער"],
     preferredBarber: "שרה",
     hasChemistry: true,
@@ -292,6 +342,56 @@ const demoClientsHe = [
       { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "18 מרץ, 2026" },
     ]
   },
+  { 
+    id: 6, 
+    name: "נועה לוי", 
+    phone: "054-678-9012",
+    email: "noa.l@email.com",
+    visits: 15, 
+    lastVisit: "לפני 3 ימים", 
+    totalSpent: 1850,
+    avatar: "https://i.pravatar.cc/150?img=5",
+    notes: "לקוחת צביעה קבועה, מעדיפה בלאייז׳",
+    preferences: ["בלאייז׳", "מספריים בלבד", "מסכה מזינה"],
+    preferredBarber: "שרה",
+    hasChemistry: true,
+    visitHistory: [
+      { date: "15 מרץ, 2026", service: "בלאייז׳", barber: "שרה", price: 420 },
+      { date: "1 פבר, 2026", service: "גוונים + תספורת", barber: "שרה", price: 520 },
+    ],
+    photos: [
+      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "15 מרץ, 2026" },
+    ],
+    chemistry: [
+      { 
+        date: "15 מרץ, 2026",
+        colorBrand: "Schwarzkopf BlondMe",
+        formula: "9.5-1 + 9.5-49",
+        developer: "30 vol",
+        ratio: "1:2",
+        processingTime: "45 דק׳",
+        notes: "בלאייז׳, תוצאה בלונדית חמה"
+      }
+    ]
+  },
+  { 
+    id: 7, 
+    name: "מיכל כהן", 
+    phone: "052-789-0123",
+    email: "michal.c@email.com",
+    visits: 22, 
+    lastVisit: "לפני שבוע", 
+    totalSpent: 1420,
+    avatar: "https://i.pravatar.cc/150?img=9",
+    notes: "אוהבת סגנונות טרנדיים, חברותית מאוד",
+    preferences: ["שכבות", "פן", "החלקה"],
+    preferredBarber: "לירון",
+    visitHistory: [
+      { date: "11 מרץ, 2026", service: "תספורת + פן", barber: "לירון", price: 230 },
+      { date: "20 פבר, 2026", service: "החלקת קרטין", barber: "לירון", price: 650 },
+    ],
+    photos: []
+  },
 ]
 
 const demoAppointmentsHe = [
@@ -360,7 +460,7 @@ const demoInventoryEn = [
 ]
 
 const demoInventoryHe = [
-  { id: 1, name: "פומייד פרימי����ם", stock: 24, minStock: 10, category: "מוצרי שיער", price: 65, sku: "HP-001" },
+  { id: 1, name: "פומייד פרימי������ם", stock: 24, minStock: 10, category: "מוצרי שיער", price: 65, sku: "HP-001" },
   { id: 2, name: "ג׳ל חזק", stock: 18, minStock: 10, category: "מוצרי שיער", price: 45, sku: "HP-002" },
   { id: 3, name: "שמן זקן פרימיום", stock: 3, minStock: 5, category: "מוצרי זקן", price: 80, sku: "BP-001", lowStock: true },
   { id: 4, name: "שמפו מקצו��י", stock: 12, minStock: 8, category: "מוצרי ש����ער", price: 55, sku: "HP-003" },
@@ -435,7 +535,7 @@ const demoTeamEn = [
     role: "Senior Barber",
     email: "mike@primecutsbarbershop.com",
     phone: "(555) 111-2222",
-    avatar: "/images/features/clients.jpg",
+    avatar: "https://i.pravatar.cc/150?img=51",
     status: "working",
     schedule: "Mon-Sat 9AM-6PM",
     appointments: 156,
@@ -451,7 +551,7 @@ const demoTeamEn = [
     role: "Colorist & Stylist",
     email: "sarah@primecutsbarbershop.com",
     phone: "(555) 222-3333",
-    avatar: "/images/features/clients.jpg",
+    avatar: "https://i.pravatar.cc/150?img=47",
     status: "available",
     schedule: "Tue-Sat 10AM-7PM",
     appointments: 142,
@@ -467,7 +567,7 @@ const demoTeamEn = [
     role: "Barber",
     email: "james@primecutsbarbershop.com",
     phone: "(555) 333-4444",
-    avatar: "/images/features/clients.jpg",
+    avatar: "https://i.pravatar.cc/150?img=59",
     status: "break",
     schedule: "Mon-Fri 9AM-5PM",
     appointments: 98,
@@ -479,17 +579,17 @@ const demoTeamEn = [
   },
   {
     id: 4,
-    name: "David Park",
-    role: "Junior Barber",
-    email: "david@primecutsbarbershop.com",
+    name: "Lisa Chen",
+    role: "Junior Stylist",
+    email: "lisa@primecutsbarbershop.com",
     phone: "(555) 444-5555",
-    avatar: "/images/features/clients.jpg",
+    avatar: "https://i.pravatar.cc/150?img=44",
     status: "off",
     schedule: "Wed-Sun 11AM-8PM",
     appointments: 64,
     revenue: 2890,
     rating: 4.5,
-    specialties: ["Classic Cuts", "Fades"],
+    specialties: ["Blowouts", "Women's Cuts", "Updos"],
     currentClient: null,
     joinDate: "Dec 2023",
   },
@@ -502,7 +602,7 @@ const demoTeamHe = [
     role: "ספר בכיר",
     email: "michael@mispara.co.il",
     phone: "054-111-2222",
-    avatar: "/images/features/clients.jpg",
+    avatar: "https://i.pravatar.cc/150?img=51",
     status: "working",
     schedule: "א׳-ה׳ 09:00-18:00",
     appointments: 156,
@@ -518,7 +618,7 @@ const demoTeamHe = [
     role: "קולוריסטית ומעצבת",
     email: "sarah@mispara.co.il",
     phone: "052-222-3333",
-    avatar: "/images/features/clients.jpg",
+    avatar: "https://i.pravatar.cc/150?img=47",
     status: "available",
     schedule: "א׳-ה׳ 10:00-19:00",
     appointments: 142,
@@ -534,7 +634,7 @@ const demoTeamHe = [
     role: "ספר",
     email: "yakov@mispara.co.il",
     phone: "050-333-4444",
-    avatar: "/images/features/clients.jpg",
+    avatar: "https://i.pravatar.cc/150?img=59",
     status: "break",
     schedule: "א׳-ה׳ 09:00-17:00",
     appointments: 98,
@@ -546,17 +646,17 @@ const demoTeamHe = [
   },
   {
     id: 4,
-    name: "דוד אברהם",
-    role: "ספר זוטר",
-    email: "david@mispara.co.il",
+    name: "לירון כהן",
+    role: "מעצבת שיער",
+    email: "liron@mispara.co.il",
     phone: "053-444-5555",
-    avatar: "/images/features/clients.jpg",
+    avatar: "https://i.pravatar.cc/150?img=44",
     status: "off",
     schedule: "א׳-ו׳ 11:00-20:00",
     appointments: 64,
     revenue: 10290,
     rating: 4.5,
-    specialties: ["תספורות קלאסיות", "פיידים"],
+    specialties: ["פן", "תספורות נשים", "תסרוקות"],
     currentClient: null,
     joinDate: "דצמ׳ 2023",
   },
