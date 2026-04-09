@@ -12,6 +12,7 @@ interface DashboardStatsProps {
   completedAppointments: number
   newClientsToday: number
   currency?: string
+  isOwner?: boolean
 }
 
 export function DashboardStats({
@@ -22,6 +23,7 @@ export function DashboardStats({
   completedAppointments,
   newClientsToday,
   currency = "ILS",
+  isOwner = false,
 }: DashboardStatsProps) {
   const router = useRouter()
   const { t, locale } = useLanguage()
@@ -36,7 +38,8 @@ export function DashboardStats({
     }).format(amount)
   }
 
-  const stats = [
+  // Base stats visible to everyone
+  const baseStats = [
     {
       name: isHebrew ? "תורים להיום" : "Today's Appts",
       value: todayAppointments,
@@ -48,18 +51,6 @@ export function DashboardStats({
       value: totalClients,
       Icon: Users,
       href: "/dashboard/clients",
-    },
-    {
-      name: isHebrew ? "הכנסות היום" : "Today's Revenue",
-      value: formatPrice(todayRevenue),
-      Icon: TrendingUp,
-      href: "/dashboard/analytics",
-    },
-    {
-      name: isHebrew ? "הכנסות החודש" : "Monthly Revenue",
-      value: formatPrice(monthlyRevenue),
-      Icon: DollarSign,
-      href: "/dashboard/analytics",
     },
     {
       name: isHebrew ? "הושלמו" : "Completed",
@@ -75,8 +66,27 @@ export function DashboardStats({
     },
   ]
 
+  // Financial stats only visible to owners
+  const ownerStats = [
+    {
+      name: isHebrew ? "הכנסות היום" : "Today's Revenue",
+      value: formatPrice(todayRevenue),
+      Icon: TrendingUp,
+      href: "/dashboard/analytics",
+    },
+    {
+      name: isHebrew ? "הכנסות החודש" : "Monthly Revenue",
+      value: formatPrice(monthlyRevenue),
+      Icon: DollarSign,
+      href: "/dashboard/analytics",
+    },
+  ]
+
+  // Combine stats based on user role
+  const stats = isOwner ? [...baseStats.slice(0, 2), ...ownerStats, ...baseStats.slice(2)] : baseStats
+
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3" dir="ltr">
+    <div className={`grid grid-cols-2 ${isOwner ? 'sm:grid-cols-3 lg:grid-cols-6' : 'sm:grid-cols-2 lg:grid-cols-4'} gap-2 sm:gap-3`} dir="ltr">
       {stats.map((stat) => (
         <button
           key={stat.name}
