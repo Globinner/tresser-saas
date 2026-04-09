@@ -78,8 +78,41 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
     router.refresh()
   }
 
+  // Mobile bottom nav items (simplified)
+  const mobileNavigation = [
+    { name: t("sidebar.dashboard"), href: "/dashboard", icon: LayoutDashboard },
+    { name: t("sidebar.appointments"), href: "/dashboard/appointments", icon: Calendar },
+    { name: t("sidebar.queue"), href: "/dashboard/queue", icon: UsersRound },
+    { name: t("sidebar.clients"), href: "/dashboard/clients", icon: Users },
+    { name: t("sidebar.team"), href: "/dashboard/team", icon: Briefcase },
+  ]
+
   return (
     <>
+      {/* Mobile bottom navigation */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-sm border-t border-border">
+        <div className="flex overflow-x-auto scrollbar-hide gap-1 px-2 py-2">
+          {mobileNavigation.map((item) => {
+            const isActive = pathname === item.href
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "flex flex-col items-center min-w-[64px] p-2 rounded-lg shrink-0 transition-colors",
+                  isActive 
+                    ? "text-primary bg-primary/10" 
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <item.icon className="h-5 w-5" />
+                <span className="text-[10px] mt-1 whitespace-nowrap">{item.name}</span>
+              </Link>
+            )
+          })}
+        </div>
+      </div>
+
       {/* Desktop sidebar */}
       <div className={cn(
         "hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col",

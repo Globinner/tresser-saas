@@ -44,7 +44,7 @@ export function DashboardLayoutClient({ user, profile, children }: DashboardLayo
           <TrialBanner daysRemaining={subscription.daysRemaining} />
         )}
         <DashboardHeader user={user} profile={profile} />
-        <main className="p-6">
+        <main className="p-6 pb-24 lg:pb-6">
           {subscription.isExpired ? (
             <div className="flex items-center justify-center h-[60vh]">
               <UpgradePrompt 
