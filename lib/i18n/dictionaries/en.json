@@ -225,6 +225,10 @@
     "revenueAnalytics": {
       "title": "Revenue Analytics",
       "description": "Real-time insights into your earnings, popular services, and growth trends."
+    },
+    "permissions": {
+      "title": "Role-Based Access",
+      "description": "Secure your business data. Team members only see their appointments and clients they serve. Owners have full access to financials and settings."
     }
   },
   "dashboard": {
