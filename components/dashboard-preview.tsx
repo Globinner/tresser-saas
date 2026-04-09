@@ -1,13 +1,15 @@
 "use client"
 
 import { useLanguage } from "@/lib/i18n/language-context"
-import { DemoContent } from "@/app/demo/page"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 
 export function DashboardPreview() {
   const { t, isRTL, locale, isLocaleReady } = useLanguage()
   const isHebrew = locale === 'he'
   
-  // Don't render until locale is FULLY determined to avoid flash of wrong language
   if (!isLocaleReady) {
     return (
       <section id="dashboard" className="relative py-24 md:py-32 overflow-hidden">
@@ -40,10 +42,30 @@ export function DashboardPreview() {
           </p>
         </div>
 
-        {/* Embedded Demo */}
-        <div className={`max-w-7xl mx-auto ${isRTL ? 'rtl' : ''}`}>
-          <div className="glass-strong rounded-3xl overflow-hidden glow-amber-soft" style={{ height: '700px' }}>
-            <DemoContent embedded={true} />
+        {/* Dashboard Screenshot */}
+        <div className={`max-w-6xl mx-auto ${isRTL ? 'rtl' : ''}`}>
+          <div className="glass-strong rounded-3xl overflow-hidden glow-amber-soft p-2">
+            <div className="relative aspect-[16/10] rounded-2xl overflow-hidden">
+              <Image
+                src="/images/features/dashboard.jpg"
+                alt={t("dashboardPreview.title")}
+                fill
+                className="object-cover"
+                priority
+              />
+              {/* Overlay gradient for better visual */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+            </div>
+          </div>
+          
+          {/* CTA Button */}
+          <div className="flex justify-center mt-8">
+            <Button size="lg" asChild className="glow-amber-soft">
+              <Link href="/demo" className="gap-2">
+                {t("dashboardPreview.tryDemo")}
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </div>

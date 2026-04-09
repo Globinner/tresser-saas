@@ -360,7 +360,7 @@ const demoInventoryEn = [
 ]
 
 const demoInventoryHe = [
-  { id: 1, name: "פומייד פרימי��ם", stock: 24, minStock: 10, category: "מוצרי שיער", price: 65, sku: "HP-001" },
+  { id: 1, name: "פומייד פרימי����ם", stock: 24, minStock: 10, category: "מוצרי שיער", price: 65, sku: "HP-001" },
   { id: 2, name: "ג׳ל חזק", stock: 18, minStock: 10, category: "מוצרי שיער", price: 45, sku: "HP-002" },
   { id: 3, name: "שמן זקן פרימיום", stock: 3, minStock: 5, category: "מוצרי זקן", price: 80, sku: "BP-001", lowStock: true },
   { id: 4, name: "שמפו מקצו��י", stock: 12, minStock: 8, category: "מוצרי ש����ער", price: 55, sku: "HP-003" },
@@ -581,8 +581,8 @@ const PREFERENCE_OPTIONS_HE = {
 const demoBarbersEn = ["Mike", "Sarah", "Carlos", "Emma"]
 const demoBarbersHe = ["מיכאל", "שרה", "יעקב", "דוד"]
 
-// Exported for embedding in landing page
-export function DemoContent({ embedded = false }: { embedded?: boolean }) {
+export default function DemoPage() {
+  const embedded = false // kept for potential future use
   const { t, isRTL, locale } = useLanguage()
   const isHebrew = locale === 'he'
   
@@ -2191,7 +2191,4 @@ name === "revenue" ? `${currency}${value.toLocaleString()}` : value,
   )
 }
 
-// Default export for /demo route
-export default function DemoPage() {
-  return <DemoContent embedded={false} />
-}
+
