@@ -47,7 +47,7 @@ export function DashboardPreview() {
           <div className="glass-strong rounded-3xl overflow-hidden glow-amber-soft p-2">
             <div className="relative aspect-[16/10] rounded-2xl overflow-hidden">
               <Image
-                src="/images/features/dashboard.jpg"
+                src="/images/features/scheduling.jpg"
                 alt={t("dashboardPreview.title")}
                 fill
                 className="object-cover"
