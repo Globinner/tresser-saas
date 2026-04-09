@@ -2,6 +2,7 @@
 
 import { 
   Calendar, 
+  CalendarDays,
   Users, 
   CreditCard, 
   BarChart3, 
@@ -15,7 +16,8 @@ import Image from "next/image"
 import { useLanguage } from "@/lib/i18n/language-context"
 
 export function FeaturesGrid() {
-  const { t, isRTL } = useLanguage()
+  const { t, isRTL, locale } = useLanguage()
+  const isHebrew = locale === 'he'
 
   const features = [
     {
@@ -145,11 +147,6 @@ export function FeaturesGrid() {
                   <p className="text-muted-foreground leading-relaxed text-sm">
                     {feature.description}
                   </p>
-                </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
                 </div>
 
                 {/* Hover glow effect */}

@@ -360,7 +360,7 @@ const demoInventoryEn = [
 ]
 
 const demoInventoryHe = [
-  { id: 1, name: "פומייד פרימיום", stock: 24, minStock: 10, category: "מוצרי שיער", price: 65, sku: "HP-001" },
+  { id: 1, name: "פומייד פרימי��ם", stock: 24, minStock: 10, category: "מוצרי שיער", price: 65, sku: "HP-001" },
   { id: 2, name: "ג׳ל חזק", stock: 18, minStock: 10, category: "מוצרי שיער", price: 45, sku: "HP-002" },
   { id: 3, name: "שמן זקן פרימיום", stock: 3, minStock: 5, category: "מוצרי זקן", price: 80, sku: "BP-001", lowStock: true },
   { id: 4, name: "שמפו מקצו��י", stock: 12, minStock: 8, category: "מוצרי ש����ער", price: 55, sku: "HP-003" },
@@ -581,7 +581,8 @@ const PREFERENCE_OPTIONS_HE = {
 const demoBarbersEn = ["Mike", "Sarah", "Carlos", "Emma"]
 const demoBarbersHe = ["מיכאל", "שרה", "יעקב", "דוד"]
 
-export default function DemoPage() {
+// Exported for embedding in landing page
+export function DemoContent({ embedded = false }: { embedded?: boolean }) {
   const { t, isRTL, locale } = useLanguage()
   const isHebrew = locale === 'he'
   
@@ -650,32 +651,34 @@ export default function DemoPage() {
   const lastWeekMaxRevenue = Math.max(...lastWeekRevenueData.map(d => d.revenue))
 
   return (
-    <div className={`min-h-screen bg-background grain ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      {/* Demo Banner */}
-      <div className="bg-primary/10 border-b border-primary/20 px-4 py-2 fixed top-0 left-0 right-0 z-50">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Badge variant="outline" className="bg-primary/20 text-primary border-primary">
-              {t("demo.title")}
-            </Badge>
-            <span className="text-sm text-muted-foreground hidden sm:inline">
-              {t("demo.subtitle")}
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <LanguageSwitcher />
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="/">{t("demo.backToSite")}</Link>
-            </Button>
-            <Button size="sm" asChild className="hidden sm:inline-flex">
-              <Link href="/auth/sign-up">{t("nav.startFreeTrial")}</Link>
-            </Button>
+    <div className={`${embedded ? 'relative' : 'min-h-screen'} bg-background ${embedded ? '' : 'grain'} ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+      {/* Demo Banner - only show on standalone page */}
+      {!embedded && (
+        <div className="bg-primary/10 border-b border-primary/20 px-4 py-2 fixed top-0 left-0 right-0 z-50">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Badge variant="outline" className="bg-primary/20 text-primary border-primary">
+                {t("demo.title")}
+              </Badge>
+              <span className="text-sm text-muted-foreground hidden sm:inline">
+                {t("demo.subtitle")}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <LanguageSwitcher />
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/">{t("demo.backToSite")}</Link>
+              </Button>
+              <Button size="sm" asChild className="hidden sm:inline-flex">
+                <Link href="/auth/sign-up">{t("nav.startFreeTrial")}</Link>
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Sidebar */}
-      <div className={`hidden lg:fixed lg:inset-y-0 lg:z-40 lg:flex lg:w-72 lg:flex-col pt-12 ${isRTL ? 'lg:right-0' : 'lg:left-0'}`}>
+      <div className={`hidden lg:${embedded ? 'absolute' : 'fixed'} lg:inset-y-0 lg:z-40 lg:flex lg:w-72 lg:flex-col ${embedded ? '' : 'pt-12'} ${isRTL ? 'lg:right-0' : 'lg:left-0'}`}>
         <div className={`flex grow flex-col gap-y-5 overflow-y-auto glass-strong px-6 pb-4 ${isRTL ? 'border-l border-border' : 'border-r border-border'}`}>
           {/* Logo */}
           <div className="flex h-16 shrink-0 items-center gap-3">
@@ -736,7 +739,7 @@ export default function DemoPage() {
       </div>
 
       {/* Mobile nav - scrollable */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-sm border-t border-border">
+      <div className={`lg:hidden ${embedded ? 'absolute' : 'fixed'} bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-sm border-t border-border`}>
         <div className="flex overflow-x-auto scrollbar-hide gap-1 px-2 py-2">
           {navigation.map((item) => (
             <button
@@ -759,8 +762,8 @@ export default function DemoPage() {
       </div>
 
       {/* Main content */}
-      <div className={`pt-12 pb-20 lg:pb-6 ${isRTL ? 'lg:pr-72' : 'lg:pl-72'}`}>
-        <main className="p-6">
+      <div className={`${embedded ? 'pb-16 lg:pb-0' : 'pt-12 pb-20 lg:pb-6'} ${isRTL ? 'lg:pr-72' : 'lg:pl-72'}`}>
+        <main className={`${embedded ? 'p-4' : 'p-6'}`}>
           {/* Client Detail View */}
           {selectedClient ? (
             <div className="space-y-6">
@@ -2186,4 +2189,9 @@ name === "revenue" ? `${currency}${value.toLocaleString()}` : value,
       </Dialog>
     </div>
   )
+}
+
+// Default export for /demo route
+export default function DemoPage() {
+  return <DemoContent embedded={false} />
 }
