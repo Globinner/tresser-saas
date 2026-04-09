@@ -200,6 +200,10 @@
     "revenueAnalytics": {
       "title": "Análise de Receitas",
       "description": "Insights em tempo real sobre seus ganhos, serviços populares e tendências de crescimento."
+    },
+    "teamManagement": {
+      "title": "Gestão de Equipe",
+      "description": "Gerencie sua equipe com acesso baseado em funções. Defina horários, acompanhe o desempenho e controle permissões. Funcionários demitidos perdem acesso imediatamente."
     }
   },
   "dashboard": {

@@ -9,35 +9,13 @@ import {
   Beaker,
   Camera,
   Package,
-  UsersRound,
-  CalendarDays,
-  ShieldCheck,
-  ChevronDown,
-  Check,
-  X
+  UsersRound
 } from "lucide-react"
-import { useState } from "react"
 import Image from "next/image"
 import { useLanguage } from "@/lib/i18n/language-context"
 
 export function FeaturesGrid() {
-  const { t, isRTL, locale } = useLanguage()
-  const isHebrew = locale === 'he'
-  const [permissionsExpanded, setPermissionsExpanded] = useState(false)
-
-  // Permissions data for the table
-  const permissions = [
-    { feature: isHebrew ? "תורים משלהם" : "Own Appointments", team: true, owner: true },
-    { feature: isHebrew ? "כל התורים" : "All Appointments", team: false, owner: true },
-    { feature: isHebrew ? "לקוחות שטיפלו" : "Clients They Served", team: true, owner: true },
-    { feature: isHebrew ? "כל הלקוחות" : "All Clients Data", team: false, owner: true },
-    { feature: isHebrew ? "נתונים פיננסיים" : "Financial Data", team: false, owner: true },
-    { feature: isHebrew ? "אנליטיקה והכנסות" : "Analytics & Revenue", team: false, owner: true },
-    { feature: isHebrew ? "ניהול צוות" : "Team Management", team: false, owner: true },
-    { feature: isHebrew ? "הגדרות חנות" : "Shop Settings", team: false, owner: true },
-    { feature: isHebrew ? "שירותים ומחירים" : "Services & Pricing", team: false, owner: true },
-    { feature: isHebrew ? "תור המתנה" : "Walk-in Queue", team: true, owner: true },
-  ]
+  const { t, isRTL } = useLanguage()
 
   const features = [
     {
@@ -101,11 +79,10 @@ export function FeaturesGrid() {
       image: "/images/features/payments.jpg",
     },
     {
-      icon: ShieldCheck,
-      title: t("features.permissions.title"),
-      description: t("features.permissions.description"),
-      image: null, // Special card - no image, has table instead
-      isPermissions: true,
+      icon: UsersRound,
+      title: t("features.teamManagement.title"),
+      description: t("features.teamManagement.description"),
+      image: "/images/features/team.jpg",
     },
   ]
 
@@ -136,115 +113,39 @@ export function FeaturesGrid() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => {
             const Icon = feature.icon
-            const isPermissionsCard = (feature as any).isPermissions
             
             return (
               <div
                 key={index}
                 className="group relative glass rounded-2xl overflow-hidden hover:border-primary/40 transition-all duration-500"
               >
-                {/* Preview Image or Permissions Table */}
-                {isPermissionsCard ? (
-                  <div className="relative h-40 bg-gradient-to-br from-primary/10 via-background to-background overflow-hidden">
-                    {/* Header with icon */}
-                    <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center backdrop-blur-sm group-hover:glow-amber-soft transition-all duration-300">
-                        <Icon className="w-6 h-6 text-primary" />
-                      </div>
-                      <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                        {feature.title}
-                      </h3>
+                {/* Preview Image */}
+                <div className="relative h-40 overflow-hidden">
+                  <Image
+                    src={feature.image}
+                    alt={feature.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
+                  
+                  {/* Icon overlay */}
+                  <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center backdrop-blur-sm group-hover:glow-amber-soft transition-all duration-300">
+                      <Icon className="w-6 h-6 text-primary" />
                     </div>
-                    {/* Background pattern */}
-                    <div className="absolute inset-0 opacity-10">
-                      <div className="absolute top-4 right-4 w-20 h-20 border border-primary/30 rounded-lg rotate-12" />
-                      <div className="absolute top-8 right-8 w-16 h-16 border border-primary/20 rounded-lg rotate-6" />
-                    </div>
+                    <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                      {feature.title}
+                    </h3>
                   </div>
-                ) : (
-                  <div className="relative h-40 overflow-hidden">
-                    <Image
-                      src={feature.image!}
-                      alt={feature.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
-                    
-                    {/* Icon overlay */}
-                    <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center backdrop-blur-sm group-hover:glow-amber-soft transition-all duration-300">
-                        <Icon className="w-6 h-6 text-primary" />
-                      </div>
-                      <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                        {feature.title}
-                      </h3>
-                    </div>
-                  </div>
-                )}
+                </div>
 
-                {/* Content */}
+{/* Content */}
                 <div className="p-5">
                   <p className="text-muted-foreground leading-relaxed text-sm">
                     {feature.description}
                   </p>
-                  
-                  {/* Permissions Table (collapsible) */}
-                  {isPermissionsCard && (
-                    <div className="mt-4">
-                      <button
-                        onClick={() => setPermissionsExpanded(!permissionsExpanded)}
-                        className="flex items-center gap-2 text-primary text-sm font-medium hover:underline w-full justify-between"
-                      >
-                        <span>{isHebrew ? "הצג טבלת הרשאות" : "View Permissions Table"}</span>
-                        <ChevronDown className={`w-4 h-4 transition-transform ${permissionsExpanded ? 'rotate-180' : ''}`} />
-                      </button>
-                      
-                      {permissionsExpanded && (
-                        <div className="mt-4 border border-border/50 rounded-lg overflow-hidden">
-                          <table className="w-full text-xs">
-                            <thead>
-                              <tr className="bg-muted/30">
-                                <th className={`p-2 ${isRTL ? 'text-right' : 'text-left'} font-medium text-foreground`}>
-                                  {isHebrew ? "תכונה" : "Feature"}
-                                </th>
-                                <th className="p-2 text-center font-medium text-foreground w-16">
-                                  {isHebrew ? "צוות" : "Team"}
-                                </th>
-                                <th className="p-2 text-center font-medium text-foreground w-16">
-                                  {isHebrew ? "בעלים" : "Owner"}
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {permissions.map((perm, i) => (
-                                <tr key={i} className={i % 2 === 0 ? 'bg-background' : 'bg-muted/10'}>
-                                  <td className={`p-2 ${isRTL ? 'text-right' : 'text-left'} text-muted-foreground`}>
-                                    {perm.feature}
-                                  </td>
-                                  <td className="p-2 text-center">
-                                    {perm.team ? (
-                                      <Check className="w-4 h-4 text-green-500 mx-auto" />
-                                    ) : (
-                                      <X className="w-4 h-4 text-red-500/70 mx-auto" />
-                                    )}
-                                  </td>
-                                  <td className="p-2 text-center">
-                                    {perm.owner ? (
-                                      <Check className="w-4 h-4 text-green-500 mx-auto" />
-                                    ) : (
-                                      <X className="w-4 h-4 text-red-500/70 mx-auto" />
-                                    )}
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                          <div className="p-2 bg-muted/20 text-[10px] text-muted-foreground text-center">
-                            {isHebrew 
-                              ? "עובדים שפוטרו מאבדים גישה מיידית" 
-                              : "Fired employees lose access immediately"}
-                          </div>
+                </div>
                         </div>
                       )}
                     </div>
