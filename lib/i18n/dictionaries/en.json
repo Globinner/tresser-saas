@@ -640,7 +640,10 @@
     "title": "Ready to Transform",
     "titleHighlight": "Your Shop?",
     "subtitle": "Join thousands of barbers who've upgraded their business with Tresser.",
-    "button": "Start Your Free Trial"
+    "button": "Start Your Free Trial",
+    "startTrial": "Start Free Trial",
+    "scheduleDemo": "Schedule Demo",
+    "guarantee": "No credit card required. 14-day free trial."
   },
   "footer": {
     "description": "The modern operating system for barbershops. Manage bookings, clients, and grow your business.",

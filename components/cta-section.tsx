@@ -54,8 +54,11 @@ export function CTASection() {
               size="lg" 
               variant="outline" 
               className="border-border/50 hover:border-primary/50 px-10 py-7 text-lg"
+              asChild
             >
-              {t("cta.scheduleDemo")}
+              <a href="/demo">
+                {t("cta.scheduleDemo")}
+              </a>
             </Button>
           </div>
 
