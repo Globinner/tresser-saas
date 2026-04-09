@@ -69,8 +69,8 @@ const demoClientsEn = [
       { date: "Feb 10, 2026", service: "Fade", barber: "Mike", price: 30 },
     ],
     photos: [
-      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "Mar 15, 2026" },
-      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "Feb 28, 2026" },
+      { before: "/images/haircuts/before1.jpg", after: "/images/haircuts/after1.jpg", date: "Mar 15, 2026" },
+      { before: "/images/haircuts/before2.jpg", after: "/images/haircuts/after2.jpg", date: "Feb 28, 2026" },
     ]
   },
   { 
@@ -110,7 +110,7 @@ const demoClientsEn = [
       { date: "Jan 20, 2026", service: "Hair Color + Cut", barber: "Sarah", price: 85 },
     ],
     photos: [
-      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "Mar 17, 2026" },
+      { before: "/images/haircuts/before1.jpg", after: "/images/haircuts/after1.jpg", date: "Mar 17, 2026" },
     ],
     chemistry: [
       { 
@@ -167,7 +167,7 @@ const demoClientsEn = [
       { date: "Mar 1, 2026", service: "Hair & Beard Combo", barber: "Mike", price: 40 },
     ],
     photos: [
-      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "Mar 18, 2026" },
+      { before: "/images/haircuts/before2.jpg", after: "/images/haircuts/after2.jpg", date: "Mar 18, 2026" },
     ]
   },
   { 
@@ -188,7 +188,7 @@ const demoClientsEn = [
       { date: "Feb 1, 2026", service: "Highlights + Cut", barber: "Sarah", price: 150 },
     ],
     photos: [
-      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "Mar 15, 2026" },
+      { before: "/images/haircuts/before3.jpg", after: "/images/haircuts/after3.jpg", date: "Mar 15, 2026" },
     ],
     chemistry: [
       { 
@@ -232,7 +232,7 @@ const demoClientsHe = [
     lastVisit: "לפני יומיים",
     totalSpent: 1250,
     avatar: "https://i.pravatar.cc/150?img=68",
-    notes: "לקוח קבוע, תמיד בזמן",
+    notes: "לק��ח קבוע, תמיד בזמן",
     preferences: ["פייד נמוך", "מספריים בלבד", "ג׳לים מסוימים"],
     preferredBarber: "מייק",
     visitHistory: [
@@ -241,8 +241,8 @@ const demoClientsHe = [
       { date: "10 פבר, 2026", service: "פייד", barber: "מייק", price: 30 },
     ],
     photos: [
-      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "15 מרץ, 2026" },
-      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "28 פבר, 2026" },
+      { before: "/images/haircuts/before1.jpg", after: "/images/haircuts/after1.jpg", date: "15 מרץ, 2026" },
+      { before: "/images/haircuts/before2.jpg", after: "/images/haircuts/after2.jpg", date: "28 פבר, 2026" },
     ]
   },
   { 
@@ -282,7 +282,7 @@ const demoClientsHe = [
       { date: "20 ינו, 2026", service: "צביעה + תספורת", barber: "שרה", price: 85 },
     ],
     photos: [
-      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "17 מרץ, 2026" },
+      { before: "/images/haircuts/before1.jpg", after: "/images/haircuts/after1.jpg", date: "17 מרץ, 2026" },
     ],
     chemistry: [
       { 
@@ -339,7 +339,7 @@ const demoClientsHe = [
       { date: "1 מרץ, 2026", service: "שיער + זקן", barber: "מייק", price: 40 },
     ],
     photos: [
-      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "18 מרץ, 2026" },
+      { before: "/images/haircuts/before2.jpg", after: "/images/haircuts/after2.jpg", date: "18 מרץ, 2026" },
     ]
   },
   { 
@@ -360,7 +360,7 @@ const demoClientsHe = [
       { date: "1 פבר, 2026", service: "גוונים + תספורת", barber: "שרה", price: 520 },
     ],
     photos: [
-      { before: "/images/features/photos.jpg", after: "/images/features/photos.jpg", date: "15 מרץ, 2026" },
+      { before: "/images/haircuts/before1.jpg", after: "/images/haircuts/after1.jpg", date: "15 מרץ, 2026" },
     ],
     chemistry: [
       { 
@@ -705,6 +705,7 @@ export default function DemoPage() {
   const [selectedClient, setSelectedClient] = useState<typeof demoClientsEn[0] | null>(null)
   const [clientTab, setClientTab] = useState<"info" | "history" | "photos" | "chemistry">("info")
   const [showAddClient, setShowAddClient] = useState(false)
+  const [enlargedPhoto, setEnlargedPhoto] = useState<{ before: string, after: string, date: string } | null>(null)
   
   // New client form state
   const [newClientPrefs, setNewClientPrefs] = useState<string[]>([])
@@ -1003,10 +1004,21 @@ export default function DemoPage() {
 
                     {clientTab === "photos" && (
                       <div>
+                        {/* Add Photo Button */}
+                        <div className="flex justify-end mb-4">
+                          <Button variant="outline" size="sm">
+                            <Camera className="h-4 w-4 mr-2" />
+                            {isHebrew ? "הוסף תמונה" : "Add Photo"}
+                          </Button>
+                        </div>
                         {selectedClient.photos && selectedClient.photos.length > 0 ? (
                           <div className="grid grid-cols-2 gap-4">
                             {selectedClient.photos.map((photo, i) => (
-                              <div key={i} className="border border-border rounded-lg overflow-hidden">
+                              <div 
+                                key={i} 
+                                className="border border-border rounded-lg overflow-hidden cursor-pointer hover:border-primary/50 transition-colors"
+                                onClick={() => setEnlargedPhoto(photo)}
+                              >
                                 <div className="p-2 bg-muted/30">
                                   <p className="text-xs text-muted-foreground">{photo.date}</p>
                                 </div>
@@ -1018,7 +1030,7 @@ export default function DemoPage() {
                                       fill 
                                       className="object-cover"
                                     />
-                                    <Badge className="absolute bottom-2 left-2 text-xs">Before</Badge>
+                                    <Badge className="absolute bottom-2 left-2 text-xs">{isHebrew ? "לפני" : "Before"}</Badge>
                                   </div>
                                   <div className="relative aspect-square">
                                     <Image 
@@ -1027,7 +1039,7 @@ export default function DemoPage() {
                                       fill 
                                       className="object-cover"
                                     />
-                                    <Badge className="absolute bottom-2 left-2 text-xs">After</Badge>
+                                    <Badge className="absolute bottom-2 left-2 text-xs">{isHebrew ? "אחרי" : "After"}</Badge>
                                   </div>
                                 </div>
                               </div>
@@ -1036,11 +1048,7 @@ export default function DemoPage() {
                         ) : (
                           <div className="text-center py-12 text-muted-foreground">
                             <Camera className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                            <p>No photos yet</p>
-                            <Button variant="outline" size="sm" className="mt-4">
-                              <Plus className="h-4 w-4 mr-1" />
-                              Add Photo
-                            </Button>
+                            <p>{isHebrew ? "אין תמונות עדיין" : "No photos yet"}</p>
                           </div>
                         )}
                       </div>
@@ -1904,7 +1912,11 @@ name === "revenue" ? `${currency}${value.toLocaleString()}` : value,
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {demoClients.filter(c => c.photos && c.photos.length > 0).flatMap(client => 
                       client.photos!.map((photo, i) => (
-                        <Card key={`${client.id}-${i}`} className="overflow-hidden">
+                        <Card 
+                          key={`${client.id}-${i}`} 
+                          className="overflow-hidden cursor-pointer hover:border-primary/50 transition-colors"
+                          onClick={() => setEnlargedPhoto(photo)}
+                        >
                           <div className="p-3 border-b border-border flex items-center gap-2">
                             <Avatar className="h-8 w-8">
                               <AvatarImage src={client.avatar} alt={client.name} />
@@ -1920,11 +1932,11 @@ name === "revenue" ? `${currency}${value.toLocaleString()}` : value,
                           <div className="grid grid-cols-2">
                             <div className="relative aspect-square">
                               <Image src={photo.before} alt="Before" fill className="object-cover" />
-                              <Badge className="absolute bottom-2 left-2 text-xs">Before</Badge>
+                              <Badge className="absolute bottom-2 left-2 text-xs">{isHebrew ? "לפני" : "Before"}</Badge>
                             </div>
                             <div className="relative aspect-square">
                               <Image src={photo.after} alt="After" fill className="object-cover" />
-                              <Badge className="absolute bottom-2 left-2 text-xs">After</Badge>
+                              <Badge className="absolute bottom-2 left-2 text-xs">{isHebrew ? "אחרי" : "After"}</Badge>
                             </div>
                           </div>
                         </Card>
@@ -2285,6 +2297,41 @@ name === "revenue" ? `${currency}${value.toLocaleString()}` : value,
               </Button>
             </div>
           </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Enlarged Photo Dialog */}
+      <Dialog open={!!enlargedPhoto} onOpenChange={() => setEnlargedPhoto(null)}>
+        <DialogContent className="max-w-4xl">
+          <DialogHeader>
+            <DialogTitle>{isHebrew ? "תמונות לפני/אחרי" : "Before/After Photos"} - {enlargedPhoto?.date}</DialogTitle>
+          </DialogHeader>
+          {enlargedPhoto && (
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <p className="text-sm font-medium text-center">{isHebrew ? "לפני" : "Before"}</p>
+                <div className="relative aspect-[3/4] rounded-lg overflow-hidden">
+                  <Image 
+                    src={enlargedPhoto.before} 
+                    alt="Before" 
+                    fill 
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <p className="text-sm font-medium text-center">{isHebrew ? "אחרי" : "After"}</p>
+                <div className="relative aspect-[3/4] rounded-lg overflow-hidden">
+                  <Image 
+                    src={enlargedPhoto.after} 
+                    alt="After" 
+                    fill 
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </div>
