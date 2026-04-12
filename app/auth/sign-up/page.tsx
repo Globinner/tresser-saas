@@ -13,6 +13,7 @@ function SignUpContent() {
   const [password, setPassword] = useState("")
   const [fullName, setFullName] = useState("")
   const [shopName, setShopName] = useState("")
+  const [agreedToTerms, setAgreedToTerms] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [isExistingUser, setIsExistingUser] = useState(false)
@@ -160,6 +161,28 @@ function SignUpContent() {
               />
             </div>
 
+            {/* Terms and Privacy Agreement */}
+            <div className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="terms"
+                checked={agreedToTerms}
+                onChange={(e) => setAgreedToTerms(e.target.checked)}
+                className="mt-1 h-4 w-4 rounded border-border bg-input text-primary focus:ring-primary cursor-pointer"
+                required
+              />
+              <label htmlFor="terms" className="text-sm text-muted-foreground cursor-pointer">
+                I agree to the{" "}
+                <Link href="/terms" className="text-primary hover:underline" target="_blank">
+                  Terms of Service
+                </Link>
+                {" "}and{" "}
+                <Link href="/privacy" className="text-primary hover:underline" target="_blank">
+                  Privacy Policy
+                </Link>
+              </label>
+            </div>
+
             {error && (
               <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm">
                 {error}
@@ -177,7 +200,7 @@ function SignUpContent() {
             <Button 
               type="submit" 
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90 glow-amber-soft"
-              disabled={loading}
+              disabled={loading || !agreedToTerms}
             >
               {loading ? (
                 <>
