@@ -36,11 +36,11 @@ import { cn } from "@/lib/utils"
 interface Photo {
   id: string
   photo_type: "before" | "after"
-  photo_url: string
-  service_id: string | null
+  blob_pathname: string
+  service_performed: string | null
   notes: string | null
   created_at: string
-  services?: { name: string } | null
+  taken_at: string | null
 }
 
 interface Service {
@@ -75,7 +75,7 @@ export function ClientPhotos({ clientId, shopId }: { clientId: string; shopId: s
     const supabase = createClient()
     const { data } = await supabase
       .from("client_photos")
-      .select("*, services(name)")
+      .select("*")
       .eq("client_id", clientId)
       .order("created_at", { ascending: false })
 
@@ -276,7 +276,7 @@ export function ClientPhotos({ clientId, shopId }: { clientId: string; shopId: s
                 {selectedBefore ? (
                   <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-secondary">
                     <img 
-                      src={getPhotoUrl(selectedBefore.photo_url)} 
+                      src={getPhotoUrl(selectedBefore.blob_pathname)} 
                       alt="Before" 
                       className="w-full h-full object-cover"
                     />
@@ -300,7 +300,7 @@ export function ClientPhotos({ clientId, shopId }: { clientId: string; shopId: s
                 {selectedAfter ? (
                   <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-secondary">
                     <img 
-                      src={getPhotoUrl(selectedAfter.photo_url)} 
+                      src={getPhotoUrl(selectedAfter.blob_pathname)} 
                       alt="After" 
                       className="w-full h-full object-cover"
                     />
@@ -355,7 +355,7 @@ export function ClientPhotos({ clientId, shopId }: { clientId: string; shopId: s
                   }}
                 >
                   <img 
-                    src={getPhotoUrl(photo.photo_url)} 
+                    src={getPhotoUrl(photo.blob_pathname)} 
                     alt="Before" 
                     className="w-full h-full object-cover"
                   />
@@ -402,7 +402,7 @@ export function ClientPhotos({ clientId, shopId }: { clientId: string; shopId: s
                   }}
                 >
                   <img 
-                    src={getPhotoUrl(photo.photo_url)} 
+                    src={getPhotoUrl(photo.blob_pathname)} 
                     alt="After" 
                     className="w-full h-full object-cover"
                   />
@@ -447,7 +447,7 @@ export function ClientPhotos({ clientId, shopId }: { clientId: string; shopId: s
           </Button>
           <div className="max-w-4xl max-h-[90vh] relative">
             <img 
-              src={getPhotoUrl(lightboxPhoto.photo_url)} 
+              src={getPhotoUrl(lightboxPhoto.blob_pathname)} 
               alt={lightboxPhoto.photo_type} 
               className="max-w-full max-h-[90vh] object-contain rounded-lg"
             />
@@ -462,8 +462,8 @@ export function ClientPhotos({ clientId, shopId }: { clientId: string; shopId: s
                   )}>
                     {lightboxPhoto.photo_type}
                   </span>
-                  {lightboxPhoto.services?.name && (
-                    <span className="ml-2 text-sm text-white/70">{lightboxPhoto.services.name}</span>
+                  {lightboxPhoto.service_performed && (
+                    <span className="ml-2 text-sm text-white/70">{lightboxPhoto.service_performed}</span>
                   )}
                 </div>
                 <span className="text-sm text-white/70">

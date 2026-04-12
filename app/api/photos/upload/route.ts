@@ -38,8 +38,8 @@ export async function POST(request: NextRequest) {
         shop_id: shopId,
         client_id: clientId,
         photo_type: photoType,
-        photo_url: blob.pathname, // Store pathname for private blob retrieval
-        service_id: serviceId || null,
+        blob_pathname: blob.pathname, // Store pathname for private blob retrieval
+        service_performed: serviceId || null,
         notes: notes || null
       })
       .select()
