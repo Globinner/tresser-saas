@@ -109,9 +109,17 @@ export function TeamList({ members, currentUserId, isOwner }: TeamListProps) {
           >
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xl">
-                  {member.full_name?.charAt(0)?.toUpperCase() || "?"}
-                </div>
+                {member.avatar_url ? (
+                  <img 
+                    src={member.avatar_url} 
+                    alt={member.full_name || "Team member"}
+                    className="w-14 h-14 rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xl">
+                    {member.full_name?.charAt(0)?.toUpperCase() || "?"}
+                  </div>
+                )}
                 <div>
                   <h3 className="font-semibold text-lg flex items-center gap-2">
                     {member.full_name || "Unnamed"}
