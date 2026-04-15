@@ -97,11 +97,12 @@ export function HeroSection() {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-border/50 hover:border-primary/50 px-8 py-6 text-lg group"
+              className="border-primary/50 hover:border-primary bg-primary/10 hover:bg-primary/20 px-10 py-7 text-lg font-semibold group relative overflow-hidden transition-all duration-300 shadow-[0_0_20px_rgba(217,160,50,0.3)] hover:shadow-[0_0_30px_rgba(217,160,50,0.5)]"
               asChild
             >
               <a href="/demo">
-                <Play className={`w-5 h-5 text-primary group-hover:scale-110 transition-transform ${isRTL ? 'ml-2' : 'mr-2'}`} />
+                <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 animate-shimmer" />
+                <Play className={`w-6 h-6 text-primary group-hover:scale-125 transition-transform ${isRTL ? 'ml-2' : 'mr-2'}`} />
                 {t("hero.watchDemo")}
               </a>
             </Button>
