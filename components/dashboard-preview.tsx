@@ -121,9 +121,10 @@ export function DashboardPreview() {
                   <CardTitle className="text-lg">{isHebrew ? "לוח זמנים להיום" : "Today's Schedule"}</CardTitle>
                   <p className="text-sm text-muted-foreground">{isHebrew ? "נהל את התורים שלך" : "Manage your appointments"}</p>
                 </CardHeader>
-                <CardContent className="space-y-3 overflow-x-auto">
+                <CardContent className="overflow-x-auto pb-2">
+                  <div className="space-y-3 min-w-[500px]">
                   {appointments.map((apt, index) => (
-                    <div key={index} className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/30 transition-colors min-w-[400px]">
+                    <div key={index} className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/30 transition-colors">
                       <span className="text-primary font-mono text-sm w-12 shrink-0">{apt.time}</span>
                       <Avatar className="h-9 w-9 shrink-0">
                         <AvatarImage src={apt.avatar} alt={apt.name} />
@@ -146,6 +147,7 @@ export function DashboardPreview() {
                       </div>
                     </div>
                   ))}
+                  </div>
                 </CardContent>
               </Card>
 

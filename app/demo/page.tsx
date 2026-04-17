@@ -1151,8 +1151,8 @@ export default function DemoPage() {
                         <CardTitle>{t("demo.todaysSchedule")}</CardTitle>
                         <CardDescription>{t("demo.manageAppointments")}</CardDescription>
                       </CardHeader>
-                      <CardContent>
-                        <div className="space-y-3">
+                      <CardContent className="overflow-x-auto pb-2">
+                        <div className="space-y-3 min-w-[500px]">
                           {appointments.map((apt) => (
                             <div key={apt.id} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
                               <div className="flex items-center gap-3">
