@@ -157,8 +157,8 @@ export function DashboardPreview() {
                   <CardTitle className="text-lg">{isHebrew ? "הכנסות שבועיות" : "Weekly Revenue"}</CardTitle>
                   <p className="text-sm text-muted-foreground">{isHebrew ? "השבוע הנוכחי" : "Current week"}</p>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
+                <CardContent className="overflow-x-auto pb-2">
+                  <div className="space-y-3 min-w-[300px]">
                     {weeklyRevenue.map((day, index) => (
                       <div key={index} className="flex items-center gap-3">
                         <span className="text-sm text-muted-foreground w-8">{day.day}</span>

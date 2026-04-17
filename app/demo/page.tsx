@@ -395,11 +395,11 @@ const demoClientsHe = [
 ]
 
 const demoAppointmentsHe = [
-  { id: 1, clientId: "demo-client-1", client: "יוסי כהן", service: "פייד", time: "09:00", status: "confirmed", barber: "מיכאל", price: 110 },
-  { id: 2, clientId: "demo-client-2", client: "דוד לוי", service: "תספורת קלאסית", time: "10:30", status: "confirmed", barber: "מיכאל", price: 90 },
-  { id: 3, clientId: "demo-client-3", client: "משה פרץ", service: "עיצוב זקן", time: "11:00", status: "pending", barber: "שרה", price: 50 },
-  { id: 4, clientId: "demo-client-4", client: "אבי מזרחי", service: "צביעת שיער", time: "14:00", status: "confirmed", barber: "שרה", price: 220 },
-  { id: 5, clientId: "demo-client-5", client: "רון ביטון", service: "שיער + זקן", time: "15:30", status: "confirmed", barber: "מיכאל", price: 140 },
+  { id: 1, clientId: "demo-client-1", client: "יוסי כהן", service: "פייד", time: "09:00", status: "confirmed", barber: "מיכאל", price: 110, avatar: "https://i.pravatar.cc/150?img=11" },
+  { id: 2, clientId: "demo-client-2", client: "דוד לוי", service: "תספורת קלאסית", time: "10:30", status: "confirmed", barber: "מיכאל", price: 90, avatar: "https://i.pravatar.cc/150?img=33" },
+  { id: 3, clientId: "demo-client-3", client: "משה פרץ", service: "עיצוב זקן", time: "11:00", status: "pending", barber: "שרה", price: 50, avatar: "https://i.pravatar.cc/150?img=53" },
+  { id: 4, clientId: "demo-client-4", client: "אבי מזרחי", service: "צביעת שיער", time: "14:00", status: "confirmed", barber: "שרה", price: 220, avatar: "https://i.pravatar.cc/150?img=32" },
+  { id: 5, clientId: "demo-client-5", client: "רון ביטון", service: "שיער + זקן", time: "15:30", status: "confirmed", barber: "מיכאל", price: 140, avatar: "https://i.pravatar.cc/150?img=12" },
 ]
 
 const demoQueueHe = [
@@ -433,11 +433,11 @@ const demoServicesHe = [
 ]
 
 const demoAppointmentsEn = [
-  { id: 1, clientId: "demo-client-1", client: "Marcus Johnson", service: "Fade", time: "09:00", status: "confirmed", barber: "Mike", price: 30 },
-  { id: 2, clientId: "demo-client-2", client: "David Chen", service: "Classic Haircut", time: "10:30", status: "confirmed", barber: "Mike", price: 25 },
-  { id: 3, clientId: "demo-client-3", client: "James Williams", service: "Beard Trim", time: "11:00", status: "pending", barber: "Sarah", price: 15 },
-  { id: 4, clientId: "demo-client-4", client: "Alex Thompson", service: "Hair Color", time: "14:00", status: "confirmed", barber: "Sarah", price: 60 },
-  { id: 5, clientId: "demo-client-5", client: "Michael Rodriguez", service: "Hair & Beard Combo", time: "15:30", status: "confirmed", barber: "Mike", price: 40 },
+  { id: 1, clientId: "demo-client-1", client: "Marcus Johnson", service: "Fade", time: "09:00", status: "confirmed", barber: "Mike", price: 30, avatar: "https://i.pravatar.cc/150?img=11" },
+  { id: 2, clientId: "demo-client-2", client: "David Chen", service: "Classic Haircut", time: "10:30", status: "confirmed", barber: "Mike", price: 25, avatar: "https://i.pravatar.cc/150?img=33" },
+  { id: 3, clientId: "demo-client-3", client: "James Williams", service: "Beard Trim", time: "11:00", status: "pending", barber: "Sarah", price: 15, avatar: "https://i.pravatar.cc/150?img=53" },
+  { id: 4, clientId: "demo-client-4", client: "Alex Thompson", service: "Hair Color", time: "14:00", status: "confirmed", barber: "Sarah", price: 60, avatar: "https://i.pravatar.cc/150?img=32" },
+  { id: 5, clientId: "demo-client-5", client: "Michael Rodriguez", service: "Hair & Beard Combo", time: "15:30", status: "confirmed", barber: "Mike", price: 40, avatar: "https://i.pravatar.cc/150?img=12" },
 ]
 
 const demoQueueEn = [
@@ -620,7 +620,7 @@ const demoTeamHe = [
     phone: "052-222-3333",
     avatar: "https://i.pravatar.cc/150?img=47",
     status: "available",
-    schedule: "א׳-ה׳ 10:00-19:00",
+    schedule: "א��-ה׳ 10:00-19:00",
     appointments: 142,
     revenue: 27800,
     rating: 4.8,
@@ -1160,6 +1160,7 @@ export default function DemoPage() {
                                   <p className="text-lg font-bold text-primary">{apt.time}</p>
                                 </div>
                                 <Avatar className="h-10 w-10 bg-primary/20">
+                                  <AvatarImage src={apt.avatar} alt={apt.client} />
                                   <AvatarFallback className="text-primary">
                                     {apt.client.split(' ').map(n => n[0]).join('')}
                                   </AvatarFallback>
@@ -1231,8 +1232,8 @@ export default function DemoPage() {
                           </div>
                         </div>
                       </CardHeader>
-                      <CardContent>
-                        <div className="space-y-3">
+                      <CardContent className="overflow-x-auto pb-2">
+                        <div className="space-y-3 min-w-[300px]">
                           {(showLastWeek ? lastWeekRevenueData : revenueData).map((data, i) => (
                             <div key={i} className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                               <span className="text-xs text-muted-foreground w-12">{data.day}</span>
