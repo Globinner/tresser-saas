@@ -863,8 +863,8 @@ export default function DemoPage() {
       </div>
 
       {/* Main content */}
-      <div className={`${embedded ? 'pb-16 lg:pb-0' : 'pt-12 pb-20 lg:pb-6'} ${isRTL ? 'lg:pr-72' : 'lg:pl-72'} overflow-x-auto`}>
-        <main className={`${embedded ? 'p-4' : 'p-6'} min-w-[360px]`}>
+      <div className={`${embedded ? 'pb-16 lg:pb-0' : 'pt-12 pb-20 lg:pb-6'} ${isRTL ? 'lg:pr-72' : 'lg:pl-72'}`}>
+        <main className={`${embedded ? 'p-4' : 'p-6'}`}>
           {/* Client Detail View */}
           {selectedClient ? (
             <div className="space-y-6">

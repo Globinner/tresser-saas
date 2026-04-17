@@ -75,8 +75,7 @@ export function DashboardPreview() {
 
         {/* Dashboard Preview */}
         <div className={`max-w-6xl mx-auto ${isRTL ? 'rtl' : ''}`}>
-          <div className="glass-strong rounded-3xl glow-amber-soft p-4 md:p-6 overflow-x-auto -mx-6 px-6 md:mx-0 md:px-6">
-          <div className="min-w-[600px] md:min-w-0">
+          <div className="glass-strong rounded-3xl glow-amber-soft p-4 md:p-6">
             {/* Dashboard Header with Greeting */}
             <div className="mb-6">
               <h3 className={`text-2xl font-bold ${isHebrew ? 'text-right' : 'text-left'}`}>
@@ -122,23 +121,21 @@ export function DashboardPreview() {
                   <CardTitle className="text-lg">{isHebrew ? "לוח זמנים להיום" : "Today's Schedule"}</CardTitle>
                   <p className="text-sm text-muted-foreground">{isHebrew ? "נהל את התורים שלך" : "Manage your appointments"}</p>
                 </CardHeader>
-                <CardContent className="space-y-3">
+                <CardContent className="space-y-3 overflow-x-auto">
                   {appointments.map((apt, index) => (
-                    <div key={index} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 p-2 rounded-lg hover:bg-muted/30 transition-colors">
-                      <div className="flex items-center gap-3 flex-1 min-w-0">
-                        <span className="text-primary font-mono text-sm w-12 shrink-0">{apt.time}</span>
-                        <Avatar className="h-9 w-9 shrink-0">
-                          <AvatarImage src={apt.avatar} alt={apt.name} />
-                          <AvatarFallback className="bg-primary/20 text-primary text-xs font-bold">
-                            {apt.initials}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="min-w-0">
-                          <p className="font-medium text-sm truncate">{apt.name}</p>
-                          <p className="text-xs text-muted-foreground truncate">{apt.service}</p>
-                        </div>
+                    <div key={index} className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/30 transition-colors min-w-[400px]">
+                      <span className="text-primary font-mono text-sm w-12 shrink-0">{apt.time}</span>
+                      <Avatar className="h-9 w-9 shrink-0">
+                        <AvatarImage src={apt.avatar} alt={apt.name} />
+                        <AvatarFallback className="bg-primary/20 text-primary text-xs font-bold">
+                          {apt.initials}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1 min-w-[120px]">
+                        <p className="font-medium text-sm">{apt.name}</p>
+                        <p className="text-xs text-muted-foreground">{apt.service}</p>
                       </div>
-                      <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''} ${isRTL ? 'mr-auto sm:mr-0' : 'ml-auto sm:ml-0'}`}>
+                      <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                         <Badge variant="outline" className="text-xs shrink-0">{apt.barber}</Badge>
                         <Badge 
                           variant="outline" 
@@ -184,7 +181,6 @@ export function DashboardPreview() {
                 </CardContent>
               </Card>
             </div>
-          </div>
           </div>
           
           {/* CTA Button */}
