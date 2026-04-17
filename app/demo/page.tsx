@@ -752,7 +752,7 @@ export default function DemoPage() {
   const lastWeekMaxRevenue = Math.max(...lastWeekRevenueData.map(d => d.revenue))
 
   return (
-    <div className={`${embedded ? 'relative' : 'min-h-screen'} bg-background ${embedded ? '' : 'grain'} ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className={`${embedded ? 'relative' : 'min-h-screen min-h-[100dvh]'} bg-background ${embedded ? '' : 'grain'} ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Demo Banner - only show on standalone page */}
       {!embedded && (
         <div className="bg-primary/10 border-b border-primary/20 px-4 py-2 fixed top-0 left-0 right-0 z-50">

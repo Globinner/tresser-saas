@@ -4,7 +4,7 @@ import { useLanguage } from "@/lib/i18n/language-context"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
 import { ArrowRight, Calendar, Users, DollarSign, Clock } from "lucide-react"
 
@@ -14,7 +14,7 @@ export function DashboardPreview() {
   
   if (!isLocaleReady) {
     return (
-      <section id="dashboard" className="relative py-24 md:py-32 overflow-hidden">
+      <section id="dashboard" className="relative py-24 md:py-32 overflow-x-hidden">
         <div className="container mx-auto px-6 flex justify-center items-center min-h-[600px]">
           <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
         </div>
@@ -31,11 +31,11 @@ export function DashboardPreview() {
   ]
 
   const appointments = [
-    { time: "09:00", initials: "MJ", name: isHebrew ? "מרקוס ג׳ונסון" : "Marcus Johnson", service: isHebrew ? "פייד" : "Fade", barber: isHebrew ? "מייק" : "Mike", status: "confirmed" },
-    { time: "10:30", initials: "DC", name: isHebrew ? "דוד חן" : "David Chen", service: isHebrew ? "תספורת קלאסית" : "Classic Haircut", barber: isHebrew ? "מייק" : "Mike", status: "confirmed" },
-    { time: "11:00", initials: "JW", name: isHebrew ? "ג׳יימס וויליאמס" : "James Williams", service: isHebrew ? "עיצוב זקן" : "Beard Trim", barber: isHebrew ? "שרה" : "Sarah", status: "pending" },
-    { time: "14:00", initials: "AT", name: isHebrew ? "אלכס תומפסון" : "Alex Thompson", service: isHebrew ? "צביעת שיער" : "Hair Color", barber: isHebrew ? "שרה" : "Sarah", status: "confirmed" },
-    { time: "15:30", initials: "MR", name: isHebrew ? "מייקל רודריגז" : "Michael Rodriguez", service: isHebrew ? "שיער + זקן" : "Hair & Beard Combo", barber: isHebrew ? "מייק" : "Mike", status: "confirmed" },
+    { time: "09:00", initials: "MJ", name: isHebrew ? "מרקוס ג׳ונסון" : "Marcus Johnson", service: isHebrew ? "פייד" : "Fade", barber: isHebrew ? "מייק" : "Mike", status: "confirmed", avatar: "https://i.pravatar.cc/150?img=11" },
+    { time: "10:30", initials: "DC", name: isHebrew ? "דוד חן" : "David Chen", service: isHebrew ? "תספורת קלאסית" : "Classic Haircut", barber: isHebrew ? "מייק" : "Mike", status: "confirmed", avatar: "https://i.pravatar.cc/150?img=33" },
+    { time: "11:00", initials: "JW", name: isHebrew ? "ג׳יימס וויליאמס" : "James Williams", service: isHebrew ? "עיצוב זקן" : "Beard Trim", barber: isHebrew ? "שרה" : "Sarah", status: "pending", avatar: "https://i.pravatar.cc/150?img=53" },
+    { time: "14:00", initials: "AT", name: isHebrew ? "אלכס תומפסון" : "Alex Thompson", service: isHebrew ? "צביעת שיער" : "Hair Color", barber: isHebrew ? "שרה" : "Sarah", status: "confirmed", avatar: "https://i.pravatar.cc/150?img=32" },
+    { time: "15:30", initials: "MR", name: isHebrew ? "מייקל רודריגז" : "Michael Rodriguez", service: isHebrew ? "שיער + זקן" : "Hair & Beard Combo", barber: isHebrew ? "מייק" : "Mike", status: "confirmed", avatar: "https://i.pravatar.cc/150?img=12" },
   ]
 
   const weeklyRevenue = [
@@ -52,7 +52,7 @@ export function DashboardPreview() {
   const totalRevenue = weeklyRevenue.reduce((sum, d) => sum + d.amount, 0)
 
   return (
-    <section id="dashboard" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="dashboard" className="relative py-24 md:py-32 overflow-x-hidden">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[150px]" />
@@ -75,7 +75,7 @@ export function DashboardPreview() {
 
         {/* Dashboard Preview */}
         <div className={`max-w-6xl mx-auto ${isRTL ? 'rtl' : ''}`}>
-          <div className="glass-strong rounded-3xl overflow-hidden glow-amber-soft p-4 md:p-6">
+          <div className="glass-strong rounded-3xl glow-amber-soft p-4 md:p-6 overflow-x-auto">
             {/* Dashboard Header with Greeting */}
             <div className="mb-6">
               <h3 className={`text-2xl font-bold ${isHebrew ? 'text-right' : 'text-left'}`}>
@@ -123,22 +123,25 @@ export function DashboardPreview() {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   {appointments.map((apt, index) => (
-                    <div key={index} className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/30 transition-colors">
-                      <span className="text-primary font-mono text-sm w-12">{apt.time}</span>
-                      <Avatar className="h-9 w-9">
-                        <AvatarFallback className="bg-primary/20 text-primary text-xs font-bold">
-                          {apt.initials}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-sm truncate">{apt.name}</p>
-                        <p className="text-xs text-muted-foreground">{apt.service}</p>
+                    <div key={index} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 p-2 rounded-lg hover:bg-muted/30 transition-colors">
+                      <div className="flex items-center gap-3 flex-1 min-w-0">
+                        <span className="text-primary font-mono text-sm w-12 shrink-0">{apt.time}</span>
+                        <Avatar className="h-9 w-9 shrink-0">
+                          <AvatarImage src={apt.avatar} alt={apt.name} />
+                          <AvatarFallback className="bg-primary/20 text-primary text-xs font-bold">
+                            {apt.initials}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="min-w-0">
+                          <p className="font-medium text-sm truncate">{apt.name}</p>
+                          <p className="text-xs text-muted-foreground truncate">{apt.service}</p>
+                        </div>
                       </div>
-                      <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                        <Badge variant="outline" className="text-xs">{apt.barber}</Badge>
+                      <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''} ${isRTL ? 'mr-auto sm:mr-0' : 'ml-auto sm:ml-0'}`}>
+                        <Badge variant="outline" className="text-xs shrink-0">{apt.barber}</Badge>
                         <Badge 
                           variant="outline" 
-                          className={`text-xs ${apt.status === 'confirmed' ? 'bg-green-500/10 text-green-500 border-green-500/30' : 'bg-yellow-500/10 text-yellow-500 border-yellow-500/30'}`}
+                          className={`text-xs shrink-0 ${apt.status === 'confirmed' ? 'bg-green-500/10 text-green-500 border-green-500/30' : 'bg-yellow-500/10 text-yellow-500 border-yellow-500/30'}`}
                         >
                           {apt.status === 'confirmed' ? (isHebrew ? 'מאושר' : 'confirmed') : (isHebrew ? 'ממתין' : 'pending')}
                         </Badge>
