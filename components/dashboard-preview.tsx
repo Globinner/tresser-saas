@@ -75,7 +75,8 @@ export function DashboardPreview() {
 
         {/* Dashboard Preview */}
         <div className={`max-w-6xl mx-auto ${isRTL ? 'rtl' : ''}`}>
-          <div className="glass-strong rounded-3xl glow-amber-soft p-4 md:p-6 overflow-x-auto">
+          <div className="glass-strong rounded-3xl glow-amber-soft p-4 md:p-6 overflow-x-auto -mx-6 px-6 md:mx-0 md:px-6">
+          <div className="min-w-[600px] md:min-w-0">
             {/* Dashboard Header with Greeting */}
             <div className="mb-6">
               <h3 className={`text-2xl font-bold ${isHebrew ? 'text-right' : 'text-left'}`}>
@@ -183,6 +184,7 @@ export function DashboardPreview() {
                 </CardContent>
               </Card>
             </div>
+          </div>
           </div>
           
           {/* CTA Button */}

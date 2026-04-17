@@ -233,7 +233,7 @@ const demoClientsHe = [
     totalSpent: 1250,
     avatar: "https://i.pravatar.cc/150?img=68",
     notes: "לק��ח קבוע, תמיד בזמן",
-    preferences: ["פייד נמוך", "מספריים בלבד", "ג׳לים מסוימים"],
+    preferences: ["פייד נמוך", "מ��פריים בלבד", "ג׳לים מסוימים"],
     preferredBarber: "מייק",
     visitHistory: [
       { date: "15 מרץ, 2026", service: "פייד", barber: "מייק", price: 30 },
@@ -863,8 +863,8 @@ export default function DemoPage() {
       </div>
 
       {/* Main content */}
-      <div className={`${embedded ? 'pb-16 lg:pb-0' : 'pt-12 pb-20 lg:pb-6'} ${isRTL ? 'lg:pr-72' : 'lg:pl-72'}`}>
-        <main className={`${embedded ? 'p-4' : 'p-6'}`}>
+      <div className={`${embedded ? 'pb-16 lg:pb-0' : 'pt-12 pb-20 lg:pb-6'} ${isRTL ? 'lg:pr-72' : 'lg:pl-72'} overflow-x-auto`}>
+        <main className={`${embedded ? 'p-4' : 'p-6'} min-w-[360px]`}>
           {/* Client Detail View */}
           {selectedClient ? (
             <div className="space-y-6">
