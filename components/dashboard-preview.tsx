@@ -75,7 +75,7 @@ export function DashboardPreview() {
 
         {/* Dashboard Preview */}
         <div className={`max-w-6xl mx-auto ${isRTL ? 'rtl' : ''}`}>
-          <div className="glass-strong rounded-3xl overflow-hidden glow-amber-soft p-4 md:p-6">
+          <div className="glass-strong rounded-3xl glow-amber-soft p-4 md:p-6">
             {/* Dashboard Header with Greeting */}
             <div className="mb-6">
               <h3 className={`text-2xl font-bold ${isHebrew ? 'text-right' : 'text-left'}`}>

@@ -152,6 +152,8 @@
     background-color: #0d0d0f;
     /* Extend background behind system bars */
     overflow-x: hidden;
+    /* Enable smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
   }
   body {
     @apply bg-background text-foreground;
@@ -161,6 +163,7 @@
     padding-bottom: env(safe-area-inset-bottom);
     min-height: 100vh;
     min-height: 100dvh;
+    overflow-y: auto;
   }
 }
 
