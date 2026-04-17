@@ -9,7 +9,7 @@ export function CTASection() {
   const isHebrew = locale === 'he'
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden" dir={isRTL ? 'rtl' : 'ltr'}>
+    <section className="relative py-24 md:py-32 overflow-x-hidden" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Background with dramatic effect */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />

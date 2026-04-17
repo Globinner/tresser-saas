@@ -14,7 +14,7 @@ export function DashboardPreview() {
   
   if (!isLocaleReady) {
     return (
-      <section id="dashboard" className="relative py-24 md:py-32 overflow-hidden">
+      <section id="dashboard" className="relative py-24 md:py-32 overflow-x-hidden">
         <div className="container mx-auto px-6 flex justify-center items-center min-h-[600px]">
           <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
         </div>
@@ -52,7 +52,7 @@ export function DashboardPreview() {
   const totalRevenue = weeklyRevenue.reduce((sum, d) => sum + d.amount, 0)
 
   return (
-    <section id="dashboard" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="dashboard" className="relative py-24 md:py-32 overflow-x-hidden">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[150px]" />
