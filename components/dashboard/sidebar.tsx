@@ -16,8 +16,15 @@ import {
   Package,
   Globe,
   Bell,
-  Wallet
+  Wallet,
+  Shield
 } from "lucide-react"
+
+// Admin emails that can see admin link
+const ADMIN_EMAILS = [
+  "globinner@gmail.com",
+  // Add more admin emails as needed
+]
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
@@ -48,6 +55,7 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
   const { t, isRTL } = useLanguage()
   
   const isOwner = profile?.role === "owner"
+  const isAdmin = ADMIN_EMAILS.includes(user.email || "")
   
   // All users can see these
   const baseNavigation = [
@@ -70,7 +78,14 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
     { name: t("sidebar.settings"), href: "/dashboard/settings", icon: Settings },
   ]
   
-  const navigation = isOwner ? [...baseNavigation, ...ownerNavigation] : baseNavigation
+  // Admin only
+  const adminNavigation = [
+    { name: "Admin Panel", href: "/admin/referrals", icon: Shield },
+  ]
+  
+  const navigation = isOwner 
+    ? [...baseNavigation, ...ownerNavigation, ...(isAdmin ? adminNavigation : [])] 
+    : [...baseNavigation, ...(isAdmin ? adminNavigation : [])]
 
   async function handleSignOut() {
     await supabase.auth.signOut()

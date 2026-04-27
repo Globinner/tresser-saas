@@ -5,7 +5,7 @@ import { Users, LayoutDashboard, CreditCard } from "lucide-react"
 
 // Add your admin email(s) here
 const ADMIN_EMAILS = [
-  "your-email@example.com", // Replace with your actual email
+  "globinner@gmail.com",
   // Add more admin emails as needed
 ]
 
