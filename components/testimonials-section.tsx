@@ -13,48 +13,48 @@ export function TestimonialsSection() {
       author: t("testimonials.testimonial1.author"),
       role: t("testimonials.testimonial1.role"),
       location: t("testimonials.testimonial1.location"),
-      avatar: "MT",
-      featured: true,
+      avatar: "https://i.pravatar.cc/150?img=11",
+      initials: "MT",
     },
     {
       quote: t("testimonials.testimonial2.quote"),
       author: t("testimonials.testimonial2.author"),
       role: t("testimonials.testimonial2.role"),
       location: t("testimonials.testimonial2.location"),
-      avatar: "CR",
-      featured: false,
+      avatar: "https://i.pravatar.cc/150?img=33",
+      initials: "CR",
     },
     {
       quote: t("testimonials.testimonial3.quote"),
       author: t("testimonials.testimonial3.author"),
       role: t("testimonials.testimonial3.role"),
       location: t("testimonials.testimonial3.location"),
-      avatar: "JM",
-      featured: false,
+      avatar: "https://i.pravatar.cc/150?img=53",
+      initials: "JM",
     },
     {
       quote: t("testimonials.testimonial4.quote"),
       author: t("testimonials.testimonial4.author"),
       role: t("testimonials.testimonial4.role"),
       location: t("testimonials.testimonial4.location"),
-      avatar: "DW",
-      featured: false,
+      avatar: "https://i.pravatar.cc/150?img=12",
+      initials: "DW",
     },
     {
       quote: t("testimonials.testimonial5.quote"),
       author: t("testimonials.testimonial5.author"),
       role: t("testimonials.testimonial5.role"),
       location: t("testimonials.testimonial5.location"),
-      avatar: "MC",
-      featured: false,
+      avatar: "https://i.pravatar.cc/150?img=32",
+      initials: "MC",
     },
     {
       quote: t("testimonials.testimonial6.quote"),
       author: t("testimonials.testimonial6.author"),
       role: t("testimonials.testimonial6.role"),
       location: t("testimonials.testimonial6.location"),
-      avatar: "AJ",
-      featured: false,
+      avatar: "https://i.pravatar.cc/150?img=60",
+      initials: "AJ",
     },
   ]
 
@@ -85,9 +85,7 @@ export function TestimonialsSection() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className={`glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 group relative ${
-                testimonial.featured ? 'md:col-span-2 lg:col-span-1 border-primary/20' : ''
-              }`}
+              className="glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 group relative flex flex-col"
             >
               {/* Quote icon */}
               <div className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'} opacity-10 group-hover:opacity-20 transition-opacity`}>
@@ -102,30 +100,31 @@ export function TestimonialsSection() {
               </div>
 
               {/* Quote */}
-              <blockquote className="text-foreground leading-relaxed mb-6">
+              <blockquote className="text-foreground leading-relaxed mb-6 flex-grow">
                 &ldquo;{testimonial.quote}&rdquo;
               </blockquote>
 
-              {/* Author */}
-              <div className={`flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center border border-primary/30 text-primary font-semibold">
-                  {testimonial.avatar}
+              {/* Author - always aligned to bottom-left (or bottom-right for RTL) */}
+              <div className={`flex items-center gap-4 mt-auto ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <img 
+                  src={testimonial.avatar} 
+                  alt={testimonial.author}
+                  className="w-12 h-12 rounded-full object-cover border border-primary/30"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement
+                    target.style.display = 'none'
+                    target.nextElementSibling?.classList.remove('hidden')
+                  }}
+                />
+                <div className={`w-12 h-12 rounded-full bg-primary/10 items-center justify-center border border-primary/30 text-primary font-semibold hidden`}>
+                  {testimonial.initials}
                 </div>
-                <div className={isRTL ? 'text-right' : ''}>
+                <div className={isRTL ? 'text-right' : 'text-left'}>
                   <p className="font-semibold text-foreground">{testimonial.author}</p>
                   <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                   <p className="text-xs text-muted-foreground/70">{testimonial.location}</p>
                 </div>
               </div>
-
-              {/* Featured badge */}
-              {testimonial.featured && (
-                <div className={`absolute top-4 ${isRTL ? 'right-4' : 'left-4'}`}>
-                  <span className="px-2 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/30">
-                    {t("testimonials.featured")}
-                  </span>
-                </div>
-              )}
             </div>
           ))}
         </div>

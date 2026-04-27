@@ -157,27 +157,17 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
             </div>
           )}
 
-          {/* User info under shop name */}
-          <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-secondary/30 border border-border/50">
-            {profile?.avatar_url ? (
-              <img 
-                src={profile.avatar_url} 
-                alt={profile?.full_name || "User"} 
-                className="w-9 h-9 rounded-full object-cover"
-              />
-            ) : (
-              <div className="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center text-primary font-medium text-sm">
-                {profile?.full_name?.charAt(0) || user.email?.charAt(0)?.toUpperCase()}
-              </div>
-            )}
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">
-                {profile?.full_name || "User"}
-              </p>
-              <p className="text-xs text-muted-foreground truncate">
-                {user.email}
-              </p>
-            </div>
+          {/* Time-based greeting */}
+          <div className="px-3 py-2">
+            <p className="text-lg font-medium">
+              {(() => {
+                const hour = new Date().getHours()
+                const name = profile?.full_name?.split(' ')[0] || ''
+                if (hour < 12) return `Good Morning${name ? `, ${name}` : ''}`
+                if (hour < 18) return `Good Afternoon${name ? `, ${name}` : ''}`
+                return `Good Evening${name ? `, ${name}` : ''}`
+              })()}
+            </p>
           </div>
 
           {/* Language Switcher */}
