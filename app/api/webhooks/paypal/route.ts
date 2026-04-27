@@ -122,11 +122,12 @@ export async function POST(request: NextRequest) {
         
         const { data: shop } = await supabase
           .from('shops')
-          .select('id')
+          .select('id, owner_id')
           .eq('subscription_id', subscriptionId)
           .single()
         
         if (shop) {
+          // Record the payment
           await supabase
             .from('subscription_payments')
             .insert({
@@ -138,6 +139,38 @@ export async function POST(request: NextRequest) {
             })
           
           console.log(`Payment recorded for shop ${shop.id}: $${amount}`)
+          
+          // Track referral commission if user signed up with a referral code
+          const { data: signup } = await supabase
+            .from('referral_signups')
+            .select('referral_code_id, referral_codes(code, commission_percent)')
+            .eq('user_id', shop.owner_id)
+            .single()
+          
+          if (signup && signup.referral_codes) {
+            const commissionPercent = (signup.referral_codes as { commission_percent: number }).commission_percent
+            const commissionAmount = (amount * commissionPercent) / 100
+            
+            // Record the commission
+            await supabase
+              .from('referral_commissions')
+              .insert({
+                referral_code_id: signup.referral_code_id,
+                user_id: shop.owner_id,
+                shop_id: shop.id,
+                payment_amount: amount,
+                commission_amount: commissionAmount,
+                payment_reference: resource.id,
+              })
+            
+            // Update total earnings on the referral code
+            await supabase.rpc('update_referral_earnings', {
+              code_id: signup.referral_code_id,
+              amount: commissionAmount
+            })
+            
+            console.log(`Referral commission recorded: $${commissionAmount} for code ${(signup.referral_codes as { code: string }).code}`)
+          }
         }
         break
       }
