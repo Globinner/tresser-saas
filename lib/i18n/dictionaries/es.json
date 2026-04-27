@@ -541,20 +541,42 @@
     "sectionTitleHighlight": "Barberos",
     "sectionTitleEnd": "en Todo el Mundo",
     "sectionSubtitle": "Mira lo que dicen los propietarios de barberías sobre Tresser",
+    "featured": "Destacado",
     "testimonial1": {
-      "name": "Marcus Johnson",
+      "quote": "Tresser transformó completamente la forma en que gestiono mi barbería. Solo el sistema de reservas me ahorra horas cada semana.",
+      "author": "Marcus Thompson",
       "role": "Propietario, Prime Cuts",
-      "text": "Tresser transformó completamente la forma en que gestiono mi barbería. Solo el sistema de reservas me ahorra horas cada semana."
+      "location": "Nueva York, EE.UU."
     },
     "testimonial2": {
-      "name": "David Chen",
+      "quote": "Los análisis me ayudaron a entender mis horas pico y optimizar el horario del equipo. Los ingresos aumentaron un 35%.",
+      "author": "Carlos Rivera",
       "role": "Gerente, Style Studio",
-      "text": "Los análisis me ayudaron a entender mis horas pico y optimizar el horario del equipo. Los ingresos aumentaron un 35%."
+      "location": "Miami, EE.UU."
     },
     "testimonial3": {
-      "name": "Alex Thompson",
+      "quote": "Los registros químicos de clientes cambian las reglas del juego. Ahora puedo recrear fórmulas perfectas cada vez.",
+      "author": "James Mitchell",
       "role": "Fundador, The Gentleman's Cut",
-      "text": "Los registros químicos de clientes cambian las reglas del juego. Ahora puedo recrear fórmulas perfectas cada vez."
+      "location": "Londres, Reino Unido"
+    },
+    "testimonial4": {
+      "quote": "La gestión de cola de espera lo cambió todo. Sin más caos, los clientes adoran la transparencia.",
+      "author": "David Wilson",
+      "role": "Propietario, Fresh Fades",
+      "location": "Chicago, EE.UU."
+    },
+    "testimonial5": {
+      "quote": "Por fin un software que entiende a los barberos. El seguimiento de inventario solo ya se paga solo.",
+      "author": "Michael Chen",
+      "role": "Propietario, Urban Cuts",
+      "location": "Los Ángeles, EE.UU."
+    },
+    "testimonial6": {
+      "quote": "La productividad de mi equipo aumentó un 40% desde que empezamos a usar Tresser. Muy recomendado!",
+      "author": "Anthony Johnson",
+      "role": "Gerente, Classic Barbers",
+      "location": "Toronto, Canadá"
     }
   },
   "cta": {

@@ -541,20 +541,42 @@
     "sectionTitleHighlight": "Coiffeurs",
     "sectionTitleEnd": "du Monde Entier",
     "sectionSubtitle": "Découvrez ce que disent les propriétaires de salons à propos de Tresser",
+    "featured": "En Vedette",
     "testimonial1": {
-      "name": "Marcus Johnson",
+      "quote": "Tresser a complètement transformé ma façon de gérer mon salon. Le système de réservation seul me fait gagner des heures chaque semaine.",
+      "author": "Marcus Thompson",
       "role": "Propriétaire, Prime Cuts",
-      "text": "Tresser a complètement transformé ma façon de gérer mon salon. Le système de réservation seul me fait gagner des heures chaque semaine."
+      "location": "New York, États-Unis"
     },
     "testimonial2": {
-      "name": "David Chen",
+      "quote": "Les analyses m'ont aidé à comprendre mes heures de pointe et à optimiser le planning de l'équipe. Les revenus ont augmenté de 35%.",
+      "author": "Carlos Rivera",
       "role": "Gérant, Style Studio",
-      "text": "Les analyses m'ont aidé à comprendre mes heures de pointe et à optimiser le planning de l'équipe. Les revenus ont augmenté de 35%."
+      "location": "Miami, États-Unis"
     },
     "testimonial3": {
-      "name": "Alex Thompson",
+      "quote": "Les fiches techniques clients changent la donne. Je peux maintenant recréer des formules parfaites à chaque fois.",
+      "author": "James Mitchell",
       "role": "Fondateur, The Gentleman's Cut",
-      "text": "Les fiches techniques clients changent la donne. Je peux maintenant recréer des formules parfaites à chaque fois."
+      "location": "Londres, Royaume-Uni"
+    },
+    "testimonial4": {
+      "quote": "La gestion de file d'attente a tout changé. Plus de chaos, les clients adorent la transparence.",
+      "author": "David Wilson",
+      "role": "Propriétaire, Fresh Fades",
+      "location": "Chicago, États-Unis"
+    },
+    "testimonial5": {
+      "quote": "Enfin un logiciel qui comprend les barbiers. Le suivi d'inventaire seul se rentabilise.",
+      "author": "Michael Chen",
+      "role": "Propriétaire, Urban Cuts",
+      "location": "Los Angeles, États-Unis"
+    },
+    "testimonial6": {
+      "quote": "La productivité de mon équipe a augmenté de 40% depuis que nous utilisons Tresser. Hautement recommandé!",
+      "author": "Anthony Johnson",
+      "role": "Gérant, Classic Barbers",
+      "location": "Toronto, Canada"
     }
   },
   "cta": {

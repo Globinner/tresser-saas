@@ -94,6 +94,15 @@ export function TestimonialsSection() {
                 <Quote className="w-12 h-12 text-primary" />
               </div>
 
+              {/* Featured badge - placed first so stars come after */}
+              {testimonial.featured && (
+                <div className="mb-3">
+                  <span className="px-2 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/30">
+                    {t("testimonials.featured")}
+                  </span>
+                </div>
+              )}
+
               {/* Stars */}
               <div className={`flex gap-1 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 {[...Array(5)].map((_, i) => (
@@ -117,15 +126,6 @@ export function TestimonialsSection() {
                   <p className="text-xs text-muted-foreground/70">{testimonial.location}</p>
                 </div>
               </div>
-
-              {/* Featured badge */}
-              {testimonial.featured && (
-                <div className={`absolute top-4 ${isRTL ? 'right-4' : 'left-4'}`}>
-                  <span className="px-2 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/30">
-                    {t("testimonials.featured")}
-                  </span>
-                </div>
-              )}
             </div>
           ))}
         </div>
