@@ -150,7 +150,12 @@
   }
   html, body {
     background-color: #0d0d0f;
-    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
   }
   body {
     @apply bg-background text-foreground;
@@ -160,6 +165,7 @@
     padding-bottom: env(safe-area-inset-bottom);
     min-height: 100vh;
     min-height: 100dvh;
+    overflow-x: hidden;
   }
 }
 
