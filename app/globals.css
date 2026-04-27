@@ -148,12 +148,10 @@
   * {
     @apply border-border outline-ring/50;
   }
-  html, body {
+  html {
     background-color: #0d0d0f;
-    /* Extend background behind system bars */
-    overflow-x: hidden;
-    /* Enable smooth scrolling on iOS */
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
+    height: 100%;
   }
   body {
     @apply bg-background text-foreground;
@@ -163,6 +161,10 @@
     padding-bottom: env(safe-area-inset-bottom);
     min-height: 100vh;
     min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
