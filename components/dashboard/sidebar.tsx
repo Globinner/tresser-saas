@@ -17,12 +17,14 @@ import {
   Globe,
   Bell,
   Wallet,
-  Shield
+  Shield,
+  Camera
 } from "lucide-react"
 
 // Admin emails that can see admin link
 const ADMIN_EMAILS = [
   "globinner@gmail.com",
+  "davinocur@yahoo.com",
   // Add more admin emails as needed
 ]
 import { createClient } from "@/lib/supabase/client"
@@ -54,7 +56,8 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
   const supabase = createClient()
   const { t, isRTL } = useLanguage()
   
-  const isOwner = profile?.role === "owner"
+  // Check if user is owner by role OR if they own a shop
+  const isOwner = profile?.role === "owner" || profile?.shops !== null
   const isAdmin = ADMIN_EMAILS.includes(user.email || "")
   
   // All users can see these
@@ -72,6 +75,7 @@ export function DashboardSidebar({ user, profile }: DashboardSidebarProps) {
     { name: t("sidebar.inventory"), href: "/dashboard/inventory", icon: Package },
     { name: t("sidebar.payroll") || "Payroll", href: "/dashboard/payroll", icon: Wallet },
     { name: t("sidebar.analytics"), href: "/dashboard/analytics", icon: BarChart3 },
+    { name: t("sidebar.photos") || "Photos", href: "/dashboard/photos", icon: Camera },
     { name: t("sidebar.onlineBooking"), href: "/dashboard/settings?tab=booking", icon: Globe },
     { name: t("sidebar.reminders"), href: "/dashboard/settings?tab=reminders", icon: Bell },
     { name: t("sidebar.billing"), href: "/dashboard/billing", icon: CreditCard },
