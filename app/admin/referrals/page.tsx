@@ -17,6 +17,7 @@ interface ReferralCode {
   owner_name: string
   owner_email: string
   commission_percent: number
+  commission_duration_months: number | null
   total_earnings: number
   is_active: boolean
   created_at: string
@@ -45,6 +46,7 @@ export default function ReferralsAdminPage() {
   const [newOwnerName, setNewOwnerName] = useState("")
   const [newOwnerEmail, setNewOwnerEmail] = useState("")
   const [newCommissionPercent, setNewCommissionPercent] = useState(25)
+  const [newDurationMonths, setNewDurationMonths] = useState<number | null>(12)
   const [showNewCodeDialog, setShowNewCodeDialog] = useState(false)
   
   // Payout form
@@ -107,6 +109,7 @@ export default function ReferralsAdminPage() {
         owner_name: newOwnerName,
         owner_email: newOwnerEmail,
         commission_percent: newCommissionPercent,
+        commission_duration_months: newDurationMonths,
       })
     
     if (error) {
@@ -236,6 +239,19 @@ export default function ReferralsAdminPage() {
                     max={100}
                   />
                 </div>
+                <div className="space-y-2">
+                  <Label>Commission Duration (months)</Label>
+                  <Input 
+                    type="number"
+                    value={newDurationMonths ?? ""} 
+                    onChange={(e) => setNewDurationMonths(e.target.value ? parseInt(e.target.value) : null)}
+                    min={1}
+                    placeholder="Leave empty for unlimited"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    How long reseller earns commission from each signup. Empty = unlimited (lifetime).
+                  </p>
+                </div>
                 <Button onClick={createReferralCode} className="w-full">
                   Create Code
                 </Button>
@@ -308,6 +324,7 @@ export default function ReferralsAdminPage() {
                     <TableHead>Code</TableHead>
                     <TableHead>Owner</TableHead>
                     <TableHead>Commission</TableHead>
+                    <TableHead>Duration</TableHead>
                     <TableHead>Signups</TableHead>
                     <TableHead>Earned</TableHead>
                     <TableHead>Paid</TableHead>
@@ -344,6 +361,11 @@ export default function ReferralsAdminPage() {
                           </div>
                         </TableCell>
                         <TableCell>{code.commission_percent}%</TableCell>
+                        <TableCell>
+                          {code.commission_duration_months 
+                            ? `${code.commission_duration_months} mo` 
+                            : "Lifetime"}
+                        </TableCell>
                         <TableCell>{code.signups_count}</TableCell>
                         <TableCell>${code.total_earnings.toFixed(2)}</TableCell>
                         <TableCell className="text-green-500">${(code.paid_out || 0).toFixed(2)}</TableCell>

@@ -143,33 +143,46 @@ export async function POST(request: NextRequest) {
           // Track referral commission if user signed up with a referral code
           const { data: signup } = await supabase
             .from('referral_signups')
-            .select('referral_code_id, referral_codes(code, commission_percent)')
+            .select('referral_code_id, created_at, referral_codes(code, commission_percent, commission_duration_months)')
             .eq('user_id', shop.owner_id)
             .single()
           
           if (signup && signup.referral_codes) {
-            const commissionPercent = (signup.referral_codes as { commission_percent: number }).commission_percent
-            const commissionAmount = (amount * commissionPercent) / 100
+            const refCode = signup.referral_codes as { code: string; commission_percent: number; commission_duration_months: number | null }
+            const signupDate = new Date(signup.created_at)
+            const now = new Date()
+            const monthsSinceSignup = (now.getFullYear() - signupDate.getFullYear()) * 12 + (now.getMonth() - signupDate.getMonth())
             
-            // Record the commission
-            await supabase
-              .from('referral_commissions')
-              .insert({
-                referral_code_id: signup.referral_code_id,
-                user_id: shop.owner_id,
-                shop_id: shop.id,
-                payment_amount: amount,
-                commission_amount: commissionAmount,
-                payment_reference: resource.id,
+            // Check if still within commission duration (null = unlimited)
+            const durationMonths = refCode.commission_duration_months
+            const isWithinDuration = durationMonths === null || monthsSinceSignup < durationMonths
+            
+            if (isWithinDuration) {
+              const commissionPercent = refCode.commission_percent
+              const commissionAmount = (amount * commissionPercent) / 100
+              
+              // Record the commission
+              await supabase
+                .from('referral_commissions')
+                .insert({
+                  referral_code_id: signup.referral_code_id,
+                  user_id: shop.owner_id,
+                  shop_id: shop.id,
+                  payment_amount: amount,
+                  commission_amount: commissionAmount,
+                  payment_reference: resource.id,
+                })
+              
+              // Update total earnings on the referral code
+              await supabase.rpc('update_referral_earnings', {
+                code_id: signup.referral_code_id,
+                amount: commissionAmount
               })
-            
-            // Update total earnings on the referral code
-            await supabase.rpc('update_referral_earnings', {
-              code_id: signup.referral_code_id,
-              amount: commissionAmount
-            })
-            
-            console.log(`Referral commission recorded: $${commissionAmount} for code ${(signup.referral_codes as { code: string }).code}`)
+              
+              console.log(`Referral commission recorded: $${commissionAmount} for code ${refCode.code}`)
+            } else {
+              console.log(`Referral commission skipped for code ${refCode.code}: past ${durationMonths} month limit`)
+            }
           }
         }
         break
