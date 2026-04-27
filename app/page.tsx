@@ -10,7 +10,7 @@ import { Navigation } from "@/components/navigation"
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-background grain overflow-x-hidden">
+    <main className="bg-background grain">
       <Navigation />
       <HeroSection />
       <StatsBar />
