@@ -14,6 +14,8 @@ function SignUpContent() {
   const [fullName, setFullName] = useState("")
   const [shopName, setShopName] = useState("")
   const [agreedToTerms, setAgreedToTerms] = useState(false)
+  const [referralCode, setReferralCode] = useState("")
+  const [referralValid, setReferralValid] = useState<boolean | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [isExistingUser, setIsExistingUser] = useState(false)
@@ -21,6 +23,7 @@ function SignUpContent() {
   const searchParams = useSearchParams()
   const couponCode = searchParams.get("coupon")
   const planCode = searchParams.get("plan")
+  const refParam = searchParams.get("ref")
   const supabase = createClient()
 
   async function handleSignUp(e: React.FormEvent) {
@@ -42,6 +45,7 @@ function SignUpContent() {
         data: {
           full_name: fullName,
           shop_name: shopName,
+          referral_code: referralCode || null,
         },
       },
     })
@@ -159,6 +163,32 @@ function SignUpContent() {
                 minLength={6}
                 className="bg-input border-border focus:border-primary focus:ring-primary"
               />
+            </div>
+
+            {/* Referral Code (Optional) */}
+            <div className="space-y-2">
+              <label htmlFor="referralCode" className="text-sm font-medium text-foreground">
+                Referral Code <span className="text-muted-foreground">(optional)</span>
+              </label>
+              <Input
+                id="referralCode"
+                type="text"
+                placeholder="e.g. MIKE25"
+                value={referralCode}
+                onChange={(e) => {
+                  setReferralCode(e.target.value.toUpperCase())
+                  setReferralValid(null)
+                }}
+                className={`bg-input border-border focus:border-primary focus:ring-primary ${
+                  referralValid === true ? 'border-green-500' : referralValid === false ? 'border-red-500' : ''
+                }`}
+              />
+              {referralValid === true && (
+                <p className="text-xs text-green-500">Valid referral code applied!</p>
+              )}
+              {referralValid === false && (
+                <p className="text-xs text-red-500">Invalid referral code</p>
+              )}
             </div>
 
             {/* Terms and Privacy Agreement */}
