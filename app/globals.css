@@ -150,7 +150,6 @@
   }
   html {
     background-color: #0d0d0f;
-    scrollbar-gutter: stable;
   }
   body {
     @apply bg-background text-foreground;
@@ -161,6 +160,11 @@
     min-height: 100vh;
     min-height: 100dvh;
     overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  body::-webkit-scrollbar {
+    display: none;
   }
 }
 
