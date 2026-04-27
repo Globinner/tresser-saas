@@ -1,0 +1,181 @@
+=====================================================
+       TRESSER REFERRAL SYSTEM - STEP BY STEP GUIDE
+=====================================================
+
+This guide explains how to create and manage referral codes
+for marketers, resellers, and affiliates.
+
+
+=====================================================
+STEP 1: ACCESS THE ADMIN PANEL
+=====================================================
+
+1. Log in to Tresser with your admin email (globinner@gmail.com)
+2. In the dashboard sidebar, click "Admin Panel" at the bottom
+3. This takes you to /admin/referrals
+
+
+=====================================================
+STEP 2: CREATE A REFERRAL CODE
+=====================================================
+
+1. Click "Create New Code" button
+2. Fill in the details:
+   
+   - CODE: Short memorable code (e.g., "MIKE25", "SARAH30")
+     * Will be auto-capitalized
+     * Keep it short and easy to remember
+   
+   - OWNER NAME: The marketer/reseller's full name
+     * Example: "Mike Johnson"
+   
+   - OWNER EMAIL: Their email address
+     * Used for communication and payout tracking
+   
+   - COMMISSION PERCENT: How much they earn per sale
+     * Example: 25 = they get 25% of each payment
+     * Typical range: 10-30%
+   
+   - DURATION (MONTHS): How long they earn commission
+     * Example: 12 = they earn for 12 months per customer
+     * Leave empty = lifetime (they earn forever)
+     * Recommended: 12 months
+
+3. Click "Create Code"
+
+
+=====================================================
+STEP 3: SHARE THE REFERRAL LINK
+=====================================================
+
+Each code has a unique signup link:
+
+   https://tresser.com/auth/sign-up?ref=CODE
+
+Example for code "MIKE25":
+   https://tresser.com/auth/sign-up?ref=MIKE25
+
+How to share:
+1. In the admin panel, click "Copy Link" next to the code
+2. Send this link to your marketer/reseller
+3. They share it with potential customers
+
+Alternative:
+- Customers can also enter the code manually during signup
+- There's a "Referral Code (optional)" field on the signup page
+
+
+=====================================================
+STEP 4: TRACK SIGNUPS & EARNINGS
+=====================================================
+
+In the Admin Panel, you can see:
+
+- SIGNUPS: How many customers signed up with each code
+- EARNED: Total commission earned by the referrer
+- PAID: How much you've already paid them
+- OWED: How much you still owe them (Earned - Paid)
+
+Click "View Commissions" to see individual transactions.
+
+
+=====================================================
+STEP 5: PAY YOUR REFERRERS
+=====================================================
+
+When it's time to pay a referrer:
+
+1. Calculate how much you owe (check "Owed" column)
+2. Pay them via your preferred method:
+   - PayPal
+   - Bank transfer
+   - Check
+   - Cash
+3. Record the payout in the system:
+   - Click "Record Payout" next to their code
+   - Enter amount paid
+   - Select payment method
+   - Add reference number (transaction ID, check number, etc.)
+4. Click "Record"
+
+This updates their "Paid" total and reduces "Owed".
+
+
+=====================================================
+HOW COMMISSIONS WORK
+=====================================================
+
+1. Customer signs up with referral code "MIKE25"
+2. Customer subscribes and pays $99/month
+3. System calculates: $99 × 25% = $24.75
+4. Commission is recorded automatically
+5. Mike's "Earned" increases by $24.75
+6. This repeats every month (until duration limit)
+
+IMPORTANT: 
+- PayPal pays YOU the full $99
+- YOU pay Mike separately (not automatic)
+- The system only TRACKS what you owe
+
+
+=====================================================
+MANAGING CODES
+=====================================================
+
+DISABLE A CODE:
+- Click the toggle switch to deactivate
+- Code still exists but won't accept new signups
+- Existing referrals continue earning
+
+DELETE A CODE:
+- Not recommended (breaks history)
+- Instead, just disable it
+
+
+=====================================================
+RECOMMENDED COMMISSION STRUCTURE
+=====================================================
+
+For most SaaS businesses:
+- Commission: 20-25%
+- Duration: 12 months
+
+Examples:
+- Standard Partner: 20% for 12 months
+- Premium Partner: 25% for 12 months  
+- VIP Partner: 30% for 24 months
+
+This motivates referrers while protecting your margins.
+
+
+=====================================================
+EXAMPLE SCENARIO
+=====================================================
+
+1. You create code "SARAH25" for Sarah (25%, 12 months)
+
+2. Sarah shares her link with a barbershop owner
+
+3. Barbershop signs up and subscribes at $99/month
+
+4. Each month for 12 months:
+   - Customer pays: $99
+   - Sarah earns: $24.75
+   - You keep: $74.25
+
+5. After month 12:
+   - Sarah stops earning from this customer
+   - You keep full $99
+
+6. Sarah's total earning from this customer: $297
+
+
+=====================================================
+QUESTIONS?
+=====================================================
+
+For support: contact your administrator
+Admin Panel URL: /admin/referrals
+
+
+=====================================================
