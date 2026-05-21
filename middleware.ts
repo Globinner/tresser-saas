@@ -1,7 +1,19 @@
 import { updateSession } from '@/lib/supabase/middleware'
-import { type NextRequest } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
+  // Skip middleware for public routes - let them load fast
+  const publicPaths = ['/', '/auth', '/demo', '/api/public']
+  const isPublicPath = publicPaths.some(path => 
+    request.nextUrl.pathname === path || 
+    request.nextUrl.pathname.startsWith(path + '/')
+  )
+  
+  if (isPublicPath) {
+    return NextResponse.next()
+  }
+  
+  // Only run Supabase session check for protected routes
   return await updateSession(request)
 }
 
