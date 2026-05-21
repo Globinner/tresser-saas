@@ -1,0 +1,181 @@
+================================================================================
+              TRESSER - REFERRAL PROGRAM GUIDE FOR MARKETERS
+================================================================================
+
+Welcome to the Tresser Referral Program! This guide explains how to earn 
+commissions by referring new barbershops to Tresser.
+
+================================================================================
+                         HOW THE PROGRAM WORKS
+================================================================================
+
+1. You get a unique REFERRAL CODE (example: MIKE25)
+2. You share this code with barbershop owners
+3. When they sign up using your code and pay for a subscription
+4. You earn a commission (percentage of their payment)
+
+================================================================================
+                           YOUR REFERRAL CODE
+================================================================================
+
+Your referral code: _________________________ (fill in when you receive it)
+Your commission rate: _______% 
+Duration: _______ months (how long you earn from each referral)
+
+================================================================================
+                          HOW TO SHARE YOUR CODE
+================================================================================
+
+OPTION 1: DIRECT LINK (BEST)
+-------------------------------
+Give potential customers this link:
+
+    https://tresser.app/auth/sign-up?ref=YOUR_CODE
+
+Example: https://tresser.app/auth/sign-up?ref=MIKE25
+
+When they click this link, your code is automatically applied!
+
+
+OPTION 2: TELL THEM THE CODE
+-------------------------------
+Tell them:
+"When you sign up at tresser.app, enter referral code: YOUR_CODE"
+
+They will see a "Referral Code" field during sign-up where they type your code.
+
+================================================================================
+                        WHAT YOU CAN TELL CUSTOMERS
+================================================================================
+
+ABOUT TRESSER:
+- Tresser is a complete management system for barbershops and salons
+- It handles appointments, clients, team scheduling, inventory, and payments
+- Online booking lets their customers book 24/7
+- Analytics help them grow their business
+- Available in 7 languages
+
+KEY SELLING POINTS:
+- Saves hours on scheduling and admin work
+- Reduces no-shows with automatic reminders
+- Tracks revenue and helps identify growth opportunities
+- Professional online booking page for their business
+- Chemical/formula tracking for consistent results
+- Walk-in queue management
+
+PRICING:
+- Direct them to: tresser.app/pricing
+- Free trial available
+- Monthly or yearly plans
+
+================================================================================
+                          HOW YOU GET PAID
+================================================================================
+
+1. EARNING:
+   - You earn commission on EVERY payment they make
+   - Commission is calculated automatically
+   - Example: If they pay $99/month and you get 25% = $24.75 per month
+
+2. DURATION:
+   - You earn for the duration specified in your agreement
+   - Example: 12 months means you earn on their first 12 payments
+   - Some codes are "lifetime" = you earn forever on that customer
+
+3. TRACKING:
+   - Tresser tracks all your referrals automatically
+   - You can request a report of your earnings anytime
+
+4. PAYOUTS:
+   - Payouts are processed [monthly / upon request]
+   - Minimum payout: $[amount]
+   - Payment methods: PayPal, bank transfer
+
+================================================================================
+                             TIPS FOR SUCCESS
+================================================================================
+
+1. TARGET THE RIGHT PEOPLE:
+   - Barbershop owners
+   - Salon owners
+   - Barber school graduates opening their first shop
+   - Shops currently using paper or basic methods
+
+2. HIGHLIGHT PAIN POINTS:
+   - "Tired of double-bookings?"
+   - "Losing track of client preferences?"
+   - "Want clients to book online?"
+   - "Need to track team performance?"
+
+3. OFFER TO HELP:
+   - Offer to walk them through the sign-up
+   - Show them the demo at tresser.app/demo
+   - Answer basic questions
+
+4. FOLLOW UP:
+   - If they showed interest but didn't sign up, follow up!
+   - Ask if they have questions
+   - Remind them of the free trial
+
+================================================================================
+                              IMPORTANT RULES
+================================================================================
+
+DO:
+- Share your referral link honestly
+- Explain what Tresser does accurately
+- Help potential customers with questions
+- Direct complex questions to support@tresser.app
+
+DON'T:
+- Make false promises about the product
+- Spam people with your link
+- Create fake sign-ups
+- Claim features that don't exist
+
+================================================================================
+                            TRACKING YOUR REFERRALS
+================================================================================
+
+To check your referral stats, contact: [admin email]
+
+You can request:
+- Number of sign-ups from your code
+- Total commissions earned
+- Commissions paid out
+- Commissions pending
+
+================================================================================
+                              CONTACT & SUPPORT
+================================================================================
+
+Questions about the referral program?
+Email: [your admin email]
+
+Questions about Tresser features?
+Email: support@tresser.app
+Website: tresser.app
+
+================================================================================
+                              QUICK REFERENCE
+================================================================================
+
+YOUR REFERRAL LINK:
+https://tresser.app/auth/sign-up?ref=_______________
+
+YOUR CODE: _______________
+
+COMMISSION: _______%
+
+DURATION: _______ months
+
+CONTACT: _______________
+
+================================================================================
+                         THANK YOU FOR PARTNERING!
+================================================================================
+
+We appreciate you helping barbershops discover Tresser. 
+Your referrals help us grow, and we reward you for it!
+
+================================================================================

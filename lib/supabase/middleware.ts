@@ -1,6 +1,14 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+// Helper to add timeout to promises
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  const timeout = new Promise<never>((_, reject) =>
+    setTimeout(() => reject(new Error('Timeout')), ms)
+  )
+  return Promise.race([promise, timeout])
+}
+
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
@@ -37,10 +45,19 @@ export async function updateSession(request: NextRequest) {
 
   // IMPORTANT: If you remove getUser() and you use server-side rendering
   // with the Supabase client, your users may be randomly logged out.
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser()
+  
+  let user = null
+  let error = null
+  
+  try {
+    // Add 5 second timeout to prevent middleware timeout
+    const result = await withTimeout(supabase.auth.getUser(), 5000)
+    user = result.data?.user ?? null
+    error = result.error
+  } catch (e) {
+    // Timeout or error - continue without user (will redirect to login if needed)
+    console.error('[Middleware] Auth check failed:', e)
+  }
 
   // If there's an auth error (corrupted session), clear the session
   if (error && error.message?.includes('User from sub claim')) {

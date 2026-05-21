@@ -1,0 +1,437 @@
+================================================================================
+                    TRESSER - COMPLETE APP FEATURES GUIDE
+================================================================================
+
+Tresser is a barbershop/salon management platform. This document explains 
+ALL features available in the app.
+
+================================================================================
+                              TABLE OF CONTENTS
+================================================================================
+
+1. DASHBOARD
+2. APPOINTMENTS
+3. WALK-IN QUEUE
+4. CLIENTS
+5. TEAM MANAGEMENT
+6. SERVICES
+7. INVENTORY
+8. PAYROLL
+9. ANALYTICS
+10. PHOTOS
+11. ONLINE BOOKING
+12. REMINDERS
+13. BILLING & SUBSCRIPTION
+14. SETTINGS
+15. ADMIN PANEL (Owner Only)
+
+================================================================================
+                              1. DASHBOARD
+================================================================================
+
+The main overview screen when you log in.
+
+WHAT YOU SEE:
+- Today's Appointments count
+- Total Clients count
+- This Week's Revenue
+- Walk-in Queue count
+- Today's Schedule (list of appointments)
+- This Week's Schedule (calendar view)
+- Quick action buttons: "New Appointment" and "Add Client"
+
+HOW TO USE:
+- Click any stat card to go to that section
+- Click "View all" to see full appointment list
+- Click "Schedule one" if no appointments today
+- Click "Submit Availability" to set your work hours
+
+================================================================================
+                              2. APPOINTMENTS
+================================================================================
+
+Manage all bookings for your barbershop.
+
+FEATURES:
+- View appointments by day/week/month
+- Create new appointments
+- Edit existing appointments
+- Cancel appointments
+- Mark appointments as completed
+- Filter by barber/stylist
+- Filter by status (pending, confirmed, completed, cancelled)
+
+CREATING AN APPOINTMENT:
+1. Click "New Appointment" button
+2. Select client (or create new)
+3. Select service(s)
+4. Select barber/stylist
+5. Pick date and time
+6. Add notes (optional)
+7. Click "Save"
+
+APPOINTMENT STATUSES:
+- Pending: Waiting for confirmation
+- Confirmed: Client confirmed they'll come
+- Completed: Service was done
+- Cancelled: Appointment was cancelled
+- No-show: Client didn't show up
+
+================================================================================
+                              3. WALK-IN QUEUE
+================================================================================
+
+Manage customers who walk in without an appointment.
+
+FEATURES:
+- Add walk-in clients to queue
+- See estimated wait times
+- Assign walk-ins to available barbers
+- Track queue position
+- Convert walk-in to appointment
+
+HOW TO USE:
+1. Client walks in without appointment
+2. Click "Add to Queue"
+3. Enter client name and service needed
+4. System shows estimated wait time
+5. When barber is free, assign the walk-in
+6. Mark as "Started" then "Completed"
+
+================================================================================
+                              4. CLIENTS
+================================================================================
+
+Your customer database.
+
+FEATURES:
+- View all clients
+- Search clients by name/phone/email
+- Add new clients
+- Edit client info
+- View client history (past appointments)
+- Client notes
+- Chemical records (hair treatments, colors, etc.)
+- Client preferences
+- Loyalty points (if enabled)
+
+CLIENT PROFILE INCLUDES:
+- Name, phone, email
+- Profile photo
+- Appointment history
+- Spending history
+- Favorite services
+- Preferred barber
+- Chemical/treatment history
+- Personal notes
+
+CHEMICAL RECORDS (Important for salons):
+- Track hair color formulas
+- Record treatments used
+- Note allergies or sensitivities
+- Reference past formulas for consistency
+
+================================================================================
+                              5. TEAM MANAGEMENT
+================================================================================
+
+Manage your barbers/stylists.
+
+FEATURES:
+- Add team members
+- Set roles (Owner, Manager, Barber, Receptionist)
+- Set work schedules
+- View individual performance
+- Assign services each barber can do
+- Set commission rates
+- Track attendance
+
+TEAM MEMBER ROLES:
+- Owner: Full access to everything
+- Manager: Most features except billing/admin
+- Barber/Stylist: Can see own schedule, clients, mark appointments
+- Receptionist: Can manage appointments and clients only
+
+SETTING SCHEDULES:
+1. Go to Team
+2. Click on team member
+3. Click "Schedule" tab
+4. Set working days and hours
+5. Set break times
+6. Save
+
+================================================================================
+                              6. SERVICES
+================================================================================
+
+Define what services your shop offers.
+
+FEATURES:
+- Create service categories (Haircuts, Coloring, Treatments, etc.)
+- Add individual services
+- Set prices
+- Set duration
+- Assign which barbers can do each service
+- Enable/disable services
+- Set service images
+
+SERVICE DETAILS:
+- Name
+- Description
+- Price
+- Duration (in minutes)
+- Category
+- Image
+- Active/Inactive status
+
+================================================================================
+                              7. INVENTORY
+================================================================================
+
+Track products and supplies.
+
+FEATURES:
+- Add products
+- Track stock levels
+- Set low-stock alerts
+- Record purchases
+- Track usage
+- Generate purchase orders
+- Supplier management
+
+INVENTORY TRACKING:
+- Product name
+- SKU/barcode
+- Current quantity
+- Minimum stock level (for alerts)
+- Cost price
+- Retail price (if selling to clients)
+- Supplier info
+
+LOW STOCK ALERTS:
+- System warns when stock falls below minimum
+- Shows on dashboard
+- Can send email notifications
+
+================================================================================
+                              8. PAYROLL
+================================================================================
+
+Manage team compensation.
+
+FEATURES:
+- View earnings per team member
+- Commission tracking
+- Tips tracking
+- Generate pay reports
+- Set commission rates per service
+- Set base salary/hourly rate
+
+COMMISSION MODELS:
+- Flat rate per service
+- Percentage of service price
+- Tiered (higher % for more revenue)
+
+REPORTS:
+- Weekly earnings
+- Monthly summary
+- Individual barber reports
+- Export to CSV/Excel
+
+================================================================================
+                              9. ANALYTICS
+================================================================================
+
+Business insights and reports.
+
+FEATURES:
+- Revenue reports (daily, weekly, monthly, yearly)
+- Most popular services
+- Busiest hours/days
+- Client retention rate
+- New vs returning clients
+- Individual barber performance
+- Service performance
+- Growth trends
+
+KEY METRICS:
+- Total revenue
+- Average ticket size
+- Appointments count
+- Client count
+- Rebooking rate
+- No-show rate
+
+================================================================================
+                              10. PHOTOS
+================================================================================
+
+Gallery of your work.
+
+FEATURES:
+- Upload photos of haircuts/styles
+- Organize by category
+- Link photos to specific clients (with permission)
+- Before/after comparisons
+- Use for marketing/social media
+
+================================================================================
+                              11. ONLINE BOOKING
+================================================================================
+
+Let clients book appointments online.
+
+FEATURES:
+- Public booking page for your shop
+- Clients select service, barber, date/time
+- Automatic availability checking
+- Confirmation emails
+- Customizable booking page
+- Embed on your website
+
+BOOKING PAGE URL:
+- Your unique link: tresser.app/book/[your-shop-name]
+- Share on social media, website, Google Business
+
+SETTINGS:
+- How far in advance clients can book
+- Minimum notice time
+- Require deposit (optional)
+- Booking confirmation message
+- Cancellation policy
+
+================================================================================
+                              12. REMINDERS
+================================================================================
+
+Automated notifications.
+
+FEATURES:
+- Appointment reminders (email/SMS)
+- Set reminder timing (24h before, 1h before, etc.)
+- Rebooking reminders
+- Birthday messages
+- Custom campaigns
+
+REMINDER TYPES:
+- Appointment confirmation (when booked)
+- Appointment reminder (before appointment)
+- Follow-up (after appointment)
+- Rebooking reminder (X days since last visit)
+- Promotional messages
+
+================================================================================
+                              13. BILLING & SUBSCRIPTION
+================================================================================
+
+Your Tresser subscription.
+
+FEATURES:
+- View current plan
+- Upgrade/downgrade
+- View payment history
+- Update payment method
+- View invoices
+- Cancel subscription
+
+PLANS:
+- Check tresser.app/pricing for current plans
+
+PAYMENT:
+- PayPal subscription
+- Monthly or yearly billing
+- Auto-renewal
+
+================================================================================
+                              14. SETTINGS
+================================================================================
+
+Configure your shop.
+
+SECTIONS:
+
+SHOP PROFILE:
+- Shop name
+- Address
+- Phone number
+- Email
+- Logo
+- Description
+- Business hours
+
+BOOKING SETTINGS:
+- Online booking on/off
+- Booking window
+- Cancellation policy
+- Deposit requirements
+
+NOTIFICATION SETTINGS:
+- Email notifications
+- SMS notifications
+- Reminder timing
+
+LANGUAGE:
+- English, Hebrew, Spanish, French, Portuguese, Arabic, Russian
+
+APPEARANCE:
+- Theme preferences
+
+================================================================================
+                              15. ADMIN PANEL (Owner Only)
+================================================================================
+
+Special features only the main owner can access.
+
+REFERRAL MANAGEMENT:
+- View all referral codes
+- Create new referral codes for marketers
+- Track commissions owed
+- Record payouts made
+- See which customers came from which referral
+
+ACCESS:
+- Only visible to emails in the admin list
+- Found at bottom of sidebar as "Admin Panel"
+
+================================================================================
+                              USER ROLES SUMMARY
+================================================================================
+
+OWNER:
+- Full access to everything
+- Can see Admin Panel
+- Can manage billing
+- Can delete shop
+
+MANAGER:
+- All features except:
+  - Billing
+  - Admin Panel
+  - Deleting shop
+
+BARBER/STYLIST:
+- Own schedule
+- Own clients
+- Marking appointments done
+- Adding notes
+- Walk-in queue
+
+RECEPTIONIST:
+- Appointments (all)
+- Clients (all)
+- Walk-in queue
+- Cannot access:
+  - Analytics
+  - Inventory
+  - Payroll
+  - Settings
+
+================================================================================
+                              SUPPORT
+================================================================================
+
+Need help?
+- Email: support@tresser.app
+- Website: tresser.app
+
+================================================================================
