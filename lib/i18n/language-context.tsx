@@ -29,29 +29,55 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     // Get saved locale or detect from browser
     let initialLocale: Locale = defaultLocale
     
-    const saved = localStorage.getItem(STORAGE_KEY) as Locale | null
-    if (saved && locales.includes(saved)) {
-      initialLocale = saved
-    } else {
-      // Try to detect browser language
-      const browserLang = navigator.language.split('-')[0] as Locale
-      if (locales.includes(browserLang)) {
-        initialLocale = browserLang
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY) as Locale | null
+      if (saved && locales.includes(saved)) {
+        initialLocale = saved
+      } else {
+        // Try to detect browser language
+        const browserLang = navigator.language.split('-')[0] as Locale
+        if (locales.includes(browserLang)) {
+          initialLocale = browserLang
+        }
       }
+    } catch {
+      // localStorage not available (SSR)
     }
     
     setLocaleState(initialLocale)
     setLocaleInitialized(true)
-  }, [])
-
-  // Load dictionary ONLY after locale is initialized
-  useEffect(() => {
-    if (!localeInitialized) return
     
-    setIsLoading(true)
-    getDictionary(locale).then((dictionary) => {
+    // Preload dictionary immediately
+    getDictionary(initialLocale).then((dictionary) => {
       setDict(dictionary)
       setIsLoading(false)
+      
+      // Update document direction for RTL languages
+      const rtl = isRTL(initialLocale)
+      document.documentElement.dir = rtl ? 'rtl' : 'ltr'
+      document.documentElement.lang = initialLocale
+      
+      // Apply appropriate font family based on language
+      const body = document.body
+      body.classList.remove('font-hebrew', 'font-arabic', 'font-sans')
+      
+      if (initialLocale === 'he') {
+        body.classList.add('font-hebrew')
+      } else if (initialLocale === 'ar') {
+        body.classList.add('font-arabic')
+      } else {
+        body.classList.add('font-sans')
+      }
+    })
+  }, [])
+
+  // Load dictionary when locale changes (not on initial load - handled above)
+  useEffect(() => {
+    if (!localeInitialized || !dict) return
+    
+    // Only reload if locale actually changed from what we have
+    getDictionary(locale).then((dictionary) => {
+      setDict(dictionary)
       
       // Update document direction for RTL languages
       const rtl = isRTL(locale)
@@ -70,7 +96,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         body.classList.add('font-sans')
       }
     })
-  }, [locale, localeInitialized])
+  }, [locale])
 
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale)
