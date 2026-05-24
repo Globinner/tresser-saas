@@ -11,7 +11,7 @@ export function HeroSection() {
   // Show nothing until language is loaded to prevent flash
   if (isLoading) {
     return (
-      <section className="relative min-h-screen flex items-center justify-center pt-20 pb-12 overflow-x-hidden">
+      <section className="relative min-h-screen flex items-center justify-center pt-20 pb-12 overflow-x-hidden pointer-events-none">
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-5xl mx-auto text-center">
             {/* Skeleton loader */}
