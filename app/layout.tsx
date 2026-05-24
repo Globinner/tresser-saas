@@ -73,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" className="dark overflow-x-hidden" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${heebo.variable} ${rubik.variable} ${notoSansArabic.variable} font-sans antialiased`}>
         <LanguageProvider>
           {children}
