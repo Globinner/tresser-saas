@@ -39,13 +39,13 @@ export function Navigation() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 pointer-events-none ${
         isScrolled 
           ? "glass-strong py-3" 
           : "bg-transparent py-5"
       }`}
     >
-      <nav className="container mx-auto px-6 flex items-center justify-between">
+      <nav className="container mx-auto px-6 flex items-center justify-between pointer-events-auto">
         {/* Logo */}
         <a href="#" className="flex items-center gap-3 group">
           <div className="relative">
@@ -95,7 +95,7 @@ export function Navigation() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden glass-strong mt-2 mx-4 rounded-xl p-6 animate-fade-in">
+        <div className="md:hidden glass-strong mt-2 mx-4 rounded-xl p-6 animate-fade-in pointer-events-auto">
           <div className="flex flex-col gap-4">
             {NAV_LINKS.map((link) => (
               <a
